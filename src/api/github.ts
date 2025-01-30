@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const GITHUB_API_URL: string =
-  'https://api.github.com/repos/j0hanz/GIFMatch/commits';
+  'https://api.github.com/repos/j0hanz/Memorix/commits';
 const GITHUB_TOKEN: string | undefined = import.meta.env.VITE_GITHUB_TOKEN;
 
 interface Commit {

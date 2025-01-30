@@ -47,7 +47,7 @@ export default function InstructionsData() {
         <>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              Welcome to GIFMatch memory game! Your goal is to match all pairs
+              Welcome to Memorix memory game! Your goal is to match all pairs
               of cards. When the game starts, all cards will briefly reveal
               themselves for 3 seconds before flipping back over. Memorize their
               positions during this time. The game consists of 6 pairs of cards

@@ -68,7 +68,7 @@ const App: React.FC = () => {
         >
           <div className={styles.menu}>
             <Image src={cardBack} className={styles.cardBack} fluid />
-            <div className={styles.gameTitle}>GIFMatch</div>
+            <div className={styles.gameTitle}>Memorix</div>
             <StartButton onClick={startGame} />
             <InstructionsButton onClick={openInstructions} />
             <div className={`${styles.smallButtonsDiv} my-4`}>
@@ -80,7 +80,7 @@ const App: React.FC = () => {
               </Button>
               <Button
                 onClick={() =>
-                  window.open('https://github.com/j0hanz/GIFMatch', '_blank')
+                  window.open('https://github.com/j0hanz/Memorix', '_blank')
                 }
                 className={styles.btnUpdates}
               >
