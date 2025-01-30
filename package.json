@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "heroku-prebuild": "npm install -g serve",
+    "heroku-postbuild": "npm run build",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
