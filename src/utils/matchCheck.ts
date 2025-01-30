@@ -1,4 +1,4 @@
-import { CardDef } from "@/data/cardData";
+import { CardDef } from '@/data/cardData';
 
 // Function to apply status to specified cards
 function applyCardStatus(
@@ -35,7 +35,7 @@ function updateCardStatus({
     if (isMatch) {
       onMatch();
     } else {
-      applyCardStatus(cards, [currentCardIndex, selectedCardIndex], "");
+      applyCardStatus(cards, [currentCardIndex, selectedCardIndex], '');
       setCards([...cards]);
       onMismatch();
     }
@@ -57,7 +57,7 @@ export function matchCheck(
     !cards[currentCardIndex] ||
     !cards[selectedCardIndex]
   ) {
-    console.error("Invalid card indices or card data");
+    console.error('Invalid card indices or card data');
     return false;
   }
 
@@ -70,7 +70,7 @@ export function matchCheck(
   applyCardStatus(
     updatedCards,
     [currentCardIndex, selectedCardIndex],
-    isMatch ? "active matched" : "active",
+    isMatch ? 'active matched' : 'active',
   );
 
   setCards(updatedCards);

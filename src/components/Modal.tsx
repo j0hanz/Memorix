@@ -1,12 +1,12 @@
-import { ReactNode } from "react";
-import { Modal, Button } from "react-bootstrap";
-import { HiArrowPath } from "react-icons/hi2";
-import { TbDoorExit } from "react-icons/tb";
-import styles from "./styles/Modal.module.css";
-import Scoreboard from "@/data/scoreData";
-import InstructionsData from "@/data/instructionsData";
-import { handleButtonClick } from "@/utils/soundManager";
-import CommitStatus from "./CommitStatus";
+import { ReactNode } from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import { HiArrowPath } from 'react-icons/hi2';
+import { TbDoorExit } from 'react-icons/tb';
+import styles from './styles/Modal.module.css';
+import Scoreboard from '@/data/scoreData';
+import InstructionsData from '@/data/instructionsData';
+import { handleButtonClick } from '@/utils/soundManager';
+import CommitStatus from './CommitStatus';
 
 interface ScoreboardModalProps {
   show: boolean;
@@ -26,7 +26,7 @@ export default function ScoreboardModal({
   onClose,
   onReset,
   onExit,
-  title = "Game completed!",
+  title = 'Game completed!',
   children,
   score,
   moves,

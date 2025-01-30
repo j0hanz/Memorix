@@ -1,6 +1,6 @@
-import { memo, useState, useCallback } from "react";
-import { Image, Card as GameCard } from "react-bootstrap";
-import styles from "./styles/Card.module.css";
+import { memo, useState, useCallback } from 'react';
+import { Image, Card as GameCard } from 'react-bootstrap';
+import styles from './styles/Card.module.css';
 
 interface CardProps {
   card: {
@@ -23,7 +23,7 @@ const Card = memo(({ card, index, clickHandler }: CardProps) => {
 
   return (
     <GameCard
-      className={`${styles.card} ${card.status ? styles.active : ""} ${card.status === "active matched" ? styles.matched : ""} ${!imageLoaded ? styles.loading : ""}`}
+      className={`${styles.card} ${card.status ? styles.active : ''} ${card.status === 'active matched' ? styles.matched : ''} ${!imageLoaded ? styles.loading : ''}`}
       onClick={handleClick}
       role="button"
       aria-label={`Card ${card.name}`}
@@ -44,5 +44,5 @@ const Card = memo(({ card, index, clickHandler }: CardProps) => {
   );
 });
 
-Card.displayName = "Card";
+Card.displayName = 'Card';
 export default Card;

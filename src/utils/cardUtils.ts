@@ -1,6 +1,6 @@
-import { matchCheck } from "./matchCheck";
-import { playSound } from "./soundManager";
-import { CardDef } from "@/data/cardData";
+import { matchCheck } from './matchCheck';
+import { playSound } from './soundManager';
+import { CardDef } from '@/data/cardData';
 
 // Check if a card can be clicked
 export function canClickCard(
@@ -13,7 +13,7 @@ export function canClickCard(
     index !== previousIndex.current &&
     index !== selectedCardIndex &&
     cards[index] &&
-    cards[index].status !== "active matched"
+    cards[index].status !== 'active matched'
   );
 }
 
@@ -39,10 +39,10 @@ export function handleCardClick(
   if (selectedCardIndex === null) {
     // First card selected
     previousIndex.current = index;
-    newCards[index].status = "active";
+    newCards[index].status = 'active';
     setCards(newCards);
     setSelectedCardIndex(index);
-    playSound("click");
+    playSound('click');
     return;
   }
 
@@ -57,8 +57,8 @@ export function handleCardClick(
     handleMismatchUpdate,
   );
 
-  playSound(isMatch ? "correct" : "wrong");
-  setFeedback(isMatch ? "success" : "error");
+  playSound(isMatch ? 'correct' : 'wrong');
+  setFeedback(isMatch ? 'success' : 'error');
   previousIndex.current = null;
   setMoves((prev) => prev + 1);
 }

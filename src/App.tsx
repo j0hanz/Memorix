@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { Button, Image } from "react-bootstrap";
-import Game from "@/components/Game";
-import LoadingSpinner from "@/components/Spinner";
-import { GameInstructions, LatestUpdates } from "@/components/Modal";
-import StartButton from "@/components/StartButton";
-import InstructionsButton from "@/components/InstructionsButton";
-import { handleButtonClick } from "@/utils/soundManager";
-import { HiNewspaper } from "react-icons/hi2";
-import { LiaGithub } from "react-icons/lia";
-import { useGameHandlers } from "@/utils/gameHandlers";
-import { motion, Variants } from "framer-motion";
-import cardBack from "./assets/img/card-back.webp";
-import styles from "@/App.module.css";
+import React, { useState } from 'react';
+import { Button, Image } from 'react-bootstrap';
+import Game from '@/components/Game';
+import LoadingSpinner from '@/components/Spinner';
+import { GameInstructions, LatestUpdates } from '@/components/Modal';
+import StartButton from '@/components/StartButton';
+import InstructionsButton from '@/components/InstructionsButton';
+import { handleButtonClick } from '@/utils/soundManager';
+import { HiNewspaper } from 'react-icons/hi2';
+import { LiaGithub } from 'react-icons/lia';
+import { useGameHandlers } from '@/utils/gameHandlers';
+import { motion, Variants } from 'framer-motion';
+import cardBack from './assets/img/card-back.webp';
+import styles from '@/App.module.css';
 
 const App: React.FC = () => {
   const [isGameActive, setIsGameActive] = useState<boolean>(false);
@@ -50,7 +50,7 @@ const App: React.FC = () => {
   };
 
   const pageTransition: object = {
-    type: "spring",
+    type: 'spring',
     stiffness: 50,
     damping: 20,
   };
@@ -80,7 +80,7 @@ const App: React.FC = () => {
               </Button>
               <Button
                 onClick={() =>
-                  window.open("https://github.com/j0hanz/GIFMatch", "_blank")
+                  window.open('https://github.com/j0hanz/GIFMatch', '_blank')
                 }
                 className={styles.btnUpdates}
               >

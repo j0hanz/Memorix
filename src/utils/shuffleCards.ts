@@ -1,9 +1,9 @@
-import { CardDef } from "@/data/cardData";
+import { CardDef } from '@/data/cardData';
 
 export const shuffleCards = (cards: CardDef[]): CardDef[] => {
   if (!Array.isArray(cards)) {
     // Ensure input is an array
-    throw new TypeError("Input must be an array");
+    throw new TypeError('Input must be an array');
   }
   // Return empty array if no cards are provided
   if (cards.length === 0) return [];

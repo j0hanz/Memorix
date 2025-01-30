@@ -1,6 +1,6 @@
-import { memo } from "react";
-import { HiOutlineArrowPathRoundedSquare } from "react-icons/hi2";
-import styles from "./styles/Moves.module.css";
+import { memo } from 'react';
+import { HiOutlineArrowPathRoundedSquare } from 'react-icons/hi2';
+import styles from './styles/Moves.module.css';
 
 interface MovesProps {
   moves: number;
@@ -16,5 +16,5 @@ const Moves = memo(({ moves }: MovesProps) => {
   );
 });
 
-Moves.displayName = "Moves";
+Moves.displayName = 'Moves';
 export default Moves;

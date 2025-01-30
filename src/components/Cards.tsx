@@ -1,13 +1,13 @@
-import React from "react";
-import Card from "./Card";
-import { Row, Col, Container, Button } from "react-bootstrap";
-import { HiArrowPath } from "react-icons/hi2";
-import { TbDoorExit } from "react-icons/tb";
-import Timer from "./Timer";
-import Moves from "./Moves";
-import Feedback from "./Feedback";
-import styles from "./styles/Cards.module.css";
-import { handleButtonClick } from "@/utils/soundManager";
+import React from 'react';
+import Card from './Card';
+import { Row, Col, Container, Button } from 'react-bootstrap';
+import { HiArrowPath } from 'react-icons/hi2';
+import { TbDoorExit } from 'react-icons/tb';
+import Timer from './Timer';
+import Moves from './Moves';
+import Feedback from './Feedback';
+import styles from './styles/Cards.module.css';
+import { handleButtonClick } from '@/utils/soundManager';
 
 interface CardData {
   img: string;

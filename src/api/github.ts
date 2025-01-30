@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from 'axios';
 
 const GITHUB_API_URL: string =
-  "https://api.github.com/repos/j0hanz/GIFMatch/commits";
+  'https://api.github.com/repos/j0hanz/GIFMatch/commits';
 const GITHUB_TOKEN: string | undefined = import.meta.env.VITE_GITHUB_TOKEN;
 
 interface Commit {
@@ -43,10 +43,10 @@ export const fetchLatestCommits = async (): Promise<Commit[]> => {
       message: commit.commit.message,
       date: commit.commit.author.date,
       url: commit.html_url,
-      author: commit.author ? commit.author.login : "Unknown",
+      author: commit.author ? commit.author.login : 'Unknown',
     }));
   } catch (error) {
-    console.error("Error fetching latest commits:", error);
+    console.error('Error fetching latest commits:', error);
     return [];
   }
 };
