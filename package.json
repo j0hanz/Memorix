@@ -45,11 +45,10 @@
     "type-check": "tsc --noEmit",
     "type-check:watch": "tsc --noEmit --watch",
     "preview": "vite preview",
-    "start": "vite",
-    "heroku-postbuild": "npm run build"
+    "start": "vite"
   },
   "engines": {
     "node": "22.x",
-    "npm": "11.x"
+    "npm": "10.x"
   }
 }
