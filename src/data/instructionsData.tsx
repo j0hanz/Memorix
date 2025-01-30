@@ -11,7 +11,7 @@ import {
 } from "react-icons/hi2";
 import { TbDoorExit } from "react-icons/tb";
 import { LiaInfinitySolid } from "react-icons/lia";
-import styles from "../components/styles/Modal.module.css";
+import styles from "@/components/styles/Modal.module.css";
 
 // This renders the instructions for the game
 export default function InstructionsData() {

@@ -1,4 +1,4 @@
-import { CardDef } from "../data/cardData";
+import { CardDef } from "@/data/cardData";
 
 // Function to apply status to specified cards
 function applyCardStatus(

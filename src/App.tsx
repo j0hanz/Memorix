@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
-import styles from "@/App.module.css";
 import Game from "@/components/Game";
 import LoadingSpinner from "@/components/Spinner";
 import { GameInstructions, LatestUpdates } from "@/components/Modal";
@@ -12,6 +10,7 @@ import { HiNewspaper } from "react-icons/hi2";
 import { LiaGithub } from "react-icons/lia";
 import { useGameHandlers } from "@/utils/gameHandlers";
 import { motion, Variants } from "framer-motion";
+import styles from "@/App.module.css";
 
 const App: React.FC = () => {
   const [isGameActive, setIsGameActive] = useState<boolean>(false);

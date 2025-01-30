@@ -1,6 +1,6 @@
 import { matchCheck } from "./matchCheck";
 import { playSound } from "./soundManager";
-import { CardDef } from "../data/cardData";
+import { CardDef } from "@/data/cardData";
 
 // Check if a card can be clicked
 export function canClickCard(

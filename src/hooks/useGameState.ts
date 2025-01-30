@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { shuffleCards } from "../utils/shuffleCards";
-import { generateCards, CardDef } from "../data/cardData";
+import { shuffleCards } from "@/utils/shuffleCards";
+import { generateCards, CardDef } from "@/data/cardData";
 
 // Hook to manage the game state
 export function useGameState(onRestart: () => void) {

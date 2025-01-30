@@ -1,4 +1,4 @@
-import { CardDef } from "../data/cardData";
+import { CardDef } from "@/data/cardData";
 
 export const shuffleCards = (cards: CardDef[]): CardDef[] => {
   if (!Array.isArray(cards)) {

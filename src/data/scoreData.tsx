@@ -3,8 +3,8 @@ import {
   HiOutlineArrowPathRoundedSquare,
   HiOutlineClock,
 } from "react-icons/hi2";
-import styles from "../components/styles/Modal.module.css";
-import Score from "../components/Score";
+import styles from "@/components/styles/Modal.module.css";
+import Score from "@/components/Score";
 
 // Define the props type
 interface ScoreboardProps {
