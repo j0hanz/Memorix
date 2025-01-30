@@ -1,9 +1,9 @@
 /* Import fonts and variables */
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Fredoka:wght@500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&family=Fredoka:wght@500;600;700&display=swap");
 
 /* General styles */
 body {
-  font-family: 'Fredoka', sans-serif;
+  font-family: "Fredoka", sans-serif;
   background-image: var(--bg-primary);
   color: var(--text-color);
   display: grid;
@@ -15,7 +15,7 @@ body {
 
 /* Game title styles */
 .gameTitle {
-  font-family: 'Fredoka One', cursive;
+  font-family: "Fredoka One", cursive;
   font-size: 5rem;
   color: var(--text-color-highlight);
   text-shadow: var(--text-title-shadow);

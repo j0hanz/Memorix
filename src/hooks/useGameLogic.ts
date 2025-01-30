@@ -1,10 +1,10 @@
-import { useCallback, useEffect } from 'react';
-import { handleCardClick } from '../utils/cardUtils';
-import { Card } from '../data/cardData';
+import { useCallback, useEffect } from "react";
+import { handleCardClick } from "@/utils/cardUtils";
+import { CardDef } from "@/data/cardData";
 
 interface UseGameLogicProps {
-  cards: Card[];
-  setCards: React.Dispatch<React.SetStateAction<Card[]>>;
+  cards: CardDef[];
+  setCards: React.Dispatch<React.SetStateAction<CardDef[]>>;
   selectedCardIndex: number | null;
   setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>;
   matchedPairs: number;
@@ -43,7 +43,7 @@ export function useGameLogic({
         () => setMatchedPairs((prev) => prev + 1),
         () => {},
         setFeedback,
-        setMoves
+        setMoves,
       );
     },
     [
@@ -55,7 +55,7 @@ export function useGameLogic({
       setMatchedPairs,
       setFeedback,
       setMoves,
-    ]
+    ],
   );
 
   useEffect(() => {

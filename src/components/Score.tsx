@@ -1,10 +1,11 @@
-import React from 'react';
-import { HiStar } from 'react-icons/hi';
-import style from './styles/Score.module.css';
+import React from "react";
+import { HiStar } from "react-icons/hi";
+import style from "./styles/Score.module.css";
 
 interface ScoreProps {
   moves: number;
-  completedTime: number;
+
+  completedTime: string;
 }
 
 export default function Score({ moves, completedTime }: ScoreProps) {
@@ -17,7 +18,7 @@ export default function Score({ moves, completedTime }: ScoreProps) {
     return 1;
   }
 
-  const stars = getStars(moves, completedTime);
+  const stars = getStars(moves, parseInt(completedTime, 10));
 
   return (
     <>

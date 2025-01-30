@@ -1,6 +1,5 @@
-import React from 'react';
-import { HiCheck, HiXMark } from 'react-icons/hi2';
-import styles from './styles/Feedback.module.css';
+import { HiCheck, HiXMark } from "react-icons/hi2";
+import styles from "./styles/Feedback.module.css";
 
 interface FeedbackProps {
   message: string | null;
@@ -12,7 +11,7 @@ const Feedback = ({ message }: FeedbackProps) => {
 
   return (
     <div className={styles.feedback}>
-      {message === 'success' ? (
+      {message === "success" ? (
         <HiCheck className={styles.success} />
       ) : (
         <HiXMark className={styles.error} />

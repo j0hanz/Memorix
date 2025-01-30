@@ -1,10 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
 
 const GITHUB_API_URL: string =
-  'https://api.github.com/repos/j0hanz/pick-and-pair/commits';
+  "https://api.github.com/repos/j0hanz/pick-and-pair/commits";
 const GITHUB_TOKEN: string | undefined = process.env.REACT_APP_GITHUB_TOKEN;
 
 interface Commit {
+  sha: string;
   message: string;
   date: string;
   url: string;
@@ -24,13 +25,14 @@ export const fetchLatestCommits = async (): Promise<Commit[]> => {
     });
     const commits: any[] = response.data;
     return commits.map((commit: any) => ({
+      sha: commit.sha,
       message: commit.commit.message,
       date: commit.commit.author.date,
       url: commit.html_url,
-      author: commit.author ? commit.author.login : 'Unknown',
+      author: commit.author ? commit.author.login : "Unknown",
     }));
   } catch (error) {
-    console.error('Error fetching latest commits:', error);
+    console.error("Error fetching latest commits:", error);
     return [];
   }
 };

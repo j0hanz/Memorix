@@ -1,5 +1,4 @@
-import React from 'react';
-import styles from './styles/Spinner.module.css';
+import styles from "./styles/Spinner.module.css";
 
 interface LoadingSpinnerProps {
   isLoading: boolean;
@@ -8,7 +7,7 @@ interface LoadingSpinnerProps {
 // Display loading spinner based on isLoading prop
 const LoadingSpinner = ({ isLoading }: LoadingSpinnerProps) => (
   <div
-    className={`${styles.spinnerContainer} ${!isLoading ? styles.hidden : ''}`}
+    className={`${styles.spinnerContainer} ${!isLoading ? styles.hidden : ""}`}
   >
     <div className={styles.loader}></div>
   </div>

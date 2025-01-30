@@ -40,7 +40,7 @@
   transition:
     opacity 0.6s ease,
     transform 0.6s ease;
-  background-image: url('../../assets/img/card-back.webp');
+  background-image: url("../../assets/img/card-back.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

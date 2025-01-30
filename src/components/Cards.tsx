@@ -1,13 +1,13 @@
-import React from 'react';
-import Card from './Card';
-import { Row, Col, Container, Button } from 'react-bootstrap';
-import { HiArrowPath } from 'react-icons/hi2';
-import { TbDoorExit } from 'react-icons/tb';
-import Timer from './Timer';
-import Moves from './Moves';
-import Feedback from './Feedback';
-import styles from './styles/Cards.module.css';
-import { handleButtonClick } from '../utils/soundManager';
+import React from "react";
+import Card from "./Card";
+import { Row, Col, Container, Button } from "react-bootstrap";
+import { HiArrowPath } from "react-icons/hi2";
+import { TbDoorExit } from "react-icons/tb";
+import Timer from "./Timer";
+import Moves from "./Moves";
+import Feedback from "./Feedback";
+import styles from "@/styles/Cards.module.css";
+import { handleButtonClick } from "@/utils/soundManager";
 
 interface CardData {
   img: string;
@@ -17,26 +17,27 @@ interface CardData {
 
 interface CardsProps {
   cards: CardData[];
-  isInitialFlip?: boolean;
   handleCardSelection: (index: number) => void;
+  matchedPairs: number;
   moves: number;
   onReset: () => void;
   onExit: () => void;
   timerActive: boolean;
-  feedback: string | null;
+  feedback: string;
 }
 
-// Render all cards
-export default function Cards({
+const Cards: React.FC<CardsProps> = ({
   cards,
-  isInitialFlip,
   handleCardSelection,
+  matchedPairs,
   moves,
   onReset,
   onExit,
   timerActive,
   feedback,
-}: CardsProps) {
+}) => {
+  const isInitialFlip = false;
+
   return (
     <Container>
       <Row className={styles.row}>
@@ -67,9 +68,10 @@ export default function Cards({
         ))}
         <Col xs={12} className={styles.statsBottom}>
           <Feedback message={feedback} />
-          <Feedback message={feedback} />
         </Col>
       </Row>
     </Container>
   );
-}
+};
+
+export default Cards;

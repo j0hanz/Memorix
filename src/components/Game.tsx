@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect } from 'react';
-import { useGameState } from '../hooks/useGameState';
-import { useGameLogic } from '../hooks/useGameLogic';
-import Cards from './Cards';
-import Scoreboard from './Modal';
-import { playSound } from '../utils/soundManager';
+import { useCallback, useEffect } from "react";
+import { useGameState } from "@/hooks/useGameState";
+import { useGameLogic } from "@/hooks/useGameLogic";
+import Cards from "./Cards";
+import ScoreboardModal from "./Modal";
+import { playSound } from "@/utils/soundManager";
 
 interface GameLogicProps {
   onRestart: () => void;
@@ -53,7 +53,7 @@ export default function GameLogic({ onRestart, onExit }: GameLogicProps) {
   // Play sound when game is over
   useEffect(() => {
     if (isGameOver) {
-      playSound('complete');
+      playSound("complete");
     }
   }, [isGameOver]);
 
@@ -70,17 +70,17 @@ export default function GameLogic({ onRestart, onExit }: GameLogicProps) {
         feedback={feedback}
       />
       {isGameOver && (
-        <Scoreboard
+        <ScoreboardModal
           show={showModal}
           onClose={() => setShowModal(false)}
           onReset={handleReset}
           onExit={onExit}
-          backdrop="static"
-          completedTime={completedTime}
+          completedTime={completedTime.toString()}
           moves={moves}
+          score={matchedPairs}
         >
           {modalMessage}
-        </Scoreboard>
+        </ScoreboardModal>
       )}
     </>
   );

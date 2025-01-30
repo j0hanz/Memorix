@@ -8,12 +8,17 @@ import Score from "../components/Score";
 
 // Define the props type
 interface ScoreboardProps {
+  score: number;
   moves: number;
   completedTime: string;
 }
 
 // Displays the game statistics
-export default function Scoreboard({ moves, completedTime }: ScoreboardProps) {
+export default function Scoreboard({
+  score,
+  moves,
+  completedTime,
+}: ScoreboardProps) {
   return (
     <div className={styles.scoreboard}>
       <div className={styles.scoreItem}>

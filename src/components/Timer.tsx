@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
-import { HiOutlineClock } from 'react-icons/hi2';
-import { useTimer } from '../hooks/useTimer';
-import styles from './styles/Timer.module.css';
+import { memo } from "react";
+import { HiOutlineClock } from "react-icons/hi2";
+import { useTimer } from "@/hooks/useTimer";
+import styles from "./styles/Timer.module.css";
 
 interface TimerProps {
   timerActive: boolean;
@@ -18,5 +18,5 @@ const Timer = memo(({ timerActive }: TimerProps) => {
   );
 });
 
-Timer.displayName = 'Timer';
+Timer.displayName = "Timer";
 export default Timer;

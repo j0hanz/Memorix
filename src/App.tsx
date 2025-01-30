@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/global/variables.css';
-import { Button } from 'react-bootstrap';
-import styles from './styles/global/App.module.css';
-import Game from './components/Game';
-import LoadingSpinner from './components/Spinner';
-import { GameInstructions, LatestUpdates } from './components/Modal';
-import StartButton from './components/StartButton';
-import InstructionsButton from './components/InstructionsButton';
-import { handleButtonClick } from './utils/soundManager';
-import { HiNewspaper } from 'react-icons/hi2';
-import { LiaGithub } from 'react-icons/lia';
-import { useGameHandlers } from './utils/gameHandlers';
-import { motion } from 'framer-motion';
+import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@/styles/global/variables.css";
+import { Button } from "react-bootstrap";
+import styles from "@/styles/global/App.module.css";
+import Game from "@/components/Game";
+import LoadingSpinner from "@/components/Spinner";
+import { GameInstructions, LatestUpdates } from "@/components/Modal";
+import StartButton from "@/components/StartButton";
+import InstructionsButton from "@/components/InstructionsButton";
+import { handleButtonClick } from "@/utils/soundManager";
+import { HiNewspaper } from "react-icons/hi2";
+import { LiaGithub } from "react-icons/lia";
+import { useGameHandlers } from "@/utils/gameHandlers";
+import { motion, Variants } from "framer-motion";
 
 const App: React.FC = () => {
   const [isGameActive, setIsGameActive] = useState<boolean>(false);
@@ -35,7 +35,7 @@ const App: React.FC = () => {
     setShowLatestUpdates,
   });
 
-  const pageVariants: Record<string, object> = {
+  const pageVariants: Variants = {
     initial: {
       opacity: 0,
       scale: 0.7,
@@ -51,7 +51,7 @@ const App: React.FC = () => {
   };
 
   const pageTransition: object = {
-    type: 'spring',
+    type: "spring",
     stiffness: 50,
     damping: 20,
   };
@@ -82,7 +82,7 @@ const App: React.FC = () => {
             </Button>
             <Button
               onClick={() =>
-                window.open('https://github.com/j0hanz/pick-and-pair', '_blank')
+                window.open("https://github.com/j0hanz/pick-and-pair", "_blank")
               }
               className={styles.btnUpdates}
             >
@@ -99,17 +99,13 @@ const App: React.FC = () => {
           variants={pageVariants}
           transition={pageTransition}
         >
-          <Game
-            onRestart={handleRestart}
-            onExit={handleExit}
-            startGame={startGame}
-          />
+          <Game onRestart={handleRestart} onExit={handleExit} />
         </motion.div>
       )}
       <GameInstructions show={showInstructions} onClose={closeInstructions} />
       <LatestUpdates show={showLatestUpdates} onClose={closeLatestUpdates} />
     </>
   );
-}
+};
 
 export default App;

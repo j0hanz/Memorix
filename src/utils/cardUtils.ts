@@ -1,34 +1,34 @@
-import { matchCheck } from './matchCheck';
-import { playSound } from './soundManager';
-import { Card } from '../data/cardData';
+import { matchCheck } from "./matchCheck";
+import { playSound } from "./soundManager";
+import { CardDef } from "../data/cardData";
 
 // Check if a card can be clicked
 export function canClickCard(
   index: number,
-  cards: Card[],
+  cards: CardDef[],
   selectedCardIndex: number | null,
-  previousIndex: React.MutableRefObject<number | null>
+  previousIndex: React.MutableRefObject<number | null>,
 ): boolean {
   return (
     index !== previousIndex.current &&
     index !== selectedCardIndex &&
     cards[index] &&
-    cards[index].status !== 'active matched'
+    cards[index].status !== "active matched"
   );
 }
 
 // Handle the logic when a card is clicked
 export function handleCardClick(
   index: number,
-  cards: Card[],
-  setCards: React.Dispatch<React.SetStateAction<Card[]>>,
+  cards: CardDef[],
+  setCards: React.Dispatch<React.SetStateAction<CardDef[]>>,
   selectedCardIndex: number | null,
   setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>,
   previousIndex: React.MutableRefObject<number | null>,
   handleMatchUpdate: () => void,
   handleMismatchUpdate: () => void,
   setFeedback: React.Dispatch<React.SetStateAction<string>>,
-  setMoves: React.Dispatch<React.SetStateAction<number>>
+  setMoves: React.Dispatch<React.SetStateAction<number>>,
 ): void {
   if (!canClickCard(index, cards, selectedCardIndex, previousIndex)) {
     return;
@@ -39,10 +39,10 @@ export function handleCardClick(
   if (selectedCardIndex === null) {
     // First card selected
     previousIndex.current = index;
-    newCards[index].status = 'active';
+    newCards[index].status = "active";
     setCards(newCards);
     setSelectedCardIndex(index);
-    playSound('click');
+    playSound("click");
     return;
   }
 
@@ -54,11 +54,11 @@ export function handleCardClick(
     selectedCardIndex,
     setSelectedCardIndex,
     handleMatchUpdate,
-    handleMismatchUpdate
+    handleMismatchUpdate,
   );
 
-  playSound(isMatch ? 'correct' : 'wrong');
-  setFeedback(isMatch ? 'success' : 'error');
+  playSound(isMatch ? "correct" : "wrong");
+  setFeedback(isMatch ? "success" : "error");
   previousIndex.current = null;
   setMoves((prev) => prev + 1);
 }

@@ -1,7 +1,11 @@
-import { Card } from '../data/cardData';
+import { CardDef } from "../data/cardData";
 
 // Function to apply status to specified cards
-function applyCardStatus(cards: Card[], indices: number[], status: string): void {
+function applyCardStatus(
+  cards: CardDef[],
+  indices: number[],
+  status: string,
+): void {
   indices.forEach((index) => {
     if (cards[index]) {
       cards[index].status = status;
@@ -19,8 +23,8 @@ function updateCardStatus({
   onMatch,
   onMismatch,
 }: {
-  cards: Card[];
-  setCards: React.Dispatch<React.SetStateAction<Card[]>>;
+  cards: CardDef[];
+  setCards: React.Dispatch<React.SetStateAction<CardDef[]>>;
   currentCardIndex: number;
   selectedCardIndex: number;
   isMatch: boolean;
@@ -31,7 +35,7 @@ function updateCardStatus({
     if (isMatch) {
       onMatch();
     } else {
-      applyCardStatus(cards, [currentCardIndex, selectedCardIndex], '');
+      applyCardStatus(cards, [currentCardIndex, selectedCardIndex], "");
       setCards([...cards]);
       onMismatch();
     }
@@ -41,19 +45,19 @@ function updateCardStatus({
 // Check if selected cards match
 export function matchCheck(
   currentCardIndex: number,
-  cards: Card[],
-  setCards: React.Dispatch<React.SetStateAction<Card[]>>,
+  cards: CardDef[],
+  setCards: React.Dispatch<React.SetStateAction<CardDef[]>>,
   selectedCardIndex: number,
   setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>,
   onMatch: () => void,
-  onMismatch: () => void
+  onMismatch: () => void,
 ): boolean {
   if (
     currentCardIndex === selectedCardIndex ||
     !cards[currentCardIndex] ||
     !cards[selectedCardIndex]
   ) {
-    console.error('Invalid card indices or card data');
+    console.error("Invalid card indices or card data");
     return false;
   }
 
@@ -66,7 +70,7 @@ export function matchCheck(
   applyCardStatus(
     updatedCards,
     [currentCardIndex, selectedCardIndex],
-    isMatch ? 'active matched' : 'active'
+    isMatch ? "active matched" : "active",
   );
 
   setCards(updatedCards);

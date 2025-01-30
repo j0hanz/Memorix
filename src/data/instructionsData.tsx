@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Modal, ListGroup, Nav, Badge, Row, Col } from 'react-bootstrap';
+import { useState } from "react";
+import { Modal, ListGroup, Nav, Badge, Row, Col } from "react-bootstrap";
 import {
   HiOutlineInformationCircle,
   HiOutlineClock,
@@ -8,42 +8,42 @@ import {
   HiArrowPath,
   HiStar,
   HiOutlineArrowPathRoundedSquare,
-} from 'react-icons/hi2';
-import { TbDoorExit } from 'react-icons/tb';
-import { LiaInfinitySolid } from 'react-icons/lia';
-import styles from '../components/styles/Modal.module.css';
+} from "react-icons/hi2";
+import { TbDoorExit } from "react-icons/tb";
+import { LiaInfinitySolid } from "react-icons/lia";
+import styles from "../components/styles/Modal.module.css";
 
 // This renders the instructions for the game
 export default function InstructionsData() {
-  const [activeKey, setActiveKey] = useState<string>('overview');
+  const [activeKey, setActiveKey] = useState<string>("overview");
 
   return (
     <Modal.Body className="p-0">
       <Nav
         variant="tabs"
         activeKey={activeKey}
-        onSelect={(selectedKey) => setActiveKey(selectedKey || '')}
+        onSelect={(selectedKey) => setActiveKey(selectedKey || "")}
         className="mb-3"
         justify
       >
         <Nav.Item
-          className={`py-1 ${styles.navItemLeft} ${activeKey === 'overview' ? styles.active : ''}`}
+          className={`py-1 ${styles.navItemLeft} ${activeKey === "overview" ? styles.active : ""}`}
         >
           <Nav.Link eventKey="overview">Overview</Nav.Link>
         </Nav.Item>
         <Nav.Item
-          className={`py-1 ${styles.navItemCenter} ${activeKey === 'icons' ? styles.active : ''}`}
+          className={`py-1 ${styles.navItemCenter} ${activeKey === "icons" ? styles.active : ""}`}
         >
           <Nav.Link eventKey="icons">Symbols</Nav.Link>
         </Nav.Item>
         <Nav.Item
-          className={`py-1 ${styles.navItemRight} ${activeKey === 'scoring' ? styles.active : ''}`}
+          className={`py-1 ${styles.navItemRight} ${activeKey === "scoring" ? styles.active : ""}`}
         >
           <Nav.Link eventKey="scoring">Scoring</Nav.Link>
         </Nav.Item>
       </Nav>
 
-      {activeKey === 'overview' && (
+      {activeKey === "overview" && (
         <>
           <ListGroup variant="flush">
             <ListGroup.Item>
@@ -68,7 +68,7 @@ export default function InstructionsData() {
         </>
       )}
 
-      {activeKey === 'icons' && (
+      {activeKey === "icons" && (
         <>
           <ListGroup variant="flush">
             <ListGroup.Item>
@@ -124,7 +124,7 @@ export default function InstructionsData() {
         </>
       )}
 
-      {activeKey === 'scoring' && (
+      {activeKey === "scoring" && (
         <>
           <ListGroup variant="flush">
             <ListGroup.Item>

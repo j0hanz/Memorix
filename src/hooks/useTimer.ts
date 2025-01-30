@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 // Manage timer
 export function useTimer(timerActive: boolean): number {

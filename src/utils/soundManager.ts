@@ -1,9 +1,9 @@
-import { Howl } from 'howler';
-import correctSound from '../assets/sounds/correct.mp3';
-import wrongSound from '../assets/sounds/wrong.mp3';
-import clickSound from '../assets/sounds/click.mp3';
-import buttonSound from '../assets/sounds/button.mp3';
-import completeSound from '../assets/sounds/complete.mp3';
+import { Howl } from "howler";
+import correctSound from "@/assets/sounds/correct.mp3";
+import wrongSound from "@/assets/sounds/wrong.mp3";
+import clickSound from "@/assets/sounds/click.mp3";
+import buttonSound from "@/assets/sounds/button.mp3";
+import completeSound from "@/assets/sounds/complete.mp3";
 
 // Helper function to create a Howl instance
 const createSound = (src: string): Howl => new Howl({ src: [src] });
@@ -28,7 +28,9 @@ export const playSound = (soundName: string): void => {
 };
 
 // Function to handle button clicks and play button sound
-export const handleButtonClick = (callback?: (event: React.MouseEvent<HTMLButtonElement>) => void) => (event: React.MouseEvent<HTMLButtonElement>): void => {
-  playSound('button');
-  callback?.(event);
-};
+export const handleButtonClick =
+  (callback?: (event: React.MouseEvent<HTMLButtonElement>) => void) =>
+  (event: React.MouseEvent<HTMLButtonElement>): void => {
+    playSound("button");
+    callback?.(event);
+  };
