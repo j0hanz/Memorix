@@ -44,7 +44,7 @@
     "format": "prettier --write .",
     "type-check": "tsc --noEmit",
     "type-check:watch": "tsc --noEmit --watch",
-    "preview": "vite preview --port $PORT",
+    "preview": "vite preview",
     "start": "vite preview --port $PORT",
     "heroku-postbuild": "npm run build"
   },
