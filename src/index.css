@@ -47,3 +47,21 @@
   --bg-primary: linear-gradient(40deg, #a03aff 0%, #2c3aff 100%);
   --bg-card: #241549c5;
 }
+
+body {
+  font-family: "Fredoka", sans-serif;
+  background-image: var(--bg-primary);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  letter-spacing: var(--text-spacing);
+  font-size: 1.05rem;
+}
+
+@media (max-width: 425px) {
+  body {
+    font-size: 0.9rem;
+  }
+}

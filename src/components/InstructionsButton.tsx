@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
 import { handleButtonClick } from "@/utils/soundManager";
-import styles from "@/styles/global/App.module.css";
+import styles from "@/App.module.css";
 
 interface InstructionsButtonProps {
   onClick: () => void;
