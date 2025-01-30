@@ -81,10 +81,7 @@ const App: React.FC = () => {
               </Button>
               <Button
                 onClick={() =>
-                  window.open(
-                    "https://github.com/j0hanz/GIFMatch",
-                    "_blank",
-                  )
+                  window.open("https://github.com/j0hanz/GIFMatch", "_blank")
                 }
                 className={styles.btnUpdates}
               >

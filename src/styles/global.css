@@ -1,0 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&family=Fredoka:wght@500;600;700&display=swap");
+@import "@/styles/global/variables.css";
+@import "@/styles/global/App.module.css";
+@import "@/components/styles/Card.module.css";
+@import "@/components/styles/Cards.module.css";
+@import "@/components/styles/Modal.module.css";
+@import "@/components/styles/Feedback.module.css";
+@import "@/components/styles/Moves.module.css";
+@import "@/components/styles/Score.module.css";
+@import "@/components/styles/Spinner.module.css";
+@import "@/components/styles/Timer.module.css";

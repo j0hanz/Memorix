@@ -12,10 +12,24 @@ interface Commit {
   author: string;
 }
 
+interface GitHubCommitResponse {
+  sha: string;
+  commit: {
+    message: string;
+    author: {
+      date: string;
+    };
+  };
+  html_url: string;
+  author: {
+    login: string;
+  } | null;
+}
+
 // Fetches the latest commits from the repository
 export const fetchLatestCommits = async (): Promise<Commit[]> => {
   try {
-    const response = await axios.get<any[]>(GITHUB_API_URL, {
+    const response = await axios.get<GitHubCommitResponse[]>(GITHUB_API_URL, {
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
@@ -23,8 +37,8 @@ export const fetchLatestCommits = async (): Promise<Commit[]> => {
         per_page: 3, // Fetch 3 latest commits
       },
     });
-    const commits: any[] = response.data;
-    return commits.map((commit: any) => ({
+    const commits = response.data;
+    return commits.map((commit) => ({
       sha: commit.sha,
       message: commit.commit.message,
       date: commit.commit.author.date,
