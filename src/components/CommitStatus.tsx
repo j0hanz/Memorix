@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { fetchLatestCommits } from "@/api/github";
-import { Badge, ListGroup } from "react-bootstrap";
+import { useEffect, useState } from 'react';
+import { fetchLatestCommits } from '@/api/github';
+import { Badge, ListGroup } from 'react-bootstrap';
 
 interface Commit {
   sha: string;
@@ -30,7 +30,7 @@ const LatestCommits = () => {
     <>
       <ListGroup>
         {commits.map((commit, index) => {
-          const username = commit.author ? commit.author : "Unknown";
+          const username = commit.author ? commit.author : 'Unknown';
 
           return (
             <ListGroup.Item
@@ -39,7 +39,7 @@ const LatestCommits = () => {
               key={commit.sha || index}
             >
               <div>
-                <div>{new Date(commit.date).toISOString().split("T")[0]}</div>
+                <div>{new Date(commit.date).toISOString().split('T')[0]}</div>
                 <a href={commit.url}>{commit.message}</a>
               </div>
               <Badge bg="primary" pill>

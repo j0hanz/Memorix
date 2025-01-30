@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 import {
   HiOutlineArrowPathRoundedSquare,
   HiOutlineClock,
-} from "react-icons/hi2";
-import styles from "@/components/styles/Modal.module.css";
-import Score from "@/components/Score";
+} from 'react-icons/hi2';
+import styles from '@/components/styles/Modal.module.css';
+import Score from '@/components/Score';
 
 // Define the props type
 interface ScoreboardProps {

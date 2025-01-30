@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect, useCallback } from "react";
-import { shuffleCards } from "@/utils/shuffleCards";
-import { generateCards, CardDef } from "@/data/cardData";
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { shuffleCards } from '@/utils/shuffleCards';
+import { generateCards, CardDef } from '@/data/cardData';
 
 // Hook to manage the game state
 export function useGameState(onRestart: () => void) {
@@ -17,20 +17,20 @@ export function useGameState(onRestart: () => void) {
   const [startTime, setStartTime] = useState<number | null>(null);
   const previousIndex = useRef<number | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [modalMessage, setModalMessage] = useState<string>("");
+  const [modalMessage, setModalMessage] = useState<string>('');
   const [timerActive, setTimerActive] = useState<boolean>(false);
-  const [feedback, setFeedback] = useState<string>("");
+  const [feedback, setFeedback] = useState<string>('');
 
   const totalPairs = 6;
 
   // Initial card flip effect
   useEffect(() => {
     setCards((prevCards) =>
-      prevCards.map((card) => ({ ...card, status: "active" })),
+      prevCards.map((card) => ({ ...card, status: 'active' })),
     );
     const initialFlipTimer = setTimeout(() => {
       setCards((prevCards) =>
-        prevCards.map((card) => ({ ...card, status: "" })),
+        prevCards.map((card) => ({ ...card, status: '' })),
       );
       setTimerActive(true);
       setStartTime(Date.now());
@@ -59,11 +59,11 @@ export function useGameState(onRestart: () => void) {
   const handleRestart = useCallback(() => {
     setIsGameOver(false);
     setShowModal(false);
-    setModalMessage("");
+    setModalMessage('');
     setStartTime(null);
     setMoves(0);
     setTimerActive(false);
-    setFeedback("");
+    setFeedback('');
     onRestart();
   }, [onRestart]);
 

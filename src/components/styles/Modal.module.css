@@ -15,7 +15,7 @@
 }
 
 .modal :global(.modal-header) {
-  font-family: "Fredoka One", cursive;
+  font-family: 'Fredoka One', cursive;
   color: var(--text-color) !important;
   letter-spacing: 1px;
 }

@@ -49,7 +49,7 @@
 }
 
 body {
-  font-family: "Fredoka", sans-serif;
+  font-family: 'Fredoka', sans-serif;
   background-image: var(--bg-primary);
   color: var(--text-color);
   display: flex;

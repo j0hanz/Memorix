@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from "react";
-import { handleCardClick } from "@/utils/cardUtils";
-import { CardDef } from "@/data/cardData";
+import { useCallback, useEffect } from 'react';
+import { handleCardClick } from '@/utils/cardUtils';
+import { CardDef } from '@/data/cardData';
 
 interface UseGameLogicProps {
   cards: CardDef[];
