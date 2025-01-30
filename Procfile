@@ -1,1 +1,1 @@
-web: serve -s build
+web: vite preview --port $PORT
