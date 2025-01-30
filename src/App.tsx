@@ -66,28 +66,31 @@ const App: React.FC = () => {
           exit="out"
           variants={pageVariants}
           transition={pageTransition}
-          className="d-flex flex-column align-items-center"
         >
-          <div className={styles.gameTitle}>
-            Pick <span className={styles.symbol}>&</span> Pair
-          </div>
-          <StartButton onClick={startGame} />
-          <InstructionsButton onClick={openInstructions} />
-          <div className={`${styles.smallButtonsDiv} my-4`}>
-            <Button
-              onClick={handleButtonClick(openLatestUpdates)}
-              className={styles.btnUpdates}
-            >
-              <HiNewspaper />
-            </Button>
-            <Button
-              onClick={() =>
-                window.open("https://github.com/j0hanz/pick-and-pair", "_blank")
-              }
-              className={styles.btnUpdates}
-            >
-              <LiaGithub />
-            </Button>
+          <div className={styles.menu}>
+            <span className={styles.symbol}>&</span>
+            <div className={styles.gameTitle}>GIFMatch</div>
+            <StartButton onClick={startGame} />
+            <InstructionsButton onClick={openInstructions} />
+            <div className={`${styles.smallButtonsDiv} my-4`}>
+              <Button
+                onClick={handleButtonClick(openLatestUpdates)}
+                className={styles.btnUpdates}
+              >
+                <HiNewspaper />
+              </Button>
+              <Button
+                onClick={() =>
+                  window.open(
+                    "https://github.com/j0hanz/pick-and-pair",
+                    "_blank",
+                  )
+                }
+                className={styles.btnUpdates}
+              >
+                <LiaGithub />
+              </Button>
+            </div>
           </div>
         </motion.div>
       )}

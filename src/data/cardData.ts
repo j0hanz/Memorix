@@ -11,6 +11,7 @@ export interface CardDef {
   pairId: number;
   img: string;
   status: string;
+  name: string;
 }
 
 interface PairedCard extends CardDef {
@@ -25,12 +26,12 @@ function createPairedCards(defs: CardDef[]): PairedCard[] {
 }
 
 export const initialCards: PairedCard[] = createPairedCards([
-  { pairId: 0, img: img01, status: "" },
-  { pairId: 1, img: img02, status: "" },
-  { pairId: 2, img: img03, status: "" },
-  { pairId: 3, img: img04, status: "" },
-  { pairId: 4, img: img05, status: "" },
-  { pairId: 5, img: img06, status: "" },
+  { pairId: 0, img: img01, status: "", name: "Card 1" },
+  { pairId: 1, img: img02, status: "", name: "Card 2" },
+  { pairId: 2, img: img03, status: "", name: "Card 3" },
+  { pairId: 3, img: img04, status: "", name: "Card 4" },
+  { pairId: 4, img: img05, status: "", name: "Card 5" },
+  { pairId: 5, img: img06, status: "", name: "Card 6" },
 ]);
 
 export function generateCards(): PairedCard[] {
@@ -44,6 +45,7 @@ export function generateCards(): PairedCard[] {
       pairId: i,
       img: imageAssets[i],
       status: "",
+      name: `Card ${i + 1}`, // Added name property
     }),
   );
 

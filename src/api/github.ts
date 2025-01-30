@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const GITHUB_API_URL: string =
-  "https://api.github.com/repos/j0hanz/pick-and-pair/commits";
-const GITHUB_TOKEN: string | undefined = process.env.REACT_APP_GITHUB_TOKEN;
+  "https://api.github.com/repos/j0hanz/GIFMatch/commits";
+const GITHUB_TOKEN: string | undefined = import.meta.env.VITE_GITHUB_TOKEN;
 
 interface Commit {
   sha: string;

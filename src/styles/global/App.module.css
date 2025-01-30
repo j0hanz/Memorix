@@ -6,32 +6,43 @@ body {
   font-family: "Fredoka", sans-serif;
   background-image: var(--bg-primary);
   color: var(--text-color);
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100dvh;
   letter-spacing: var(--text-spacing);
   font-size: 1.05rem;
 }
 
+.menu {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 /* Game title styles */
 .gameTitle {
   font-family: "Fredoka One", cursive;
-  font-size: 5rem;
+  font-size: 4rem;
   color: var(--text-color-highlight);
   text-shadow: var(--text-title-shadow);
-  margin-bottom: 2rem;
+  display: inline-block;
 }
 
 .symbol {
+  position: absolute;
   display: inline-block;
-  line-height: 1;
-  font-size: 3rem;
-  padding: 0.25rem;
+  line-height: 0.7;
+  font-size: 20rem;
+  padding: 5rem;
   background: var(--bg-card);
   border-radius: 10px;
   color: var(--moves);
-  animation: rotate3D 4s linear infinite;
+  animation: rotate3D 6s linear infinite;
+  opacity: 0.3;
   perspective: 1200px;
+  z-index: -1;
 }
 
 @keyframes rotate3D {
@@ -116,9 +127,6 @@ body {
 @media (max-width: 425px) {
   .gameTitle {
     font-size: 3.5rem;
-  }
-  .symbol {
-    font-size: 2.5rem;
   }
 
   body {

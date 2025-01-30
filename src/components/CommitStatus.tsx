@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchLatestCommits } from "../api/github";
+import { fetchLatestCommits } from "@/api/github";
 import { Badge, ListGroup } from "react-bootstrap";
 
 interface Commit {
