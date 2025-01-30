@@ -1,0 +1,228 @@
+.modal :global(.modal-content) {
+  background: var(--bg-modal);
+  color: var(--text-color);
+  box-shadow: var(--shadow-primary);
+  border: none !important;
+  --bs-modal-border-radius: 15px;
+}
+
+.instructionsModal :global(.modal-content) {
+  min-height: 55vh;
+}
+
+.latestUpdatesModal :global(.modal-content) {
+  min-height: 50vh;
+}
+
+.modal :global(.modal-header) {
+  font-family: 'Fredoka One', cursive;
+  color: var(--text-color) !important;
+  letter-spacing: 1px;
+}
+
+.modal :global(.h4) {
+  font-size: 1.6rem;
+}
+
+.modal :global(.modal-header),
+.modal :global(.modal-footer) {
+  color: var(--text-color);
+}
+
+.modal :global(.modal-footer) {
+  --bs-modal-footer-gap: 0;
+}
+
+/* Scoreboard styles */
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  color: var(--text-color);
+}
+
+.scoreItem {
+  display: flex;
+  align-items: center;
+}
+
+.btnExit {
+  background: var(--btn-secondary);
+  border: none !important;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 15px;
+}
+
+.btnRestart {
+  background: var(--btn-primary);
+  border: none !important;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 15px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.btnIcon {
+  font-size: 1.2rem;
+}
+
+/* Button styles */
+.modalButton {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none !important;
+  color: var(--text-color);
+  width: 100%;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.btnClose {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--btn-secondary);
+  border: none !important;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 15px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 15px;
+  color: var(--text-color);
+}
+
+.btnRestart:hover {
+  background: var(--btn-primary-hover);
+  color: var(--text-color);
+}
+
+.btnRestart:active {
+  background: var(--btn-primary-hover) !important;
+  color: var(--text-color);
+  transform: scale(0.95);
+}
+
+.btnExit:hover,
+.btnClose:hover {
+  background: var(--btn-secondary-hover);
+  color: var(--text-color);
+}
+
+.btnExit:active {
+  background: var(--btn-secondary-hover) !important;
+  color: var(--text-color);
+  transform: scale(0.95);
+}
+
+.btnClose:active {
+  background: var(--btn-secondary-hover) !important;
+}
+
+.listIcon {
+  font-size: 1.5rem;
+}
+
+.clockIcon {
+  color: var(--color-clock-icon);
+}
+
+.statsIcon {
+  color: var(--moves);
+}
+
+.wrongPick {
+  color: var(--feedback-wrong);
+}
+
+.success {
+  color: var(--feedback-correct);
+}
+
+.starIcon {
+  color: var(--color-star-icon);
+}
+
+.grayedOut {
+  color: var(--color-star-icon-gray);
+}
+
+.scoreListIcon {
+  font-size: 1.6rem;
+}
+
+.infinityIcon {
+  font-size: 1.3rem;
+}
+
+.scoreIcon {
+  font-size: 1.2rem;
+}
+
+.navItemLeft {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border: none;
+  border-right: 1px solid var(--shadow-row);
+  background: var(--btn-secondary);
+  transition: all 0.3s ease;
+}
+
+.navItemCenter {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border: none;
+  border-left: 1px solid var(--shadow-row);
+  border-right: 1px solid var(--shadow-row);
+  background: var(--btn-secondary);
+  transition: all 0.3s ease;
+}
+
+.navItemRight {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 0;
+  border: none;
+  border-left: 1px solid var(--shadow-row);
+  background: var(--btn-secondary);
+  transition: all 0.3s ease;
+}
+
+.navItemLeft:hover,
+.navItemCenter:hover,
+.navItemRight:hover {
+  background: var(--btn-secondary-hover);
+}
+
+.navItemLeft.active,
+.navItemCenter.active,
+.navItemRight.active {
+  background: var(--btn-secondary-active);
+}
+
+@media (max-width: 425px) {
+  .scoreListIcon {
+    font-size: 1.4rem;
+  }
+
+  .scoreIcon {
+    font-size: 0.8rem;
+  }
+
+  .instructionsModal :global(.modal-content) {
+    min-height: 80vh;
+  }
+
+  .latestUpdatesModal :global(.modal-content) {
+    min-height: 80vh;
+  }
+}

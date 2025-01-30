@@ -1,0 +1,128 @@
+/* Flip Card Effects */
+.card {
+  position: relative;
+  height: 13rem;
+  perspective: 1200px;
+  background: var(--bg-card);
+  border: var(--border-card);
+  border-radius: 15px;
+  box-shadow: var(--card-shadow);
+  cursor: pointer;
+  transition:
+    transform 0.6s ease,
+    box-shadow 0.6s ease;
+}
+
+.card img,
+.card .back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Front image */
+.card img {
+  object-fit: cover;
+  object-position: center;
+  transform: rotateY(180deg);
+  opacity: 0;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+/* Back face */
+.card .back {
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+  background-image: url('../../assets/img/card-back.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(1.2);
+}
+
+/* Card Hover */
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: var(--card-shadow-hover);
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+/* Active (flipped) card */
+.card.active {
+  transform: rotateY(180deg) scale(1.05);
+  box-shadow: 0 4px 8px var(--shadow-card);
+  transition:
+    transform 0.6s ease,
+    box-shadow 0.6s ease;
+}
+
+/* Reveal front image */
+.card.active img {
+  opacity: 1;
+  transform: rotateY(0);
+}
+
+/* Hide back face */
+.card.active .back {
+  transform: rotateY(180deg);
+}
+
+/* Matched cards */
+.card.matched {
+  transform: rotateY(180deg) scale(0.9);
+  box-shadow: var(--shadow-card-matched);
+  transition:
+    transform 0.6s ease,
+    box-shadow 0.6s ease;
+}
+
+.card.matched img {
+  transform: scale(0.8);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .card {
+    height: 10rem;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 765px) {
+  .card {
+    height: 8.5rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .card {
+    height: 8rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .card {
+    height: 7.25rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .card {
+    height: 7rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .card {
+    height: 6.5rem;
+  }
+}

@@ -1,0 +1,55 @@
+/* Row */
+.row {
+  display: flex;
+  align-items: center;
+  height: 100dvh;
+  width: 50em;
+}
+
+/* Stats */
+.statsTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: var(--text-color);
+}
+
+.statsBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  min-height: 5vh;
+  border-top: 3px solid var(--border-row);
+}
+
+/* Button */
+.btnExitRestart {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  color: var(--moves);
+  border: none;
+  font-size: 1.75rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.btnExitRestart:hover {
+  background: var(--bg-card);
+  color: var(--moves);
+  transform: scale(1.05);
+  --bs-btn-hover-border-color: transparent;
+}
+
+.btnExitRestart:active {
+  background: var(--bg-card) !important;
+  color: var(--moves) !important;
+  --bs-btn-active-border-color: transparent;
+}
+
+@media (max-width: 990px) {
+  .row {
+    width: auto;
+  }
+}
