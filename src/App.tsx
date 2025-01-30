@@ -82,7 +82,7 @@ const App: React.FC = () => {
               <Button
                 onClick={() =>
                   window.open(
-                    "https://github.com/j0hanz/pick-and-pair",
+                    "https://github.com/j0hanz/GIFMatch",
                     "_blank",
                   )
                 }
