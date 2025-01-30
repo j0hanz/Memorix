@@ -45,7 +45,7 @@
     "type-check": "tsc --noEmit",
     "type-check:watch": "tsc --noEmit --watch",
     "preview": "vite preview",
-    "start": "vite preview --port $PORT",
+    "start": "vite",
     "heroku-postbuild": "npm run build"
   },
   "engines": {
