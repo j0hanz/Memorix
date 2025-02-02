@@ -10,7 +10,6 @@ import { HiNewspaper } from 'react-icons/hi2';
 import { LiaGithub } from 'react-icons/lia';
 import { useGameHandlers } from '@/utils/gameHandlers';
 import { motion, Variants } from 'framer-motion';
-import cardBack from './assets/img/card-back.webp';
 import styles from '@/App.module.css';
 
 const App: React.FC = () => {
@@ -67,7 +66,6 @@ const App: React.FC = () => {
           transition={pageTransition}
         >
           <div className={styles.menu}>
-            <Image src={cardBack} className={styles.cardBack} fluid />
             <div className={styles.gameTitle}>Memorix</div>
             <StartButton onClick={startGame} />
             <InstructionsButton onClick={openInstructions} />
