@@ -44,13 +44,13 @@
   --card-shadow-hover: 0 4px 10px #00000099;
   --text-color-highlight: #ff0077;
   --border-primary: 1px solid #fdc200;
-  --bg-primary: linear-gradient(40deg, #a03aff 0%, #2c3aff 100%);
+  --bg-primary: #0D1117;
   --bg-card: #241549c5;
 }
 
 body {
   font-family: 'Fredoka', sans-serif;
-  background-image: var(--bg-primary);
+  background: var(--bg-primary);
   color: var(--text-color);
   display: flex;
   justify-content: center;
