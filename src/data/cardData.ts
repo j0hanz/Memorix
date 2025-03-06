@@ -45,7 +45,7 @@ export function generateCards(): PairedCard[] {
       pairId: i,
       img: imageAssets[i],
       status: '',
-      name: `Card ${i + 1}`, // Added name property
+      name: `Card ${i + 1}`,
     }),
   );
 
