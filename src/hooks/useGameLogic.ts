@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, RefObject } from 'react';
 import { handleCardClick } from '@/utils/cardUtils';
 import { CardDef } from '@/data/cardData';
 
@@ -9,7 +9,7 @@ interface UseGameLogicProps {
   setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>;
   matchedPairs: number;
   setMatchedPairs: React.Dispatch<React.SetStateAction<number>>;
-  previousIndex: React.MutableRefObject<number | null>;
+  previousIndex: RefObject<number | null>;
   setIsGameOver: React.Dispatch<React.SetStateAction<boolean>>;
   setMoves: React.Dispatch<React.SetStateAction<number>>;
   setFeedback: React.Dispatch<React.SetStateAction<string>>;
