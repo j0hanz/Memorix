@@ -6,7 +6,8 @@
 }
 
 .gameTitle {
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Fredoka One';
+  font-weight: 500;
   font-size: 4rem;
   color: var(--text-color-highlight);
   text-shadow: var(--text-title-shadow);
