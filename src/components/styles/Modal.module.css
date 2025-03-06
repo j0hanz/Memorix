@@ -7,11 +7,11 @@
 }
 
 .instructionsModal :global(.modal-content) {
-  min-height: 55vh;
+  height: 55dvh;
 }
 
 .latestUpdatesModal :global(.modal-content) {
-  min-height: 50vh;
+  height: 50dvh;
 }
 
 .modal :global(.modal-header) {
@@ -218,12 +218,11 @@
   .scoreIcon {
     font-size: 0.8rem;
   }
-
   .instructionsModal :global(.modal-content) {
-    min-height: 80vh;
+    height: 100%;
   }
 
   .latestUpdatesModal :global(.modal-content) {
-    min-height: 80vh;
+    height: 100%;
   }
 }
