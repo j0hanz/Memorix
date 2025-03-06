@@ -1,4 +1,4 @@
-import Card from './Card';
+import GameCard from './GameCard';
 import { Row, Col, Container, Button } from 'react-bootstrap';
 import { HiArrowPath } from 'react-icons/hi2';
 import { TbDoorExit } from 'react-icons/tb';
@@ -36,8 +36,6 @@ export default function Cards({
   feedback,
   matchedPairs,
 }: CardsProps) {
-  const isInitialFlip = false;
-
   return (
     <Container>
       <Row className={styles.row}>
@@ -60,10 +58,10 @@ export default function Cards({
         </Col>
         {cards.map((card, index) => (
           <Col xs={4} sm={4} md={3} lg={3} xl={3} key={index}>
-            <Card
+            <GameCard
               card={card}
               index={index}
-              clickHandler={isInitialFlip ? undefined : handleCardSelection}
+              clickHandler={handleCardSelection}
             />
           </Col>
         ))}
