@@ -45,7 +45,7 @@ export default function ScoreboardModal({
         {children}
         <Scoreboard moves={moves} completedTime={completedTime} />
       </Modal.Body>
-      <Modal.Footer className="border-0">
+      <Modal.Footer className="border-0 mt-2">
         <Button
           className={`${styles.btnRestart} ${styles.modalButton}`}
           onClick={onReset}
@@ -80,7 +80,7 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
       className={`${styles.modal} ${styles.instructionsModal}`}
     >
       <InstructionsData />
-      <Modal.Footer className="border-0">
+      <Modal.Footer className="border-0 mt-2">
         <Button className={styles.btnClose} onClick={onClose}>
           Close
         </Button>
@@ -109,7 +109,7 @@ export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
       <Modal.Body>
         <CommitStatus />
       </Modal.Body>
-      <Modal.Footer className="border-0">
+      <Modal.Footer className="border-0 mt-2">
         <Button className={styles.btnClose} onClick={onClose}>
           Close
         </Button>
