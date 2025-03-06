@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import Game from '@/components/Game';
 import LoadingSpinner from '@/components/Spinner';
@@ -12,12 +12,17 @@ import { useGameHandlers } from '@/utils/gameHandlers';
 import { motion, Variants } from 'framer-motion';
 import styles from '@/App.module.css';
 
-const App: React.FC = () => {
+export default function App() {
+  // State to track if the game is active
   const [isGameActive, setIsGameActive] = useState<boolean>(false);
+  // State to track if the app is loading
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  // State to show/hide instructions
   const [showInstructions, setShowInstructions] = useState<boolean>(false);
+  // State to show/hide latest updates
   const [showLatestUpdates, setShowLatestUpdates] = useState<boolean>(false);
 
+  // Game handlers for various actions
   const {
     startGame,
     handleRestart,
@@ -33,6 +38,7 @@ const App: React.FC = () => {
     setShowLatestUpdates,
   });
 
+  // Animation variants for page transitions
   const pageVariants: Variants = {
     initial: {
       opacity: 0,
@@ -48,6 +54,7 @@ const App: React.FC = () => {
     },
   };
 
+  // Transition settings for page animations
   const pageTransition: object = {
     type: 'spring',
     stiffness: 50,
@@ -103,6 +110,4 @@ const App: React.FC = () => {
       <LatestUpdates show={showLatestUpdates} onClose={closeLatestUpdates} />
     </>
   );
-};
-
-export default App;
+}
