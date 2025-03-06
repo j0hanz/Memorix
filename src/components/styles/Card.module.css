@@ -5,12 +5,10 @@
   perspective: 1200px;
   background: var(--bg-card);
   border: var(--border-card);
-  border-radius: 15px;
+  border-radius: 10px;
   box-shadow: var(--card-shadow);
   cursor: pointer;
-  transition:
-    transform 0.6s ease,
-    box-shadow 0.6s ease;
+  transition: all 0.6s ease;
 }
 
 .card img,
@@ -30,16 +28,12 @@
   object-position: center;
   transform: rotateY(180deg);
   opacity: 0;
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
+  transition: all 0.6s ease;
 }
 
 /* Back face */
 .card .back {
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease;
+  transition: all 0.6s ease;
   background-image: url('@/assets/img/card-back.webp');
   background-size: cover;
   background-position: center;
@@ -51,18 +45,14 @@
 .card:hover {
   transform: scale(1.05);
   box-shadow: var(--card-shadow-hover);
-  transition:
-    transform 0.4s ease,
-    box-shadow 0.4s ease;
+  transition: all 0.6s ease;
 }
 
 /* Active (flipped) card */
 .card.active {
   transform: rotateY(180deg) scale(1.05);
   box-shadow: 0 4px 8px var(--shadow-card);
-  transition:
-    transform 0.6s ease,
-    box-shadow 0.6s ease;
+  transition: all 0.6s ease;
 }
 
 /* Reveal front image */
@@ -80,13 +70,11 @@
 .card.matched {
   transform: rotateY(180deg) scale(0.9);
   box-shadow: var(--shadow-card-matched);
-  transition:
-    transform 0.6s ease,
-    box-shadow 0.6s ease;
+  transition: all 0.6s ease;
 }
 
 .card.matched img {
-  transform: scale(0.8);
+  transform: scale(0.9);
 }
 
 /* Responsive adjustments */
