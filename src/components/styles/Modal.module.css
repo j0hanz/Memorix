@@ -3,7 +3,7 @@
   color: var(--text-color);
   box-shadow: var(--shadow-primary);
   border: none;
-  --bs-modal-border-radius: 15px;
+  --bs-modal-border-radius: 10px;
 }
 
 .instructionsModal :global(.modal-content) {
@@ -53,14 +53,14 @@
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-top-right-radius: 0;
-  border-bottom-right-radius: 15px;
+  border-bottom-right-radius: 10px;
 }
 
 .btnRestart {
   background: var(--btn-primary);
   border: none;
   border-top-left-radius: 0;
-  border-bottom-left-radius: 15px;
+  border-bottom-left-radius: 10px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -90,9 +90,9 @@
   background: var(--btn-secondary);
   border: none;
   border-top-left-radius: 0;
-  border-bottom-left-radius: 15px;
+  border-bottom-left-radius: 10px;
   border-top-right-radius: 0;
-  border-bottom-right-radius: 15px;
+  border-bottom-right-radius: 10px;
   color: var(--text-color);
 }
 
@@ -102,7 +102,7 @@
 }
 
 .btnRestart:active {
-  background: var(--btn-primary-hover);
+  background: var(--btn-primary-hover) !important;
   color: var(--text-color);
   transform: scale(0.95);
 }
@@ -114,13 +114,14 @@
 }
 
 .btnExit:active {
-  background: var(--btn-secondary-hover);
+  background: var(--btn-secondary-hover) !important;
   color: var(--text-color);
   transform: scale(0.95);
 }
 
 .btnClose:active {
-  background: var(--btn-secondary-hover);
+  background: var(--btn-secondary-hover) !important;
+  transform: scale(1);
 }
 
 .listIcon {
@@ -164,7 +165,7 @@
 }
 
 .navItemLeft {
-  border-top-left-radius: 15px;
+  border-top-left-radius: 10px;
   border-bottom-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -189,7 +190,7 @@
 .navItemRight {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  border-top-right-radius: 15px;
+  border-top-right-radius: 10px;
   border-bottom-right-radius: 0;
   border: none;
   border-left: 1px solid var(--shadow-row);
