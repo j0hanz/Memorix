@@ -8,7 +8,9 @@ interface ImageProps {
   className?: string;
   style?: React.CSSProperties;
   onClick?: () => void;
-  radius?: 'rounded' | 'circle' | 'flat';
+  onLoad?: () => void;
+  onError?: () => void;
+  loading?: 'lazy' | 'eager';
 }
 
 // Image component
@@ -17,25 +19,13 @@ const Image: React.FC<ImageProps> = ({
   alt,
   width,
   height,
-  className,
-  style,
+  className = '',
+  style = {},
   onClick,
-  radius = 'rounded',
+  onLoad,
+  onError,
+  loading = 'lazy',
 }) => {
-  // Default styles for the image
-  const defaultStyle: React.CSSProperties = {
-    maxWidth: '100%',
-    objectFit: 'cover',
-    borderRadius:
-      radius === 'circle' ? '50%' : radius === 'flat' ? '0px' : '10px',
-  };
-
-  // Combine default styles with any additional styles passed in
-  const combinedStyle: React.CSSProperties = {
-    ...defaultStyle,
-    ...style,
-  };
-
   return (
     <img
       src={src}
@@ -43,8 +33,11 @@ const Image: React.FC<ImageProps> = ({
       width={width}
       height={height}
       className={className}
-      style={combinedStyle}
+      style={style}
       onClick={onClick}
+      onLoad={onLoad}
+      onError={onError}
+      loading={loading}
     />
   );
 };
