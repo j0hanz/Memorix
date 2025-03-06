@@ -7,7 +7,7 @@ interface StartButtonProps {
 
 export default function StartButton({ onClick }: StartButtonProps) {
   return (
-    <Button onClick={onClick} className={`${styles.btnStart} mb-4`}>
+    <Button onClick={onClick} className={styles.btnStart}>
       Start Game
     </Button>
   );
