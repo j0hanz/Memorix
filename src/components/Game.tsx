@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Cards from './Cards';
 import ScoreboardModal from './Modal';
 import { playSound } from '@/utils/soundManager';
-import { useGameContext } from '@/contexts/GameContext';
+import { useGameContext } from '@/hooks/useGameContext';
 
 interface GameLogicProps {
   onRestart: () => void;
