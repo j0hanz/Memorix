@@ -1,5 +1,4 @@
-import { Button } from 'react-bootstrap';
-import { handleButtonClick } from '@/utils/soundManager';
+import Button from './Button';
 import styles from '@/App.module.css';
 
 interface InstructionsButtonProps {
@@ -10,7 +9,7 @@ export default function InstructionsButton({
   onClick,
 }: InstructionsButtonProps) {
   return (
-    <Button onClick={handleButtonClick(onClick)} className={styles.btnGuide}>
+    <Button onClick={onClick} className={styles.btnGuide}>
       Guide
     </Button>
   );

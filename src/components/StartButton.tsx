@@ -1,5 +1,4 @@
-import { Button } from 'react-bootstrap';
-import { handleButtonClick } from '@/utils/soundManager';
+import Button from './Button';
 import styles from '@/App.module.css';
 
 interface StartButtonProps {
@@ -8,10 +7,7 @@ interface StartButtonProps {
 
 export default function StartButton({ onClick }: StartButtonProps) {
   return (
-    <Button
-      onClick={handleButtonClick(onClick)}
-      className={`${styles.btnStart} mb-4`}
-    >
+    <Button onClick={onClick} className={`${styles.btnStart} mb-4`}>
       Start Game
     </Button>
   );

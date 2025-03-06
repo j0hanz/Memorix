@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { HiArrowPath } from 'react-icons/hi2';
 import { TbDoorExit } from 'react-icons/tb';
+import Button from './Button';
 import styles from './styles/Modal.module.css';
 import Scoreboard from '@/data/scoreData';
 import InstructionsData from '@/data/instructionsData';
-import { handleButtonClick } from '@/utils/soundManager';
 import CommitStatus from './CommitStatus';
 
 interface ScoreboardModalProps {
@@ -48,14 +48,14 @@ export default function ScoreboardModal({
       <Modal.Footer className="border-0">
         <Button
           className={`${styles.btnRestart} ${styles.modalButton}`}
-          onClick={handleButtonClick(onReset)}
+          onClick={onReset}
         >
           <HiArrowPath className={`${styles.btnIcon} me-1`} />
           Restart
         </Button>
         <Button
           className={`${styles.btnExit} ${styles.modalButton}`}
-          onClick={handleButtonClick(onExit)}
+          onClick={onExit}
         >
           <TbDoorExit className={`${styles.btnIcon} me-1`} />
           Exit
@@ -81,10 +81,7 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
     >
       <InstructionsData />
       <Modal.Footer className="border-0">
-        <Button
-          className={styles.btnClose}
-          onClick={handleButtonClick(onClose)}
-        >
+        <Button className={styles.btnClose} onClick={onClose}>
           Close
         </Button>
       </Modal.Footer>
@@ -113,10 +110,7 @@ export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
         <CommitStatus />
       </Modal.Body>
       <Modal.Footer className="border-0">
-        <Button
-          className={styles.btnClose}
-          onClick={handleButtonClick(onClose)}
-        >
+        <Button className={styles.btnClose} onClick={onClose}>
           Close
         </Button>
       </Modal.Footer>
