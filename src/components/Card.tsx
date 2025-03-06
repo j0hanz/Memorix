@@ -12,14 +12,16 @@ interface CardProps {
   clickHandler?: (index: number) => void;
 }
 
-const Card = ({ card, index, clickHandler }: CardProps) => {
+// Card component to display the game cards
+export default function Card({ card, index, clickHandler }: CardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const handleClick = () => {
+  // Handles the card click event
+  function handleClick() {
     if (imageLoaded && clickHandler) {
       clickHandler(index);
     }
-  };
+  }
 
   return (
     <GameCard
@@ -42,7 +44,6 @@ const Card = ({ card, index, clickHandler }: CardProps) => {
       </GameCard.Body>
     </GameCard>
   );
-};
+}
 
 Card.displayName = 'Card';
-export default Card;
