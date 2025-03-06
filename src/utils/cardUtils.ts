@@ -7,7 +7,7 @@ export function canClickCard(
   index: number,
   cards: CardDef[],
   selectedCardIndex: number | null,
-  previousIndex: React.MutableRefObject<number | null>,
+  previousIndex: React.RefObject<number | null>,
 ): boolean {
   return (
     index !== previousIndex.current &&
@@ -24,7 +24,7 @@ export function handleCardClick(
   setCards: React.Dispatch<React.SetStateAction<CardDef[]>>,
   selectedCardIndex: number | null,
   setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>,
-  previousIndex: React.MutableRefObject<number | null>,
+  previousIndex: React.RefObject<number | null>,
   handleMatchUpdate: () => void,
   handleMismatchUpdate: () => void,
   setFeedback: React.Dispatch<React.SetStateAction<string>>,
