@@ -44,7 +44,7 @@
   --card-shadow: 0 2px 6px #00000099;
   --card-shadow-hover: 0 4px 10px #00000099;
   --shadow-card-matched: 0 0 2px 2px #00c500;
-  --text-spacing: 0.05rem;
+  --text-spacing: 0.1rem;
   --border-primary: 1px solid #fdc200;
   --border-row: #4a5568;
 }
@@ -58,7 +58,7 @@ body {
   align-items: center;
   height: 100vh;
   letter-spacing: var(--text-spacing);
-  font-size: 1.05rem;
+  font-size: 1.07rem;
 }
 
 @media (max-width: 425px) {
