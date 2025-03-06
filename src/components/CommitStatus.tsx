@@ -1,4 +1,4 @@
-import { use } from 'react';
+import { useState, useEffect } from 'react';
 import { fetchLatestCommits } from '@/api/github';
 import { Badge, ListGroup } from 'react-bootstrap';
 
@@ -12,11 +12,37 @@ interface Commit {
 
 // Fetches and displays the latest commits
 export default function LatestCommits() {
-  // Fetches the latest commits
-  const commits: Commit[] = use(fetchLatestCommits());
+  const [commits, setCommits] = useState<Commit[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    const loadCommits = async () => {
+      try {
+        const data = await fetchLatestCommits();
+        setCommits(data);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err : new Error('Failed to fetch commits'),
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCommits();
+  }, []);
+
+  if (loading) {
+    return <div>Loading commit data...</div>;
+  }
+
+  if (error) {
+    return <div>Error loading commits: {error.message}</div>;
+  }
 
   if (!commits.length) {
-    return <div>Loading commit data...</div>;
+    return <div>No commits found.</div>;
   }
 
   return (
