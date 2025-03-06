@@ -9,6 +9,7 @@ interface GameLogicProps {
 }
 
 export default function GameLogic({ onRestart }: GameLogicProps) {
+  // Get game state and handlers from context
   const {
     cards,
     handleCardSelection,

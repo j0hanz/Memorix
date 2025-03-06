@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 import { CardDef } from '@/data/cardData';
 
+// Define the shape of the game context
 export interface GameContextType {
   cards: CardDef[];
   setCards: React.Dispatch<React.SetStateAction<CardDef[]>>;
@@ -25,6 +26,7 @@ export interface GameContextType {
   handleExit: () => void;
 }
 
+// Create the game context
 export const GameContext = createContext<GameContextType | undefined>(
   undefined,
 );

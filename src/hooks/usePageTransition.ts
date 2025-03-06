@@ -1,5 +1,6 @@
 import { Variants } from 'framer-motion';
 
+// Hook to get page transition animations
 export function usePageTransition() {
   const pageVariants: Variants = {
     initial: {

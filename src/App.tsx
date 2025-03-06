@@ -9,13 +9,16 @@ import { usePageTransition } from '@/hooks/usePageTransition';
 import MainMenu from '@/components/MainMenu';
 
 export default function App() {
+  // State for controlling application flow and UI visibility
   const [isGameActive, setIsGameActive] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showInstructions, setShowInstructions] = useState<boolean>(false);
   const [showLatestUpdates, setShowLatestUpdates] = useState<boolean>(false);
 
+  // Get animation settings for page transitions
   const { pageVariants, pageTransition } = usePageTransition();
 
+  // Get game control functions from custom hook
   const {
     startGame,
     handleRestart,
@@ -33,8 +36,10 @@ export default function App() {
 
   return (
     <>
+      {/* Show loading spinner when game is loading */}
       <LoadingSpinner isLoading={isLoading} />
 
+      {/* Display main menu when game is not active or loading */}
       {!isLoading && !isGameActive && (
         <MainMenu
           startGame={startGame}
@@ -45,6 +50,7 @@ export default function App() {
         />
       )}
 
+      {/* Render game with animations when active */}
       {isGameActive && (
         <motion.div
           initial="initial"
@@ -59,6 +65,7 @@ export default function App() {
         </motion.div>
       )}
 
+      {/* Modal components for instructions and updates */}
       <GameInstructions show={showInstructions} onClose={closeInstructions} />
       <LatestUpdates show={showLatestUpdates} onClose={closeLatestUpdates} />
     </>

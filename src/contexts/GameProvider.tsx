@@ -13,6 +13,7 @@ export const GameProvider = ({
   children,
   onExit,
 }: GameProviderProps): React.ReactElement => {
+  // State for game cards and game status
   const [cards, setCards] = useState<CardDef[]>(() =>
     shuffleCards(generateCards()),
   );
@@ -61,6 +62,7 @@ export const GameProvider = ({
     }
   }, [matchedPairs, startTime]);
 
+  // Handle card selection
   const handleCardSelection = (index: number) => {
     handleCardClick(
       index,
@@ -78,6 +80,7 @@ export const GameProvider = ({
     );
   };
 
+  // Restart the game
   const restartGame = () => {
     // Reset game state
     setCards(shuffleCards(generateCards()));
@@ -109,6 +112,7 @@ export const GameProvider = ({
     }, 100);
   };
 
+  // Handle game exit
   const handleExit = () => {
     onExit();
   };
