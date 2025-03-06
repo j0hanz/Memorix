@@ -15,7 +15,6 @@ interface ScoreboardModalProps {
   onExit: () => void;
   title?: string;
   children?: ReactNode;
-  score: number;
   moves: number;
   completedTime: string;
 }
@@ -28,7 +27,6 @@ export default function ScoreboardModal({
   onExit,
   title = 'Game completed!',
   children,
-  score,
   moves,
   completedTime,
 }: ScoreboardModalProps) {
@@ -45,7 +43,7 @@ export default function ScoreboardModal({
       </Modal.Header>
       <Modal.Body>
         {children}
-        <Scoreboard score={score} moves={moves} completedTime={completedTime} />
+        <Scoreboard moves={moves} completedTime={completedTime} />
       </Modal.Body>
       <Modal.Footer className="border-0">
         <Button

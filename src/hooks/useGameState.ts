@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { shuffleCards } from '@/utils/shuffleCards';
 import { generateCards, CardDef } from '@/data/cardData';
 
@@ -56,7 +56,7 @@ export function useGameState(onRestart: () => void) {
   ]);
 
   // Handle game restart
-  const handleRestart = useCallback(() => {
+  const handleRestart = () => {
     setIsGameOver(false);
     setShowModal(false);
     setModalMessage('');
@@ -65,7 +65,7 @@ export function useGameState(onRestart: () => void) {
     setTimerActive(false);
     setFeedback('');
     onRestart();
-  }, [onRestart]);
+  };
 
   return {
     cards,

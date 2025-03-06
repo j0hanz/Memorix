@@ -10,7 +10,6 @@ interface ScoreboardProps {
   moves: number;
   completedTime: string;
 }
-
 // Displays the game statistics
 export default function Scoreboard({ moves, completedTime }: ScoreboardProps) {
   return (

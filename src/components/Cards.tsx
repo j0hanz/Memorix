@@ -23,6 +23,7 @@ interface CardsProps {
   onExit: () => void;
   timerActive: boolean;
   feedback: string;
+  matchedPairs: number;
 }
 
 const Cards: React.FC<CardsProps> = ({
@@ -33,6 +34,7 @@ const Cards: React.FC<CardsProps> = ({
   onExit,
   timerActive,
   feedback,
+  matchedPairs,
 }) => {
   const isInitialFlip = false;
 
@@ -47,6 +49,7 @@ const Cards: React.FC<CardsProps> = ({
             <HiArrowPath className={styles.exitRestartIcon} />
           </Button>
           <Timer timerActive={timerActive} />
+          <div className="d-none">{matchedPairs}/6</div>
           <Moves moves={moves} />
           <Button
             className={styles.btnExitRestart}

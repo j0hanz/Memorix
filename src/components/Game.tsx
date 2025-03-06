@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useGameState } from '@/hooks/useGameState';
 import { useGameLogic } from '@/hooks/useGameLogic';
 import Cards from './Cards';
@@ -26,7 +26,6 @@ export default function GameLogic({ onRestart, onExit }: GameLogicProps) {
     previousIndex,
     showModal,
     setShowModal,
-    modalMessage,
     timerActive,
     feedback,
     setFeedback,
@@ -46,9 +45,9 @@ export default function GameLogic({ onRestart, onExit }: GameLogicProps) {
   });
 
   // Handle game reset
-  const handleReset = useCallback(() => {
+  const handleReset = () => {
     onRestart();
-  }, [onRestart]);
+  };
 
   // Play sound when game is over
   useEffect(() => {
@@ -77,10 +76,7 @@ export default function GameLogic({ onRestart, onExit }: GameLogicProps) {
           onExit={onExit}
           completedTime={completedTime.toString()}
           moves={moves}
-          score={matchedPairs}
-        >
-          {modalMessage}
-        </ScoreboardModal>
+        />
       )}
     </>
   );

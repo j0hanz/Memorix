@@ -1,4 +1,4 @@
-import { memo, useState, useCallback } from 'react';
+import { useState } from 'react';
 import { Image, Card as GameCard } from 'react-bootstrap';
 import styles from './styles/Card.module.css';
 
@@ -12,14 +12,14 @@ interface CardProps {
   clickHandler?: (index: number) => void;
 }
 
-const Card = memo(({ card, index, clickHandler }: CardProps) => {
+const Card = ({ card, index, clickHandler }: CardProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const handleClick = useCallback(() => {
+  const handleClick = () => {
     if (imageLoaded && clickHandler) {
       clickHandler(index);
     }
-  }, [imageLoaded, clickHandler, index]);
+  };
 
   return (
     <GameCard
@@ -42,7 +42,7 @@ const Card = memo(({ card, index, clickHandler }: CardProps) => {
       </GameCard.Body>
     </GameCard>
   );
-});
+};
 
 Card.displayName = 'Card';
 export default Card;

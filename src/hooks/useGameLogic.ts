@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 import { handleCardClick } from '@/utils/cardUtils';
 import { CardDef } from '@/data/cardData';
 
@@ -31,32 +31,20 @@ export function useGameLogic({
   const totalPairs = 6;
 
   // Function to handle card selection
-  const handleCardSelection = useCallback(
-    (index: number) => {
-      handleCardClick(
-        index,
-        cards,
-        setCards,
-        selectedCardIndex,
-        setSelectedCardIndex,
-        previousIndex,
-        () => setMatchedPairs((prev) => prev + 1),
-        () => {},
-        setFeedback,
-        setMoves,
-      );
-    },
-    [
+  const handleCardSelection = (index: number) => {
+    handleCardClick(
+      index,
       cards,
-      selectedCardIndex,
       setCards,
+      selectedCardIndex,
       setSelectedCardIndex,
       previousIndex,
-      setMatchedPairs,
+      () => setMatchedPairs((prev) => prev + 1),
+      () => {},
       setFeedback,
       setMoves,
-    ],
-  );
+    );
+  };
 
   useEffect(() => {
     if (matchedPairs === totalPairs) {

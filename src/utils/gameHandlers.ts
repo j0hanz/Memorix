@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-
 interface UseGameHandlersProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setIsGameActive: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,48 +12,48 @@ export const useGameHandlers = ({
   setShowLatestUpdates,
 }: UseGameHandlersProps) => {
   // Start game
-  const startGame = useCallback(() => {
+  const startGame = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
       setIsGameActive(true);
     }, 3000);
-  }, [setIsLoading, setIsGameActive]);
+  };
 
   // Restart game
-  const handleRestart = useCallback(() => {
+  const handleRestart = () => {
     setIsGameActive(false);
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
       setIsGameActive(true);
     }, 3000);
-  }, [setIsLoading, setIsGameActive]);
+  };
 
   // Exit game
-  const handleExit = useCallback(() => {
+  const handleExit = () => {
     setIsGameActive(false);
-  }, [setIsGameActive]);
+  };
 
   // Open Instructions modal
-  const openInstructions = useCallback(() => {
+  const openInstructions = () => {
     setShowInstructions(true);
-  }, [setShowInstructions]);
+  };
 
   // Close Instructions modal
-  const closeInstructions = useCallback(() => {
+  const closeInstructions = () => {
     setShowInstructions(false);
-  }, [setShowInstructions]);
+  };
 
   // Open Latest Updates modal
-  const openLatestUpdates = useCallback(() => {
+  const openLatestUpdates = () => {
     setShowLatestUpdates(true);
-  }, [setShowLatestUpdates]);
+  };
 
   // Close Latest Updates modal
-  const closeLatestUpdates = useCallback(() => {
+  const closeLatestUpdates = () => {
     setShowLatestUpdates(false);
-  }, [setShowLatestUpdates]);
+  };
 
   return {
     startGame,
