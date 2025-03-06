@@ -18,9 +18,8 @@
 .statsBottom {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   min-height: 5vh;
-  border-top: 3px solid var(--border-row);
 }
 
 /* Button */
