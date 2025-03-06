@@ -40,9 +40,8 @@ export const handleButtonClick =
     callback?.(event);
   };
 
-// Functions to manage mute state
+// Functions to manage mute state in localStorage
 export const getMuteState = (): boolean => isMuted;
-
 export const setMuteState = (muted: boolean): void => {
   isMuted = muted;
   localStorage.setItem('memorixMuted', muted.toString());
