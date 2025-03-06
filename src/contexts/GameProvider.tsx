@@ -9,6 +9,7 @@ interface GameProviderProps {
   onExit: () => void;
 }
 
+// Component to manage game state and logic
 export const GameProvider = ({
   children,
   onExit,
@@ -17,6 +18,7 @@ export const GameProvider = ({
   const [cards, setCards] = useState<CardDef[]>(() =>
     shuffleCards(generateCards()),
   );
+  // State for selected card index
   const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(
     null,
   );
@@ -31,15 +33,14 @@ export const GameProvider = ({
   const [showModal, setShowModal] = useState<boolean>(false);
   const totalPairs = 6;
 
-  // Initial card flip effect on component mount
+  // Initial card flip effect with brief delay
   useEffect(() => {
-    // Show all cards initially
     setCards((prevCards) =>
       prevCards.map((card) => ({ ...card, status: 'active' })),
     );
 
+    // Hide cards after brief preview period
     const initialFlipTimer = setTimeout(() => {
-      // Hide all cards after the initial preview period
       setCards((prevCards) =>
         prevCards.map((card) => ({ ...card, status: '' })),
       );
@@ -71,9 +72,9 @@ export const GameProvider = ({
       selectedCardIndex,
       setSelectedCardIndex,
       previousIndex,
-      () => setMatchedPairs((prev) => prev + 1),
+      () => setMatchedPairs((prev) => prev + 1), // increment pairs on match
       () => {
-        /* No additional action on non-match */
+        // No additional action needed on mismatch
       },
       setFeedback,
       setMoves,
@@ -82,7 +83,6 @@ export const GameProvider = ({
 
   // Restart the game
   const restartGame = () => {
-    // Reset game state
     setCards(shuffleCards(generateCards()));
     setSelectedCardIndex(null);
     setMatchedPairs(0);
@@ -96,11 +96,9 @@ export const GameProvider = ({
 
     // Initial card flip effect with brief delay
     setTimeout(() => {
-      // Show all cards
       setCards((prevCards) =>
         prevCards.map((card) => ({ ...card, status: 'active' })),
       );
-
       // Hide cards after preview period
       setTimeout(() => {
         setCards((prevCards) =>
