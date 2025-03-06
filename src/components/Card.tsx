@@ -1,49 +1,38 @@
-import { useState } from 'react';
-import { Image, Card as GameCard } from 'react-bootstrap';
-import styles from './styles/Card.module.css';
+import React from 'react';
 
 interface CardProps {
-  card: {
-    img: string;
-    name: string;
-    status: string;
-  };
-  index: number;
-  clickHandler?: (index: number) => void;
+  className?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+  role?: string;
+  ariaLabel?: string;
 }
 
-// Card component to display the game cards
-export default function Card({ card, index, clickHandler }: CardProps) {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
-  // Handles the card click event
-  function handleClick() {
-    if (imageLoaded && clickHandler) {
-      clickHandler(index);
-    }
-  }
+// Card component
+const Card: React.FC<CardProps> = ({
+  className = '',
+  onClick,
+  children,
+  role = 'region',
+  ariaLabel,
+}) => {
+  const defaultStyles: React.CSSProperties = {
+    cursor: onClick ? 'pointer' : 'default',
+    display: 'flex',
+    flexDirection: 'column',
+  };
 
   return (
-    <GameCard
-      className={`${styles.card} ${card.status ? styles.active : ''} ${card.status === 'active matched' ? styles.matched : ''} ${!imageLoaded ? styles.loading : ''}`}
-      onClick={handleClick}
-      role="button"
-      aria-label={`Card ${card.name}`}
+    <div
+      className={className}
+      onClick={onClick}
+      role={role}
+      aria-label={ariaLabel}
+      style={defaultStyles}
     >
-      <GameCard.Body>
-        <div className={styles.back} />
-        <Image
-          src={card.img}
-          alt={card.name}
-          className={styles.img}
-          onLoad={() => setImageLoaded(true)}
-          loading="lazy"
-          fluid
-        />
-        {!imageLoaded && <div className={styles.loader} />}
-      </GameCard.Body>
-    </GameCard>
+      {children}
+    </div>
   );
-}
+};
 
-Card.displayName = 'Card';
+export default Card;
