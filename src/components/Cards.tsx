@@ -1,4 +1,3 @@
-import React from 'react';
 import Card from './Card';
 import { Row, Col, Container, Button } from 'react-bootstrap';
 import { HiArrowPath } from 'react-icons/hi2';
@@ -26,7 +25,8 @@ interface CardsProps {
   matchedPairs: number;
 }
 
-const Cards: React.FC<CardsProps> = ({
+// Component to display the game cards
+export default function Cards({
   cards,
   handleCardSelection,
   moves,
@@ -35,7 +35,7 @@ const Cards: React.FC<CardsProps> = ({
   timerActive,
   feedback,
   matchedPairs,
-}) => {
+}: CardsProps) {
   const isInitialFlip = false;
 
   return (
@@ -73,6 +73,4 @@ const Cards: React.FC<CardsProps> = ({
       </Row>
     </Container>
   );
-};
-
-export default Cards;
+}
