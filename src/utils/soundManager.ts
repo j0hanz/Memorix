@@ -17,8 +17,13 @@ const sounds: Record<string, Howl> = {
   complete: createSound(completeSound),
 };
 
+// Track mute state (initialize from localStorage if available)
+let isMuted = localStorage.getItem('memorixMuted') === 'true' || false;
+
 // Function to play a sound by key
 export const playSound = (soundName: string): void => {
+  if (isMuted) return;
+
   const sound = sounds[soundName];
   if (!sound) {
     console.warn(`No sound found for key: "${soundName}"`);
@@ -34,3 +39,16 @@ export const handleButtonClick =
     playSound('button');
     callback?.(event);
   };
+
+// Functions to manage mute state
+export const getMuteState = (): boolean => isMuted;
+
+export const setMuteState = (muted: boolean): void => {
+  isMuted = muted;
+  localStorage.setItem('memorixMuted', muted.toString());
+};
+
+export const toggleMuteState = (): boolean => {
+  setMuteState(!isMuted);
+  return isMuted;
+};
