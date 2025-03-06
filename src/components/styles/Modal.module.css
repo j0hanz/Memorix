@@ -2,7 +2,7 @@
   background: var(--bg-modal);
   color: var(--text-color);
   box-shadow: var(--shadow-primary);
-  border: none !important;
+  border: none;
   --bs-modal-border-radius: 15px;
 }
 
@@ -16,7 +16,7 @@
 
 .modal :global(.modal-header) {
   font-family: 'Fredoka One', cursive;
-  color: var(--text-color) !important;
+  color: var(--text-color);
   letter-spacing: 1px;
 }
 
@@ -49,7 +49,7 @@
 
 .btnExit {
   background: var(--btn-secondary);
-  border: none !important;
+  border: none;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   border-top-right-radius: 0;
@@ -58,7 +58,7 @@
 
 .btnRestart {
   background: var(--btn-primary);
-  border: none !important;
+  border: none;
   border-top-left-radius: 0;
   border-bottom-left-radius: 15px;
   border-top-right-radius: 0;
@@ -75,7 +75,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none !important;
+  border: none;
   color: var(--text-color);
   width: 100%;
   font-size: 1.1rem;
@@ -88,7 +88,7 @@
   justify-content: center;
   align-items: center;
   background: var(--btn-secondary);
-  border: none !important;
+  border: none;
   border-top-left-radius: 0;
   border-bottom-left-radius: 15px;
   border-top-right-radius: 0;
@@ -102,7 +102,7 @@
 }
 
 .btnRestart:active {
-  background: var(--btn-primary-hover) !important;
+  background: var(--btn-primary-hover);
   color: var(--text-color);
   transform: scale(0.95);
 }
@@ -114,13 +114,13 @@
 }
 
 .btnExit:active {
-  background: var(--btn-secondary-hover) !important;
+  background: var(--btn-secondary-hover);
   color: var(--text-color);
   transform: scale(0.95);
 }
 
 .btnClose:active {
-  background: var(--btn-secondary-hover) !important;
+  background: var(--btn-secondary-hover);
 }
 
 .listIcon {
