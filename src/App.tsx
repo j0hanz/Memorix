@@ -36,10 +36,7 @@ export default function App() {
 
   return (
     <>
-      {/* Show loading spinner when game is loading */}
       <LoadingSpinner isLoading={isLoading} />
-
-      {/* Display main menu when game is not active or loading */}
       {!isLoading && !isGameActive && (
         <MainMenu
           startGame={startGame}
@@ -49,8 +46,6 @@ export default function App() {
           pageTransition={pageTransition}
         />
       )}
-
-      {/* Render game with animations when active */}
       {isGameActive && (
         <motion.div
           initial="initial"
@@ -64,8 +59,6 @@ export default function App() {
           </GameProvider>
         </motion.div>
       )}
-
-      {/* Modal components for instructions and updates */}
       <GameInstructions show={showInstructions} onClose={closeInstructions} />
       <LatestUpdates show={showLatestUpdates} onClose={closeLatestUpdates} />
     </>
