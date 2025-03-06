@@ -1,48 +1,27 @@
 import { useEffect } from 'react';
-import { useGameState } from '@/hooks/useGameState';
-import { useGameLogic } from '@/hooks/useGameLogic';
 import Cards from './Cards';
 import ScoreboardModal from './Modal';
 import { playSound } from '@/utils/soundManager';
+import { useGameContext } from '@/contexts/GameContext';
 
 interface GameLogicProps {
   onRestart: () => void;
-  onExit: () => void;
 }
 
-export default function GameLogic({ onRestart, onExit }: GameLogicProps) {
+export default function GameLogic({ onRestart }: GameLogicProps) {
   const {
     cards,
-    setCards,
-    selectedCardIndex,
-    setSelectedCardIndex,
+    handleCardSelection,
     matchedPairs,
-    setMatchedPairs,
-    isGameOver,
-    setIsGameOver,
     moves,
-    setMoves,
-    completedTime,
-    previousIndex,
+    isGameOver,
     showModal,
     setShowModal,
     timerActive,
     feedback,
-    setFeedback,
-  } = useGameState(onRestart);
-
-  const { handleCardSelection } = useGameLogic({
-    cards,
-    setCards,
-    selectedCardIndex,
-    setSelectedCardIndex,
-    matchedPairs,
-    setMatchedPairs,
-    previousIndex,
-    setIsGameOver,
-    setMoves,
-    setFeedback,
-  });
+    completedTime,
+    handleExit,
+  } = useGameContext();
 
   // Handle game reset
   const handleReset = () => {
@@ -64,7 +43,7 @@ export default function GameLogic({ onRestart, onExit }: GameLogicProps) {
         matchedPairs={matchedPairs}
         moves={moves}
         onReset={handleReset}
-        onExit={onExit}
+        onExit={handleExit}
         timerActive={timerActive}
         feedback={feedback}
       />
@@ -73,7 +52,7 @@ export default function GameLogic({ onRestart, onExit }: GameLogicProps) {
           show={showModal}
           onClose={() => setShowModal(false)}
           onReset={handleReset}
-          onExit={onExit}
+          onExit={handleExit}
           completedTime={completedTime.toString()}
           moves={moves}
         />

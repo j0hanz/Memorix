@@ -10,6 +10,7 @@ import { HiNewspaper } from 'react-icons/hi2';
 import { LiaGithub } from 'react-icons/lia';
 import { useGameHandlers } from '@/utils/gameHandlers';
 import { motion, Variants } from 'framer-motion';
+import { GameProvider } from '@/contexts/GameContext';
 import styles from '@/App.module.css';
 
 export default function App() {
@@ -103,7 +104,9 @@ export default function App() {
           variants={pageVariants}
           transition={pageTransition}
         >
-          <Game onRestart={handleRestart} onExit={handleExit} />
+          <GameProvider onExit={handleExit}>
+            <Game onRestart={handleRestart} />
+          </GameProvider>
         </motion.div>
       )}
       <GameInstructions show={showInstructions} onClose={closeInstructions} />
