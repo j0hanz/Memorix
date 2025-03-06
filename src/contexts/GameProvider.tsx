@@ -14,44 +14,53 @@ export const GameProvider = ({
   children,
   onExit,
 }: GameProviderProps): React.ReactElement => {
-  // State for game cards and game status
+  const totalPairs = 6;
+
+  // Game state
   const [cards, setCards] = useState<CardDef[]>(() =>
     shuffleCards(generateCards()),
   );
-  // State for selected card index
   const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(
     null,
   );
   const [matchedPairs, setMatchedPairs] = useState<number>(0);
-  const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [moves, setMoves] = useState<number>(0);
+
+  // UI state
+  const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [timerActive, setTimerActive] = useState<boolean>(false);
   const [feedback, setFeedback] = useState<string>('');
-  const previousIndex = useRef<number | null>(null);
-  const [completedTime, setCompletedTime] = useState<number>(0);
-  const [startTime, setStartTime] = useState<number | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const totalPairs = 6;
 
-  // Initial card flip effect with brief delay
-  useEffect(() => {
+  // Time tracking
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [completedTime, setCompletedTime] = useState<number>(0);
+
+  // Refs
+  const previousIndex = useRef<number | null>(null);
+
+  // Show all cards initially, then hide them after delay
+  function initializeCards(delay: number = 3000) {
     setCards((prevCards) =>
       prevCards.map((card) => ({ ...card, status: 'active' })),
     );
-
-    // Hide cards after brief preview period
-    const initialFlipTimer = setTimeout(() => {
+    const timer = setTimeout(() => {
       setCards((prevCards) =>
         prevCards.map((card) => ({ ...card, status: '' })),
       );
       setTimerActive(true);
       setStartTime(Date.now());
-    }, 3000);
+    }, delay);
+    return timer;
+  }
 
-    return () => clearTimeout(initialFlipTimer);
+  // Initial card setup on component mount
+  useEffect(() => {
+    const timer = initializeCards();
+    return () => clearTimeout(timer);
   }, []);
 
-  // Check for victory condition
+  // Check for win condition
   useEffect(() => {
     if (matchedPairs === totalPairs) {
       setTimerActive(false);
@@ -61,10 +70,10 @@ export const GameProvider = ({
       setShowModal(true);
       setIsGameOver(true);
     }
-  }, [matchedPairs, startTime]);
+  }, [matchedPairs, startTime, totalPairs]);
 
-  // Handle card selection
-  const handleCardSelection = (index: number) => {
+  // Card selection handler
+  function handleCardSelection(index: number) {
     handleCardClick(
       index,
       cards,
@@ -72,17 +81,15 @@ export const GameProvider = ({
       selectedCardIndex,
       setSelectedCardIndex,
       previousIndex,
-      () => setMatchedPairs((prev) => prev + 1), // increment pairs on match
-      () => {
-        // No additional action needed on mismatch
-      },
+      () => setMatchedPairs((prev) => prev + 1),
+      () => {}, // No action needed on mismatch
       setFeedback,
       setMoves,
     );
-  };
+  }
 
-  // Restart the game
-  const restartGame = () => {
+  // Reset game state
+  function restartGame() {
     setCards(shuffleCards(generateCards()));
     setSelectedCardIndex(null);
     setMatchedPairs(0);
@@ -93,28 +100,15 @@ export const GameProvider = ({
     setShowModal(false);
     setStartTime(null);
     previousIndex.current = null;
-
-    // Initial card flip effect with brief delay
     setTimeout(() => {
-      setCards((prevCards) =>
-        prevCards.map((card) => ({ ...card, status: 'active' })),
-      );
-      // Hide cards after preview period
-      setTimeout(() => {
-        setCards((prevCards) =>
-          prevCards.map((card) => ({ ...card, status: '' })),
-        );
-        setTimerActive(true);
-        setStartTime(Date.now());
-      }, 3000);
+      initializeCards();
     }, 100);
-  };
+  }
 
   // Handle game exit
   const handleExit = () => {
     onExit();
   };
-
   return (
     <GameContext.Provider
       value={{
@@ -132,12 +126,12 @@ export const GameProvider = ({
         setTimerActive,
         feedback,
         setFeedback,
-        previousIndex,
-        restartGame,
-        handleCardSelection,
-        completedTime,
         showModal,
         setShowModal,
+        previousIndex,
+        completedTime,
+        restartGame,
+        handleCardSelection,
         handleExit,
       }}
     >
