@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { use } from 'react';
 import { fetchLatestCommits } from '@/api/github';
 import { Badge, ListGroup } from 'react-bootstrap';
 
@@ -10,17 +10,10 @@ interface Commit {
   author: string | null;
 }
 
-const LatestCommits = () => {
-  const [commits, setCommits] = useState<Commit[]>([]);
-
-  // Fetch latest commits on component mount
-  useEffect(() => {
-    const getCommitData = async () => {
-      const data = await fetchLatestCommits();
-      setCommits(data);
-    };
-    getCommitData();
-  }, []);
+// Fetches and displays the latest commits
+export default function LatestCommits() {
+  // Fetches the latest commits
+  const commits: Commit[] = use(fetchLatestCommits());
 
   if (!commits.length) {
     return <div>Loading commit data...</div>;
@@ -51,6 +44,4 @@ const LatestCommits = () => {
       </ListGroup>
     </>
   );
-};
-
-export default LatestCommits;
+}
