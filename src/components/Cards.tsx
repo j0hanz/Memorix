@@ -18,7 +18,6 @@ interface CardData {
 interface CardsProps {
   cards: CardData[];
   handleCardSelection: (index: number) => void;
-  matchedPairs: number;
   moves: number;
   onReset: () => void;
   onExit: () => void;
@@ -29,7 +28,6 @@ interface CardsProps {
 const Cards: React.FC<CardsProps> = ({
   cards,
   handleCardSelection,
-  matchedPairs,
   moves,
   onReset,
   onExit,

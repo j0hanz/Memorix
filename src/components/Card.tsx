@@ -29,7 +29,7 @@ const Card = memo(({ card, index, clickHandler }: CardProps) => {
       aria-label={`Card ${card.name}`}
     >
       <GameCard.Body>
-        <div className={styles.back}></div>
+        <div className={styles.back} />
         <Image
           src={card.img}
           alt={card.name}

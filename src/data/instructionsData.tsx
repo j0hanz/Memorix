@@ -128,7 +128,8 @@ export default function InstructionsData() {
         <>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              Stars are earned based on moves and time. Here's the breakdown.
+              Stars are earned based on moves and time. Here&apos;s the
+              breakdown.
             </ListGroup.Item>
           </ListGroup>
           <Row className="d-flex justify-content-between mx-1 align-items-center">
