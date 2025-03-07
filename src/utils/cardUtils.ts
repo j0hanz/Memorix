@@ -1,6 +1,21 @@
 import { matchCheck } from './matchCheck';
 import { playSound } from './soundManager';
 import { CardDef } from '@/data/cardData';
+import { FEEDBACK } from '@/utils/constants';
+
+interface CardClickParams {
+  index: number;
+  cards: CardDef[];
+  setCards: React.Dispatch<React.SetStateAction<CardDef[]>>;
+  selectedCardIndex: number | null;
+  setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>;
+  previousIndex: React.RefObject<number | null>;
+  onMatch: () => void;
+  onMismatch: () => void;
+  setFeedback: React.Dispatch<React.SetStateAction<string>>;
+  setMoves: React.Dispatch<React.SetStateAction<number>>;
+  isInitialReveal?: boolean;
+}
 
 // Check if a card can be clicked
 export function canClickCard(
@@ -15,24 +30,24 @@ export function canClickCard(
     index !== previousIndex.current &&
     index !== selectedCardIndex &&
     cards[index] &&
-    cards[index].status !== 'active matched'
+    !cards[index].status.includes('matched')
   );
 }
 
 // Handle the logic when a card is clicked
-export function handleCardClick(
-  index: number,
-  cards: CardDef[],
-  setCards: React.Dispatch<React.SetStateAction<CardDef[]>>,
-  selectedCardIndex: number | null,
-  setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>,
-  previousIndex: React.RefObject<number | null>,
-  handleMatchUpdate: () => void,
-  handleMismatchUpdate: () => void,
-  setFeedback: React.Dispatch<React.SetStateAction<string>>,
-  setMoves: React.Dispatch<React.SetStateAction<number>>,
-  isInitialReveal: boolean = false,
-): void {
+export function handleCardClick({
+  index,
+  cards,
+  setCards,
+  selectedCardIndex,
+  setSelectedCardIndex,
+  previousIndex,
+  onMatch,
+  onMismatch,
+  setFeedback,
+  setMoves,
+  isInitialReveal = false,
+}: CardClickParams): void {
   if (
     !canClickCard(
       index,
@@ -58,18 +73,18 @@ export function handleCardClick(
   }
 
   // Check match
-  const isMatch = matchCheck(
-    index,
-    newCards,
+  const isMatch = matchCheck({
+    currentCardIndex: index,
+    cards: newCards,
     setCards,
     selectedCardIndex,
     setSelectedCardIndex,
-    handleMatchUpdate,
-    handleMismatchUpdate,
-  );
+    onMatch,
+    onMismatch,
+  });
 
   playSound(isMatch ? 'correct' : 'wrong');
-  setFeedback(isMatch ? 'success' : 'error');
+  setFeedback(isMatch ? FEEDBACK.SUCCESS : FEEDBACK.ERROR);
   previousIndex.current = null;
   setMoves((prev) => prev + 1);
 }
