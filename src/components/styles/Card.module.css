@@ -1,7 +1,9 @@
 /* Flip Card Effects */
 .card {
   position: relative;
-  height: 13rem;
+  height: 20vh;
+  aspect-ratio: 1/1;
+  width: 100%;
   perspective: 1200px;
   background: var(--bg-card);
   border: var(--border-card);
@@ -75,39 +77,38 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 1200px) {
+@media (max-width: 990px) {
   .card {
-    height: 10rem;
+    height: 18vh;
   }
 }
 
-/* Responsive adjustments */
 @media (max-width: 765px) {
   .card {
-    height: 8.5rem;
+    height: 17vh;
   }
 }
 
 @media (max-width: 650px) {
   .card {
-    height: 8rem;
+    height: 15vh;
   }
 }
 
 @media (max-width: 550px) {
   .card {
-    height: 7.25rem;
+    height: 15vh;
   }
 }
 
 @media (max-width: 425px) {
   .card {
-    height: 7rem;
+    height: 13vh;
   }
 }
 
 @media (max-width: 375px) {
   .card {
-    height: 6.5rem;
+    height: 12vh;
   }
 }
