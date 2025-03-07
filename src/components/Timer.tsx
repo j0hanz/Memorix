@@ -11,7 +11,7 @@ const Timer = ({ timerActive }: TimerProps) => {
   const elapsedTime = useTimer(timerActive);
 
   return (
-    <div className={styles.timer}>
+    <div className="d-flex align-items-center gap-1">
       <HiOutlineClock className={styles.clockIcon} /> {elapsedTime}
     </div>
   );
