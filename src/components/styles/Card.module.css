@@ -90,26 +90,14 @@
   }
 }
 
-@media (max-width: 650px) {
-  .card {
-    height: 15vh;
-  }
-}
-
 @media (max-width: 550px) {
   .card {
-    height: 15vh;
+    height: 16vh;
   }
 }
 
 @media (max-width: 425px) {
   .card {
-    height: 13vh;
-  }
-}
-
-@media (max-width: 375px) {
-  .card {
-    height: 12vh;
+    height: 14vh;
   }
 }
