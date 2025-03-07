@@ -18,12 +18,12 @@ export interface GameContextType {
   feedback: string;
   setFeedback: React.Dispatch<React.SetStateAction<string>>;
   previousIndex: React.RefObject<number | null>;
-  restartGame: () => void;
+  resetGameState: () => void;
   handleCardSelection: (index: number) => void;
   completedTime: number;
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  handleExit: () => void;
+  exitToMainMenu: () => void;
 }
 
 // Create the game context
