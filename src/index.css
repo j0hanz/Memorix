@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Fredoka:wght@400;500&display=swap');
-
 /* Bootstrap overrides */
 :root {
   --bs-body-font-weigh: none;
@@ -40,11 +38,11 @@
 :root {
   --outline-card-matched: 1px solid #00c500;
   --outline-card-wrong: 1px solid #c9302c;
-  --text-spacing: 0.1rem;
+  --text-spacing: 0.05rem;
 }
 
 body {
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Fredoka';
   background: var(--bg-primary);
   color: var(--text-color);
   display: flex;
@@ -53,6 +51,7 @@ body {
   height: 100dvh;
   letter-spacing: var(--text-spacing);
   font-size: 1.05rem;
+  font-weight: 400;
 }
 
 @media (max-width: 425px) {
