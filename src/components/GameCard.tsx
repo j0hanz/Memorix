@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Card from './Card';
 import Image from './Image';
 import styles from './styles/Card.module.css';
+import { useGameContext } from '@/hooks/useGameContext';
 
 interface GameCardProps {
   card: {
@@ -18,6 +19,8 @@ export default function GameCard({ card, index, clickHandler }: GameCardProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   // State to track image error status
   const [imageError, setImageError] = useState(false);
+  // Get isInitialReveal state from context to disable interaction
+  const { isInitialReveal } = useGameContext();
 
   // Get card class names based on current state
   const cardClassName = () => {
@@ -33,7 +36,12 @@ export default function GameCard({ card, index, clickHandler }: GameCardProps) {
 
   // Handles the card click event
   function handleClick() {
-    if ((imageLoaded || imageError) && clickHandler) {
+    if (
+      (imageLoaded || imageError) &&
+      clickHandler &&
+      !isInitialReveal &&
+      !card.status.includes('matched')
+    ) {
       clickHandler(index);
     }
   }
