@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Game from '@/components/Game';
 import LoadingSpinner from '@/components/Spinner';
 import { GameInstructions, LatestUpdates } from '@/components/Modal';
-import { useGameHandlers } from '@/utils/gameHandlers';
+import { useGameHandlers } from '@/hooks/useGameHandlers';
 import { motion } from 'framer-motion';
 import { GameProvider } from '@/contexts/GameProvider';
 import { usePageTransition } from '@/hooks/usePageTransition';
