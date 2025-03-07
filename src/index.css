@@ -5,7 +5,7 @@
   --bs-body-font-weigh: none;
   --bs-primary-rgb: none;
   --bs-secondary-rgb: none;
-  --bs-emphasis-color: #ff8c00d9;
+  --bs-emphasis-color: #ff8c00;
   --bs-link-color: none;
   --bs-link-hover-color: none;
   --bs-border-color: none;
@@ -16,11 +16,12 @@
 
 /* Color variables */
 :root {
-  --text-color: #f5f5f5;
+  --text-color: #fafafa;
   --text-color-highlight: #ff0077;
   --bg-primary: #0d1117;
   --bg-card: #041b4b;
-  --bg-modal: #000000be;
+  --bg-modal: #242424;
+  --bg-modal-content: #181818;
   --btn-primary: #001e5f;
   --btn-primary-hover: #00194e;
   --btn-secondary: #2c2c2c;
@@ -32,22 +33,14 @@
   --color-clock-icon: #fdc200;
   --color-star-icon-gray: #282e35;
   --moves: #fdc200;
-  --shadow-card: rgba(0, 0, 0, 0.6);
-  --shadow-card-hover: #00000040;
-  --shadow-row: #000000d9;
-  --shadow-primary: 0 4px 8px #00000033;
+  --shadow-row: #0a0a0a;
 }
 
 /* Style variables */
 :root {
-  --text-title-shadow: 0 4px 3px rgba(0, 0, 0, 0.6);
-  --card-shadow: 0 2px 6px #00000099;
-  --card-shadow-hover: 0 4px 10px #00000099;
-  --shadow-card-matched: 0 0 0 1px #00c500;
-  --shadow-card-wrong: 0 0 0 1px #c9302c;
+  --shadow-card-matched: 0 0 0 2px #00c500;
+  --shadow-card-wrong: 0 0 0 2px #c9302c;
   --text-spacing: 0.1rem;
-  --border-primary: 1px solid #fdc200;
-  --border-row: #4a5568;
 }
 
 body {

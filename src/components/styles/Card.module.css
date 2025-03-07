@@ -6,7 +6,6 @@
   background: var(--bg-card);
   border: var(--border-card);
   border-radius: 10px;
-  box-shadow: var(--card-shadow);
   cursor: pointer;
   transition: all 0.6s ease;
 }
@@ -44,14 +43,12 @@
 /* Card Hover */
 .card:hover {
   transform: scale(1.05);
-  box-shadow: var(--card-shadow-hover);
   transition: all 0.6s ease;
 }
 
 /* Active (flipped) card */
 .card.active {
   transform: rotateY(180deg) scale(1.05);
-  box-shadow: 0 4px 8px var(--shadow-card);
   transition: all 0.6s ease;
 }
 
