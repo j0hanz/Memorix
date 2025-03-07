@@ -6,11 +6,7 @@
 }
 
 .instructionsModal :global(.modal-content) {
-  height: 55vh;
-}
-
-.latestUpdatesModal :global(.modal-content) {
-  height: 50vh;
+  min-height: 55vh;
 }
 
 .modal :global(.modal-header) {
@@ -218,10 +214,6 @@
     font-size: 0.8rem;
   }
   .instructionsModal :global(.modal-content) {
-    height: 100%;
-  }
-
-  .latestUpdatesModal :global(.modal-content) {
     height: 100%;
   }
 }
