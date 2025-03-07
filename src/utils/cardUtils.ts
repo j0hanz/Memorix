@@ -8,8 +8,10 @@ export function canClickCard(
   cards: CardDef[],
   selectedCardIndex: number | null,
   previousIndex: React.RefObject<number | null>,
+  isInitialReveal: boolean,
 ): boolean {
   return (
+    !isInitialReveal &&
     index !== previousIndex.current &&
     index !== selectedCardIndex &&
     cards[index] &&
@@ -29,8 +31,17 @@ export function handleCardClick(
   handleMismatchUpdate: () => void,
   setFeedback: React.Dispatch<React.SetStateAction<string>>,
   setMoves: React.Dispatch<React.SetStateAction<number>>,
+  isInitialReveal: boolean = false,
 ): void {
-  if (!canClickCard(index, cards, selectedCardIndex, previousIndex)) {
+  if (
+    !canClickCard(
+      index,
+      cards,
+      selectedCardIndex,
+      previousIndex,
+      isInitialReveal,
+    )
+  ) {
     return;
   }
 
