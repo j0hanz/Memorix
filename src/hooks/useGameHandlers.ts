@@ -5,13 +5,14 @@ interface UseGameHandlersProps {
   setShowLatestUpdates: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+// Hook providing app-level game flow control
 export const useGameHandlers = ({
   setIsLoading,
   setIsGameActive,
   setShowInstructions,
   setShowLatestUpdates,
 }: UseGameHandlersProps) => {
-  // Start game
+  // Start a new game
   const startGame = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -30,27 +31,27 @@ export const useGameHandlers = ({
     }, 3000);
   };
 
-  // Exit game
+  // Exit to main menu
   const handleExit = () => {
     setIsGameActive(false);
   };
 
-  // Open Instructions modal
+  // Modal control functions
   const openInstructions = () => {
     setShowInstructions(true);
   };
 
-  // Close Instructions modal
+  // Close instructions modal
   const closeInstructions = () => {
     setShowInstructions(false);
   };
 
-  // Open Latest Updates modal
+  // Open latest updates modal
   const openLatestUpdates = () => {
     setShowLatestUpdates(true);
   };
 
-  // Close Latest Updates modal
+  // Close latest updates modal
   const closeLatestUpdates = () => {
     setShowLatestUpdates(false);
   };
