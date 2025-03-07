@@ -3,6 +3,7 @@ import { shuffleCards } from '@/utils/shuffleCards';
 import { generateCards, CardDef } from '@/data/cardData';
 import { handleCardClick } from '@/utils/cardUtils';
 import { GameContext } from './GameContext';
+import { GAME_CONFIG, CARD_STATUS } from '@/utils/constants';
 
 interface GameProviderProps {
   children: ReactNode;
@@ -14,8 +15,6 @@ export const GameProvider = ({
   children,
   onExit,
 }: GameProviderProps): React.ReactElement => {
-  const totalPairs = 6;
-
   // Game state
   const [cards, setCards] = useState<CardDef[]>(() =>
     shuffleCards(generateCards()),
@@ -41,14 +40,14 @@ export const GameProvider = ({
   const previousIndex = useRef<number | null>(null);
 
   // Show all cards initially, then hide them after delay
-  function initializeCards(delay: number = 3000) {
+  function initializeCards(delay: number = GAME_CONFIG.INITIAL_REVEAL_TIME) {
     setIsInitialReveal(true);
     setCards((prevCards) =>
-      prevCards.map((card) => ({ ...card, status: 'active' })),
+      prevCards.map((card) => ({ ...card, status: CARD_STATUS.ACTIVE })),
     );
     const timer = setTimeout(() => {
       setCards((prevCards) =>
-        prevCards.map((card) => ({ ...card, status: '' })),
+        prevCards.map((card) => ({ ...card, status: CARD_STATUS.DEFAULT })),
       );
       setIsInitialReveal(false);
       setTimerActive(true);
@@ -65,7 +64,7 @@ export const GameProvider = ({
 
   // Check for win condition
   useEffect(() => {
-    if (matchedPairs === totalPairs) {
+    if (matchedPairs === GAME_CONFIG.TOTAL_PAIRS) {
       setTimerActive(false);
       if (startTime) {
         setCompletedTime(Math.floor((Date.now() - startTime) / 1000));
@@ -73,23 +72,23 @@ export const GameProvider = ({
       setShowModal(true);
       setIsGameOver(true);
     }
-  }, [matchedPairs, startTime, totalPairs]);
+  }, [matchedPairs, startTime]);
 
   // Card selection handler
   function handleCardSelection(index: number) {
-    handleCardClick(
+    handleCardClick({
       index,
       cards,
       setCards,
       selectedCardIndex,
       setSelectedCardIndex,
       previousIndex,
-      () => setMatchedPairs((prev) => prev + 1),
-      () => {},
+      onMatch: () => setMatchedPairs((prev) => prev + 1),
+      onMismatch: () => {},
       setFeedback,
       setMoves,
       isInitialReveal,
-    );
+    });
   }
 
   // Reset game state
