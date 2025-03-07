@@ -32,14 +32,6 @@ export const playSound = (soundName: string): void => {
   sound.play();
 };
 
-// Function to handle button clicks and play button sound
-export const handleButtonClick =
-  (callback?: (event: React.MouseEvent<HTMLButtonElement>) => void) =>
-  (event: React.MouseEvent<HTMLButtonElement>): void => {
-    playSound('button');
-    callback?.(event);
-  };
-
 // Functions to manage mute state in localStorage
 export const getMuteState = (): boolean => isMuted;
 export const setMuteState = (muted: boolean): void => {
