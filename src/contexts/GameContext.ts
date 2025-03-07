@@ -1,10 +1,10 @@
 import { createContext } from 'react';
-import { CardDef } from '@/data/cardData';
+import { PairedCard } from '@/data/cardData';
 
 // Define the shape of the game context
 export interface GameContextType {
-  cards: CardDef[];
-  setCards: React.Dispatch<React.SetStateAction<CardDef[]>>;
+  cards: PairedCard[];
+  setCards: React.Dispatch<React.SetStateAction<PairedCard[]>>;
   selectedCardIndex: number | null;
   setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>;
   matchedPairs: number;
