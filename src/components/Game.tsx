@@ -21,10 +21,10 @@ export default function GameLogic({ onRestart }: GameLogicProps) {
     timerActive,
     feedback,
     completedTime,
-    handleExit,
+    exitToMainMenu,
   } = useGameContext();
 
-  // Handle game reset
+  // Reset the game state
   const handleReset = () => {
     onRestart();
   };
@@ -44,7 +44,7 @@ export default function GameLogic({ onRestart }: GameLogicProps) {
         matchedPairs={matchedPairs}
         moves={moves}
         onReset={handleReset}
-        onExit={handleExit}
+        onExit={exitToMainMenu}
         timerActive={timerActive}
         feedback={feedback}
       />
@@ -53,7 +53,7 @@ export default function GameLogic({ onRestart }: GameLogicProps) {
           show={showModal}
           onClose={() => setShowModal(false)}
           onReset={handleReset}
-          onExit={handleExit}
+          onExit={exitToMainMenu}
           completedTime={completedTime.toString()}
           moves={moves}
         />
