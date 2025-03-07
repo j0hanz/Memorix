@@ -7,12 +7,12 @@
 
 .instructionsModal :global(.modal-content) {
   background: var(--bg-modal-content);
-  height: 55dvh;
+  height: 55vh;
 }
 
 .latestUpdatesModal :global(.modal-content) {
   background: var(--bg-modal-content);
-  height: 50dvh;
+  height: 50vh;
 }
 
 .modal :global(.modal-header) {
