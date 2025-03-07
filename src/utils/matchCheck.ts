@@ -33,6 +33,13 @@ function updateCardStatus({
 }): void {
   setTimeout(() => {
     if (isMatch) {
+      // Apply matched status to both cards
+      applyCardStatus(
+        cards,
+        [currentCardIndex, selectedCardIndex],
+        'active matched',
+      );
+      setCards([...cards]);
       onMatch();
     } else {
       applyCardStatus(cards, [currentCardIndex, selectedCardIndex], '');
@@ -67,12 +74,8 @@ export function matchCheck(
 
   const isMatch = currentCard.pairId === selectedCard.pairId;
 
-  applyCardStatus(
-    updatedCards,
-    [currentCardIndex, selectedCardIndex],
-    isMatch ? 'active matched' : 'active',
-  );
-
+  // Apply active status to the current card being clicked
+  updatedCards[currentCardIndex].status = 'active';
   setCards(updatedCards);
   updateCardStatus({
     cards: updatedCards,
