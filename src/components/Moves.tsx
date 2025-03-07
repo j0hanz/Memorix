@@ -8,7 +8,7 @@ interface MovesProps {
 const Moves = ({ moves }: MovesProps) => {
   // Display number of moves
   return (
-    <div className={styles.moves}>
+    <div className="d-flex align-items-center gap-1">
       <HiOutlineArrowPathRoundedSquare className={styles.statsIcon} />
       {moves}
     </div>
