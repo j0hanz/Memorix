@@ -15,5 +15,4 @@ const Moves = ({ moves }: MovesProps) => {
   );
 };
 
-Moves.displayName = 'Moves';
 export default Moves;

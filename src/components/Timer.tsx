@@ -17,5 +17,4 @@ const Timer = ({ timerActive }: TimerProps) => {
   );
 };
 
-Timer.displayName = 'Timer';
 export default Timer;
