@@ -89,7 +89,7 @@ export const GameProvider = ({
   }
 
   // Reset game state
-  function restartGame() {
+  function resetGameState() {
     setCards(shuffleCards(generateCards()));
     setSelectedCardIndex(null);
     setMatchedPairs(0);
@@ -105,10 +105,11 @@ export const GameProvider = ({
     }, 100);
   }
 
-  // Handle game exit
-  const handleExit = () => {
+  // Exit to main menu
+  const exitToMainMenu = () => {
     onExit();
   };
+
   return (
     <GameContext.Provider
       value={{
@@ -130,9 +131,9 @@ export const GameProvider = ({
         setShowModal,
         previousIndex,
         completedTime,
-        restartGame,
+        resetGameState,
         handleCardSelection,
-        handleExit,
+        exitToMainMenu,
       }}
     >
       {children}
