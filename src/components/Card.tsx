@@ -6,18 +6,23 @@ interface CardProps {
   children: React.ReactNode;
   role?: string;
   ariaLabel?: string;
+  ariaSelected?: boolean;
+  ariaHidden?: boolean;
+  disabled?: boolean;
 }
 
-// Card component
 const Card: React.FC<CardProps> = ({
   className = '',
   onClick,
   children,
-  role = 'region',
+  role = 'button',
   ariaLabel,
+  ariaSelected = false,
+  ariaHidden = false,
+  disabled = false,
 }) => {
   const defaultStyles: React.CSSProperties = {
-    cursor: onClick ? 'pointer' : 'default',
+    cursor: disabled ? 'default' : onClick ? 'pointer' : 'default',
     display: 'flex',
     flexDirection: 'column',
   };
@@ -25,9 +30,12 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       className={className}
-      onClick={onClick}
+      onClick={disabled ? undefined : onClick}
       role={role}
       aria-label={ariaLabel}
+      aria-selected={ariaSelected}
+      aria-hidden={ariaHidden}
+      tabIndex={disabled ? -1 : 0}
       style={defaultStyles}
     >
       {children}
