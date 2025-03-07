@@ -1,7 +1,7 @@
 /* Flip Card Effects */
 .card {
   position: relative;
-  height: 20vh;
+  height: 22vh;
   aspect-ratio: 1/1;
   width: 100%;
   perspective: 1200px;
@@ -86,7 +86,7 @@
 
 @media (max-width: 765px) {
   .card {
-    height: 17vh;
+    height: 16vh;
   }
 }
 
@@ -98,6 +98,6 @@
 
 @media (max-width: 425px) {
   .card {
-    height: 14vh;
+    height: 15vh;
   }
 }

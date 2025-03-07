@@ -3,14 +3,14 @@
   display: flex;
   align-items: start;
   justify-content: center;
-  height: 100dvh;
+  min-height: 100dvh;
   width: 45vw;
+  margin: 0 auto;
 }
 
 /* Stats */
 .statsTop {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   color: var(--text-color);
   border-bottom: 3px solid var(--bg-card);
@@ -23,9 +23,10 @@
 .statsBottom {
   display: flex;
   align-items: end;
-  height: 2.5rem;
   justify-content: center;
   color: var(--text-color);
+  height: 3vh;
+  margin-bottom: auto;
 }
 
 /* Button */
@@ -53,10 +54,10 @@
 
 @media (max-width: 1200px) {
   .row {
-    width: 65vw;
+    width: 70vw;
   }
   .statsTop {
-    width: 63vw;
+    width: 67vw;
   }
 }
 
@@ -71,10 +72,10 @@
 
 @media (max-width: 770px) {
   .row {
-    width: 75vw;
+    width: 70vw;
   }
   .statsTop {
-    width: 72vw;
+    width: 66vw;
   }
 }
 
