@@ -34,7 +34,6 @@ export default function Cards({
   onExit,
   timerActive,
   feedback,
-  matchedPairs,
 }: CardsProps) {
   return (
     <Container>
@@ -46,7 +45,6 @@ export default function Cards({
             icon={<HiArrowPath className={styles.exitRestartIcon} />}
           />
           <Timer timerActive={timerActive} />
-          <div className="d-none">{matchedPairs}/6</div>
           <Moves moves={moves} />
           <Button
             className={styles.btnExitRestart}
