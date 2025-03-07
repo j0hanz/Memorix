@@ -15,6 +15,7 @@
     "start": "vite"
   },
   "dependencies": {
+    "@fontsource/fredoka": "^5.2.5",
     "@vitejs/plugin-react": "^4.3.4",
     "axios": "^1.8.2",
     "babel-plugin-react-compiler": "^19.0.0-beta-40c6c23-20250301",
