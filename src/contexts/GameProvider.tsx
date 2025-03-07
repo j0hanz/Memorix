@@ -31,6 +31,7 @@ export const GameProvider = ({
   const [timerActive, setTimerActive] = useState<boolean>(false);
   const [feedback, setFeedback] = useState<string>('');
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isInitialReveal, setIsInitialReveal] = useState<boolean>(true);
 
   // Time tracking
   const [startTime, setStartTime] = useState<number | null>(null);
@@ -41,6 +42,7 @@ export const GameProvider = ({
 
   // Show all cards initially, then hide them after delay
   function initializeCards(delay: number = 3000) {
+    setIsInitialReveal(true);
     setCards((prevCards) =>
       prevCards.map((card) => ({ ...card, status: 'active' })),
     );
@@ -48,6 +50,7 @@ export const GameProvider = ({
       setCards((prevCards) =>
         prevCards.map((card) => ({ ...card, status: '' })),
       );
+      setIsInitialReveal(false);
       setTimerActive(true);
       setStartTime(Date.now());
     }, delay);
@@ -85,6 +88,7 @@ export const GameProvider = ({
       () => {},
       setFeedback,
       setMoves,
+      isInitialReveal,
     );
   }
 
@@ -134,6 +138,7 @@ export const GameProvider = ({
         resetGameState,
         handleCardSelection,
         exitToMainMenu,
+        isInitialReveal,
       }}
     >
       {children}
