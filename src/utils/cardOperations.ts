@@ -3,8 +3,8 @@ import { CardDef } from '@/data/cardData';
 import { FEEDBACK, GAME_CONFIG, CARD_STATUS } from '@/utils/constants';
 
 // Function to apply status to specified cards
-function applyCardStatus(
-  cards: CardDef[],
+function applyCardStatus<T extends CardDef>(
+  cards: T[],
   indices: number[],
   status: string,
 ): void {
@@ -15,9 +15,9 @@ function applyCardStatus(
   });
 }
 
-interface UpdateCardStatusParams {
-  cards: CardDef[];
-  setCards: React.Dispatch<React.SetStateAction<CardDef[]>>;
+interface UpdateCardStatusParams<T extends CardDef> {
+  cards: T[];
+  setCards: React.Dispatch<React.SetStateAction<T[]>>;
   currentCardIndex: number;
   selectedCardIndex: number;
   isMatch: boolean;
@@ -26,7 +26,7 @@ interface UpdateCardStatusParams {
 }
 
 // Update card status based on match result
-function updateCardStatus({
+function updateCardStatus<T extends CardDef>({
   cards,
   setCards,
   currentCardIndex,
@@ -34,7 +34,7 @@ function updateCardStatus({
   isMatch,
   onMatch,
   onMismatch,
-}: UpdateCardStatusParams): void {
+}: UpdateCardStatusParams<T>): void {
   setTimeout(() => {
     if (isMatch) {
       // Apply matched status to both cards
@@ -57,10 +57,10 @@ function updateCardStatus({
   }, GAME_CONFIG.CARD_FLIP_DELAY);
 }
 
-interface MatchCheckParams {
+interface MatchCheckParams<T extends CardDef> {
   currentCardIndex: number;
-  cards: CardDef[];
-  setCards: React.Dispatch<React.SetStateAction<CardDef[]>>;
+  cards: T[];
+  setCards: React.Dispatch<React.SetStateAction<T[]>>;
   selectedCardIndex: number;
   setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>;
   onMatch: () => void;
@@ -68,7 +68,7 @@ interface MatchCheckParams {
 }
 
 // Check if selected cards match
-export function matchCheck({
+export function matchCheck<T extends CardDef>({
   currentCardIndex,
   cards,
   setCards,
@@ -76,7 +76,7 @@ export function matchCheck({
   setSelectedCardIndex,
   onMatch,
   onMismatch,
-}: MatchCheckParams): boolean {
+}: MatchCheckParams<T>): boolean {
   if (
     currentCardIndex === selectedCardIndex ||
     !cards[currentCardIndex] ||
@@ -109,10 +109,10 @@ export function matchCheck({
   return isMatch;
 }
 
-interface CardClickParams {
+interface CardClickParams<T extends CardDef> {
   index: number;
-  cards: CardDef[];
-  setCards: React.Dispatch<React.SetStateAction<CardDef[]>>;
+  cards: T[];
+  setCards: React.Dispatch<React.SetStateAction<T[]>>;
   selectedCardIndex: number | null;
   setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>;
   previousIndex: React.RefObject<number | null>;
@@ -124,9 +124,9 @@ interface CardClickParams {
 }
 
 // Check if a card can be clicked
-export function canClickCard(
+export function canClickCard<T extends CardDef>(
   index: number,
-  cards: CardDef[],
+  cards: T[],
   selectedCardIndex: number | null,
   previousIndex: React.RefObject<number | null>,
   isInitialReveal: boolean,
@@ -141,7 +141,7 @@ export function canClickCard(
 }
 
 // Handle the logic when a card is clicked
-export function handleCardClick({
+export function handleCardClick<T extends CardDef>({
   index,
   cards,
   setCards,
@@ -153,7 +153,7 @@ export function handleCardClick({
   setFeedback,
   setMoves,
   isInitialReveal = false,
-}: CardClickParams): void {
+}: CardClickParams<T>): void {
   if (
     !canClickCard(
       index,
