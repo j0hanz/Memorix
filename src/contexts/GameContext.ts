@@ -24,6 +24,7 @@ export interface GameContextType {
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   exitToMainMenu: () => void;
+  isInitialReveal: boolean;
 }
 
 // Create the game context
