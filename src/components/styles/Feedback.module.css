@@ -6,14 +6,14 @@
 
 .success {
   color: var(--feedback-correct);
-  box-shadow: var(--shadow-card-matched);
+  outline: var(--outline-card-matched);
   border-radius: 10px;
   font-size: 2rem;
 }
 
 .error {
   color: var(--feedback-wrong);
-  box-shadow: var(--shadow-card-wrong);
+  outline: var(--outline-card-wrong);
   border-radius: 10px;
   font-size: 2rem;
 }
