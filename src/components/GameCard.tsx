@@ -14,12 +14,10 @@ interface GameCardProps {
   clickHandler?: (index: number) => void;
 }
 
-export default function GameCard({ card, index, clickHandler }: GameCardProps) {
+function GameCard({ card, index, clickHandler }: GameCardProps) {
   // State to track image loading status
   const [imageLoaded, setImageLoaded] = useState(false);
-  // State to track image error status
   const [imageError, setImageError] = useState(false);
-  // Get isInitialReveal state from context to disable interaction
   const { isInitialReveal } = useGameContext();
 
   // Get card class names based on current state
@@ -34,35 +32,37 @@ export default function GameCard({ card, index, clickHandler }: GameCardProps) {
       .join(' ');
   };
 
+  // Determine if card is interactive
+  const isInteractive = imageLoaded || imageError;
+  const isMatched = card.status.includes('matched');
+  const isClickable = isInteractive && !isInitialReveal && !isMatched;
+
   // Handles the card click event
-  function handleClick() {
-    if (
-      (imageLoaded || imageError) &&
-      clickHandler &&
-      !isInitialReveal &&
-      !card.status.includes('matched')
-    ) {
+  const handleClick = () => {
+    if (isClickable && clickHandler) {
       clickHandler(index);
     }
-  }
+  };
 
   // Handles the image load event
-  function handleImageLoad() {
+  const handleImageLoad = () => {
     setImageLoaded(true);
-  }
+  };
 
   // Handles the image error event
-  function handleImageError() {
+  const handleImageError = () => {
     setImageError(true);
     setImageLoaded(true);
-  }
+  };
 
   return (
     <Card
       className={cardClassName()}
       onClick={handleClick}
       role="button"
-      aria-label={`Card ${card.name}`}
+      ariaLabel={`Card ${card.name}`}
+      ariaSelected={card.status === 'active'}
+      disabled={!isClickable}
     >
       <div className={styles.back} />
       <Image
@@ -77,3 +77,5 @@ export default function GameCard({ card, index, clickHandler }: GameCardProps) {
     </Card>
   );
 }
+
+export default GameCard;
