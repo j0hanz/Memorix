@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface ImageProps {
   src: string;
@@ -11,9 +11,10 @@ interface ImageProps {
   onLoad?: () => void;
   onError?: () => void;
   loading?: 'lazy' | 'eager';
+  fallbackSrc?: string;
 }
 
-// Image component
+// Enhanced Image component with error handling and loading management
 const Image: React.FC<ImageProps> = ({
   src,
   alt,
@@ -25,18 +26,36 @@ const Image: React.FC<ImageProps> = ({
   onLoad,
   onError,
   loading = 'lazy',
+  fallbackSrc,
 }) => {
+  const [imgSrc, setImgSrc] = useState<string>(src);
+  const [hasError, setHasError] = useState<boolean>(false);
+
+  // Handle image load event
+  const handleLoad = () => {
+    onLoad?.();
+  };
+
+  // Handle image error with fallback
+  const handleError = () => {
+    if (!hasError && fallbackSrc) {
+      setImgSrc(fallbackSrc);
+      setHasError(true);
+    }
+    onError?.();
+  };
+
   return (
     <img
-      src={src}
+      src={imgSrc}
       alt={alt}
       width={width}
       height={height}
       className={className}
       style={style}
       onClick={onClick}
-      onLoad={onLoad}
-      onError={onError}
+      onLoad={handleLoad}
+      onError={handleError}
       loading={loading}
     />
   );
