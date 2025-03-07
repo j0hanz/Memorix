@@ -1,9 +1,5 @@
 import React, { useState, useRef, ReactNode, useEffect } from 'react';
-import {
-  generateCards,
-  shuffleCards,
-  getNewShuffledDeck,
-} from '@/data/cardData';
+import { getNewShuffledDeck, PairedCard } from '@/data/cardData';
 import { handleCardClick } from '@/utils/cardOperations';
 import { GameContext } from './GameContext';
 import { GAME_CONFIG, CARD_STATUS } from '@/utils/constants';
@@ -19,7 +15,7 @@ export const GameProvider = ({
   onExit,
 }: GameProviderProps): React.ReactElement => {
   // Game state
-  const [cards, setCards] = useState(() => getNewShuffledDeck());
+  const [cards, setCards] = useState<PairedCard[]>(() => getNewShuffledDeck());
   const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(
     null,
   );
@@ -77,7 +73,7 @@ export const GameProvider = ({
 
   // Card selection handler
   function handleCardSelection(index: number) {
-    handleCardClick({
+    handleCardClick<PairedCard>({
       index,
       cards,
       setCards,
