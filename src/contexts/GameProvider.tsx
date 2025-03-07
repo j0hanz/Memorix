@@ -82,7 +82,7 @@ export const GameProvider = ({
       setSelectedCardIndex,
       previousIndex,
       () => setMatchedPairs((prev) => prev + 1),
-      () => {}, // No action needed on mismatch
+      () => {},
       setFeedback,
       setMoves,
     );
