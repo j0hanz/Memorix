@@ -1,19 +1,23 @@
 import { HiStar } from 'react-icons/hi';
 import style from './styles/Score.module.css';
+import { SCORING } from '@/utils/constants';
 
 interface ScoreProps {
   moves: number;
-
   completedTime: string;
 }
 
 export default function Score({ moves, completedTime }: ScoreProps) {
-  // Helper function to compute the star rating
-  function getStars(m: number, t: number): number {
-    if (m <= 6 && t <= 15) return 5;
-    if (m <= 7 && t <= 30) return 4;
-    if (m <= 8 && t <= 45) return 3;
-    if (m <= 9 && t <= 60) return 2;
+  // Helper function to compute the star rating using constants
+  function getStars(moves: number, time: number): number {
+    if (moves <= SCORING.FIVE_STAR.moves && time <= SCORING.FIVE_STAR.time)
+      return 5;
+    if (moves <= SCORING.FOUR_STAR.moves && time <= SCORING.FOUR_STAR.time)
+      return 4;
+    if (moves <= SCORING.THREE_STAR.moves && time <= SCORING.THREE_STAR.time)
+      return 3;
+    if (moves <= SCORING.TWO_STAR.moves && time <= SCORING.TWO_STAR.time)
+      return 2;
     return 1;
   }
 
@@ -29,8 +33,10 @@ export default function Score({ moves, completedTime }: ScoreProps) {
               ? style.scoreIcon
               : `${style.scoreIcon} ${style.grayedOut}`
           }
+          aria-hidden={true}
         />
       ))}
+      <span className="visually-hidden">{stars} stars out of 5</span>
     </>
   );
 }
