@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const GITHUB_API_URL: string =
   'https://api.github.com/repos/j0hanz/Memorix/commits';
+// GitHub personal access token (requires public repo access only)
 const GITHUB_TOKEN: string | undefined = import.meta.env.VITE_GITHUB_TOKEN;
 
 interface Commit {
@@ -29,10 +30,16 @@ interface GitHubCommitResponse {
 // Fetches the latest commits from the repository
 export const fetchLatestCommits = async (): Promise<Commit[]> => {
   try {
+    if (!GITHUB_TOKEN) {
+      console.warn('GitHub token not provided. API rate limits may apply.');
+    }
+
     const response = await axios.get<GitHubCommitResponse[]>(GITHUB_API_URL, {
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`,
-      },
+      headers: GITHUB_TOKEN
+        ? {
+            Authorization: `token ${GITHUB_TOKEN}`,
+          }
+        : {},
       params: {
         per_page: 3, // Fetch 3 latest commits
       },
