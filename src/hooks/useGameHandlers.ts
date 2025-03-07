@@ -1,3 +1,5 @@
+import { GAME_CONFIG } from '@/utils/constants';
+
 interface UseGameHandlersProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setIsGameActive: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,23 +14,23 @@ export const useGameHandlers = ({
   setShowInstructions,
   setShowLatestUpdates,
 }: UseGameHandlersProps) => {
-  // Start a new game
+  // Start a new game with loading screen
   const startGame = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
       setIsGameActive(true);
-    }, 3000);
+    }, GAME_CONFIG.LOADING_DELAY);
   };
 
-  // Restart game
+  // Restart game with loading screen
   const handleRestart = () => {
     setIsGameActive(false);
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
       setIsGameActive(true);
-    }, 3000);
+    }, GAME_CONFIG.LOADING_DELAY);
   };
 
   // Exit to main menu
@@ -41,17 +43,14 @@ export const useGameHandlers = ({
     setShowInstructions(true);
   };
 
-  // Close instructions modal
   const closeInstructions = () => {
     setShowInstructions(false);
   };
 
-  // Open latest updates modal
   const openLatestUpdates = () => {
     setShowLatestUpdates(true);
   };
 
-  // Close latest updates modal
   const closeLatestUpdates = () => {
     setShowLatestUpdates(false);
   };
