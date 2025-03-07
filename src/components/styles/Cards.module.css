@@ -2,6 +2,7 @@
 .row {
   display: flex;
   align-items: center;
+  justify-content: center;
   height: 100vh;
   width: 45vw;
 }
@@ -9,40 +10,43 @@
 /* Stats */
 .statsTop {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 100%;
+  justify-content: space-between;
   color: var(--text-color);
+  border-bottom: 3px solid var(--bg-card);
+  width: 43.5vw;
+  padding: 0.5rem 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .statsBottom {
   display: flex;
-  align-items: center;
+  align-items: end;
+  height: 2.5rem;
   justify-content: center;
-  height: 4vh;
+  color: var(--text-color);
 }
 
 /* Button */
 .btnExitRestart {
-  display: flex;
-  align-items: center;
-  background: var(--bg-card);
+  background: none !important;
   color: var(--moves);
   border: none;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   border-radius: 10px;
   transition: all 0.3s ease;
 }
 
 .btnExitRestart:hover {
-  background: var(--bg-card);
+  background: none !important;
   color: var(--moves);
   transform: scale(1.05);
   --bs-btn-hover-border-color: transparent;
 }
 
 .btnExitRestart:active {
-  background: var(--bg-card) !important;
+  background: none !important;
   color: var(--moves) !important;
   --bs-btn-active-border-color: transparent;
 }
@@ -51,11 +55,17 @@
   .row {
     width: 65vw;
   }
+  .statsTop {
+    width: 63vw;
+  }
 }
 
 @media (max-width: 990px) {
   .row {
     width: 75vw;
+  }
+  .statsTop {
+    width: 72vw;
   }
 }
 
@@ -63,11 +73,17 @@
   .row {
     width: 80vw;
   }
+  .statsTop {
+    width: 76vw;
+  }
 }
 
 @media (max-width: 550px) {
   .row {
     width: 90vw;
+  }
+  .statsTop {
+    width: 85vw;
   }
 }
 
@@ -75,10 +91,16 @@
   .row {
     width: 95vw;
   }
+  .statsTop {
+    width: 90vw;
+  }
 }
 
 @media (max-width: 350px) {
   .row {
     width: 100vw;
+  }
+  .statsTop {
+    width: 93vw;
   }
 }
