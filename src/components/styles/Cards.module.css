@@ -1,9 +1,9 @@
 /* Row */
 .row {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
-  height: 100vh;
+  height: 100dvh;
   width: 45vw;
 }
 
@@ -71,23 +71,14 @@
 
 @media (max-width: 770px) {
   .row {
-    width: 80vw;
+    width: 75vw;
   }
   .statsTop {
-    width: 76vw;
+    width: 72vw;
   }
 }
 
 @media (max-width: 550px) {
-  .row {
-    width: 90vw;
-  }
-  .statsTop {
-    width: 85vw;
-  }
-}
-
-@media (max-width: 425px) {
   .row {
     width: 95vw;
   }
@@ -96,7 +87,7 @@
   }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 375px) {
   .row {
     width: 100vw;
   }
