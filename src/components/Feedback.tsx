@@ -11,13 +11,13 @@ const Feedback = ({ message }: FeedbackProps) => {
   if (!message) return null;
 
   return (
-    <div className={styles.feedback}>
+    <>
       {message === FEEDBACK.SUCCESS ? (
         <HiCheck className={styles.success} />
       ) : (
         <HiXMark className={styles.error} />
       )}
-    </div>
+    </>
   );
 };
 
