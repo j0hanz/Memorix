@@ -36,7 +36,7 @@ export default function Cards({
   feedback,
 }: CardsProps) {
   return (
-    <Container fluid>
+    <Container>
       <Row className={styles.row}>
         <Col xs={12} className={styles.statsTop}>
           <Button
