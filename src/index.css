@@ -18,8 +18,8 @@
 :root {
   --text-color: #fafafa;
   --text-color-highlight: #ff0077;
-  --bg-primary: #0d1117;
-  --bg-card: #041b4b;
+  --bg-primary: #0f1729;
+  --bg-card: #14253d;
   --bg-modal: #242424;
   --bg-modal-content: #181818;
   --btn-primary: #001e5f;
@@ -38,8 +38,8 @@
 
 /* Style variables */
 :root {
-  --shadow-card-matched: 0 0 0 2px #00c500;
-  --shadow-card-wrong: 0 0 0 2px #c9302c;
+  --outline-card-matched: 1px solid #00c500;
+  --outline-card-wrong: 1px solid #c9302c;
   --text-spacing: 0.1rem;
 }
 
@@ -52,7 +52,7 @@ body {
   align-items: center;
   height: 100dvh;
   letter-spacing: var(--text-spacing);
-  font-size: 1.07rem;
+  font-size: 1.05rem;
 }
 
 @media (max-width: 425px) {
