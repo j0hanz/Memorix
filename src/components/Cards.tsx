@@ -2,6 +2,8 @@ import GameCard from './GameCard';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import { motion } from 'framer-motion';
+import { usePageTransition } from '@/hooks/usePageTransition';
 import Timer from './Timer';
 import Moves from './Moves';
 import Feedback from './Feedback';
@@ -35,6 +37,9 @@ export default function Cards({
   timerActive,
   feedback,
 }: CardsProps) {
+  // Get animation settings for page transitions
+  const { pageVariants, pageTransition } = usePageTransition();
+
   // Function to get the class for the top
   const getStatsTopClass = () => {
     if (!feedback) return styles.statsTop;
@@ -79,11 +84,19 @@ export default function Cards({
             key={index}
             className={styles.cardsMap}
           >
-            <GameCard
-              card={card}
-              index={index}
-              clickHandler={handleCardSelection}
-            />
+            <motion.div
+              initial="initial"
+              animate="in"
+              exit="out"
+              variants={pageVariants}
+              transition={pageTransition}
+            >
+              <GameCard
+                card={card}
+                index={index}
+                clickHandler={handleCardSelection}
+              />
+            </motion.div>
           </Col>
         ))}
       </Row>
