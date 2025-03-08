@@ -1,7 +1,7 @@
 import GameCard from './GameCard';
 import { Row, Col, Container } from 'react-bootstrap';
-import { HiArrowPath } from 'react-icons/hi2';
-import { TbDoorExit } from 'react-icons/tb';
+import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import Button from './Button';
 import Timer from './Timer';
 import Moves from './Moves';
@@ -57,18 +57,17 @@ export default function Cards({
             <Timer timerActive={timerActive} />
             <Moves moves={moves} />
           </div>
-          <Feedback message={feedback} />
+          <div className={styles.feedback}>
+            <Feedback message={feedback} />
+          </div>
           <div className={styles.statsRight}>
-            <Button
-              className={styles.btnExitRestart}
-              onClick={onReset}
-              icon={<HiArrowPath className={styles.exitRestartIcon} />}
-            />
-            <Button
-              className={styles.btnExitRestart}
-              onClick={onExit}
-              icon={<TbDoorExit className={styles.exitRestartIcon} />}
-            />
+            <div className={styles.btnExitRestart} onClick={onReset}>
+              <ReplayCircleFilledOutlinedIcon />
+            </div>
+
+            <div className={styles.btnExitRestart} onClick={onExit}>
+              <ExitToAppOutlinedIcon />
+            </div>
           </div>
         </Col>
         {cards.map((card, index) => (
