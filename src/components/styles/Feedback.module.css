@@ -3,7 +3,6 @@
   outline: var(--outline-card-matched);
   border-radius: 10px;
   font-size: 2.25rem;
-  margin-top: auto;
 }
 
 .error {
@@ -11,7 +10,6 @@
   outline: var(--outline-card-wrong);
   border-radius: 10px;
   font-size: 2.25rem;
-  margin-top: auto;
 }
 
 @media (max-width: 550px) {
