@@ -1,7 +1,11 @@
 import { motion, Variants } from 'framer-motion';
 import Button from '@/components/Button';
 import { useState, useEffect } from 'react';
-import { HiNewspaper } from 'react-icons/hi2';
+import {
+  HiNewspaper,
+  HiOutlinePlay,
+  HiOutlineQuestionMarkCircle,
+} from 'react-icons/hi2';
 import { LiaGithub } from 'react-icons/lia';
 import { HiOutlineSpeakerWave, HiOutlineSpeakerXMark } from 'react-icons/hi2';
 import styles from '@/App.module.css';
@@ -18,7 +22,11 @@ interface MainMenuProps {
 // Internal component definitions
 function StartButton({ onClick }: { onClick: () => void }) {
   return (
-    <Button onClick={onClick} className={styles.btnStart}>
+    <Button
+      onClick={onClick}
+      className={styles.btnStart}
+      icon={<HiOutlinePlay />}
+    >
       Start Game
     </Button>
   );
@@ -26,7 +34,11 @@ function StartButton({ onClick }: { onClick: () => void }) {
 
 function InstructionsButton({ onClick }: { onClick: () => void }) {
   return (
-    <Button onClick={onClick} className={styles.btnGuide}>
+    <Button
+      onClick={onClick}
+      className={styles.btnGuide}
+      icon={<HiOutlineQuestionMarkCircle />}
+    >
       Guide
     </Button>
   );
