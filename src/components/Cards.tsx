@@ -6,6 +6,7 @@ import Button from './Button';
 import Timer from './Timer';
 import Moves from './Moves';
 import Feedback from './Feedback';
+import { FEEDBACK } from '@/utils/constants';
 import styles from './styles/Cards.module.css';
 
 interface CardData {
@@ -35,22 +36,40 @@ export default function Cards({
   timerActive,
   feedback,
 }: CardsProps) {
+  // Function to get the class for the top
+  const getStatsTopClass = () => {
+    if (!feedback) return styles.statsTop;
+
+    if (feedback === FEEDBACK.SUCCESS) {
+      return `${styles.statsTop} ${styles.statsTopSuccess}`;
+    } else if (feedback === FEEDBACK.ERROR) {
+      return `${styles.statsTop} ${styles.statsTopError}`;
+    }
+
+    return styles.statsTop;
+  };
+
   return (
     <Container>
       <Row className={styles.row}>
-        <Col xs={12} className={styles.statsTop}>
-          <Button
-            className={styles.btnExitRestart}
-            onClick={onReset}
-            icon={<HiArrowPath className={styles.exitRestartIcon} />}
-          />
-          <Timer timerActive={timerActive} />
-          <Moves moves={moves} />
-          <Button
-            className={styles.btnExitRestart}
-            onClick={onExit}
-            icon={<TbDoorExit className={styles.exitRestartIcon} />}
-          />
+        <Col xs={12} className={getStatsTopClass()}>
+          <div className={styles.statsLeft}>
+            <Timer timerActive={timerActive} />
+            <Moves moves={moves} />
+          </div>
+          <Feedback message={feedback} />
+          <div className={styles.statsRight}>
+            <Button
+              className={styles.btnExitRestart}
+              onClick={onReset}
+              icon={<HiArrowPath className={styles.exitRestartIcon} />}
+            />
+            <Button
+              className={styles.btnExitRestart}
+              onClick={onExit}
+              icon={<TbDoorExit className={styles.exitRestartIcon} />}
+            />
+          </div>
         </Col>
         {cards.map((card, index) => (
           <Col
@@ -69,9 +88,6 @@ export default function Cards({
             />
           </Col>
         ))}
-        <Col xs={12} className={styles.statsBottom}>
-          <Feedback message={feedback} />
-        </Col>
       </Row>
     </Container>
   );
