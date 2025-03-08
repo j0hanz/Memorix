@@ -27,9 +27,9 @@ const Button: FC<CustomButtonProps> = ({
 
   return (
     <CustomButton {...props} onClick={handleClick} className={buttonClassName}>
-      {icon ? <span className={styles.buttonIcon}>{icon}</span> : null}
       {text ? <span className={styles.buttonText}>{text}</span> : null}
       {children}
+      {icon ? <span className={styles.buttonIcon}>{icon}</span> : null}
     </CustomButton>
   );
 };
