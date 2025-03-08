@@ -3,7 +3,6 @@ import Game from '@/components/Game';
 import LoadingSpinner from '@/components/Spinner';
 import { GameInstructions, LatestUpdates } from '@/components/Modal';
 import { useGameHandlers } from '@/hooks/useGameHandlers';
-import { motion } from 'framer-motion';
 import { GameProvider } from '@/contexts/GameProvider';
 import { usePageTransition } from '@/hooks/usePageTransition';
 import MainMenu from '@/components/MainMenu';
@@ -47,17 +46,9 @@ export default function App() {
         />
       )}
       {isGameActive && (
-        <motion.div
-          initial="initial"
-          animate="in"
-          exit="out"
-          variants={pageVariants}
-          transition={pageTransition}
-        >
-          <GameProvider onExit={handleExit}>
-            <Game onRestart={handleRestart} />
-          </GameProvider>
-        </motion.div>
+        <GameProvider onExit={handleExit}>
+          <Game onRestart={handleRestart} />
+        </GameProvider>
       )}
       <GameInstructions show={showInstructions} onClose={closeInstructions} />
       <LatestUpdates show={showLatestUpdates} onClose={closeLatestUpdates} />
