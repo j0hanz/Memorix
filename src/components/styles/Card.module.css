@@ -1,7 +1,6 @@
 /* Flip Card Effects */
 .card {
   position: relative;
-  height: 22vh;
   aspect-ratio: 1/1;
   width: 100%;
   perspective: 1200px;
@@ -75,29 +74,4 @@
 
 .card.matched img {
   transform: scale(0.9);
-}
-
-/* Responsive adjustments */
-@media (max-width: 990px) {
-  .card {
-    height: 18vh;
-  }
-}
-
-@media (max-width: 765px) {
-  .card {
-    height: 16vh;
-  }
-}
-
-@media (max-width: 550px) {
-  .card {
-    height: 16vh;
-  }
-}
-
-@media (max-width: 425px) {
-  .card {
-    height: 15vh;
-  }
 }
