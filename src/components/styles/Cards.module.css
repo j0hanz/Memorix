@@ -2,21 +2,29 @@
 .row {
   display: flex;
   justify-content: center;
+  align-items: start;
   height: 100vh;
-  width: min(45vw, 800px);
+  width: min(60vw, 800px);
 }
 
 /* Stats */
 .statsTop {
+  position: relative;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
+  justify-content: space-between;
+  padding: 1rem 0;
   color: var(--text-color);
   border-bottom: 2px solid var(--bg-card);
-  width: calc(min(45vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));
-  height: 3rem;
-  transition: border-color 0.3s ease;
+  width: calc(min(60vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));
+}
+
+.feedback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
 }
 
 .statsTopSuccess {
@@ -29,7 +37,7 @@
 
 .statsLeft {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .statsRight {
@@ -43,41 +51,32 @@
 
 /* Button */
 .btnExitRestart {
-  background: none !important;
   color: var(--moves);
-  border: none;
-  font-size: 1.5rem;
-  border-radius: 10px;
   transition: all 0.3s ease;
 }
 
 .btnExitRestart:hover {
-  background: none !important;
-  color: var(--moves);
   transform: scale(1.05);
-  --bs-btn-hover-border-color: transparent;
 }
 
 .btnExitRestart:active {
-  background: none !important;
-  color: var(--moves) !important;
-  --bs-btn-active-border-color: transparent;
+  transform: scale(0.95);
 }
 
 @media (max-width: 990px) {
   .row {
-    width: min(70vw, 800px);
+    width: min(75vw, 800px);
   }
   .statsTop {
-    width: calc(min(70vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));
+    width: calc(min(75vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));
   }
 }
 
 @media (max-width: 550px) {
   .row {
-    width: min(95vw, 800px);
+    width: min(98vw, 800px);
   }
   .statsTop {
-    width: calc(min(95vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));
+    width: calc(min(98vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));
   }
 }
