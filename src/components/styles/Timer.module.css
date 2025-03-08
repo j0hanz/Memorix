@@ -1,4 +1,6 @@
-.clockIcon {
-  font-size: 1.5rem;
-  color: var(--moves);
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  line-height: 0;
 }
