@@ -5,7 +5,7 @@ export function usePageTransition() {
   const pageVariants: Variants = {
     initial: {
       opacity: 0,
-      scale: 0.7,
+      scale: 0.5,
     },
     in: {
       opacity: 1,
@@ -13,13 +13,13 @@ export function usePageTransition() {
     },
     out: {
       opacity: 0,
-      scale: 0.7,
+      scale: 0.5,
     },
   };
 
   const pageTransition = {
     type: 'spring',
-    stiffness: 50,
+    stiffness: 40,
     damping: 20,
   };
 
