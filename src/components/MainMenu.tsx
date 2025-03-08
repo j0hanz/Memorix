@@ -64,24 +64,24 @@ function SocialLinks({
 
   return (
     <div className={styles.smallButtonsDiv}>
-      <Button
-        onClick={onLatestUpdatesClick}
-        className={styles.btnUpdates}
-        icon={<TrackChangesOutlinedIcon />}
-      />
-      <Button
+      <div onClick={onLatestUpdatesClick} className={styles.btnUpdates}>
+        <TrackChangesOutlinedIcon />
+      </div>
+      <div
         onClick={handleMuteToggle}
         className={styles.btnUpdates}
-        icon={isMuted ? <VolumeOffOutlinedIcon /> : <VolumeUpOutlinedIcon />}
         aria-label={isMuted ? 'Unmute sounds' : 'Mute sounds'}
-      />
-      <Button
+      >
+        {isMuted ? <VolumeOffOutlinedIcon /> : <VolumeUpOutlinedIcon />}
+      </div>
+      <div
         onClick={() =>
           window.open('https://github.com/j0hanz/Memorix', '_blank')
         }
         className={styles.btnUpdates}
-        icon={<GitHubIcon />}
-      />
+      >
+        <GitHubIcon />
+      </div>
     </div>
   );
 }
@@ -94,19 +94,19 @@ export default function MainMenu({
   pageTransition,
 }: MainMenuProps) {
   return (
-    <motion.div
-      initial="initial"
-      animate="in"
-      exit="out"
-      variants={pageVariants}
-      transition={pageTransition}
-    >
-      <div className={styles.menu}>
+    <div className={styles.menu}>
+      <motion.div
+        initial="initial"
+        animate="in"
+        exit="out"
+        variants={pageVariants}
+        transition={pageTransition}
+      >
         <div className={styles.gameTitle}>Memorix</div>
-        <StartButton onClick={startGame} />
-        <InstructionsButton onClick={openInstructions} />
-        <SocialLinks onLatestUpdatesClick={openLatestUpdates} />
-      </div>
-    </motion.div>
+      </motion.div>
+      <StartButton onClick={startGame} />
+      <InstructionsButton onClick={openInstructions} />
+      <SocialLinks onLatestUpdatesClick={openLatestUpdates} />
+    </div>
   );
 }
