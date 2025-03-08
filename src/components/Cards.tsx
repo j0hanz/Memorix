@@ -53,7 +53,15 @@ export default function Cards({
           />
         </Col>
         {cards.map((card, index) => (
-          <Col xs={4} sm={4} md={3} lg={3} xl={3} key={index}>
+          <Col
+            xs={4}
+            sm={4}
+            md={3}
+            lg={3}
+            xl={3}
+            key={index}
+            className={styles.cardsMap}
+          >
             <GameCard
               card={card}
               index={index}

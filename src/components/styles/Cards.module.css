@@ -2,6 +2,7 @@
 .row {
   display: flex;
   justify-content: center;
+  align-items: start;
   min-height: 100vh;
   width: 45vw;
   margin: auto;
@@ -13,14 +14,22 @@
   justify-content: space-between;
   color: var(--text-color);
   border-bottom: 3px solid var(--bg-card);
-  width: 43.5vw;
+  width: 44vw;
   height: 3.5rem;
   padding: 0;
+}
+
+.cardsMap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.5rem;
 }
 
 .statsBottom {
   display: flex;
   justify-content: center;
+  margin-bottom: 0.1rem;
   color: var(--text-color);
   height: 1rem;
 }
@@ -53,7 +62,7 @@
     width: 70vw;
   }
   .statsTop {
-    width: 66vw;
+    width: 68vw;
   }
 }
 
@@ -62,7 +71,7 @@
     width: 95vw;
   }
   .statsTop {
-    width: 90vw;
+    width: 92vw;
   }
 }
 
@@ -71,6 +80,6 @@
     width: 100vw;
   }
   .statsTop {
-    width: 93vw;
+    width: 95vw;
   }
 }
