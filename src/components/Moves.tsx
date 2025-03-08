@@ -1,4 +1,4 @@
-import { HiOutlineArrowPathRoundedSquare } from 'react-icons/hi2';
+import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import styles from './styles/Moves.module.css';
 
 interface MovesProps {
@@ -9,7 +9,7 @@ const Moves = ({ moves }: MovesProps) => {
   // Display number of moves
   return (
     <div className={styles.moves}>
-      <HiOutlineArrowPathRoundedSquare />
+      <FlipOutlinedIcon />
       {moves}
     </div>
   );

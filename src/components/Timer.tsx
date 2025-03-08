@@ -1,4 +1,4 @@
-import { HiOutlineClock } from 'react-icons/hi2';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { useTimer } from '@/hooks/useTimer';
 import styles from './styles/Timer.module.css';
 
@@ -12,7 +12,7 @@ const Timer = ({ timerActive }: TimerProps) => {
 
   return (
     <div className={styles.timer}>
-      <HiOutlineClock />
+      <TimerOutlinedIcon />
       {elapsedTime}
     </div>
   );
