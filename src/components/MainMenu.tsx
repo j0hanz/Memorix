@@ -1,13 +1,12 @@
 import { motion, Variants } from 'framer-motion';
 import Button from '@/components/Button';
 import { useState, useEffect } from 'react';
-import {
-  HiNewspaper,
-  HiOutlinePlay,
-  HiOutlineQuestionMarkCircle,
-} from 'react-icons/hi2';
-import { LiaGithub } from 'react-icons/lia';
-import { HiOutlineSpeakerWave, HiOutlineSpeakerXMark } from 'react-icons/hi2';
+import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
+import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
+import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import styles from '@/App.module.css';
 import { getMuteState, toggleMuteState } from '@/utils/soundManager';
 
@@ -25,7 +24,7 @@ function StartButton({ onClick }: { onClick: () => void }) {
     <Button
       onClick={onClick}
       className={styles.btnStart}
-      icon={<HiOutlinePlay />}
+      icon={<PlayCircleOutlineOutlinedIcon />}
     >
       Start Game
     </Button>
@@ -37,7 +36,7 @@ function InstructionsButton({ onClick }: { onClick: () => void }) {
     <Button
       onClick={onClick}
       className={styles.btnGuide}
-      icon={<HiOutlineQuestionMarkCircle />}
+      icon={<InfoOutlinedIcon />}
     >
       Guide
     </Button>
@@ -68,12 +67,12 @@ function SocialLinks({
       <Button
         onClick={onLatestUpdatesClick}
         className={styles.btnUpdates}
-        icon={<HiNewspaper />}
+        icon={<TrackChangesOutlinedIcon />}
       />
       <Button
         onClick={handleMuteToggle}
         className={styles.btnUpdates}
-        icon={isMuted ? <HiOutlineSpeakerXMark /> : <HiOutlineSpeakerWave />}
+        icon={isMuted ? <VolumeOffOutlinedIcon /> : <VolumeUpOutlinedIcon />}
         aria-label={isMuted ? 'Unmute sounds' : 'Mute sounds'}
       />
       <Button
@@ -81,7 +80,7 @@ function SocialLinks({
           window.open('https://github.com/j0hanz/Memorix', '_blank')
         }
         className={styles.btnUpdates}
-        icon={<LiaGithub />}
+        icon={<GitHubIcon />}
       />
     </div>
   );
