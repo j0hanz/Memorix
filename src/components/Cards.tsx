@@ -2,7 +2,6 @@ import GameCard from './GameCard';
 import { Row, Col, Container } from 'react-bootstrap';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import Button from './Button';
 import Timer from './Timer';
 import Moves from './Moves';
 import Feedback from './Feedback';
