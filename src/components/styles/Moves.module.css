@@ -1,10 +1,6 @@
-.statsIcon {
-  font-size: 1.5rem;
-  color: var(--moves);
-}
-
-@media (max-width: 450px) {
-  .statsIcon {
-    font-size: 1.5rem;
-  }
+.moves {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  line-height: 0;
 }
