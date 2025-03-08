@@ -15,7 +15,11 @@
     "start": "vite"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@fontsource/fredoka": "^5.2.5",
+    "@mui/icons-material": "^6.4.7",
+    "@mui/material": "^6.4.7",
     "@vitejs/plugin-react": "^4.3.4",
     "axios": "^1.8.2",
     "babel-plugin-react-compiler": "^19.0.0-beta-40c6c23-20250301",
