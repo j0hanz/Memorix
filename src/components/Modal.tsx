@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { Modal } from 'react-bootstrap';
-import { HiArrowPath } from 'react-icons/hi2';
-import { TbDoorExit } from 'react-icons/tb';
+import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import Button from './Button';
 import styles from './styles/Modal.module.css';
 import Scoreboard from '@/data/scoreData';
@@ -50,14 +50,16 @@ export default function ScoreboardModal({
           className={`${styles.btnRestart} ${styles.modalButton}`}
           onClick={onReset}
         >
-          <HiArrowPath className={`${styles.btnIcon} me-1`} />
+          <ReplayCircleFilledOutlinedIcon
+            className={`${styles.btnIcon} me-1`}
+          />
           Restart
         </Button>
         <Button
           className={`${styles.btnExit} ${styles.modalButton}`}
           onClick={onExit}
         >
-          <TbDoorExit className={`${styles.btnIcon} me-1`} />
+          <ExitToAppOutlinedIcon className={`${styles.btnIcon} me-1`} />
           Exit
         </Button>
       </Modal.Footer>
