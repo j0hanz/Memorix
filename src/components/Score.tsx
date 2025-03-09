@@ -1,4 +1,4 @@
-import { HiStar } from 'react-icons/hi';
+import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import style from './styles/Score.module.css';
 import { SCORING } from '@/utils/constants';
 
@@ -26,7 +26,7 @@ export default function Score({ moves, completedTime }: ScoreProps) {
   return (
     <>
       {[...Array(5)].map((_, index) => (
-        <HiStar
+        <StarOutlinedIcon
           key={index}
           className={
             index < stars
