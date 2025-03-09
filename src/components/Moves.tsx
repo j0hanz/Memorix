@@ -10,7 +10,7 @@ const Moves = ({ moves }: MovesProps) => {
   return (
     <div className={styles.moves}>
       <FlipOutlinedIcon />
-      {moves}
+      <span className={styles.count}>{moves}</span>
     </div>
   );
 };

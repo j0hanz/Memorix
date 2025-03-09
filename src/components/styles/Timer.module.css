@@ -3,5 +3,10 @@
   align-items: center;
   gap: 0.3rem;
   line-height: 0;
-  width: 3rem;
+  width: 0;
+}
+
+.count {
+  font-size: 0.9rem;
+  color: var(--text-count-color);
 }

@@ -13,7 +13,7 @@ const Timer = ({ timerActive }: TimerProps) => {
   return (
     <div className={styles.timer}>
       <TimerOutlinedIcon />
-      {elapsedTime}
+      <span className={styles.count}>{elapsedTime}</span>
     </div>
   );
 };
