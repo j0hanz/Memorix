@@ -1,6 +1,7 @@
 .moves {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.3rem;
   line-height: 0;
+  width: 2.5rem;
 }
