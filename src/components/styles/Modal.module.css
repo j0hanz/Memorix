@@ -99,7 +99,7 @@
 .btnRestart:active {
   background: var(--btn-primary-hover) !important;
   color: var(--text-color);
-  transform: scale(0.95);
+  transform: scale(1);
 }
 
 .btnExit:hover,
@@ -111,24 +111,12 @@
 .btnExit:active {
   background: var(--btn-secondary-hover) !important;
   color: var(--text-color);
-  transform: scale(0.95);
+  transform: scale(1);
 }
 
 .btnClose:active {
   background: var(--btn-secondary-hover) !important;
   transform: scale(1);
-}
-
-.listIcon {
-  font-size: 1.5rem;
-}
-
-.clockIcon {
-  color: var(--color-clock-icon);
-}
-
-.statsIcon {
-  color: var(--moves);
 }
 
 .wrongPick {
@@ -145,18 +133,6 @@
 
 .grayedOut {
   color: var(--color-star-icon-gray);
-}
-
-.scoreListIcon {
-  font-size: 1.6rem;
-}
-
-.infinityIcon {
-  font-size: 1.3rem;
-}
-
-.scoreIcon {
-  font-size: 1.2rem;
 }
 
 .navItemLeft {
@@ -206,13 +182,6 @@
 }
 
 @media (max-width: 425px) {
-  .scoreListIcon {
-    font-size: 1.4rem;
-  }
-
-  .scoreIcon {
-    font-size: 0.8rem;
-  }
   .instructionsModal :global(.modal-content) {
     height: 100%;
   }
