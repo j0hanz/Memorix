@@ -15,6 +15,7 @@
 /* Color variables */
 :root {
   --text-color: #fafafa;
+  --text-count-color: #d8d8d8;
   --text-color-highlight: #ff0077;
   --bg-primary: #0f1729;
   --bg-card: #14253d;
