@@ -51,6 +51,7 @@
 
 /* Button */
 .btnExitRestart {
+  cursor: pointer;
   color: var(--moves);
   transition: all 0.3s ease;
 }
