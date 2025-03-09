@@ -1,10 +1,8 @@
 import { ListGroup, Badge, Row, Col } from 'react-bootstrap';
-import {
-  HiStar,
-  HiOutlineClock,
-  HiOutlineArrowPathRoundedSquare,
-} from 'react-icons/hi2';
-import { LiaInfinitySolid } from 'react-icons/lia';
+import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
+import AllInclusiveOutlinedIcon from '@mui/icons-material/AllInclusiveOutlined';
 import styles from '@/components/styles/Modal.module.css';
 
 interface ScoreRowProps {
@@ -17,10 +15,11 @@ interface ScoreRowProps {
 function ScoreRow({ stars, moves, time }: ScoreRowProps) {
   return (
     <>
-      <Row className="d-flex justify-content-between mx-1 align-items-center">
+      <Row className="d-flex justify-content-between align-items-center m-1">
         <Col className="text-start">
           {[...Array(5)].map((_, i) => (
-            <HiStar
+            <StarOutlinedIcon
+              fontSize="small"
               key={i}
               className={`${styles.scoreIcon} ${
                 i < stars ? styles.starIcon : styles.grayedOut
@@ -28,17 +27,13 @@ function ScoreRow({ stars, moves, time }: ScoreRowProps) {
             />
           ))}
         </Col>
-        <Col className="text-center">
-          <HiOutlineArrowPathRoundedSquare
-            className={`${styles.scoreListIcon} ${styles.statsIcon} me-1`}
-          />
+        <Col className="text-center g-2">
+          <FlipOutlinedIcon fontSize="small" />
           {moves}
         </Col>
         <Col className="text-end">
           <Badge>
-            <HiOutlineClock
-              className={`${styles.scoreListIcon} ${styles.clockIcon} me-1`}
-            />
+            <TimerOutlinedIcon fontSize="small" />
             {time}
           </Badge>
         </Col>
@@ -58,7 +53,7 @@ export default function ScoringTab() {
     {
       stars: 1,
       moves: 10,
-      time: <LiaInfinitySolid className={styles.infinityIcon} />,
+      time: <AllInclusiveOutlinedIcon />,
     },
   ];
 
