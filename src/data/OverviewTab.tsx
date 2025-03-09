@@ -1,5 +1,5 @@
 import { ListGroup } from 'react-bootstrap';
-import { HiOutlineInformationCircle } from 'react-icons/hi2';
+import LabelImportantOutlinedIcon from '@mui/icons-material/LabelImportantOutlined';
 import styles from '@/components/styles/Modal.module.css';
 
 export default function OverviewTab() {
@@ -17,7 +17,7 @@ export default function OverviewTab() {
       <hr className="my-2" />
       <ListGroup horizontal>
         <ListGroup.Item>
-          <HiOutlineInformationCircle className={styles.listIcon} />
+          <LabelImportantOutlinedIcon className={styles.listIcon} />
         </ListGroup.Item>
         <ListGroup.Item>
           The game rates your performance based on the number of moves and time
