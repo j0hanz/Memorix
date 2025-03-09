@@ -1,4 +1,5 @@
-import { HiCheck, HiXMark } from 'react-icons/hi2';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import styles from './styles/Feedback.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePageTransition } from '@/hooks/usePageTransition';
@@ -25,9 +26,9 @@ const Feedback = ({ message }: FeedbackProps) => {
           variants={feedbackVariants}
         >
           {message === FEEDBACK.SUCCESS ? (
-            <HiCheck className={styles.success} />
+            <CheckOutlinedIcon fontSize="large" className={styles.success} />
           ) : (
-            <HiXMark className={styles.error} />
+            <CloseOutlinedIcon fontSize="large" className={styles.error} />
           )}
         </motion.div>
       </AnimatePresence>
