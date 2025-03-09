@@ -15,11 +15,10 @@ interface ScoreRowProps {
 function ScoreRow({ stars, moves, time }: ScoreRowProps) {
   return (
     <>
-      <Row className="d-flex justify-content-between align-items-center m-1">
-        <Col className="text-start">
+      <Row className="d-flex justify-content-between align-items-center">
+        <Col className="d-flex justify-content-start align-items-center">
           {[...Array(5)].map((_, i) => (
             <StarOutlinedIcon
-              fontSize="small"
               key={i}
               className={`${styles.scoreIcon} ${
                 i < stars ? styles.starIcon : styles.grayedOut
@@ -27,18 +26,18 @@ function ScoreRow({ stars, moves, time }: ScoreRowProps) {
             />
           ))}
         </Col>
-        <Col className="text-center g-2">
-          <FlipOutlinedIcon fontSize="small" />
+        <Col className="d-flex justify-content-center align-items-center">
+          <FlipOutlinedIcon className={styles.scoreIcon} />
           {moves}
         </Col>
-        <Col className="text-end">
+        <Col className="d-flex justify-content-end align-items-center">
           <Badge>
-            <TimerOutlinedIcon fontSize="small" />
+            <TimerOutlinedIcon className={styles.scoreIcon} />
             {time}
           </Badge>
         </Col>
       </Row>
-      <hr className="my-2" />
+      <hr />
     </>
   );
 }
@@ -53,14 +52,14 @@ export default function ScoringTab() {
     {
       stars: 1,
       moves: 10,
-      time: <AllInclusiveOutlinedIcon />,
+      time: <AllInclusiveOutlinedIcon className={styles.scoreIcon} />,
     },
   ];
 
   return (
     <>
       <ListGroup variant="flush">
-        <ListGroup.Item>
+        <ListGroup.Item className="mb-2">
           Stars are earned based on moves and time. Here&apos;s the breakdown.
         </ListGroup.Item>
       </ListGroup>

@@ -135,6 +135,10 @@
   color: var(--color-star-icon-gray);
 }
 
+.scoreIcon {
+  font-size: 1.1rem !important;
+}
+
 .navItemLeft {
   border-top-left-radius: 10px;
   border-bottom-left-radius: 0;
