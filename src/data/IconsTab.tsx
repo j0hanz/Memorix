@@ -1,13 +1,11 @@
 import { ListGroup } from 'react-bootstrap';
-import {
-  HiOutlineClock,
-  HiXMark,
-  HiCheck,
-  HiArrowPath,
-  HiStar,
-  HiOutlineArrowPathRoundedSquare,
-} from 'react-icons/hi2';
-import { TbDoorExit } from 'react-icons/tb';
+import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
+import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 import styles from '@/components/styles/Modal.module.css';
 
 interface IconExplanationProps {
@@ -29,37 +27,47 @@ export default function IconsTab() {
   // Game icons with their descriptions
   const icons = [
     {
-      icon: <HiArrowPath className={styles.listIcon} />,
+      icon: <ReplayCircleFilledOutlinedIcon className={styles.listIcon} />,
       description: 'Restart game',
     },
     {
-      icon: <TbDoorExit className={styles.listIcon} />,
+      icon: <ExitToAppOutlinedIcon className={styles.listIcon} />,
       description: 'Exit game',
     },
     {
       icon: (
-        <HiOutlineClock className={`${styles.listIcon} ${styles.clockIcon}`} />
+        <TimerOutlinedIcon
+          className={`${styles.listIcon} ${styles.clockIcon}`}
+        />
       ),
       description: 'Game time',
     },
     {
       icon: (
-        <HiOutlineArrowPathRoundedSquare
+        <FlipOutlinedIcon
           className={`${styles.listIcon} ${styles.statsIcon}`}
         />
       ),
       description: 'Moves',
     },
     {
-      icon: <HiXMark className={`${styles.listIcon} ${styles.wrongPick}`} />,
+      icon: (
+        <CloseOutlinedIcon
+          className={`${styles.listIcon} ${styles.wrongPick}`}
+        />
+      ),
       description: 'Wrong pick',
     },
     {
-      icon: <HiCheck className={`${styles.listIcon} ${styles.success}`} />,
+      icon: (
+        <CheckOutlinedIcon className={`${styles.listIcon} ${styles.success}`} />
+      ),
       description: 'Correct pick',
     },
     {
-      icon: <HiStar className={`${styles.listIcon} ${styles.starIcon}`} />,
+      icon: (
+        <StarOutlinedIcon className={`${styles.listIcon} ${styles.starIcon}`} />
+      ),
       description: 'Stars earned',
     },
   ];
