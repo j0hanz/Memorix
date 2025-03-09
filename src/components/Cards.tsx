@@ -58,8 +58,8 @@ export default function Cards({
       <Row className={styles.row}>
         <Col xs={12} className={getStatsTopClass()}>
           <div className={styles.statsLeft}>
-            <Timer timerActive={timerActive} />
             <Moves moves={moves} />
+            <Timer timerActive={timerActive} />
           </div>
           <div className={styles.feedback}>
             <Feedback message={feedback} />
