@@ -1,4 +1,3 @@
-import { playSound } from './soundManager';
 import { CardDef } from '@/data/cardData';
 import { FEEDBACK, GAME_CONFIG, CARD_STATUS, SOUNDS } from '@/utils/constants';
 
@@ -56,6 +55,7 @@ interface MatchCheckParams<T extends CardDef> {
   setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>;
   onMatch: () => void;
   onMismatch: () => void;
+  playSound?: (soundName: string) => void;
 }
 
 // Checks if two cards match and handles the result
@@ -120,6 +120,7 @@ interface CardClickParams<T extends CardDef> {
   isInitialReveal?: boolean;
   isProcessingMatch?: boolean;
   setIsProcessingMatch: React.Dispatch<React.SetStateAction<boolean>>;
+  playSound?: (soundName: string) => void;
 }
 
 // Determines if a card can be clicked based on game state
@@ -156,6 +157,7 @@ export function handleCardClick<T extends CardDef>({
   isInitialReveal = false,
   isProcessingMatch = false,
   setIsProcessingMatch,
+  playSound,
 }: CardClickParams<T>): void {
   // Skip if card cannot be clicked
   if (
@@ -180,7 +182,7 @@ export function handleCardClick<T extends CardDef>({
       return updated;
     });
     setSelectedCardIndex(index);
-    playSound(SOUNDS.CLICK);
+    playSound?.(SOUNDS.CLICK);
     return;
   }
 
@@ -202,10 +204,11 @@ export function handleCardClick<T extends CardDef>({
       onMismatch();
       setIsProcessingMatch(false);
     },
+    playSound,
   });
 
   // Play appropriate sound based on match result
-  playSound(isMatch ? SOUNDS.CORRECT : SOUNDS.WRONG);
+  playSound?.(isMatch ? SOUNDS.CORRECT : SOUNDS.WRONG);
   // Update feedback message
   setFeedback(isMatch ? FEEDBACK.SUCCESS : FEEDBACK.ERROR);
   // Reset previous index reference
