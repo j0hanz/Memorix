@@ -20,12 +20,12 @@ export interface PairedCard extends CardDef {
   id: number;
 }
 
-// Generate paired cards
+// Generate paired cards based on the total pairs
 export function generateCards(): PairedCard[] {
   const totalPairs: number = GAME_CONFIG.TOTAL_PAIRS;
-
   if (!totalPairs) return [];
 
+  // Generate base cards with pair IDs
   const baseCards = Array.from(
     { length: totalPairs },
     (_, i): CardDef => ({
@@ -36,13 +36,11 @@ export function generateCards(): PairedCard[] {
     }),
   );
 
-  // Pair cards
-  const pairedCards = baseCards.flatMap((card, idx) => [
+  // Pair cards by duplicating each card with a unique ID
+  return baseCards.flatMap((card, idx) => [
     { ...card, id: idx * 2 },
     { ...card, id: idx * 2 + 1 },
   ]);
-
-  return pairedCards;
 }
 
 // Get a new deck of shuffled cards
