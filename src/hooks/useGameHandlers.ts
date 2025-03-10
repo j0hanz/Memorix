@@ -1,19 +1,19 @@
 import { GAME_CONFIG } from '@/utils/constants';
 
-interface UseGameHandlersProps {
+interface GameHandlerOptions {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setIsGameActive: React.Dispatch<React.SetStateAction<boolean>>;
   setShowInstructions: React.Dispatch<React.SetStateAction<boolean>>;
   setShowLatestUpdates: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// Hook providing app-level game flow control
+// Game control handlers
 export const useGameHandlers = ({
   setIsLoading,
   setIsGameActive,
   setShowInstructions,
   setShowLatestUpdates,
-}: UseGameHandlersProps) => {
+}: GameHandlerOptions) => {
   // Start a new game with loading screen
   const startGame = () => {
     setIsLoading(true);
@@ -43,14 +43,17 @@ export const useGameHandlers = ({
     setShowInstructions(true);
   };
 
+  // Close instructions modal
   const closeInstructions = () => {
     setShowInstructions(false);
   };
 
+  // Open latest updates modal
   const openLatestUpdates = () => {
     setShowLatestUpdates(true);
   };
 
+  // Close latest updates modal
   const closeLatestUpdates = () => {
     setShowLatestUpdates(false);
   };
