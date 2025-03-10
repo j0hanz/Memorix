@@ -1,5 +1,5 @@
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
-import style from './styles/Score.module.css';
+import styles from './styles/GameStats.module.css';
 import { SCORING } from '@/utils/constants';
 
 interface ScoreProps {
@@ -30,8 +30,8 @@ export default function Score({ moves, completedTime }: ScoreProps) {
           key={index}
           className={
             index < stars
-              ? style.scoreIcon
-              : `${style.scoreIcon} ${style.grayedOut}`
+              ? styles.scoreIcon
+              : `${styles.scoreIcon} ${styles.grayedOut}`
           }
           aria-hidden={true}
         />

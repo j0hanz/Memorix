@@ -1,6 +1,6 @@
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import styles from './styles/Feedback.module.css';
+import styles from './styles/GameStats.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePageTransition } from '@/hooks/usePageTransition';
 import { FEEDBACK } from '@/utils/constants';

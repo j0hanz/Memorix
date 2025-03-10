@@ -1,7 +1,0 @@
-.success {
-  color: var(--feedback-correct);
-}
-
-.error {
-  color: var(--feedback-wrong);
-}

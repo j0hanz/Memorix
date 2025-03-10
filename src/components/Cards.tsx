@@ -4,8 +4,7 @@ import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFill
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { motion } from 'framer-motion';
 import { usePageTransition } from '@/hooks/usePageTransition';
-import Timer from './Timer';
-import Moves from './Moves';
+import { Timer, Moves } from './GameStats';
 import Feedback from './Feedback';
 import { FEEDBACK } from '@/utils/constants';
 import styles from './styles/Cards.module.css';
