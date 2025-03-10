@@ -1,14 +1,10 @@
-import React, {
-  useState,
-  useRef,
-  ReactNode,
-  useEffect,
-  useCallback,
-} from 'react';
-import { getNewShuffledDeck, PairedCard } from '@/data/cardData';
-import { handleCardClick } from '@/utils/cardOperations';
-import { GameContext, GameState } from './GameContext';
-import { GAME_CONFIG, CARD_STATUS } from '@/utils/constants';
+import React, { useState, useRef, ReactNode, useEffect } from 'react';
+import { PairedCard } from '@/data/cardData';
+import { GameContext } from './GameContext';
+import { GAME_CONFIG } from '@/utils/constants';
+import { useShuffledDeck } from '@/hooks/useShuffledDeck';
+import { useCardReveal } from '@/hooks/useCardReveal';
+import { useCardInteraction } from '@/hooks/useCardInteraction';
 
 interface GameProviderProps {
   children: ReactNode;
@@ -19,144 +15,90 @@ export const GameProvider = ({
   children,
   onExit,
 }: GameProviderProps): React.ReactElement => {
-  // Initialize game state as a single object
-  const [gameState, setGameState] = useState<GameState>({
-    cards: getNewShuffledDeck(),
-    selectedCardIndex: null,
-    matchedPairs: 0,
-    moves: 0,
-    isGameOver: false,
-    timerActive: false,
-    feedback: '',
-    isInitialReveal: true,
-    isProcessingMatch: false,
-    completedTime: 0,
-    startTime: null,
-    showModal: false,
+  // Use shuffled deck hook
+  const { deck, refreshDeck } = useShuffledDeck();
+
+  const [matchedPairs, setMatchedPairs] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [timerActive, setTimerActive] = useState(false);
+  const [isInitialReveal, setIsInitialReveal] = useState(true);
+  const [completedTime, setCompletedTime] = useState(0);
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [showModal, setShowModal] = useState(false);
+
+  // Use card interaction hook
+  const {
+    cards,
+    setCards,
+    selectedCardIndex,
+    setSelectedCardIndex,
+    feedback,
+    moves,
+    handleCardClick,
+    resetState: resetCardInteraction,
+  } = useCardInteraction<PairedCard>({
+    onMatch: () => {
+      setMatchedPairs((prev) => prev + 1);
+    },
+    onMismatch: () => {},
+    cardFlipDelay: GAME_CONFIG.CARD_FLIP_DELAY,
+  });
+
+  // Use card reveal hook
+  const { isRevealing, revealCards } = useCardReveal(cards, setCards, {
+    initialDelay: 500,
+    revealDuration: GAME_CONFIG.INITIAL_REVEAL_TIME,
+    onRevealComplete: () => {
+      setIsInitialReveal(false);
+      setTimerActive(true);
+      setStartTime(Date.now());
+    },
   });
 
   // Refs
   const previousIndex = useRef<number | null>(null);
 
-  // Create individual state setters with proper typing
-  const updateValue =
-    <K extends keyof GameState>(key: K) =>
-    (value: React.SetStateAction<GameState[K]>) =>
-      setGameState((prev) => ({
-        ...prev,
-        [key]: typeof value === 'function' ? value(prev[key]) : value,
-      }));
-
-  // Update cards state
-  const setCards = updateValue('cards');
-  // Update selected card index
-  const setSelectedCardIndex = updateValue('selectedCardIndex');
-  // Update matched pairs count
-  const setMatchedPairs = updateValue('matchedPairs');
-  // Update moves count
-  const setMoves = updateValue('moves');
-  // Update game over status
-  const setIsGameOver = updateValue('isGameOver');
-  // Update timer state
-  const setTimerActive = updateValue('timerActive');
-  // Update feedback message
-  const setFeedback = updateValue('feedback');
-  // Update modal visibility
-  const setShowModal = updateValue('showModal');
-  // Update match processing state
-  const setIsProcessingMatch = updateValue('isProcessingMatch');
-
-  // Reveal all cards initially, then hide them after a delay
-  const initializeCards = useCallback(
-    (delay: number = GAME_CONFIG.INITIAL_REVEAL_TIME) => {
-      setGameState((prev) => ({ ...prev, isInitialReveal: true }));
-      const initialDelay = 500;
-
-      const timer = setTimeout(() => {
-        setCards((prevCards) =>
-          prevCards.map((card) => ({ ...card, status: CARD_STATUS.ACTIVE })),
-        );
-
-        const revealTimer = setTimeout(() => {
-          setCards((prevCards) =>
-            prevCards.map((card) => ({ ...card, status: CARD_STATUS.DEFAULT })),
-          );
-          setGameState((prev) => ({
-            ...prev,
-            isInitialReveal: false,
-            timerActive: true,
-            startTime: Date.now(),
-          }));
-        }, delay);
-
-        return () => clearTimeout(revealTimer);
-      }, initialDelay);
-
-      return () => clearTimeout(timer);
-    },
-    [setCards],
-  );
-
   // Initialize cards on mount
   useEffect(() => {
-    const cleanup = initializeCards();
-    return cleanup;
-  }, [initializeCards]);
+    setCards(deck);
+    revealCards();
+  }, [deck, setCards, revealCards]);
 
   // Check for game completion
   useEffect(() => {
-    if (gameState.matchedPairs === GAME_CONFIG.TOTAL_PAIRS) {
-      const completedTime = gameState.startTime
-        ? Math.floor((Date.now() - gameState.startTime) / 1000)
+    if (matchedPairs === GAME_CONFIG.TOTAL_PAIRS) {
+      const timeElapsed = startTime
+        ? Math.floor((Date.now() - startTime) / 1000)
         : 0;
-      setGameState((prev) => ({
-        ...prev,
-        timerActive: false,
-        completedTime,
-        showModal: true,
-        isGameOver: true,
-      }));
+      setTimerActive(false);
+      setCompletedTime(timeElapsed);
+      setShowModal(true);
+      setIsGameOver(true);
     }
-  }, [gameState.matchedPairs, gameState.startTime]);
+  }, [matchedPairs, startTime]);
 
   // Handle card selection
   function handleCardSelection(index: number) {
-    handleCardClick<PairedCard>({
-      index,
-      cards: gameState.cards,
-      setCards,
-      selectedCardIndex: gameState.selectedCardIndex,
-      setSelectedCardIndex,
-      previousIndex,
-      onMatch: () => setMatchedPairs((prev) => prev + 1),
-      onMismatch: () => {},
-      setFeedback,
-      setMoves,
-      isInitialReveal: gameState.isInitialReveal,
-      isProcessingMatch: gameState.isProcessingMatch,
-      setIsProcessingMatch,
-    });
+    handleCardClick(index, isInitialReveal);
   }
 
   // Reset game state
   function resetGameState() {
-    setGameState({
-      cards: getNewShuffledDeck(),
-      selectedCardIndex: null,
-      matchedPairs: 0,
-      moves: 0,
-      isGameOver: false,
-      timerActive: false,
-      feedback: '',
-      isInitialReveal: true,
-      isProcessingMatch: false,
-      completedTime: 0,
-      startTime: null,
-      showModal: false,
-    });
+    refreshDeck();
+    setCards(deck);
+    resetCardInteraction();
+    setMatchedPairs(0);
+    setIsGameOver(false);
+    setTimerActive(false);
+    setIsInitialReveal(true);
+    setCompletedTime(0);
+    setStartTime(null);
+    setShowModal(false);
     previousIndex.current = null;
+
+    // Allow a brief delay before revealing cards again
     setTimeout(() => {
-      initializeCards();
+      revealCards();
     }, 100);
   }
 
@@ -168,14 +110,25 @@ export const GameProvider = ({
   return (
     <GameContext.Provider
       value={{
-        ...gameState,
+        cards,
+        selectedCardIndex,
+        matchedPairs,
+        moves,
+        isGameOver,
+        timerActive,
+        feedback,
+        isInitialReveal,
+        isProcessingMatch: isRevealing,
+        completedTime,
+        startTime,
+        showModal,
         setCards,
         setSelectedCardIndex,
         setMatchedPairs,
-        setMoves,
+        setMoves: resetCardInteraction,
         setIsGameOver,
         setTimerActive,
-        setFeedback,
+        setFeedback: () => {},
         setShowModal,
         previousIndex,
         resetGameState,
