@@ -1,33 +1,42 @@
 import { createContext } from 'react';
 import { PairedCard } from '@/data/cardData';
 
-// Define the shape of the game context
-export interface GameContextType {
+// Game state and actions
+export interface GameState {
   cards: PairedCard[];
-  setCards: React.Dispatch<React.SetStateAction<PairedCard[]>>;
   selectedCardIndex: number | null;
-  setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>;
   matchedPairs: number;
-  setMatchedPairs: React.Dispatch<React.SetStateAction<number>>;
-  isGameOver: boolean;
-  setIsGameOver: React.Dispatch<React.SetStateAction<boolean>>;
   moves: number;
-  setMoves: React.Dispatch<React.SetStateAction<number>>;
+  isGameOver: boolean;
   timerActive: boolean;
-  setTimerActive: React.Dispatch<React.SetStateAction<boolean>>;
   feedback: string;
-  setFeedback: React.Dispatch<React.SetStateAction<string>>;
-  previousIndex: React.RefObject<number | null>;
-  resetGameState: () => void;
-  handleCardSelection: (index: number) => void;
-  completedTime: number;
-  showModal: boolean;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  exitToMainMenu: () => void;
   isInitialReveal: boolean;
+  isProcessingMatch: boolean;
+  completedTime: number;
+  startTime: number | null;
+  showModal: boolean;
 }
 
-// Create the game context
+export interface GameActions {
+  setCards: React.Dispatch<React.SetStateAction<PairedCard[]>>;
+  setSelectedCardIndex: React.Dispatch<React.SetStateAction<number | null>>;
+  setMatchedPairs: React.Dispatch<React.SetStateAction<number>>;
+  setMoves: React.Dispatch<React.SetStateAction<number>>;
+  setIsGameOver: React.Dispatch<React.SetStateAction<boolean>>;
+  setTimerActive: React.Dispatch<React.SetStateAction<boolean>>;
+  setFeedback: React.Dispatch<React.SetStateAction<string>>;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  previousIndex: React.RefObject<number | null>;
+}
+
+export interface GameOperations {
+  resetGameState: () => void;
+  handleCardSelection: (index: number) => void;
+  exitToMainMenu: () => void;
+}
+
+export type GameContextType = GameState & GameActions & GameOperations;
+
 export const GameContext = createContext<GameContextType | undefined>(
   undefined,
 );
