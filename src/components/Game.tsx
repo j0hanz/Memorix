@@ -1,6 +1,6 @@
 import Cards from './Cards';
 import ScoreboardModal from './Modal';
-import { playSound } from '@/utils/soundManager';
+import { useSoundEffects } from '@/hooks/useSound';
 import { useGameContext } from '@/hooks/useGameContext';
 import { useEffect } from 'react';
 import { SOUNDS } from '@/utils/constants';
@@ -25,6 +25,8 @@ export default function Game({ onRestart }: GameProps) {
     exitToMainMenu,
   } = useGameContext();
 
+  const { playSound } = useSoundEffects();
+
   // Reset the game state
   const handleReset = () => {
     onRestart();
@@ -35,7 +37,7 @@ export default function Game({ onRestart }: GameProps) {
     if (isGameOver) {
       playSound(SOUNDS.COMPLETE);
     }
-  }, [isGameOver]);
+  }, [isGameOver, playSound]);
 
   return (
     <>
