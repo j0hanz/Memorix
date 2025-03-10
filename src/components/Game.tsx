@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
 import Cards from './Cards';
 import ScoreboardModal from './Modal';
 import { playSound } from '@/utils/soundManager';
 import { useGameContext } from '@/hooks/useGameContext';
+import { useEffect } from 'react';
 
-interface GameLogicProps {
+interface GameProps {
   onRestart: () => void;
 }
 
-export default function GameLogic({ onRestart }: GameLogicProps) {
+export default function Game({ onRestart }: GameProps) {
   // Get game state and handlers from context
   const {
     cards,
