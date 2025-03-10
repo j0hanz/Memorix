@@ -2,17 +2,16 @@ import { playSound } from './soundManager';
 import { CardDef } from '@/data/cardData';
 import { FEEDBACK, GAME_CONFIG, CARD_STATUS } from '@/utils/constants';
 
-// Function to apply status to specified cards
+// Updates status for specified card indices
 function applyCardStatus<T extends CardDef>(
   cards: T[],
   indices: number[],
   status: string,
-): void {
-  indices.forEach((index) => {
-    if (cards[index]) {
-      cards[index].status = status;
-    }
-  });
+): T[] {
+  const indicesSet = new Set(indices);
+  return cards.map((card, idx) =>
+    indicesSet.has(idx) ? { ...card, status } : card,
+  );
 }
 
 interface UpdateCardStatusParams<T extends CardDef> {
@@ -25,7 +24,6 @@ interface UpdateCardStatusParams<T extends CardDef> {
   onMismatch: () => void;
 }
 
-// Update card status based on match result
 function updateCardStatus<T extends CardDef>({
   cards,
   setCards,
@@ -36,22 +34,15 @@ function updateCardStatus<T extends CardDef>({
   onMismatch,
 }: UpdateCardStatusParams<T>): void {
   setTimeout(() => {
+    // Update card status based on match result
+    const status = isMatch ? CARD_STATUS.MATCHED : CARD_STATUS.DEFAULT;
+    setCards(
+      applyCardStatus(cards, [currentCardIndex, selectedCardIndex], status),
+    );
+    // Execute callback based on match result
     if (isMatch) {
-      // Apply matched status to both cards
-      applyCardStatus(
-        cards,
-        [currentCardIndex, selectedCardIndex],
-        CARD_STATUS.MATCHED,
-      );
-      setCards([...cards]);
       onMatch();
     } else {
-      applyCardStatus(
-        cards,
-        [currentCardIndex, selectedCardIndex],
-        CARD_STATUS.DEFAULT,
-      );
-      setCards([...cards]);
       onMismatch();
     }
   }, GAME_CONFIG.CARD_FLIP_DELAY);
@@ -67,7 +58,7 @@ interface MatchCheckParams<T extends CardDef> {
   onMismatch: () => void;
 }
 
-// Check if selected cards match
+// Checks if two cards match and handles the result
 export function matchCheck<T extends CardDef>({
   currentCardIndex,
   cards,
@@ -77,6 +68,7 @@ export function matchCheck<T extends CardDef>({
   onMatch,
   onMismatch,
 }: MatchCheckParams<T>): boolean {
+  // Validate card indices
   if (
     currentCardIndex === selectedCardIndex ||
     !cards[currentCardIndex] ||
@@ -85,18 +77,23 @@ export function matchCheck<T extends CardDef>({
     console.error('Invalid card indices or card data');
     return false;
   }
-
-  const updatedCards = [...cards];
-  const currentCard = updatedCards[currentCardIndex];
-  const selectedCard = updatedCards[selectedCardIndex];
-
+  // Retrieve card data
+  const currentCard = cards[currentCardIndex];
+  const selectedCard = cards[selectedCardIndex];
+  // Check if cards share the same pairId
   const isMatch = currentCard.pairId === selectedCard.pairId;
-
-  // Apply active status to the current card being clicked
-  updatedCards[currentCardIndex].status = CARD_STATUS.ACTIVE;
-  setCards(updatedCards);
+  // Set current card to active state
+  setCards((prev) => {
+    const updated = [...prev];
+    updated[currentCardIndex] = {
+      ...updated[currentCardIndex],
+      status: CARD_STATUS.ACTIVE,
+    };
+    return updated;
+  });
+  // Update both cards after delay
   updateCardStatus({
-    cards: updatedCards,
+    cards,
     setCards,
     currentCardIndex,
     selectedCardIndex,
@@ -104,7 +101,7 @@ export function matchCheck<T extends CardDef>({
     onMatch,
     onMismatch,
   });
-
+  // Reset selected card index
   setSelectedCardIndex(null);
   return isMatch;
 }
@@ -121,18 +118,22 @@ interface CardClickParams<T extends CardDef> {
   setFeedback: React.Dispatch<React.SetStateAction<string>>;
   setMoves: React.Dispatch<React.SetStateAction<number>>;
   isInitialReveal?: boolean;
+  isProcessingMatch?: boolean;
+  setIsProcessingMatch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// Check if a card can be clicked
+// Determines if a card can be clicked based on game state
 export function canClickCard<T extends CardDef>(
   index: number,
   cards: T[],
   selectedCardIndex: number | null,
   previousIndex: React.RefObject<number | null>,
   isInitialReveal: boolean,
+  isProcessingMatch: boolean,
 ): boolean {
   return (
     !isInitialReveal &&
+    !isProcessingMatch &&
     index !== previousIndex.current &&
     index !== selectedCardIndex &&
     cards[index] &&
@@ -140,7 +141,7 @@ export function canClickCard<T extends CardDef>(
   );
 }
 
-// Handle the logic when a card is clicked
+// Main card click handler for the memory game
 export function handleCardClick<T extends CardDef>({
   index,
   cards,
@@ -153,7 +154,10 @@ export function handleCardClick<T extends CardDef>({
   setFeedback,
   setMoves,
   isInitialReveal = false,
+  isProcessingMatch = false,
+  setIsProcessingMatch,
 }: CardClickParams<T>): void {
+  // Skip if card cannot be clicked
   if (
     !canClickCard(
       index,
@@ -161,36 +165,51 @@ export function handleCardClick<T extends CardDef>({
       selectedCardIndex,
       previousIndex,
       isInitialReveal,
+      isProcessingMatch,
     )
   ) {
     return;
   }
 
-  const newCards = [...cards];
-
+  // First card selection
   if (selectedCardIndex === null) {
-    // First card selected
     previousIndex.current = index;
-    newCards[index].status = 'active';
-    setCards(newCards);
+    setCards((prev) => {
+      const updated = [...prev];
+      updated[index] = { ...updated[index], status: 'active' };
+      return updated;
+    });
     setSelectedCardIndex(index);
     playSound('click');
     return;
   }
 
-  // Check match
+  // Prevent further clicks during matching process
+  setIsProcessingMatch(true);
+
+  // Check for match after second card selection
   const isMatch = matchCheck({
     currentCardIndex: index,
-    cards: newCards,
+    cards,
     setCards,
     selectedCardIndex,
     setSelectedCardIndex,
-    onMatch,
-    onMismatch,
+    onMatch: () => {
+      onMatch();
+      setIsProcessingMatch(false);
+    },
+    onMismatch: () => {
+      onMismatch();
+      setIsProcessingMatch(false);
+    },
   });
 
+  // Play appropriate sound based on match result
   playSound(isMatch ? 'correct' : 'wrong');
+  // Update feedback message
   setFeedback(isMatch ? FEEDBACK.SUCCESS : FEEDBACK.ERROR);
+  // Reset previous index reference
   previousIndex.current = null;
+  // Increment move counter
   setMoves((prev) => prev + 1);
 }
