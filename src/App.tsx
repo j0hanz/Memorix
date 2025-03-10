@@ -8,16 +8,18 @@ import { usePageTransition } from '@/hooks/usePageTransition';
 import MainMenu from '@/components/MainMenu';
 
 export default function App() {
-  // State for controlling application flow and UI visibility
-  const [isGameActive, setIsGameActive] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [showInstructions, setShowInstructions] = useState<boolean>(false);
-  const [showLatestUpdates, setShowLatestUpdates] = useState<boolean>(false);
+  // App state for game control
+  const [appState, setAppState] = useState({
+    isGameActive: false,
+    isLoading: false,
+    showInstructions: false,
+    showLatestUpdates: false,
+  });
 
-  // Get animation settings for page transitions
+  // Get page transition animations
   const { pageVariants, pageTransition } = usePageTransition();
 
-  // Get game control functions from custom hook
+  // Destructure game handlers
   const {
     startGame,
     handleRestart,
@@ -27,12 +29,33 @@ export default function App() {
     openLatestUpdates,
     closeLatestUpdates,
   } = useGameHandlers({
-    setIsLoading,
-    setIsGameActive,
-    setShowInstructions,
-    setShowLatestUpdates,
+    setIsLoading: (val) =>
+      setAppState((prev) => ({
+        ...prev,
+        isLoading: typeof val === 'function' ? val(prev.isLoading) : val,
+      })),
+    setIsGameActive: (val) =>
+      setAppState((prev) => ({
+        ...prev,
+        isGameActive: typeof val === 'function' ? val(prev.isGameActive) : val,
+      })),
+    setShowInstructions: (val) =>
+      setAppState((prev) => ({
+        ...prev,
+        showInstructions:
+          typeof val === 'function' ? val(prev.showInstructions) : val,
+      })),
+    setShowLatestUpdates: (val) =>
+      setAppState((prev) => ({
+        ...prev,
+        showLatestUpdates:
+          typeof val === 'function' ? val(prev.showLatestUpdates) : val,
+      })),
   });
 
+  // Render components based on app state
+  const { isLoading, isGameActive, showInstructions, showLatestUpdates } =
+    appState;
   return (
     <>
       <LoadingSpinner isLoading={isLoading} />
