@@ -108,6 +108,7 @@ export function useCardInteraction<T extends CardDef>(options: {
     cards,
     setCards,
     selectedCardIndex,
+    setSelectedCardIndex,
     feedback,
     moves,
     handleCardClick,
