@@ -1,6 +1,5 @@
 import { motion, Variants } from 'framer-motion';
 import Button from '@/components/Button';
-import { useState, useEffect } from 'react';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
@@ -8,7 +7,7 @@ import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import styles from '@/App.module.css';
-import { getMuteState, toggleMuteState } from '@/utils/soundManager';
+import { useSoundEffects } from '@/hooks/useSound';
 
 interface MainMenuProps {
   startGame: () => void;
@@ -48,19 +47,7 @@ function SocialLinks({
 }: {
   onLatestUpdatesClick: () => void;
 }) {
-  // Initialize mute state from soundManager
-  const [isMuted, setIsMuted] = useState<boolean>(getMuteState());
-
-  // Handle mute button click
-  const handleMuteToggle = () => {
-    const newMuteState = toggleMuteState();
-    setIsMuted(newMuteState);
-  };
-
-  // Get initial mute state on component mount
-  useEffect(() => {
-    setIsMuted(getMuteState());
-  }, []);
+  const { isMuted, toggleMute } = useSoundEffects();
 
   return (
     <div className={styles.smallButtonsDiv}>
@@ -68,7 +55,7 @@ function SocialLinks({
         <TrackChangesOutlinedIcon />
       </div>
       <div
-        onClick={handleMuteToggle}
+        onClick={toggleMute}
         className={styles.btnUpdates}
         aria-label={isMuted ? 'Unmute sounds' : 'Mute sounds'}
       >
