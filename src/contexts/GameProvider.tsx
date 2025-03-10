@@ -70,29 +70,37 @@ export const GameProvider = ({
   const initializeCards = useCallback(
     (delay: number = GAME_CONFIG.INITIAL_REVEAL_TIME) => {
       setGameState((prev) => ({ ...prev, isInitialReveal: true }));
-      setCards((prevCards) =>
-        prevCards.map((card) => ({ ...card, status: CARD_STATUS.ACTIVE })),
-      );
+      const initialDelay = 500;
+
       const timer = setTimeout(() => {
         setCards((prevCards) =>
-          prevCards.map((card) => ({ ...card, status: CARD_STATUS.DEFAULT })),
+          prevCards.map((card) => ({ ...card, status: CARD_STATUS.ACTIVE })),
         );
-        setGameState((prev) => ({
-          ...prev,
-          isInitialReveal: false,
-          timerActive: true,
-          startTime: Date.now(),
-        }));
-      }, delay);
-      return timer;
+
+        const revealTimer = setTimeout(() => {
+          setCards((prevCards) =>
+            prevCards.map((card) => ({ ...card, status: CARD_STATUS.DEFAULT })),
+          );
+          setGameState((prev) => ({
+            ...prev,
+            isInitialReveal: false,
+            timerActive: true,
+            startTime: Date.now(),
+          }));
+        }, delay);
+
+        return () => clearTimeout(revealTimer);
+      }, initialDelay);
+
+      return () => clearTimeout(timer);
     },
     [setCards],
   );
 
   // Initialize cards on mount
   useEffect(() => {
-    const timer = initializeCards();
-    return () => clearTimeout(timer);
+    const cleanup = initializeCards();
+    return cleanup;
   }, [initializeCards]);
 
   // Check for game completion
