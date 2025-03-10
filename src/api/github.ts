@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { GITHUB_API } from '@/utils/constants';
 
 const GITHUB_API_URL: string =
   'https://api.github.com/repos/j0hanz/Memorix/commits';
@@ -41,7 +42,7 @@ export const fetchLatestCommits = async (): Promise<Commit[]> => {
           }
         : {},
       params: {
-        per_page: 3, // Fetch 3 latest commits
+        per_page: GITHUB_API.COMMITS_PER_PAGE, // Fetch latest commits
       },
     });
     const commits = response.data;

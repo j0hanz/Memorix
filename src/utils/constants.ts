@@ -27,3 +27,41 @@ export const FEEDBACK = {
   SUCCESS: 'success',
   ERROR: 'error',
 };
+
+// Sound identifiers
+export const SOUNDS = {
+  CORRECT: 'correct',
+  WRONG: 'wrong',
+  CLICK: 'click',
+  BUTTON: 'button',
+  COMPLETE: 'complete',
+};
+
+// Local storage keys
+export const STORAGE_KEYS = {
+  MUTE_STATE: 'memorixMuted',
+};
+
+// Animation settings
+export const ANIMATION = {
+  DEFAULT_TYPE: 'spring',
+  DEFAULT_STIFFNESS: 80,
+  DEFAULT_DAMPING: 20,
+  DEFAULT_DURATION: 0.4,
+  FEEDBACK_DURATION: 0.5,
+};
+
+// GitHub API config
+export const GITHUB_API = {
+  COMMITS_PER_PAGE: 3,
+};
+
+// CSS class variants
+export const CSS_CLASSES = {
+  ACTIVE: 'active',
+  MATCHED: 'matched',
+  LOADING: 'loading',
+  SUCCESS: 'success',
+  ERROR: 'error',
+  GRAYED_OUT: 'grayedOut',
+};

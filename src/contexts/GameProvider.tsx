@@ -19,7 +19,7 @@ export const GameProvider = ({
   children,
   onExit,
 }: GameProviderProps): React.ReactElement => {
-  // Initialize game state as a single object for better organization
+  // Initialize game state as a single object
   const [gameState, setGameState] = useState<GameState>({
     cards: getNewShuffledDeck(),
     selectedCardIndex: null,
@@ -39,88 +39,37 @@ export const GameProvider = ({
   const previousIndex = useRef<number | null>(null);
 
   // Create individual state setters with proper typing
-  const setCards = (value: React.SetStateAction<PairedCard[]>) => {
-    setGameState((prev) => ({
-      ...prev,
-      cards: typeof value === 'function' ? value(prev.cards) : value,
-    }));
-  };
-
-  // Updates the currently selected card index
-  const setSelectedCardIndex = (value: React.SetStateAction<number | null>) => {
-    setGameState((prev) => ({
-      ...prev,
-      selectedCardIndex:
-        typeof value === 'function' ? value(prev.selectedCardIndex) : value,
-    }));
-  };
-
-  // Increments or sets the number of matched card pairs
-  const setMatchedPairs = (value: React.SetStateAction<number>) => {
-    setGameState((prev) => ({
-      ...prev,
-      matchedPairs:
-        typeof value === 'function' ? value(prev.matchedPairs) : value,
-    }));
-  };
-
-  // Updates the count of player moves
-  const setMoves = (value: React.SetStateAction<number>) => {
-    setGameState((prev) => ({
-      ...prev,
-      moves: typeof value === 'function' ? value(prev.moves) : value,
-    }));
-  };
-
-  // Sets whether the game is over
-  const setIsGameOver = (value: React.SetStateAction<boolean>) => {
-    setGameState((prev) => ({
-      ...prev,
-      isGameOver: typeof value === 'function' ? value(prev.isGameOver) : value,
-    }));
-  };
-
-  // Controls the game timer state
-  const setTimerActive = (value: React.SetStateAction<boolean>) => {
-    setGameState((prev) => ({
-      ...prev,
-      timerActive:
-        typeof value === 'function' ? value(prev.timerActive) : value,
-    }));
-  };
-
-  // Sets feedback message for the player
-  const setFeedback = (value: React.SetStateAction<string>) => {
-    setGameState((prev) => ({
-      ...prev,
-      feedback: typeof value === 'function' ? value(prev.feedback) : value,
-    }));
-  };
-
-  // Controls visibility of the game completion modal
-  const setShowModal = (value: React.SetStateAction<boolean>) => {
-    setGameState((prev) => ({
-      ...prev,
-      showModal: typeof value === 'function' ? value(prev.showModal) : value,
-    }));
-  };
-
-  // Sets whether a match is currently being processed
-  const setIsProcessingMatch = (value: React.SetStateAction<boolean>) => {
-    setGameState((prev) => ({
-      ...prev,
-      isProcessingMatch:
-        typeof value === 'function' ? value(prev.isProcessingMatch) : value,
-    }));
-  };
-
-  // Show all cards initially, then hide them after delay
-  const initializeCards = useCallback(
-    (delay: number = GAME_CONFIG.INITIAL_REVEAL_TIME) => {
+  const updateValue =
+    <K extends keyof GameState>(key: K) =>
+    (value: React.SetStateAction<GameState[K]>) =>
       setGameState((prev) => ({
         ...prev,
-        isInitialReveal: true,
+        [key]: typeof value === 'function' ? value(prev[key]) : value,
       }));
+
+  // Update cards state
+  const setCards = updateValue('cards');
+  // Update selected card index
+  const setSelectedCardIndex = updateValue('selectedCardIndex');
+  // Update matched pairs count
+  const setMatchedPairs = updateValue('matchedPairs');
+  // Update moves count
+  const setMoves = updateValue('moves');
+  // Update game over status
+  const setIsGameOver = updateValue('isGameOver');
+  // Update timer state
+  const setTimerActive = updateValue('timerActive');
+  // Update feedback message
+  const setFeedback = updateValue('feedback');
+  // Update modal visibility
+  const setShowModal = updateValue('showModal');
+  // Update match processing state
+  const setIsProcessingMatch = updateValue('isProcessingMatch');
+
+  // Reveal all cards initially, then hide them after a delay
+  const initializeCards = useCallback(
+    (delay: number = GAME_CONFIG.INITIAL_REVEAL_TIME) => {
+      setGameState((prev) => ({ ...prev, isInitialReveal: true }));
       setCards((prevCards) =>
         prevCards.map((card) => ({ ...card, status: CARD_STATUS.ACTIVE })),
       );
@@ -137,7 +86,7 @@ export const GameProvider = ({
       }, delay);
       return timer;
     },
-    [],
+    [setCards],
   );
 
   // Initialize cards on mount
@@ -152,7 +101,6 @@ export const GameProvider = ({
       const completedTime = gameState.startTime
         ? Math.floor((Date.now() - gameState.startTime) / 1000)
         : 0;
-
       setGameState((prev) => ({
         ...prev,
         timerActive: false,

@@ -1,6 +1,6 @@
 import { playSound } from './soundManager';
 import { CardDef } from '@/data/cardData';
-import { FEEDBACK, GAME_CONFIG, CARD_STATUS } from '@/utils/constants';
+import { FEEDBACK, GAME_CONFIG, CARD_STATUS, SOUNDS } from '@/utils/constants';
 
 // Updates status for specified card indices
 function applyCardStatus<T extends CardDef>(
@@ -176,11 +176,11 @@ export function handleCardClick<T extends CardDef>({
     previousIndex.current = index;
     setCards((prev) => {
       const updated = [...prev];
-      updated[index] = { ...updated[index], status: 'active' };
+      updated[index] = { ...updated[index], status: CARD_STATUS.ACTIVE };
       return updated;
     });
     setSelectedCardIndex(index);
-    playSound('click');
+    playSound(SOUNDS.CLICK);
     return;
   }
 
@@ -205,7 +205,7 @@ export function handleCardClick<T extends CardDef>({
   });
 
   // Play appropriate sound based on match result
-  playSound(isMatch ? 'correct' : 'wrong');
+  playSound(isMatch ? SOUNDS.CORRECT : SOUNDS.WRONG);
   // Update feedback message
   setFeedback(isMatch ? FEEDBACK.SUCCESS : FEEDBACK.ERROR);
   // Reset previous index reference

@@ -3,6 +3,7 @@ import ScoreboardModal from './Modal';
 import { playSound } from '@/utils/soundManager';
 import { useGameContext } from '@/hooks/useGameContext';
 import { useEffect } from 'react';
+import { SOUNDS } from '@/utils/constants';
 
 interface GameProps {
   onRestart: () => void;
@@ -32,7 +33,7 @@ export default function Game({ onRestart }: GameProps) {
   // Play sound when game is over
   useEffect(() => {
     if (isGameOver) {
-      playSound('complete');
+      playSound(SOUNDS.COMPLETE);
     }
   }, [isGameOver]);
 

@@ -3,6 +3,7 @@ import Card from './Card';
 import Image from './Image';
 import styles from './styles/Card.module.css';
 import { useGameContext } from '@/hooks/useGameContext';
+import { CSS_CLASSES, CARD_STATUS } from '@/utils/constants';
 
 interface GameCardProps {
   card: {
@@ -24,9 +25,9 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
   const cardClassName = () => {
     return [
       styles.card,
-      card.status ? styles.active : '',
-      card.status === 'active matched' ? styles.matched : '',
-      !imageLoaded && !imageError ? styles.loading : '',
+      card.status ? styles[CSS_CLASSES.ACTIVE] : '',
+      card.status === CARD_STATUS.MATCHED ? styles[CSS_CLASSES.MATCHED] : '',
+      !imageLoaded && !imageError ? styles[CSS_CLASSES.LOADING] : '',
     ]
       .filter(Boolean)
       .join(' ');
@@ -61,7 +62,7 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
       onClick={handleClick}
       role="button"
       ariaLabel={`Card ${card.name}`}
-      ariaSelected={card.status === 'active'}
+      ariaSelected={card.status === CSS_CLASSES.ACTIVE}
       disabled={!isClickable}
     >
       <div className={styles.back} />

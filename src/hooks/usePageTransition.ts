@@ -1,4 +1,5 @@
 import { Variants } from 'framer-motion';
+import { ANIMATION } from '@/utils/constants';
 
 interface TransitionOptions {
   type?: 'spring' | 'tween' | 'inertia';
@@ -38,24 +39,24 @@ export function usePageTransition(options?: TransitionOptions) {
       opacity: 1,
       scale: [0.1, 2, 1],
       transition: {
-        duration: 0.5,
+        duration: ANIMATION.FEEDBACK_DURATION,
       },
     },
     exit: {
       opacity: 0,
       scale: 0.1,
       transition: {
-        duration: 0.5,
+        duration: ANIMATION.FEEDBACK_DURATION,
       },
     },
   };
 
   // Configurable transition settings
   const pageTransition = {
-    type: options?.type || 'spring',
-    stiffness: options?.stiffness || 80,
-    damping: options?.damping || 20,
-    duration: options?.duration || 0.4,
+    type: options?.type || ANIMATION.DEFAULT_TYPE,
+    stiffness: options?.stiffness || ANIMATION.DEFAULT_STIFFNESS,
+    damping: options?.damping || ANIMATION.DEFAULT_DAMPING,
+    duration: options?.duration || ANIMATION.DEFAULT_DURATION,
     delay: options?.delay || 0,
   };
 
