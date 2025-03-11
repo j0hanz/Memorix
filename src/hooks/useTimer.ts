@@ -8,19 +8,31 @@ export function useTimer(timerActive: boolean): number {
   useEffect(() => {
     if (!timerActive) {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+        try {
+          clearInterval(intervalRef.current);
+        } catch (error) {
+          console.error('Error clearing interval:', error);
+        }
         intervalRef.current = null;
       }
       return;
     }
 
-    intervalRef.current = window.setInterval(() => {
-      setElapsedTime((prevTime) => prevTime + 1);
-    }, 1000);
+    try {
+      intervalRef.current = window.setInterval(() => {
+        setElapsedTime((prevTime) => prevTime + 1);
+      }, 1000);
+    } catch (error) {
+      console.error('Error setting interval:', error);
+    }
 
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+        try {
+          clearInterval(intervalRef.current);
+        } catch (error) {
+          console.error('Error clearing interval in cleanup:', error);
+        }
         intervalRef.current = null;
       }
     };
