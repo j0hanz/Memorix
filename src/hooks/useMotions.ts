@@ -50,7 +50,7 @@ export function useMotions(options?: MotionOptions) {
     },
   };
 
-  // Flip animation for the card component with variants for all states
+  // Improved flip animation with better easing and physics
   const flipAnimation = {
     initial: {
       rotateY: 0,
@@ -60,58 +60,77 @@ export function useMotions(options?: MotionOptions) {
       rotateY: 180,
       scale: 1.05,
       transition: {
-        type: 'tween',
-        duration: 0.35,
+        type: 'spring',
+        stiffness: 150,
+        damping: 20,
+        duration: 0.5,
       },
     },
     matched: {
       rotateY: 180,
       scale: 0.9,
       transition: {
-        type: 'tween',
+        type: 'spring',
+        stiffness: 100,
+        damping: 20,
+        duration: 0.5,
       },
     },
     hidden: {
       rotateY: 0,
       scale: 1,
       transition: {
-        type: 'tween',
-        duration: 0.35,
+        type: 'spring',
+        stiffness: 150,
+        damping: 20,
+        duration: 0.5,
       },
     },
     hover: {
       scale: 1.05,
       transition: {
-        type: 'tween',
+        type: 'spring',
+        stiffness: 300,
+        damping: 20,
       },
     },
   };
 
-  // Content animations for front/back faces
+  // Content animations with improved transitions
   const cardContentAnimation = {
     backFace: {
       initial: { rotateY: 0, opacity: 1 },
-      flipped: { rotateY: 180, opacity: 0 },
+      flipped: {
+        rotateY: 180,
+        opacity: 0,
+        transition: {
+          opacity: { duration: 0.2 },
+        },
+      },
     },
     frontFace: {
       initial: {
         rotateY: 180,
         opacity: 0,
         transition: {
-          duration: 0.35,
+          duration: 0.4,
         },
       },
       flipped: {
         rotateY: 0,
         opacity: 1,
         transition: {
-          duration: 0.35,
+          opacity: { delay: 0.1, duration: 0.2 },
+          duration: 0.4,
         },
       },
       matched: {
         rotateY: 0,
-        opacity: 0.8,
-        scale: 0.9,
+        opacity: 0.85,
+        scale: 0.92,
+        transition: {
+          duration: 0.4,
+        },
       },
     },
   };

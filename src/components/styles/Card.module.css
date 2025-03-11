@@ -2,6 +2,7 @@
   perspective: 1200px;
   transform-style: preserve-3d;
   will-change: transform, opacity;
+  transform-origin: center center;
 }
 
 .card {
@@ -13,6 +14,7 @@
   cursor: pointer;
   transform-style: preserve-3d;
   will-change: transform, opacity;
+  transform-origin: center center;
 }
 
 .front,
@@ -23,6 +25,8 @@
   left: 0;
   top: 0;
   backface-visibility: hidden;
+  transform-origin: center center;
+  overflow: hidden;
 }
 
 .front img {
@@ -39,7 +43,6 @@
   background-repeat: no-repeat;
 }
 
-/* Matched card outline */
 .matched {
   outline: var(--outline-card-matched);
 }
