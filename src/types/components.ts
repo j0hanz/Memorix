@@ -1,11 +1,23 @@
 import { ReactNode } from 'react';
 import { ButtonProps } from 'react-bootstrap';
 import { TargetAndTransition, Transition } from 'framer-motion';
+import { PairedCard } from './card';
 
 export interface CustomButtonProps extends ButtonProps {
   icon?: ReactNode;
   text?: string;
   className?: string;
+}
+
+export interface CardsProps {
+  cards: PairedCard[];
+  handleCardSelection: (index: number) => void;
+  matchedPairs?: number;
+  moves: number;
+  onReset: () => void;
+  onExit: () => void;
+  timerActive: boolean;
+  feedback: string;
 }
 
 export interface ImageProps {
