@@ -55,9 +55,6 @@ export function useMotions(options?: MotionOptions) {
     initial: {
       rotateY: 0,
       scale: 1,
-      transition: {
-        type: 'tween',
-      },
     },
     active: {
       rotateY: 180,

@@ -23,8 +23,6 @@ const Card: React.FC<CardProps> = ({
 }) => {
   const defaultStyles: React.CSSProperties = {
     cursor: disabled ? 'default' : onClick ? 'pointer' : 'default',
-    display: 'flex',
-    flexDirection: 'column',
   };
 
   return (
