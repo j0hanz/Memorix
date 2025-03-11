@@ -1,15 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { CARD_STATUS } from '@/constants/constants';
 import { updateAllCardsStatus } from '@/utils/cardUtils';
+import { CardRevealOptions } from '@/types/card';
 
 export function useCardReveal<T extends { status: string }>(
   _cards: T[],
   setCards: React.Dispatch<React.SetStateAction<T[]>>,
-  options: {
-    initialDelay?: number;
-    revealDuration?: number;
-    onRevealComplete?: () => void;
-  } = {},
+  options: CardRevealOptions = {},
 ) {
   const [isRevealing, setIsRevealing] = useState(false);
   const revealTimerRef = useRef<number | null>(null);

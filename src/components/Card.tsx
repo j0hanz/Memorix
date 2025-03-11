@@ -1,15 +1,5 @@
 import React from 'react';
-
-interface CardProps {
-  className?: string;
-  onClick?: () => void;
-  children: React.ReactNode;
-  role?: string;
-  ariaLabel?: string;
-  ariaSelected?: boolean;
-  ariaHidden?: boolean;
-  disabled?: boolean;
-}
+import { CardProps } from '@/types/card';
 
 const Card: React.FC<CardProps> = ({
   className = '',

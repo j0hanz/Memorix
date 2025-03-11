@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { Modal } from 'react-bootstrap';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
@@ -7,17 +6,11 @@ import styles from './styles/Modal.module.css';
 import Scoreboard from '@/data/scoreData';
 import InstructionsData from '@/data/instructionsData';
 import CommitStatus from './CommitStatus';
-
-interface ScoreboardModalProps {
-  show: boolean;
-  onClose: () => void;
-  onReset: () => void;
-  onExit: () => void;
-  title?: string;
-  children?: ReactNode;
-  moves: number;
-  completedTime: string;
-}
+import {
+  ScoreboardModalProps,
+  GameInstructionsProps,
+  LatestUpdatesProps,
+} from '@/types/components';
 
 // Main modal
 export default function ScoreboardModal({
@@ -67,11 +60,6 @@ export default function ScoreboardModal({
   );
 }
 
-interface GameInstructionsProps {
-  show: boolean;
-  onClose: () => void;
-}
-
 // Game instructions modal
 export function GameInstructions({ show, onClose }: GameInstructionsProps) {
   return (
@@ -89,11 +77,6 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
       </Modal.Footer>
     </Modal>
   );
-}
-
-interface LatestUpdatesProps {
-  show: boolean;
-  onClose: () => void;
 }
 
 // Latest updates modal

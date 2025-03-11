@@ -1,4 +1,4 @@
-import { motion, TargetAndTransition, Transition } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Button from '@/components/Button';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -8,19 +8,7 @@ import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import styles from '@/App.module.css';
 import { useSoundEffects } from '@/hooks/useSound';
-
-interface EnterAnimation {
-  initial: TargetAndTransition;
-  animate: TargetAndTransition;
-  transition: Transition;
-}
-
-interface MainMenuProps {
-  startGame: () => void;
-  openInstructions: () => void;
-  openLatestUpdates: () => void;
-  enterAnimation: EnterAnimation;
-}
+import { MainMenuProps } from '@/types/components';
 
 // Internal component definitions
 function StartButton({ onClick }: { onClick: () => void }) {

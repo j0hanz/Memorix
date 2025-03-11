@@ -1,11 +1,5 @@
 import { GAME_CONFIG } from '@/constants/constants';
-
-interface GameHandlerOptions {
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsGameActive: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowInstructions: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowLatestUpdates: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { GameHandlerOptions } from '@/types/hooks';
 
 // Game control handlers
 export const useGameHandlers = ({

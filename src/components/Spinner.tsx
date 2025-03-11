@@ -1,8 +1,5 @@
 import styles from './styles/Spinner.module.css';
-
-interface LoadingSpinnerProps {
-  isLoading: boolean;
-}
+import { LoadingSpinnerProps } from '@/types/components';
 
 // Display loading spinner based on isLoading prop
 const LoadingSpinner = ({ isLoading }: LoadingSpinnerProps) => (

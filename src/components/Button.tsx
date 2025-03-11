@@ -1,14 +1,9 @@
-import { FC, ReactNode } from 'react';
-import { Button as CustomButton, ButtonProps } from 'react-bootstrap';
+import { FC } from 'react';
+import { Button as CustomButton } from 'react-bootstrap';
 import { useSoundEffects } from '@/hooks/useSound';
 import { SOUNDS } from '@/constants/constants';
+import { CustomButtonProps } from '@/types/components';
 import styles from './styles/Button.module.css';
-
-interface CustomButtonProps extends ButtonProps {
-  icon?: ReactNode;
-  text?: string;
-  className?: string;
-}
 
 // Button component with optional icon and text
 const Button: FC<CustomButtonProps> = ({

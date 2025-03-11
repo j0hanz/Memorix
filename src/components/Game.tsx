@@ -4,10 +4,7 @@ import { useSoundEffects } from '@/hooks/useSound';
 import { useGameContext } from '@/hooks/useGameContext';
 import { useEffect } from 'react';
 import { SOUNDS } from '@/constants/constants';
-
-interface GameProps {
-  onRestart: () => void;
-}
+import { GameProps } from '@/types/components';
 
 export default function Game({ onRestart }: GameProps) {
   // Get game state and handlers from context

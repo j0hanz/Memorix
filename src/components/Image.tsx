@@ -1,18 +1,5 @@
 import React, { useState } from 'react';
-
-interface ImageProps {
-  src: string;
-  alt: string;
-  width?: string | number;
-  height?: string | number;
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-  onLoad?: () => void;
-  onError?: () => void;
-  loading?: 'lazy' | 'eager';
-  fallbackSrc?: string;
-}
+import { ImageProps } from '@/types/components';
 
 // Enhanced Image component with error handling and loading management
 const Image: React.FC<ImageProps> = ({

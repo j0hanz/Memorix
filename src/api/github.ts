@@ -1,32 +1,11 @@
 import axios from 'axios';
 import { GITHUB_API } from '@/constants/constants';
+import { Commit, GitHubCommitResponse } from '@/types/api';
 
 const GITHUB_API_URL: string =
   'https://api.github.com/repos/j0hanz/Memorix/commits';
 // GitHub personal access token (requires public repo access only)
 const GITHUB_TOKEN: string | undefined = import.meta.env.VITE_GITHUB_TOKEN;
-
-interface Commit {
-  sha: string;
-  message: string;
-  date: string;
-  url: string;
-  author: string;
-}
-
-interface GitHubCommitResponse {
-  sha: string;
-  commit: {
-    message: string;
-    author: {
-      date: string;
-    };
-  };
-  html_url: string;
-  author: {
-    login: string;
-  } | null;
-}
 
 // Fetches the latest commits from the repository
 export const fetchLatestCommits = async (): Promise<Commit[]> => {

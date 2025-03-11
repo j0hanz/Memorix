@@ -2,14 +2,7 @@ import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { useTimer } from '@/hooks/useTimer';
 import styles from './styles/GameStats.module.css';
-
-interface MovesProps {
-  moves: number;
-}
-
-interface TimerProps {
-  timerActive: boolean;
-}
+import { MovesProps, TimerProps } from '@/types/components';
 
 // Moves component
 export const Moves = ({ moves }: MovesProps) => {

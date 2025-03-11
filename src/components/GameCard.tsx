@@ -6,16 +6,7 @@ import styles from './styles/Card.module.css';
 import { useGameContext } from '@/hooks/useGameContext';
 import { CSS_CLASSES, CARD_STATUS } from '@/constants/constants';
 import { useMotions } from '@/hooks/useMotions';
-
-interface GameCardProps {
-  card: {
-    img: string;
-    name: string;
-    status: string;
-  };
-  index: number;
-  clickHandler?: (index: number) => void;
-}
+import { GameCardProps } from '@/types/card';
 
 function GameCard({ card, index, clickHandler }: GameCardProps) {
   // State to track image loading status

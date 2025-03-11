@@ -1,15 +1,6 @@
 import { Variants } from 'framer-motion';
 import { MOTIONS } from '@/constants/constants';
-
-// Options for customizing animations
-interface MotionOptions {
-  duration?: number;
-  delay?: number;
-  type?: 'spring' | 'tween' | 'inertia';
-  stiffness?: number;
-  damping?: number;
-  bounce?: number;
-}
+import { MotionOptions } from '@/types/hooks';
 
 // Custom hook for creating animations with Framer Motion
 export function useMotions(options?: MotionOptions) {

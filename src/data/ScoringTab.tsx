@@ -4,12 +4,7 @@ import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import AllInclusiveOutlinedIcon from '@mui/icons-material/AllInclusiveOutlined';
 import styles from '@/components/styles/Modal.module.css';
-
-interface ScoreRowProps {
-  stars: number;
-  moves: number;
-  time: string | React.ReactNode;
-}
+import { ScoreRowProps } from '@/types/data';
 
 // Component for each scoring criteria row
 function ScoreRow({ stars, moves, time }: ScoreRowProps) {

@@ -1,11 +1,7 @@
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import styles from './styles/GameStats.module.css';
 import { useGameScore } from '@/hooks/useGameScore';
-
-interface ScoreProps {
-  moves: number;
-  completedTime: string;
-}
+import { ScoreProps } from '@/types/components';
 
 export default function Score({ moves, completedTime }: ScoreProps) {
   const { stars } = useGameScore(moves, parseInt(completedTime, 10));

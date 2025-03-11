@@ -4,13 +4,7 @@ import styles from '@/components/styles/Modal.module.css';
 import OverviewTab from './OverviewTab';
 import IconsTab from './IconsTab';
 import ScoringTab from './ScoringTab';
-
-interface NavItemProps {
-  eventKey: string;
-  title: string;
-  className: string;
-  isActive: boolean;
-}
+import { NavItemProps } from '@/types/data';
 
 // Component for each navigation item
 const NavItem = ({ eventKey, title, className, isActive }: NavItemProps) => (

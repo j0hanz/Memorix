@@ -1,14 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchLatestCommits } from '@/api/github';
 import { Badge, ListGroup } from 'react-bootstrap';
-
-interface Commit {
-  sha: string;
-  date: string;
-  message: string;
-  url: string;
-  author: string | null;
-}
+import { Commit } from '@/types/api';
 
 // Fetches and displays the latest commits
 export default function LatestCommits() {

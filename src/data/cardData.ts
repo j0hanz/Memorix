@@ -6,19 +6,9 @@ import img05 from '@/assets/img/05.gif';
 import img06 from '@/assets/img/06.gif';
 import { GAME_CONFIG } from '@/constants/constants';
 import { shuffleCards } from '@/hooks/useShuffledDeck';
+import { CardDef, PairedCard } from '@/types/card';
 
 const imageAssets: string[] = [img01, img02, img03, img04, img05, img06];
-
-export interface CardDef {
-  pairId: number;
-  img: string;
-  status: string;
-  name: string;
-}
-
-export interface PairedCard extends CardDef {
-  id: number;
-}
 
 // Generate paired cards based on the total pairs
 export function generateCards(): PairedCard[] {
@@ -47,3 +37,5 @@ export function generateCards(): PairedCard[] {
 export function getNewShuffledDeck(): PairedCard[] {
   return shuffleCards(generateCards());
 }
+
+export type { PairedCard };

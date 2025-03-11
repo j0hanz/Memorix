@@ -1,15 +1,11 @@
-import React, { useState, useRef, ReactNode, useEffect } from 'react';
-import { PairedCard } from '@/data/cardData';
+import React, { useState, useRef, useEffect } from 'react';
+import { PairedCard } from '@/types/card';
 import { GameContext } from './GameContext';
+import { GameProviderProps } from '@/types/context';
 import { GAME_CONFIG } from '@/constants/constants';
 import { useShuffledDeck } from '@/hooks/useShuffledDeck';
 import { useCardReveal } from '@/hooks/useCardReveal';
 import { useCardInteraction } from '@/hooks/useCardInteraction';
-
-interface GameProviderProps {
-  children: ReactNode;
-  onExit: () => void;
-}
 
 export const GameProvider = ({
   children,

@@ -7,24 +7,8 @@ import { useMotions } from '@/hooks/useMotions';
 import { Timer, Moves } from './GameStats';
 import Feedback from './Feedback';
 import { FEEDBACK } from '@/constants/constants';
+import { CardsProps } from '@/types/components';
 import styles from './styles/Cards.module.css';
-
-interface CardData {
-  img: string;
-  name: string;
-  status: string;
-}
-
-interface CardsProps {
-  cards: CardData[];
-  handleCardSelection: (index: number) => void;
-  moves: number;
-  onReset: () => void;
-  onExit: () => void;
-  timerActive: boolean;
-  feedback: string;
-  matchedPairs: number;
-}
 
 // Component to display the game cards
 export default function Cards({

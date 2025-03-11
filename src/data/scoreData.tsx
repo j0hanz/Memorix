@@ -2,12 +2,8 @@ import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import styles from '@/components/styles/Modal.module.css';
 import Score from '@/components/Score';
+import { ScoreboardProps } from '@/types/data';
 
-// Define the props type
-interface ScoreboardProps {
-  moves: number;
-  completedTime: string;
-}
 // Displays the game statistics
 export default function Scoreboard({ moves, completedTime }: ScoreboardProps) {
   return (

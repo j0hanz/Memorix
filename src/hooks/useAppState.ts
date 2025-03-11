@@ -1,11 +1,5 @@
 import { useState } from 'react';
-
-export interface AppState {
-  isGameActive: boolean;
-  isLoading: boolean;
-  showInstructions: boolean;
-  showLatestUpdates: boolean;
-}
+import { AppState } from '@/types/hooks';
 
 // Custom hook to manage app state values
 export function useAppState() {

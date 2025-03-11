@@ -1,15 +1,12 @@
 import { useState, useRef } from 'react';
-import { CardDef } from '@/data/cardData';
+import { CardDef, CardInteractionOptions } from '@/types/card';
 import { CARD_STATUS, FEEDBACK, SOUNDS } from '@/constants/constants';
 import { useSoundEffects } from './useSound';
-import { updateCardStatus, updateMultipleCardStatus } from '@/utils/cardUtils';
 
 // Custom hook to handle card interactions and matching logic
-export function useCardInteraction<T extends CardDef>(options: {
-  onMatch?: () => void;
-  onMismatch?: () => void;
-  cardFlipDelay?: number;
-}) {
+export function useCardInteraction<T extends CardDef>(
+  options: CardInteractionOptions<T>,
+) {
   const [cards, setCards] = useState<T[]>([]);
   const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(
     null,
@@ -21,54 +18,6 @@ export function useCardInteraction<T extends CardDef>(options: {
 
   const { playSound } = useSoundEffects();
   const { onMatch, onMismatch, cardFlipDelay = 500 } = options;
-
-  // Handle selecting the first card
-  function handleFirstCardSelection(index: number) {
-    try {
-      previousIndex.current = index;
-      setCards((prev) => updateCardStatus(prev, index, CARD_STATUS.ACTIVE));
-      setSelectedCardIndex(index);
-      playSound(SOUNDS.CLICK);
-    } catch (error) {
-      console.error('Error handling first card selection:', error);
-    }
-  }
-
-  // Process the match result after the appropriate delay
-  function processMatchResult(index: number, isMatch: boolean) {
-    setTimeout(() => {
-      try {
-        const status = isMatch ? CARD_STATUS.MATCHED : CARD_STATUS.DEFAULT;
-        setCards((prev) =>
-          updateMultipleCardStatus(
-            prev,
-            [index, selectedCardIndex as number],
-            status,
-          ),
-        );
-
-        // Execute callback based on match result
-        if (isMatch) {
-          try {
-            onMatch?.();
-          } catch (err) {
-            console.error('Error in onMatch callback:', err);
-          }
-        } else {
-          try {
-            onMismatch?.();
-          } catch (err) {
-            console.error('Error in onMismatch callback:', err);
-          }
-        }
-
-        setIsProcessingMatch(false);
-      } catch (error) {
-        console.error('Error processing card match in timeout:', error);
-        setIsProcessingMatch(false);
-      }
-    }, cardFlipDelay);
-  }
 
   function handleCardClick(index: number, isInitialReveal = false) {
     // Skip if card cannot be clicked
@@ -85,24 +34,70 @@ export function useCardInteraction<T extends CardDef>(options: {
 
     // First card selection
     if (selectedCardIndex === null) {
-      handleFirstCardSelection(index);
+      try {
+        previousIndex.current = index;
+        setCards((prev) => {
+          const updated = [...prev];
+          updated[index] = { ...updated[index], status: CARD_STATUS.ACTIVE };
+          return updated;
+        });
+        setSelectedCardIndex(index);
+        playSound(SOUNDS.CLICK);
+      } catch (error) {
+        console.error('Error handling first card selection:', error);
+      }
       return;
     }
 
-    // Second card selection - prevent further clicks during matching process
+    // Prevent further clicks during matching process
     try {
       setIsProcessingMatch(true);
-
       // Check if cards match
       const currentCard = cards[index];
       const selectedCard = cards[selectedCardIndex];
       const isMatch = currentCard.pairId === selectedCard.pairId;
 
       // Set current card to active state
-      setCards((prev) => updateCardStatus(prev, index, CARD_STATUS.ACTIVE));
+      setCards((prev) => {
+        const updated = [...prev];
+        updated[index] = { ...updated[index], status: CARD_STATUS.ACTIVE };
+        return updated;
+      });
 
-      // Process match result after delay
-      processMatchResult(index, isMatch);
+      // Update both cards after delay
+      setTimeout(() => {
+        try {
+          const status = isMatch ? CARD_STATUS.MATCHED : CARD_STATUS.DEFAULT;
+          setCards((prev) => {
+            const updated = [...prev];
+            updated[index] = { ...updated[index], status };
+            updated[selectedCardIndex] = {
+              ...updated[selectedCardIndex],
+              status,
+            };
+            return updated;
+          });
+
+          // Execute callback based on match result
+          if (isMatch) {
+            try {
+              onMatch?.();
+            } catch (callbackError) {
+              console.error('Error in onMatch callback:', callbackError);
+            }
+          } else {
+            try {
+              onMismatch?.();
+            } catch (callbackError) {
+              console.error('Error in onMismatch callback:', callbackError);
+            }
+          }
+          setIsProcessingMatch(false);
+        } catch (timerError) {
+          console.error('Error processing card match in timeout:', timerError);
+          setIsProcessingMatch(false);
+        }
+      }, cardFlipDelay);
 
       // Play sound and update feedback
       try {

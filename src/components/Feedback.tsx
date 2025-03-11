@@ -4,10 +4,7 @@ import styles from './styles/GameStats.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMotions } from '@/hooks/useMotions';
 import { FEEDBACK } from '@/constants/constants';
-
-interface FeedbackProps {
-  message: string | null;
-}
+import { FeedbackProps } from '@/types/components';
 
 // Display feedback messages based on the message prop
 const Feedback = ({ message }: FeedbackProps) => {
