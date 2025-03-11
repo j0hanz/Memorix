@@ -104,7 +104,7 @@ export function useMotions(options?: MotionOptions) {
         rotateY: 180,
         opacity: 0,
         transition: {
-          opacity: { duration: 0.2 },
+          opacity: { delay: 0.1 },
         },
       },
     },
@@ -120,7 +120,7 @@ export function useMotions(options?: MotionOptions) {
         rotateY: 0,
         opacity: 1,
         transition: {
-          opacity: { delay: 0.1, duration: 0.2 },
+          opacity: { delay: 0.1 },
           duration: 0.4,
         },
       },
