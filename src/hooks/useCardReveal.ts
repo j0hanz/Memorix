@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { CARD_STATUS } from '@/utils/constants';
+import { updateAllCardsStatus } from '@/utils/cardUtils';
 
 export function useCardReveal<T extends { status: string }>(
-  cards: T[],
+  _cards: T[],
   setCards: React.Dispatch<React.SetStateAction<T[]>>,
   options: {
     initialDelay?: number;
@@ -11,34 +12,57 @@ export function useCardReveal<T extends { status: string }>(
   } = {},
 ) {
   const [isRevealing, setIsRevealing] = useState(false);
+  const revealTimerRef = useRef<number | null>(null);
+  const hideTimerRef = useRef<number | null>(null);
+
   const {
     initialDelay = 500,
     revealDuration = 3000,
     onRevealComplete,
   } = options;
 
-  // Reveal all cards after a delay and hide them after a duration
+  // Cleanup timers on component unmount
+  useEffect(() => {
+    return () => {
+      if (revealTimerRef.current !== null) {
+        clearTimeout(revealTimerRef.current);
+      }
+      if (hideTimerRef.current !== null) {
+        clearTimeout(hideTimerRef.current);
+      }
+    };
+  }, []);
+
   function revealCards() {
+    // Clear any existing timers before starting new ones
+    if (revealTimerRef.current !== null) {
+      clearTimeout(revealTimerRef.current);
+    }
+    if (hideTimerRef.current !== null) {
+      clearTimeout(hideTimerRef.current);
+    }
+
     setIsRevealing(true);
 
-    const timer = setTimeout(() => {
-      setCards((prev) =>
-        prev.map((card) => ({ ...card, status: CARD_STATUS.ACTIVE })),
-      );
+    revealTimerRef.current = window.setTimeout(() => {
+      try {
+        setCards((prev) => updateAllCardsStatus(prev, CARD_STATUS.ACTIVE));
+      } catch (error) {
+        console.error('Error revealing cards (setting ACTIVE status):', error);
+      }
 
-      // Hide cards after duration
-      const hideTimer = setTimeout(() => {
-        setCards((prev) =>
-          prev.map((card) => ({ ...card, status: CARD_STATUS.DEFAULT })),
-        );
-        setIsRevealing(false);
-        onRevealComplete?.();
+      hideTimerRef.current = window.setTimeout(() => {
+        try {
+          setCards((prev) => updateAllCardsStatus(prev, CARD_STATUS.DEFAULT));
+          setIsRevealing(false);
+          if (onRevealComplete) {
+            onRevealComplete();
+          }
+        } catch (error) {
+          console.error('Error hiding cards (resetting to DEFAULT):', error);
+        }
       }, revealDuration);
-
-      return () => clearTimeout(hideTimer);
     }, initialDelay);
-
-    return () => clearTimeout(timer);
   }
 
   return { isRevealing, revealCards };
