@@ -5,7 +5,7 @@ import wrongSound from '@/assets/sounds/wrong.mp3';
 import clickSound from '@/assets/sounds/click.mp3';
 import buttonSound from '@/assets/sounds/button.mp3';
 import completeSound from '@/assets/sounds/complete.mp3';
-import { SOUNDS, STORAGE_KEYS } from '@/utils/constants';
+import { SOUNDS, STORAGE_KEYS } from '@/constants/constants';
 
 export function useSoundEffects() {
   // Safely read initial mute state from localStorage

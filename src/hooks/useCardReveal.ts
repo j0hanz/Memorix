@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { CARD_STATUS } from '@/utils/constants';
+import { CARD_STATUS } from '@/constants/constants';
 import { updateAllCardsStatus } from '@/utils/cardUtils';
 
 export function useCardReveal<T extends { status: string }>(

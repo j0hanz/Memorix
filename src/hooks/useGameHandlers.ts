@@ -1,4 +1,4 @@
-import { GAME_CONFIG } from '@/utils/constants';
+import { GAME_CONFIG } from '@/constants/constants';
 
 interface GameHandlerOptions {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;

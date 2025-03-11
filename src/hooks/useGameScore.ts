@@ -1,4 +1,4 @@
-import { SCORING } from '@/utils/constants';
+import { SCORING } from '@/constants/constants';
 
 export function useGameScore(moves: number, completedTime: number) {
   // Calculate stars based on moves and time

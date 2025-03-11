@@ -3,7 +3,7 @@ import ScoreboardModal from './Modal';
 import { useSoundEffects } from '@/hooks/useSound';
 import { useGameContext } from '@/hooks/useGameContext';
 import { useEffect } from 'react';
-import { SOUNDS } from '@/utils/constants';
+import { SOUNDS } from '@/constants/constants';
 
 interface GameProps {
   onRestart: () => void;

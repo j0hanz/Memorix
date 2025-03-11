@@ -4,7 +4,7 @@ import img03 from '@/assets/img/03.gif';
 import img04 from '@/assets/img/04.gif';
 import img05 from '@/assets/img/05.gif';
 import img06 from '@/assets/img/06.gif';
-import { GAME_CONFIG } from '@/utils/constants';
+import { GAME_CONFIG } from '@/constants/constants';
 import { shuffleCards } from '@/hooks/useShuffledDeck';
 
 const imageAssets: string[] = [img01, img02, img03, img04, img05, img06];

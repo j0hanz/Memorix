@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { Button as CustomButton, ButtonProps } from 'react-bootstrap';
 import { useSoundEffects } from '@/hooks/useSound';
-import { SOUNDS } from '@/utils/constants';
+import { SOUNDS } from '@/constants/constants';
 import styles from './styles/Button.module.css';
 
 interface CustomButtonProps extends ButtonProps {

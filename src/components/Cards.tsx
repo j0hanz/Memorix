@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useMotions } from '@/hooks/useMotions';
 import { Timer, Moves } from './GameStats';
 import Feedback from './Feedback';
-import { FEEDBACK } from '@/utils/constants';
+import { FEEDBACK } from '@/constants/constants';
 import styles from './styles/Cards.module.css';
 
 interface CardData {

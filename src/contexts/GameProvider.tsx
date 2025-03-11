@@ -1,7 +1,7 @@
 import React, { useState, useRef, ReactNode, useEffect } from 'react';
 import { PairedCard } from '@/data/cardData';
 import { GameContext } from './GameContext';
-import { GAME_CONFIG } from '@/utils/constants';
+import { GAME_CONFIG } from '@/constants/constants';
 import { useShuffledDeck } from '@/hooks/useShuffledDeck';
 import { useCardReveal } from '@/hooks/useCardReveal';
 import { useCardInteraction } from '@/hooks/useCardInteraction';

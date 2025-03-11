@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { CardDef } from '@/data/cardData';
-import { CARD_STATUS, FEEDBACK, SOUNDS } from '@/utils/constants';
+import { CARD_STATUS, FEEDBACK, SOUNDS } from '@/constants/constants';
 import { useSoundEffects } from './useSound';
 import { updateCardStatus, updateMultipleCardStatus } from '@/utils/cardUtils';
 

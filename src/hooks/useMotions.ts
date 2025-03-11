@@ -1,5 +1,5 @@
 import { Variants } from 'framer-motion';
-import { MOTIONS } from '@/utils/constants';
+import { MOTIONS } from '@/constants/constants';
 
 // Options for customizing animations
 interface MotionOptions {

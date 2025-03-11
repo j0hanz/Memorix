@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GITHUB_API } from '@/utils/constants';
+import { GITHUB_API } from '@/constants/constants';
 
 const GITHUB_API_URL: string =
   'https://api.github.com/repos/j0hanz/Memorix/commits';

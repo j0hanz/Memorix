@@ -3,7 +3,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import styles from './styles/GameStats.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMotions } from '@/hooks/useMotions';
-import { FEEDBACK } from '@/utils/constants';
+import { FEEDBACK } from '@/constants/constants';
 
 interface FeedbackProps {
   message: string | null;
