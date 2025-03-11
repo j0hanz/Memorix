@@ -2,7 +2,7 @@ import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import styles from './styles/GameStats.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
-import { usePageTransition } from '@/hooks/usePageTransition';
+import { useMotions } from '@/hooks/useMotions';
 import { FEEDBACK } from '@/utils/constants';
 
 interface FeedbackProps {
@@ -11,8 +11,8 @@ interface FeedbackProps {
 
 // Display feedback messages based on the message prop
 const Feedback = ({ message }: FeedbackProps) => {
-  // Get animation settings for page transitions
-  const { feedbackVariants } = usePageTransition();
+  // Get the feedback animation
+  const { feedbackAnimation } = useMotions();
   if (!message) return null;
 
   return (
@@ -23,7 +23,7 @@ const Feedback = ({ message }: FeedbackProps) => {
           initial="initial"
           animate="animate"
           exit="exit"
-          variants={feedbackVariants}
+          variants={feedbackAnimation}
         >
           {message === FEEDBACK.SUCCESS ? (
             <CheckOutlinedIcon fontSize="large" className={styles.success} />
