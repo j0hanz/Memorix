@@ -1,9 +1,13 @@
-import { useMemo } from 'react';
 import { SCORING } from '@/utils/constants';
 
 export function useGameScore(moves: number, completedTime: number) {
-  // Calculate the number of stars based on moves and time taken
-  const stars = useMemo(() => {
+  // Calculate stars based on moves and time
+  const stars = calculateStars(moves, completedTime);
+  return { stars };
+}
+
+function calculateStars(moves: number, completedTime: number): number {
+  try {
     if (
       moves <= SCORING.FIVE_STAR.moves &&
       completedTime <= SCORING.FIVE_STAR.time
@@ -25,7 +29,9 @@ export function useGameScore(moves: number, completedTime: number) {
     )
       return 2;
     return 1;
-  }, [moves, completedTime]);
-
-  return { stars };
+  } catch (error) {
+    console.error('Error calculating stars:', error);
+    // Fallback to 1 star in case of error
+    return 1;
+  }
 }
