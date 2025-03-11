@@ -4,7 +4,7 @@ import LoadingSpinner from '@/components/Spinner';
 import { GameInstructions, LatestUpdates } from '@/components/Modal';
 import { useGameHandlers } from '@/hooks/useGameHandlers';
 import { GameProvider } from '@/contexts/GameProvider';
-import { usePageTransition } from '@/hooks/usePageTransition';
+import { useMotions } from '@/hooks/useMotions';
 import MainMenu from '@/components/MainMenu';
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
   } = useAppState();
 
   // Get page transition values
-  const { pageVariants, pageTransition } = usePageTransition();
+  const { enterAnimation } = useMotions();
 
   // Destructure game handlers
   const {
@@ -47,8 +47,7 @@ export default function App() {
           startGame={startGame}
           openInstructions={openInstructions}
           openLatestUpdates={openLatestUpdates}
-          pageVariants={pageVariants}
-          pageTransition={pageTransition}
+          enterAnimation={enterAnimation}
         />
       )}
       {isGameActive && (

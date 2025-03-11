@@ -17,11 +17,11 @@ export function useCardReveal<T extends { status: string }>(
     onRevealComplete,
   } = options;
 
+  // Reveal all cards after a delay and hide them after a duration
   const revealCards = useCallback(() => {
     setIsRevealing(true);
 
     const timer = setTimeout(() => {
-      // Show all cards
       setCards((prev) =>
         prev.map((card) => ({ ...card, status: CARD_STATUS.ACTIVE })),
       );

@@ -65,3 +65,8 @@ export const CSS_CLASSES = {
   ERROR: 'error',
   GRAYED_OUT: 'grayedOut',
 };
+
+export const MOTIONS = {
+  DEFAULT_DURATION: 0.5,
+  FEEDBACK_DURATION: 0.5,
+};

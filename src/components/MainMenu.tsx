@@ -1,4 +1,4 @@
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Button from '@/components/Button';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -13,8 +13,7 @@ interface MainMenuProps {
   startGame: () => void;
   openInstructions: () => void;
   openLatestUpdates: () => void;
-  pageVariants: Variants;
-  pageTransition: object;
+  enterAnimation: any;
 }
 
 // Internal component definitions
@@ -77,17 +76,14 @@ export default function MainMenu({
   startGame,
   openInstructions,
   openLatestUpdates,
-  pageVariants,
-  pageTransition,
+  enterAnimation,
 }: MainMenuProps) {
   return (
     <div className={styles.menu}>
       <motion.div
-        initial="initial"
-        animate="in"
-        exit="out"
-        variants={pageVariants}
-        transition={pageTransition}
+        initial={enterAnimation.initial}
+        animate={enterAnimation.animate}
+        transition={enterAnimation.transition}
       >
         <div className={styles.gameTitle}>Memorix</div>
       </motion.div>

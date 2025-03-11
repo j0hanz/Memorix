@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import Card from './Card';
 import Image from './Image';
 import styles from './styles/Card.module.css';
 import { useGameContext } from '@/hooks/useGameContext';
 import { CSS_CLASSES, CARD_STATUS } from '@/utils/constants';
+import { useMotions } from '@/hooks/useMotions';
 
 interface GameCardProps {
   card: {
@@ -19,24 +21,22 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
   // State to track image loading status
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-  const { isInitialReveal } = useGameContext();
+  const { isInitialReveal, isProcessingMatch } = useGameContext();
+  const { flipAnimation, cardContentAnimation } = useMotions();
 
-  // Get card class names based on current state
-  const cardClassName = () => {
-    return [
-      styles.card,
-      card.status ? styles[CSS_CLASSES.ACTIVE] : '',
-      card.status === CARD_STATUS.MATCHED ? styles[CSS_CLASSES.MATCHED] : '',
-      !imageLoaded && !imageError ? styles[CSS_CLASSES.LOADING] : '',
-    ]
-      .filter(Boolean)
-      .join(' ');
+  // Determine card animation state based on status
+  const getAnimationState = () => {
+    if (card.status === CARD_STATUS.MATCHED) return 'matched';
+    if (card.status === CARD_STATUS.ACTIVE) return 'active';
+    return 'hidden';
   };
 
   // Determine if card is interactive
   const isInteractive = imageLoaded || imageError;
   const isMatched = card.status.includes('matched');
-  const isClickable = isInteractive && !isInitialReveal && !isMatched;
+  // Prevent clicks during initial reveal, when matched, or during pair processing
+  const isClickable =
+    isInteractive && !isInitialReveal && !isMatched && !isProcessingMatch;
 
   // Handles the card click event
   const handleClick = () => {
@@ -56,26 +56,60 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
     setImageLoaded(true);
   };
 
+  const baseStyles = [
+    styles.card,
+    !imageLoaded && !imageError ? styles.loading : '',
+    isMatched ? styles.matched : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
-    <Card
-      className={cardClassName()}
-      onClick={handleClick}
-      role="button"
-      ariaLabel={`Card ${card.name}`}
-      ariaSelected={card.status === CSS_CLASSES.ACTIVE}
-      disabled={!isClickable}
+    <motion.div
+      initial="initial"
+      animate={getAnimationState()}
+      variants={flipAnimation}
+      whileHover={isClickable ? 'hover' : undefined}
+      className={styles.cardWrapper}
     >
-      <div className={styles.back} />
-      <Image
-        src={card.img}
-        alt={card.name}
-        className={styles.img}
-        onLoad={handleImageLoad}
-        onError={handleImageError}
-        loading="lazy"
-      />
-      {!imageLoaded && !imageError && <div className={styles.loader} />}
-    </Card>
+      <Card
+        onClick={handleClick}
+        role="button"
+        ariaLabel={`Card ${card.name}`}
+        ariaSelected={card.status === CSS_CLASSES.ACTIVE}
+        disabled={!isClickable}
+        className={baseStyles}
+      >
+        <motion.div
+          className={styles.back}
+          variants={cardContentAnimation.backFace}
+          initial="initial"
+          animate={card.status ? 'flipped' : 'initial'}
+        />
+        <motion.div
+          className={styles.front}
+          variants={cardContentAnimation.frontFace}
+          initial="initial"
+          animate={
+            card.status === CARD_STATUS.MATCHED
+              ? 'matched'
+              : card.status
+                ? 'flipped'
+                : 'initial'
+          }
+        >
+          <Image
+            src={card.img}
+            alt={card.name}
+            className={styles.img}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            loading="lazy"
+          />
+        </motion.div>
+        {!imageLoaded && !imageError && <div className={styles.loader} />}
+      </Card>
+    </motion.div>
   );
 }
 
