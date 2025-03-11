@@ -2,8 +2,7 @@ import axios from 'axios';
 import { GITHUB_API } from '@/constants/constants';
 import { Commit, GitHubCommitResponse } from '@/types/api';
 
-const GITHUB_API_URL: string =
-  'https://api.github.com/repos/j0hanz/Memorix/commits';
+const GITHUB_API_URL: string = GITHUB_API.API_URL;
 // GitHub personal access token (requires public repo access only)
 const GITHUB_TOKEN: string | undefined = import.meta.env.VITE_GITHUB_TOKEN;
 

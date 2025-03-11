@@ -10,11 +10,7 @@ export function useMotions(options?: MotionOptions) {
     animate: { opacity: 1, scale: 1 },
     transition: {
       duration: MOTIONS.DEFAULT_DURATION,
-      scale: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 30,
-      },
+      scale: MOTIONS.SPRING.DEFAULT,
     },
   };
 
@@ -53,22 +49,14 @@ export function useMotions(options?: MotionOptions) {
       rotateY: 0,
       scale: 1,
       y: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 200,
-        damping: 40,
-      },
+      transition: MOTIONS.SPRING.CARD_ENTRANCE,
     },
     out: {
       opacity: 0,
       rotateY: -90,
       scale: 0.1,
       y: -90,
-      transition: {
-        type: 'spring',
-        stiffness: 200,
-        damping: 40,
-      },
+      transition: MOTIONS.SPRING.CARD_ENTRANCE,
     },
   };
 
@@ -82,9 +70,7 @@ export function useMotions(options?: MotionOptions) {
       rotateY: 180,
       scale: 1.05,
       transition: {
-        type: 'spring',
-        stiffness: 150,
-        damping: 25,
+        ...MOTIONS.SPRING.DEFAULT,
         duration: MOTIONS.DEFAULT_DURATION,
       },
     },
@@ -92,9 +78,7 @@ export function useMotions(options?: MotionOptions) {
       rotateY: 180,
       scale: 0.9,
       transition: {
-        type: 'spring',
-        stiffness: 100,
-        damping: 25,
+        ...MOTIONS.SPRING.CARD_MATCH,
         duration: MOTIONS.DEFAULT_DURATION,
       },
     },
@@ -102,19 +86,13 @@ export function useMotions(options?: MotionOptions) {
       rotateY: 0,
       scale: 1,
       transition: {
-        type: 'spring',
-        stiffness: 150,
-        damping: 25,
+        ...MOTIONS.SPRING.DEFAULT,
         duration: MOTIONS.DEFAULT_DURATION,
       },
     },
     hover: {
       scale: 1.05,
-      transition: {
-        type: 'spring',
-        stiffness: 300,
-        damping: 20,
-      },
+      transition: MOTIONS.SPRING.HOVER,
     },
   };
 

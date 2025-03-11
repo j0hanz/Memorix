@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { AppState } from '@/types/hooks';
+import { GAME_CONFIG } from '@/constants/constants';
 
 // Custom hook to manage app state values
 export function useAppState() {
+  // Use the initial state from constants
   const [state, setState] = useState<AppState>({
-    isGameActive: false,
-    isLoading: false,
-    showInstructions: false,
-    showLatestUpdates: false,
+    isGameActive: GAME_CONFIG.INITIAL_STATE.GAME_ACTIVE,
+    isLoading: GAME_CONFIG.INITIAL_STATE.LOADING,
+    showInstructions: GAME_CONFIG.INITIAL_STATE.SHOW_INSTRUCTIONS,
+    showLatestUpdates: GAME_CONFIG.INITIAL_STATE.SHOW_UPDATES,
   });
+
   return {
     ...state,
     setIsLoading: (val: boolean | ((prev: boolean) => boolean)) =>

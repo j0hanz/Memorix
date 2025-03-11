@@ -1,9 +1,15 @@
 // Game configuration
 export const GAME_CONFIG = {
   TOTAL_PAIRS: 6,
-  INITIAL_REVEAL_TIME: 3000,
   LOADING_DELAY: 3000,
   CARD_FLIP_DELAY: 400,
+  REVEAL_DELAY: 500,
+  INITIAL_STATE: {
+    GAME_ACTIVE: false,
+    LOADING: false,
+    SHOW_INSTRUCTIONS: false,
+    SHOW_UPDATES: false,
+  },
 };
 
 // Scoring thresholds
@@ -45,6 +51,7 @@ export const STORAGE_KEYS = {
 // GitHub API config
 export const GITHUB_API = {
   COMMITS_PER_PAGE: 3,
+  API_URL: 'https://api.github.com/repos/j0hanz/Memorix/commits',
 };
 
 // CSS class variants
@@ -57,6 +64,40 @@ export const CSS_CLASSES = {
   GRAYED_OUT: 'grayedOut',
 };
 
+// Animation constants
 export const MOTIONS = {
-  DEFAULT_DURATION: 0.4,
+  DEFAULT_DURATION: 0.3,
+  SPRING: {
+    DEFAULT: {
+      type: 'spring',
+      stiffness: 150,
+      damping: 25,
+    },
+    CARD_MATCH: {
+      type: 'spring',
+      stiffness: 100,
+      damping: 25,
+    },
+    CARD_ENTRANCE: {
+      type: 'spring',
+      stiffness: 150,
+      damping: 25,
+    },
+    HOVER: {
+      type: 'spring',
+      stiffness: 300,
+      damping: 25,
+    },
+  },
+};
+
+// Timer constants
+export const TIMER = {
+  INTERVAL: 1000,
+};
+
+// Card interaction delays
+export const DELAYS = {
+  INITIAL_REVEAL: 500,
+  INITIAL_REVEAL_TIME: 3000,
 };

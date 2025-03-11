@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { PairedCard } from '@/types/card';
 import { GameContext } from './GameContext';
 import { GameProviderProps } from '@/types/context';
-import { GAME_CONFIG } from '@/constants/constants';
+import { GAME_CONFIG, DELAYS } from '@/constants/constants';
 import { useShuffledDeck } from '@/hooks/useShuffledDeck';
 import { useCardReveal } from '@/hooks/useCardReveal';
 import { useCardInteraction } from '@/hooks/useCardInteraction';
@@ -37,13 +37,12 @@ export const GameProvider = ({
       setMatchedPairs((prev) => prev + 1);
     },
     onMismatch: () => {},
-    cardFlipDelay: GAME_CONFIG.CARD_FLIP_DELAY,
   });
 
   // Use card reveal hook
   const { isRevealing, revealCards } = useCardReveal(cards, setCards, {
-    initialDelay: 500,
-    revealDuration: GAME_CONFIG.INITIAL_REVEAL_TIME,
+    initialDelay: DELAYS.INITIAL_REVEAL,
+    revealDuration: DELAYS.INITIAL_REVEAL_TIME,
     onRevealComplete: () => {
       setIsInitialReveal(false);
       setTimerActive(true);

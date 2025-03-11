@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { TIMER } from '@/constants/constants';
 
 // Manage timer
 export function useTimer(timerActive: boolean): number {
@@ -21,7 +22,7 @@ export function useTimer(timerActive: boolean): number {
     try {
       intervalRef.current = window.setInterval(() => {
         setElapsedTime((prevTime) => prevTime + 1);
-      }, 1000);
+      }, TIMER.INTERVAL);
     } catch (error) {
       console.error('Error setting interval:', error);
     }
