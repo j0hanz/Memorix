@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { PairedCard, generateCards } from '@/data/cardData';
 
 // Custom hook to shuffle a list of cards
@@ -19,14 +19,28 @@ function shuffleCards<T>(cards: T[]): T[] {
 
 export function useShuffledDeck() {
   // Generate and shuffle deck initially
-  const [deck, setDeck] = useState<PairedCard[]>(() =>
-    shuffleCards(generateCards()),
-  );
+  const [deck, setDeck] = useState<PairedCard[]>(() => {
+    try {
+      const cards = generateCards();
+      return shuffleCards(cards);
+    } catch (error) {
+      console.error(
+        'Error generating or shuffling cards on initialization:',
+        error,
+      );
+      return [];
+    }
+  });
 
   // Refresh deck with a new shuffle
-  const refreshDeck = useCallback(() => {
-    setDeck(shuffleCards(generateCards()));
-  }, []);
+  function refreshDeck() {
+    try {
+      const newDeck = shuffleCards(generateCards());
+      setDeck(newDeck);
+    } catch (error) {
+      console.error('Error refreshing deck:', error);
+    }
+  }
 
   return {
     deck,
