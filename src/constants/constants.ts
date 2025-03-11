@@ -66,11 +66,11 @@ export const CSS_CLASSES = {
 
 // Animation constants
 export const MOTIONS = {
-  DEFAULT_DURATION: 0.3,
+  DEFAULT_DURATION: 0.4,
   SPRING: {
     DEFAULT: {
       type: 'spring',
-      stiffness: 150,
+      stiffness: 175,
       damping: 25,
     },
     CARD_MATCH: {
@@ -80,12 +80,12 @@ export const MOTIONS = {
     },
     CARD_ENTRANCE: {
       type: 'spring',
-      stiffness: 150,
+      stiffness: 175,
       damping: 25,
     },
     HOVER: {
       type: 'spring',
-      stiffness: 300,
+      stiffness: 250,
       damping: 25,
     },
   },
