@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { CARD_STATUS } from '@/utils/constants';
 
 export function useCardReveal<T extends { status: string }>(
@@ -18,7 +18,7 @@ export function useCardReveal<T extends { status: string }>(
   } = options;
 
   // Reveal all cards after a delay and hide them after a duration
-  const revealCards = useCallback(() => {
+  function revealCards() {
     setIsRevealing(true);
 
     const timer = setTimeout(() => {
@@ -39,7 +39,7 @@ export function useCardReveal<T extends { status: string }>(
     }, initialDelay);
 
     return () => clearTimeout(timer);
-  }, [setCards, initialDelay, revealDuration, onRevealComplete]);
+  }
 
   return { isRevealing, revealCards };
 }
