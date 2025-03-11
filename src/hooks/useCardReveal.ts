@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { CARD_STATUS, DELAYS, GAME_CONFIG } from '@/constants/constants';
+import { CARD_STATUS, DELAYS } from '@/constants/constants';
 import { updateAllCardsStatus } from '@/utils/cardUtils';
 import { CardRevealOptions } from '@/types/card';
 
@@ -14,7 +14,7 @@ export function useCardReveal<T extends { status: string }>(
 
   const {
     initialDelay = DELAYS.INITIAL_REVEAL,
-    revealDuration = GAME_CONFIG.INITIAL_REVEAL_TIME,
+    revealDuration = DELAYS.INITIAL_REVEAL_TIME,
     onRevealComplete,
   } = options;
 
