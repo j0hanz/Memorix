@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { Howl } from 'howler';
 import correctSound from '@/assets/sounds/correct.mp3';
 import wrongSound from '@/assets/sounds/wrong.mp3';
@@ -8,68 +8,93 @@ import completeSound from '@/assets/sounds/complete.mp3';
 import { SOUNDS, STORAGE_KEYS } from '@/utils/constants';
 
 export function useSoundEffects() {
-  // Use React state instead of module variables
+  // Safely read initial mute state from localStorage
+  const initialMuteState = (() => {
+    try {
+      return localStorage.getItem(STORAGE_KEYS.MUTE_STATE) === 'true';
+    } catch (error) {
+      console.error('Error accessing localStorage for mute state:', error);
+      return false;
+    }
+  })();
+
   const [sounds, setSounds] = useState<Record<string, Howl>>({});
-  const [isMuted, setIsMuted] = useState<boolean>(
-    localStorage.getItem(STORAGE_KEYS.MUTE_STATE) === 'true' || false,
-  );
+  const [isMuted, setIsMuted] = useState<boolean>(initialMuteState);
 
   // Initialize sounds on mount
   useEffect(() => {
     const createSound = (src: string): Howl => new Howl({ src: [src] });
+    let soundInstances: Record<string, Howl> = {};
 
-    // Create all sound instances
-    const soundInstances: Record<string, Howl> = {
-      [SOUNDS.CORRECT]: createSound(correctSound),
-      [SOUNDS.WRONG]: createSound(wrongSound),
-      [SOUNDS.CLICK]: createSound(clickSound),
-      [SOUNDS.BUTTON]: createSound(buttonSound),
-      [SOUNDS.COMPLETE]: createSound(completeSound),
-    };
-
-    setSounds(soundInstances);
+    try {
+      soundInstances = {
+        [SOUNDS.CORRECT]: createSound(correctSound),
+        [SOUNDS.WRONG]: createSound(wrongSound),
+        [SOUNDS.CLICK]: createSound(clickSound),
+        [SOUNDS.BUTTON]: createSound(buttonSound),
+        [SOUNDS.COMPLETE]: createSound(completeSound),
+      };
+      setSounds(soundInstances);
+    } catch (error) {
+      console.error('Error initializing sound effects:', error);
+    }
 
     // Cleanup sounds when component unmounts
     return () => {
-      Object.values(soundInstances).forEach((sound) => sound.unload());
+      Object.values(soundInstances).forEach((sound) => {
+        try {
+          sound.unload();
+        } catch (error) {
+          console.error('Error unloading sound:', error);
+        }
+      });
     };
   }, []);
 
   // Play sound function
-  const playSound = useCallback(
-    (soundName: string): void => {
-      if (isMuted) return;
+  function playSound(soundName: string): void {
+    if (isMuted) return;
 
-      const sound = sounds[soundName];
-      if (!sound) {
-        console.warn(`No sound found for key: "${soundName}"`);
-        return;
-      }
+    const sound = sounds[soundName];
+    if (!sound) {
+      console.warn(`No sound found for key: "${soundName}"`);
+      return;
+    }
+    try {
       sound.play();
-    },
-    [sounds, isMuted],
-  );
+    } catch (error) {
+      console.error('Error playing sound:', error);
+    }
+  }
 
   // Toggle mute state
-  const toggleMute = useCallback((): boolean => {
+  function toggleMute(): boolean {
     setIsMuted((prev) => {
       const newState = !prev;
-      localStorage.setItem(STORAGE_KEYS.MUTE_STATE, newState.toString());
+      try {
+        localStorage.setItem(STORAGE_KEYS.MUTE_STATE, newState.toString());
+      } catch (error) {
+        console.error('Error updating mute state in localStorage:', error);
+      }
       return newState;
     });
     return !isMuted;
-  }, [isMuted]);
+  }
 
   // Get current mute state
-  const getMuteState = useCallback((): boolean => {
+  function getMuteState(): boolean {
     return isMuted;
-  }, [isMuted]);
+  }
 
   // Set specific mute state
-  const setMuteState = useCallback((muted: boolean): void => {
+  function setMuteState(muted: boolean): void {
     setIsMuted(muted);
-    localStorage.setItem(STORAGE_KEYS.MUTE_STATE, muted.toString());
-  }, []);
+    try {
+      localStorage.setItem(STORAGE_KEYS.MUTE_STATE, muted.toString());
+    } catch (error) {
+      console.error('Error setting mute state in localStorage:', error);
+    }
+  }
 
   return {
     playSound,
