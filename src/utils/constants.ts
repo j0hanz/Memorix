@@ -42,15 +42,6 @@ export const STORAGE_KEYS = {
   MUTE_STATE: 'memorixMuted',
 };
 
-// Animation settings
-export const ANIMATION = {
-  DEFAULT_TYPE: 'spring',
-  DEFAULT_STIFFNESS: 80,
-  DEFAULT_DAMPING: 20,
-  DEFAULT_DURATION: 0.4,
-  FEEDBACK_DURATION: 0.5,
-};
-
 // GitHub API config
 export const GITHUB_API = {
   COMMITS_PER_PAGE: 3,
@@ -67,6 +58,5 @@ export const CSS_CLASSES = {
 };
 
 export const MOTIONS = {
-  DEFAULT_DURATION: 0.5,
-  FEEDBACK_DURATION: 0.5,
+  DEFAULT_DURATION: 0.4,
 };
