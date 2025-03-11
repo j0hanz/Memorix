@@ -1,6 +1,8 @@
 .cardWrapper {
   position: relative;
   perspective: 1000px;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 .card {
@@ -9,6 +11,8 @@
   background: var(--bg-card);
   border-radius: 10px;
   cursor: pointer;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
 }
 
 .front,
