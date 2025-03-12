@@ -2,10 +2,9 @@ import { Variants } from 'framer-motion';
 import { MOTIONS } from '@/constants/constants';
 import { MotionOptions } from '@/types/hooks';
 
-// Custom hook for creating animations with Framer Motion
-export function useMotions(options?: MotionOptions) {
-  // Enter animation - fade in and scale up
-  const enterAnimation = {
+function getEnterAnimation() {
+  // Animation for initial card entrance
+  return {
     initial: { opacity: 0, scale: 0 },
     animate: { opacity: 1, scale: 1 },
     transition: {
@@ -13,9 +12,11 @@ export function useMotions(options?: MotionOptions) {
       scale: MOTIONS.SPRING.DEFAULT,
     },
   };
+}
 
-  // Feedback animation - pop effect
-  const feedbackAnimation: Variants = {
+function getFeedbackAnimation() {
+  // Animation for feedback messages
+  return {
     initial: {
       opacity: 0,
       scale: 0.1,
@@ -35,8 +36,10 @@ export function useMotions(options?: MotionOptions) {
       },
     },
   };
+}
 
-  // Card entrance animation for game start
+function getCardAnimations() {
+  // Animation variants for card components
   const cardEntranceAnimation: Variants = {
     initial: {
       opacity: 0,
@@ -60,8 +63,8 @@ export function useMotions(options?: MotionOptions) {
     },
   };
 
-  // Improved flip animation with better easing and physics
   const flipAnimation = {
+    // Animation for card flip
     initial: {
       rotateY: 0,
       scale: 1,
@@ -96,8 +99,8 @@ export function useMotions(options?: MotionOptions) {
     },
   };
 
-  // Content animations with improved transitions
   const cardContentAnimation = {
+    // Animation for card content
     backFace: {
       initial: { rotateY: 0, opacity: 1 },
       flipped: {
@@ -135,18 +138,27 @@ export function useMotions(options?: MotionOptions) {
     },
   };
 
-  // Helper for staggered children animations
-  const getStaggerConfig = (staggerChildren = 0.1, delayChildren = 0) => ({
+  return {
+    cardEntranceAnimation,
+    flipAnimation,
+    cardContentAnimation,
+  };
+}
+
+function createStaggerConfig(options?: MotionOptions) {
+  // Create stagger configuration for animations
+  return (staggerChildren = 0.1, delayChildren = 0) => ({
     staggerChildren,
     delayChildren: options?.delay || delayChildren,
   });
+}
 
+export function useMotions() {
+  // Return motion animations and configurations
   return {
-    enterAnimation,
-    feedbackAnimation,
-    flipAnimation,
-    cardContentAnimation,
-    cardEntranceAnimation,
-    getStaggerConfig,
+    ...getCardAnimations(),
+    enterAnimation: getEnterAnimation(),
+    feedbackAnimation: getFeedbackAnimation(),
+    getStaggerConfig: createStaggerConfig(),
   };
 }
