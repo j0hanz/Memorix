@@ -8,10 +8,10 @@ export interface AppState {
 }
 
 export interface GameHandlerOptions {
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsGameActive: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowInstructions: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowLatestUpdates: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsLoading: (value: boolean) => void;
+  setIsGameActive: (value: boolean) => void;
+  setShowInstructions: (value: boolean) => void;
+  setShowLatestUpdates: (value: boolean) => void;
 }
 
 export interface MotionOptions {
