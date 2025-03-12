@@ -1,11 +1,32 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { AppState } from '@/types/hooks';
 import { GAME_CONFIG } from '@/constants/constants';
 
-// Custom hook to manage app state values
+type AppAction =
+  | { type: 'SET_LOADING'; value: boolean }
+  | { type: 'SET_GAME_ACTIVE'; value: boolean }
+  | { type: 'SET_INSTRUCTIONS'; value: boolean }
+  | { type: 'SET_UPDATES'; value: boolean };
+
+function appReducer(state: AppState, action: AppAction): AppState {
+  // Update app state based on action type
+  switch (action.type) {
+    case 'SET_LOADING':
+      return { ...state, isLoading: action.value };
+    case 'SET_GAME_ACTIVE':
+      return { ...state, isGameActive: action.value };
+    case 'SET_INSTRUCTIONS':
+      return { ...state, showInstructions: action.value };
+    case 'SET_UPDATES':
+      return { ...state, showLatestUpdates: action.value };
+    default:
+      return state;
+  }
+}
+
 export function useAppState() {
-  // Use the initial state from constants
-  const [state, setState] = useState<AppState>({
+  // Initialize app state
+  const [state, dispatch] = useReducer(appReducer, {
     isGameActive: GAME_CONFIG.INITIAL_STATE.GAME_ACTIVE,
     isLoading: GAME_CONFIG.INITIAL_STATE.LOADING,
     showInstructions: GAME_CONFIG.INITIAL_STATE.SHOW_INSTRUCTIONS,
@@ -14,27 +35,12 @@ export function useAppState() {
 
   return {
     ...state,
-    setIsLoading: (val: boolean | ((prev: boolean) => boolean)) =>
-      setState((prev) => ({
-        ...prev,
-        isLoading: typeof val === 'function' ? val(prev.isLoading) : val,
-      })),
-    setIsGameActive: (val: boolean | ((prev: boolean) => boolean)) =>
-      setState((prev) => ({
-        ...prev,
-        isGameActive: typeof val === 'function' ? val(prev.isGameActive) : val,
-      })),
-    setShowInstructions: (val: boolean | ((prev: boolean) => boolean)) =>
-      setState((prev) => ({
-        ...prev,
-        showInstructions:
-          typeof val === 'function' ? val(prev.showInstructions) : val,
-      })),
-    setShowLatestUpdates: (val: boolean | ((prev: boolean) => boolean)) =>
-      setState((prev) => ({
-        ...prev,
-        showLatestUpdates:
-          typeof val === 'function' ? val(prev.showLatestUpdates) : val,
-      })),
+    setIsLoading: (value: boolean) => dispatch({ type: 'SET_LOADING', value }),
+    setIsGameActive: (value: boolean) =>
+      dispatch({ type: 'SET_GAME_ACTIVE', value }),
+    setShowInstructions: (value: boolean) =>
+      dispatch({ type: 'SET_INSTRUCTIONS', value }),
+    setShowLatestUpdates: (value: boolean) =>
+      dispatch({ type: 'SET_UPDATES', value }),
   };
 }
