@@ -23,11 +23,11 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
   };
 
   // Determine if card is interactive
-  const isInteractive = imageLoaded || imageError;
+  const isImageLoaded = imageLoaded || imageError;
   const isMatched = card.status.includes('matched');
   // Prevent clicks during initial reveal, when matched, or during pair processing
   const isClickable =
-    isInteractive && !isInitialReveal && !isMatched && !isProcessingMatch;
+    isImageLoaded && !isInitialReveal && !isMatched && !isProcessingMatch;
 
   // Handles the card click event
   const handleClick = () => {
@@ -67,7 +67,7 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
         onClick={handleClick}
         role="button"
         ariaLabel={`Card ${card.name}`}
-        ariaSelected={card.status === CSS_CLASSES.ACTIVE}
+        aria-selected={card.status === CSS_CLASSES.ACTIVE}
         disabled={!isClickable}
         className={baseStyles}
       >
@@ -84,7 +84,7 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
           animate={
             card.status === CARD_STATUS.MATCHED
               ? 'matched'
-              : card.status
+              : card.status === CARD_STATUS.ACTIVE
                 ? 'flipped'
                 : 'initial'
           }
