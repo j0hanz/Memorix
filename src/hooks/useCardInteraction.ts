@@ -19,6 +19,44 @@ export function useCardInteraction<T extends CardDef>(
   const { playSound } = useSoundEffects();
   const { onMatch, onMismatch, cardFlipDelay = 500 } = options;
 
+  // Process card match after delay and update state
+  function processCardMatch(
+    index: number,
+    selectedCardIndex: number,
+    isMatch: boolean,
+  ) {
+    try {
+      const status = isMatch ? CARD_STATUS.MATCHED : CARD_STATUS.DEFAULT;
+      setCards((prev) => {
+        const updated = [...prev];
+        updated[index] = { ...updated[index], status };
+        updated[selectedCardIndex] = {
+          ...updated[selectedCardIndex],
+          status,
+        };
+        return updated;
+      });
+      // Execute callbacks based on match result
+      if (isMatch) {
+        try {
+          onMatch?.();
+        } catch (callbackError) {
+          console.error('Error in onMatch callback:', callbackError);
+        }
+      } else {
+        try {
+          onMismatch?.();
+        } catch (callbackError) {
+          console.error('Error in onMismatch callback:', callbackError);
+        }
+      }
+      setIsProcessingMatch(false);
+    } catch (timerError) {
+      console.error('Error processing card match in timeout:', timerError);
+      setIsProcessingMatch(false);
+    }
+  }
+
   function handleCardClick(index: number, isInitialReveal = false) {
     // Skip if card cannot be clicked
     if (
@@ -66,37 +104,7 @@ export function useCardInteraction<T extends CardDef>(
 
       // Update both cards after delay
       setTimeout(() => {
-        try {
-          const status = isMatch ? CARD_STATUS.MATCHED : CARD_STATUS.DEFAULT;
-          setCards((prev) => {
-            const updated = [...prev];
-            updated[index] = { ...updated[index], status };
-            updated[selectedCardIndex] = {
-              ...updated[selectedCardIndex],
-              status,
-            };
-            return updated;
-          });
-
-          // Execute callback based on match result
-          if (isMatch) {
-            try {
-              onMatch?.();
-            } catch (callbackError) {
-              console.error('Error in onMatch callback:', callbackError);
-            }
-          } else {
-            try {
-              onMismatch?.();
-            } catch (callbackError) {
-              console.error('Error in onMismatch callback:', callbackError);
-            }
-          }
-          setIsProcessingMatch(false);
-        } catch (timerError) {
-          console.error('Error processing card match in timeout:', timerError);
-          setIsProcessingMatch(false);
-        }
+        processCardMatch(index, selectedCardIndex, isMatch);
       }, cardFlipDelay);
 
       // Play sound and update feedback
