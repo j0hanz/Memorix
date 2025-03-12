@@ -8,23 +8,23 @@ export const useGameHandlers = ({
   setShowInstructions,
   setShowLatestUpdates,
 }: GameHandlerOptions) => {
-  // Start a new game with loading screen
-  const startGame = () => {
+  // Common loading logic
+  const showLoadingAndStartGame = (callback?: () => void) => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
       setIsGameActive(true);
+      callback?.();
     }, GAME_CONFIG.LOADING_DELAY);
   };
+
+  // Start a new game with loading screen
+  const startGame = () => showLoadingAndStartGame();
 
   // Restart game with loading screen
   const handleRestart = () => {
     setIsGameActive(false);
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setIsGameActive(true);
-    }, GAME_CONFIG.LOADING_DELAY);
+    showLoadingAndStartGame();
   };
 
   // Exit to main menu
