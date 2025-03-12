@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { PairedCard } from '@/types/card';
-import { GameContext } from './GameContext';
+import { GameContext } from '@/contexts/GameContext';
 import { GameProviderProps } from '@/types/context';
 import { GAME_CONFIG, DELAYS } from '@/constants/constants';
 import { useShuffledDeck } from '@/hooks/useShuffledDeck';

@@ -3,7 +3,7 @@ import Game from '@/components/Game';
 import LoadingSpinner from '@/components/Spinner';
 import { GameInstructions, LatestUpdates } from '@/components/Modal';
 import { useGameHandlers } from '@/hooks/useGameHandlers';
-import { GameProvider } from '@/contexts/GameProvider';
+import { GameProvider } from '@/components/GameProvider';
 import { useMotions } from '@/hooks/useMotions';
 import MainMenu from '@/components/MainMenu';
 
