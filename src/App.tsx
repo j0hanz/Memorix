@@ -20,7 +20,7 @@ export default function App() {
     setShowLatestUpdates,
   } = useAppState();
 
-  // Get page transition values
+  // Get animations
   const { enterAnimation } = useMotions();
 
   // Destructure game handlers
