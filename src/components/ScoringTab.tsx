@@ -3,7 +3,7 @@ import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import AllInclusiveOutlinedIcon from '@mui/icons-material/AllInclusiveOutlined';
-import styles from '@/components/styles/Modal.module.css';
+import styles from './styles/Modal.module.css';
 import { ScoreRowProps } from '@/types/data';
 
 // Component for each scoring criteria row

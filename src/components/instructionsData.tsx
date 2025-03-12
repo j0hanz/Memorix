@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Modal, Nav } from 'react-bootstrap';
-import styles from '@/components/styles/Modal.module.css';
+import styles from './styles/Modal.module.css';
 import OverviewTab from './OverviewTab';
 import IconsTab from './IconsTab';
 import ScoringTab from './ScoringTab';

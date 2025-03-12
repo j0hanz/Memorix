@@ -3,8 +3,8 @@ import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFill
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import Button from './Button';
 import styles from './styles/Modal.module.css';
-import Scoreboard from '@/data/scoreData';
-import InstructionsData from '@/data/instructionsData';
+import Scoreboard from '@/components/scoreData';
+import InstructionsData from '@/components/instructionsData';
 import CommitStatus from './CommitStatus';
 import {
   ScoreboardModalProps,
