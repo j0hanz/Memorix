@@ -2,7 +2,7 @@ import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import { useTimer } from '@/hooks/useTimer';
-import { useGameScore } from '@/hooks/useGameScore';
+import { useScore } from '@/hooks/useScore';
 import styles from './styles/GameStats.module.css';
 import { MovesProps, TimerProps, ScoreProps } from '@/types/components';
 
@@ -30,7 +30,7 @@ export const Timer = ({ timerActive }: TimerProps) => {
 
 // Score component (moved from Score.tsx)
 export const Score = ({ moves, completedTime }: ScoreProps) => {
-  const { stars } = useGameScore(moves, parseInt(completedTime, 10));
+  const { stars } = useScore(moves, parseInt(completedTime, 10));
 
   return (
     <>

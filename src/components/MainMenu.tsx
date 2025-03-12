@@ -7,8 +7,8 @@ import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import styles from '@/App.module.css';
-import { useSoundEffects } from '@/hooks/useSound';
 import { MainMenuProps } from '@/types/components';
+import { useLinks } from '@/hooks/useLinks';
 
 // Internal component definitions
 function StartButton({ onClick }: { onClick: () => void }) {
@@ -40,7 +40,7 @@ function SocialLinks({
 }: {
   onLatestUpdatesClick: () => void;
 }) {
-  const { isMuted, toggleMute } = useSoundEffects();
+  const { isMuted, toggleMute, handleGitHubClick } = useLinks();
 
   return (
     <div className={styles.smallButtonsDiv}>
@@ -54,12 +54,7 @@ function SocialLinks({
       >
         {isMuted ? <VolumeOffOutlinedIcon /> : <VolumeUpOutlinedIcon />}
       </div>
-      <div
-        onClick={() =>
-          window.open('https://github.com/j0hanz/Memorix', '_blank')
-        }
-        className={styles.btnUpdates}
-      >
+      <div onClick={handleGitHubClick} className={styles.btnUpdates}>
         <GitHubIcon />
       </div>
     </div>

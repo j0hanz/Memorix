@@ -1,13 +1,9 @@
 import Cards from './Cards';
 import ScoreboardModal from './Modal';
-import { useSoundEffects } from '@/hooks/useSound';
-import { useGameContext } from '@/hooks/useGameContext';
-import { useEffect } from 'react';
-import { SOUNDS } from '@/constants/constants';
 import { GameProps } from '@/types/components';
+import { useGameUI } from '@/hooks/useGameUI';
 
 export default function Game({ onRestart }: GameProps) {
-  // Get game state and handlers from context
   const {
     cards,
     handleCardSelection,
@@ -20,21 +16,8 @@ export default function Game({ onRestart }: GameProps) {
     feedback,
     completedTime,
     exitToMainMenu,
-  } = useGameContext();
-
-  const { playSound } = useSoundEffects();
-
-  // Reset the game state
-  const handleReset = () => {
-    onRestart();
-  };
-
-  // Play sound when game is over
-  useEffect(() => {
-    if (isGameOver) {
-      playSound(SOUNDS.COMPLETE);
-    }
-  }, [isGameOver, playSound]);
+    handleReset,
+  } = useGameUI(onRestart);
 
   return (
     <>

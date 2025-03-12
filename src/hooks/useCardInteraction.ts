@@ -1,148 +1,81 @@
-import { useState, useRef } from 'react';
-import { CardDef, CardInteractionOptions } from '@/types/card';
-import { CARD_STATUS, FEEDBACK, SOUNDS } from '@/constants/constants';
-import { useSoundEffects } from './useSound';
+import { useState } from 'react';
+import { useGameContext } from '@/hooks/useGameContext';
+import { CARD_STATUS, CSS_CLASSES } from '@/constants/constants';
+import { CardData } from '@/types/card';
+import { CSSModuleClasses } from '@/types/hooks';
 
-// Custom hook to handle card interactions and matching logic
-export function useCardInteraction<T extends CardDef>(
-  options: CardInteractionOptions<T>,
+export function useCardInteraction(
+  card: CardData,
+  index: number,
+  clickHandler?: (index: number) => void,
 ) {
-  const [cards, setCards] = useState<T[]>([]);
-  const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(
-    null,
-  );
-  const [isProcessingMatch, setIsProcessingMatch] = useState(false);
-  const [feedback, setFeedback] = useState('');
-  const [moves, setMoves] = useState(0);
-  const previousIndex = useRef<number | null>(null);
+  // State to track image loading status
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
-  const { playSound } = useSoundEffects();
-  const { onMatch, onMismatch, cardFlipDelay = 500 } = options;
+  const { isInitialReveal, isProcessingMatch } = useGameContext();
 
-  // Process card match after delay and update state
-  function processCardMatch(
-    index: number,
-    selectedCardIndex: number,
-    isMatch: boolean,
-  ) {
-    try {
-      const status = isMatch ? CARD_STATUS.MATCHED : CARD_STATUS.DEFAULT;
-      setCards((prev) => {
-        const updated = [...prev];
-        updated[index] = { ...updated[index], status };
-        updated[selectedCardIndex] = {
-          ...updated[selectedCardIndex],
-          status,
-        };
-        return updated;
-      });
-      // Execute callbacks based on match result
-      if (isMatch) {
-        try {
-          onMatch?.();
-        } catch (callbackError) {
-          console.error('Error in onMatch callback:', callbackError);
-        }
-      } else {
-        try {
-          onMismatch?.();
-        } catch (callbackError) {
-          console.error('Error in onMismatch callback:', callbackError);
-        }
-      }
-      setIsProcessingMatch(false);
-    } catch (timerError) {
-      console.error('Error processing card match in timeout:', timerError);
-      setIsProcessingMatch(false);
+  // Determine card animation state based on status (for card container)
+  const getCardAnimation = () => {
+    if (card.status === CARD_STATUS.MATCHED) return 'matched';
+    if (card.status === CARD_STATUS.ACTIVE) return 'active';
+    return 'hidden';
+  };
+
+  // Determine front face animation state (matching the old implementation)
+  const getCardFrontAnimation = () => {
+    if (card.status === CARD_STATUS.MATCHED) return 'matched';
+    if (card.status === CARD_STATUS.ACTIVE) return 'flipped';
+    return 'initial';
+  };
+
+  // Determine if card is interactive
+  const isImageLoaded = imageLoaded || imageError;
+  const isMatched = card.status.includes('matched');
+
+  // Prevent clicks during initial reveal, when matched, or during pair processing
+  const isClickable =
+    isImageLoaded && !isInitialReveal && !isMatched && !isProcessingMatch;
+
+  // Handles the card click event
+  const handleClick = () => {
+    if (isClickable && clickHandler) {
+      clickHandler(index);
     }
-  }
+  };
 
-  function handleCardClick(index: number, isInitialReveal = false) {
-    // Skip if card cannot be clicked
-    if (
-      isInitialReveal ||
-      isProcessingMatch ||
-      index === previousIndex.current ||
-      index === selectedCardIndex ||
-      !cards[index] ||
-      cards[index].status.includes('matched')
-    ) {
-      return;
-    }
+  // Handles the image load event
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
 
-    // First card selection
-    if (selectedCardIndex === null) {
-      try {
-        previousIndex.current = index;
-        setCards((prev) => {
-          const updated = [...prev];
-          updated[index] = { ...updated[index], status: CARD_STATUS.ACTIVE };
-          return updated;
-        });
-        setSelectedCardIndex(index);
-        playSound(SOUNDS.CLICK);
-      } catch (error) {
-        console.error('Error handling first card selection:', error);
-      }
-      return;
-    }
+  // Handles the image error event
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoaded(true);
+  };
 
-    // Prevent further clicks during matching process
-    try {
-      setIsProcessingMatch(true);
-      // Check if cards match
-      const currentCard = cards[index];
-      const selectedCard = cards[selectedCardIndex];
-      const isMatch = currentCard.pairId === selectedCard.pairId;
-
-      // Set current card to active state
-      setCards((prev) => {
-        const updated = [...prev];
-        updated[index] = { ...updated[index], status: CARD_STATUS.ACTIVE };
-        return updated;
-      });
-
-      // Update both cards after delay
-      setTimeout(() => {
-        processCardMatch(index, selectedCardIndex, isMatch);
-      }, cardFlipDelay);
-
-      // Play sound and update feedback
-      try {
-        playSound(isMatch ? SOUNDS.CORRECT : SOUNDS.WRONG);
-      } catch (soundError) {
-        console.error('Error playing match sound:', soundError);
-      }
-      setFeedback(isMatch ? FEEDBACK.SUCCESS : FEEDBACK.ERROR);
-
-      // Reset selection state and update move count
-      setSelectedCardIndex(null);
-      previousIndex.current = null;
-      setMoves((prev) => prev + 1);
-    } catch (error) {
-      console.error('Error handling second card selection:', error);
-      setIsProcessingMatch(false);
-    }
-  }
+  // Compute card style classes
+  const getCardStyleClasses = (styles: CSSModuleClasses) => {
+    return [
+      styles.card,
+      !imageLoaded && !imageError ? styles.loading : '',
+      isMatched ? styles.matched : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+  };
 
   return {
-    cards,
-    setCards,
-    selectedCardIndex,
-    setSelectedCardIndex,
-    feedback,
-    moves,
-    handleCardClick,
-    resetState: () => {
-      try {
-        setSelectedCardIndex(null);
-        setFeedback('');
-        setMoves(0);
-        setIsProcessingMatch(false);
-        previousIndex.current = null;
-      } catch (error) {
-        console.error('Error resetting card interaction state:', error);
-      }
-    },
+    isClickable,
+    handleClick,
+    handleImageLoad,
+    handleImageError,
+    getCardAnimation,
+    getCardFrontAnimation,
+    getCardStyleClasses,
+    isImageLoaded,
+    isImageError: imageError,
+    ariaSelected: card.status === CSS_CLASSES.ACTIVE,
   };
 }

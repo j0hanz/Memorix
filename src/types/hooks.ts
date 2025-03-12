@@ -23,6 +23,11 @@ export interface MotionOptions {
   bounce?: number;
 }
 
+// Interface for CSS module styles
+export interface CSSModuleClasses {
+  [key: string]: string;
+}
+
 export interface AnimationReturn {
   enterAnimation: {
     initial: TargetAndTransition;

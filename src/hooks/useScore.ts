@@ -1,6 +1,6 @@
 import { SCORING } from '@/constants/constants';
 
-export function useGameScore(moves: number, completedTime: number) {
+export function useScore(moves: number, completedTime: number) {
   // Calculate stars based on moves and time
   const stars = calculateStars(moves, completedTime);
   return { stars };

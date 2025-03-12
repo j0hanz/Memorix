@@ -2,7 +2,7 @@ import { GAME_CONFIG } from '@/constants/constants';
 import { GameHandlerOptions } from '@/types/hooks';
 
 // Game control handlers
-export const useGameHandlers = ({
+export const useNavigation = ({
   setIsLoading,
   setIsGameActive,
   setShowInstructions,

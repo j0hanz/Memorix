@@ -2,10 +2,10 @@ import { useAppState } from '@/hooks/useAppState';
 import Game from '@/components/Game';
 import LoadingSpinner from '@/components/Spinner';
 import { GameInstructions, LatestUpdates } from '@/components/Modal';
-import { useGameHandlers } from '@/hooks/useGameHandlers';
 import { GameProvider } from '@/components/GameProvider';
 import { useMotions } from '@/hooks/useMotions';
 import MainMenu from '@/components/MainMenu';
+import { useNavigation } from '@/hooks/useNavigation';
 
 export default function App() {
   // Get app state and handlers
@@ -32,7 +32,7 @@ export default function App() {
     closeInstructions,
     openLatestUpdates,
     closeLatestUpdates,
-  } = useGameHandlers({
+  } = useNavigation({
     setIsLoading,
     setIsGameActive,
     setShowInstructions,

@@ -1,64 +1,33 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Card from './Card';
 import Image from './Image';
 import styles from './styles/Card.module.css';
-import { useGameContext } from '@/hooks/useGameContext';
-import { CSS_CLASSES, CARD_STATUS } from '@/constants/constants';
 import { useMotions } from '@/hooks/useMotions';
 import { GameCardProps } from '@/types/card';
+import { useCardInteraction } from '@/hooks/useCardInteraction';
 
 function GameCard({ card, index, clickHandler }: GameCardProps) {
-  // State to track image loading status
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
-  const { isInitialReveal, isProcessingMatch } = useGameContext();
   const { flipAnimation, cardContentAnimation } = useMotions();
 
-  // Determine card animation state based on status
-  const getAnimationState = () => {
-    if (card.status === CARD_STATUS.MATCHED) return 'matched';
-    if (card.status === CARD_STATUS.ACTIVE) return 'active';
-    return 'hidden';
-  };
+  const {
+    isClickable,
+    handleClick,
+    handleImageLoad,
+    handleImageError,
+    getCardAnimation,
+    getCardFrontAnimation,
+    getCardStyleClasses,
+    isImageLoaded,
+    isImageError,
+    ariaSelected,
+  } = useCardInteraction(card, index, clickHandler);
 
-  // Determine if card is interactive
-  const isImageLoaded = imageLoaded || imageError;
-  const isMatched = card.status.includes('matched');
-  // Prevent clicks during initial reveal, when matched, or during pair processing
-  const isClickable =
-    isImageLoaded && !isInitialReveal && !isMatched && !isProcessingMatch;
-
-  // Handles the card click event
-  const handleClick = () => {
-    if (isClickable && clickHandler) {
-      clickHandler(index);
-    }
-  };
-
-  // Handles the image load event
-  const handleImageLoad = () => {
-    setImageLoaded(true);
-  };
-
-  // Handles the image error event
-  const handleImageError = () => {
-    setImageError(true);
-    setImageLoaded(true);
-  };
-
-  const baseStyles = [
-    styles.card,
-    !imageLoaded && !imageError ? styles.loading : '',
-    isMatched ? styles.matched : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const baseStyles = getCardStyleClasses(styles);
 
   return (
     <motion.div
       initial="initial"
-      animate={getAnimationState()}
+      animate={getCardAnimation()}
       variants={flipAnimation}
       whileHover={isClickable ? 'hover' : undefined}
       className={styles.cardWrapper}
@@ -67,7 +36,7 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
         onClick={handleClick}
         role="button"
         ariaLabel={`Card ${card.name}`}
-        aria-selected={card.status === CSS_CLASSES.ACTIVE}
+        aria-selected={ariaSelected}
         disabled={!isClickable}
         className={baseStyles}
       >
@@ -81,13 +50,7 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
           className={styles.front}
           variants={cardContentAnimation.frontFace}
           initial="initial"
-          animate={
-            card.status === CARD_STATUS.MATCHED
-              ? 'matched'
-              : card.status === CARD_STATUS.ACTIVE
-                ? 'flipped'
-                : 'initial'
-          }
+          animate={getCardFrontAnimation()}
         >
           <Image
             src={card.img}
@@ -98,7 +61,7 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
             loading="lazy"
           />
         </motion.div>
-        {!imageLoaded && !imageError && <div className={styles.loader} />}
+        {!isImageLoaded && !isImageError && <div className={styles.loader} />}
       </Card>
     </motion.div>
   );

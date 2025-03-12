@@ -3,7 +3,7 @@ import { CARD_STATUS, DELAYS } from '@/constants/constants';
 import { updateAllCardsStatus } from '@/utils/cardUtils';
 import { CardRevealOptions } from '@/types/card';
 
-export function useCardReveal<T extends { status: string }>(
+export function useCardDisplay<T extends { status: string }>(
   _cards: T[],
   setCards: React.Dispatch<React.SetStateAction<T[]>>,
   options: CardRevealOptions = {},

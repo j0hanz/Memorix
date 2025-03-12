@@ -6,9 +6,9 @@ import { motion } from 'framer-motion';
 import { useMotions } from '@/hooks/useMotions';
 import { Timer, Moves } from './GameStats';
 import Feedback from './Feedback';
-import { FEEDBACK } from '@/constants/constants';
 import { CardsProps } from '@/types/components';
 import styles from './styles/Cards.module.css';
+import { useCardLayout } from '@/hooks/useCardLayout';
 
 // Component to display the game cards
 export default function Cards({
@@ -22,24 +22,12 @@ export default function Cards({
 }: CardsProps) {
   // Get the card entrance animation
   const { cardEntranceAnimation } = useMotions();
-
-  // Function to get the class for the top
-  const getStatsTopClass = () => {
-    if (!feedback) return styles.statsTop;
-
-    if (feedback === FEEDBACK.SUCCESS) {
-      return `${styles.statsTop} ${styles.statsTopSuccess}`;
-    } else if (feedback === FEEDBACK.ERROR) {
-      return `${styles.statsTop} ${styles.statsTopError}`;
-    }
-
-    return styles.statsTop;
-  };
+  const { getStatsTopClass } = useCardLayout(feedback);
 
   return (
     <Container>
       <Row className={styles.row}>
-        <Col xs={12} className={getStatsTopClass()}>
+        <Col xs={12} className={getStatsTopClass(styles)}>
           <div className={styles.statsLeft}>
             <Moves moves={moves} />
             <Timer timerActive={timerActive} />
