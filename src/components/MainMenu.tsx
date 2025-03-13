@@ -10,63 +10,15 @@ import styles from '@/App.module.css';
 import { MainMenuProps } from '@/types/components';
 import { useLinks } from '@/hooks/useLinks';
 
-// Internal component definitions
-function StartButton({ onClick }: { onClick: () => void }) {
-  return (
-    <Button
-      onClick={onClick}
-      className={styles.btnStart}
-      icon={<PlayCircleOutlineOutlinedIcon />}
-    >
-      Start Game
-    </Button>
-  );
-}
-
-function InstructionsButton({ onClick }: { onClick: () => void }) {
-  return (
-    <Button
-      onClick={onClick}
-      className={styles.btnGuide}
-      icon={<InfoOutlinedIcon />}
-    >
-      Guide
-    </Button>
-  );
-}
-
-function SocialLinks({
-  onLatestUpdatesClick,
-}: {
-  onLatestUpdatesClick: () => void;
-}) {
-  const { isMuted, toggleMute, handleGitHubClick } = useLinks();
-
-  return (
-    <div className={styles.smallButtonsDiv}>
-      <div onClick={onLatestUpdatesClick} className={styles.btnUpdates}>
-        <TrackChangesOutlinedIcon />
-      </div>
-      <div
-        onClick={toggleMute}
-        className={styles.btnUpdates}
-        aria-label={isMuted ? 'Unmute sounds' : 'Mute sounds'}
-      >
-        {isMuted ? <VolumeOffOutlinedIcon /> : <VolumeUpOutlinedIcon />}
-      </div>
-      <div onClick={handleGitHubClick} className={styles.btnUpdates}>
-        <GitHubIcon />
-      </div>
-    </div>
-  );
-}
-
+// Main menu component
 export default function MainMenu({
   startGame,
   openInstructions,
   openLatestUpdates,
   enterAnimation,
 }: MainMenuProps) {
+  const { isMuted, toggleMute, handleGitHubClick } = useLinks();
+
   return (
     <div className={styles.menu}>
       <motion.div
@@ -76,9 +28,35 @@ export default function MainMenu({
       >
         <div className={styles.gameTitle}>Memorix</div>
       </motion.div>
-      <StartButton onClick={startGame} />
-      <InstructionsButton onClick={openInstructions} />
-      <SocialLinks onLatestUpdatesClick={openLatestUpdates} />
+      <Button
+        onClick={startGame}
+        className={styles.btnStart}
+        icon={<PlayCircleOutlineOutlinedIcon />}
+      >
+        Start Game
+      </Button>
+      <Button
+        onClick={openInstructions}
+        className={styles.btnGuide}
+        icon={<InfoOutlinedIcon />}
+      >
+        Guide
+      </Button>
+      <div className={styles.smallButtonsDiv}>
+        <div onClick={openLatestUpdates} className={styles.btnUpdates}>
+          <TrackChangesOutlinedIcon />
+        </div>
+        <div
+          onClick={toggleMute}
+          className={styles.btnUpdates}
+          aria-label={isMuted ? 'Unmute sounds' : 'Mute sounds'}
+        >
+          {isMuted ? <VolumeOffOutlinedIcon /> : <VolumeUpOutlinedIcon />}
+        </div>
+        <div onClick={handleGitHubClick} className={styles.btnUpdates}>
+          <GitHubIcon />
+        </div>
+      </div>
     </div>
   );
 }
