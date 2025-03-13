@@ -5,13 +5,23 @@ import OverviewTab from './OverviewTab';
 import IconsTab from './IconsTab';
 import ScoringTab from './ScoringTab';
 import { NavItemProps } from '@/types/data';
+import { useSoundEffects } from '@/hooks/useSound';
+import { SOUNDS } from '@/constants/constants';
 
 // Component for each navigation item
-const NavItem = ({ eventKey, title, className, isActive }: NavItemProps) => (
-  <Nav.Item className={`py-1 ${className} ${isActive ? styles.active : ''}`}>
-    <Nav.Link eventKey={eventKey}>{title}</Nav.Link>
-  </Nav.Item>
-);
+const NavItem = ({ eventKey, title, className, isActive }: NavItemProps) => {
+  const { playSound } = useSoundEffects();
+
+  const handleClick = () => {
+    playSound(SOUNDS.BUTTON);
+  };
+
+  return (
+    <Nav.Item className={`py-1 ${className} ${isActive ? styles.active : ''}`}>
+      <Nav.Link eventKey={eventKey} onClick={handleClick}>{title}</Nav.Link>
+    </Nav.Item>
+  );
+};
 
 // This renders the instructions for the game
 export default function InstructionsData() {
