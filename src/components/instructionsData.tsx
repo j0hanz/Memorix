@@ -18,7 +18,9 @@ const NavItem = ({ eventKey, title, className, isActive }: NavItemProps) => {
 
   return (
     <Nav.Item className={`py-1 ${className} ${isActive ? styles.active : ''}`}>
-      <Nav.Link eventKey={eventKey} onClick={handleClick}>{title}</Nav.Link>
+      <Nav.Link eventKey={eventKey} onClick={handleClick}>
+        {title}
+      </Nav.Link>
     </Nav.Item>
   );
 };
