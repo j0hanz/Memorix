@@ -1,15 +1,18 @@
-import { GAME_CONFIG } from '@/constants/constants';
+import { GAME_CONFIG, SOUNDS } from '@/constants/constants';
 import { GameHandlerOptions } from '@/types/hooks';
+import { useSoundEffects } from './useSound';
 
-// Game control handlers
 export const useNavigation = ({
   setIsLoading,
   setIsGameActive,
   setShowInstructions,
   setShowLatestUpdates,
 }: GameHandlerOptions) => {
-  // Common loading logic
+  const { playSound } = useSoundEffects();
+
+  // Common loading logic with sound
   const showLoadingAndStartGame = (callback?: () => void) => {
+    playSound(SOUNDS.BUTTON);
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
@@ -23,32 +26,38 @@ export const useNavigation = ({
 
   // Restart game with loading screen
   const handleRestart = () => {
+    playSound(SOUNDS.BUTTON);
     setIsGameActive(false);
     showLoadingAndStartGame();
   };
 
   // Exit to main menu
   const handleExit = () => {
+    playSound(SOUNDS.BUTTON);
     setIsGameActive(false);
   };
 
   // Modal control functions
   const openInstructions = () => {
+    playSound(SOUNDS.BUTTON);
     setShowInstructions(true);
   };
 
   // Close instructions modal
   const closeInstructions = () => {
+    playSound(SOUNDS.BUTTON);
     setShowInstructions(false);
   };
 
   // Open latest updates modal
   const openLatestUpdates = () => {
+    playSound(SOUNDS.BUTTON);
     setShowLatestUpdates(true);
   };
 
   // Close latest updates modal
   const closeLatestUpdates = () => {
+    playSound(SOUNDS.BUTTON);
     setShowLatestUpdates(false);
   };
 
