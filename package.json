@@ -21,11 +21,11 @@
     "@mui/icons-material": "^6.4.7",
     "@mui/material": "^6.4.7",
     "@vitejs/plugin-react": "^4.3.4",
-    "axios": "^1.8.2",
-    "babel-plugin-react-compiler": "^19.0.0-beta-40c6c23-20250301",
+    "axios": "^1.8.3",
+    "babel-plugin-react-compiler": "19.0.0-beta-bafa41b-20250307",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.7",
-    "framer-motion": "^12.4.9",
+    "framer-motion": "^12.5.0",
     "howler": "^2.2.4",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.8",
@@ -51,7 +51,7 @@
     "globals": "^16.0.0",
     "prettier": "^3.5.3",
     "typescript": "^5.8.2",
-    "typescript-eslint": "^8.26.0",
+    "typescript-eslint": "^8.26.1",
     "vite": "^6.2.1"
   },
   "engines": {
