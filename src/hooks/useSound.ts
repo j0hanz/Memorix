@@ -51,9 +51,11 @@ export function useSoundEffects() {
     };
   }, []);
 
-  // Play sound function
   function playSound(soundName: string): void {
-    if (isMuted) return;
+    // Check if sounds are muted
+    const currentMuteState =
+      localStorage.getItem(STORAGE_KEYS.MUTE_STATE) === 'true';
+    if (currentMuteState) return;
 
     const sound = sounds[soundName];
     if (!sound) {
@@ -68,17 +70,15 @@ export function useSoundEffects() {
   }
 
   // Toggle mute state
-  function toggleMute(): boolean {
-    setIsMuted((prev) => {
-      const newState = !prev;
-      try {
-        localStorage.setItem(STORAGE_KEYS.MUTE_STATE, newState.toString());
-      } catch (error) {
-        console.error('Error updating mute state in localStorage:', error);
-      }
-      return newState;
-    });
-    return !isMuted;
+  function toggleMute(): void {
+    const newMuteState = !isMuted;
+    // Play a sound when unmuting
+    setIsMuted(newMuteState);
+    try {
+      localStorage.setItem(STORAGE_KEYS.MUTE_STATE, newMuteState.toString());
+    } catch (error) {
+      console.error('Error updating mute state in localStorage:', error);
+    }
   }
 
   // Get current mute state
