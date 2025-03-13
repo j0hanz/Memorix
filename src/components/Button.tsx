@@ -1,7 +1,5 @@
 import { FC } from 'react';
 import { Button as CustomButton } from 'react-bootstrap';
-import { useSoundEffects } from '@/hooks/useSound';
-import { SOUNDS } from '@/constants/constants';
 import { CustomButtonProps } from '@/types/components';
 import styles from './styles/Button.module.css';
 
@@ -15,15 +13,9 @@ const Button: FC<CustomButtonProps> = ({
   ...props
 }) => {
   const buttonClassName = `${styles.customButton} ${className}`.trim();
-  const { playSound } = useSoundEffects();
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    playSound(SOUNDS.BUTTON);
-    onClick?.(event);
-  };
 
   return (
-    <CustomButton {...props} onClick={handleClick} className={buttonClassName}>
+    <CustomButton {...props} onClick={onClick} className={buttonClassName}>
       {text ? <span className={styles.buttonText}>{text}</span> : null}
       {children}
       {icon ? <span className={styles.buttonIcon}>{icon}</span> : null}
