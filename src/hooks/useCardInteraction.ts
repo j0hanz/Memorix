@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useGameContext } from '@/hooks/useGameContext';
+import { useGameState } from '@/hooks/useGameState';
 import { CARD_STATUS, CSS_CLASSES } from '@/constants/constants';
 import { CardData } from '@/types/card';
 import { CSSModuleClasses } from '@/types/hooks';
@@ -13,7 +13,7 @@ export function useCardInteraction(
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
-  const { isInitialReveal, isProcessingMatch } = useGameContext();
+  const { isInitialReveal, isProcessingMatch } = useGameState();
 
   // Determine card animation state based on status (for card container)
   const getCardAnimation = () => {
