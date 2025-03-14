@@ -29,10 +29,12 @@
   overflow: hidden;
 }
 
-.front img {
+img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 10px;
+  transform: rotateY(180deg);
 }
 
 /* Back face */
