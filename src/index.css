@@ -37,7 +37,7 @@
 
 /* Style variables */
 :root {
-  --outline-card-matched: 1px solid #00c500;
+  --outline-card-matched: 2px solid #00c500;
   --outline-card-wrong: 1px solid #c9302c;
   --text-spacing: 0.05rem;
 }
