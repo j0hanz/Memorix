@@ -1,5 +1,8 @@
 import React from 'react';
-import { ErrorBoundary as ReactErrorBoundary, FallbackProps } from 'react-error-boundary';
+import {
+  ErrorBoundary as ReactErrorBoundary,
+  FallbackProps,
+} from 'react-error-boundary';
 import Button from './Button';
 
 interface Props {
@@ -9,7 +12,10 @@ interface Props {
   onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
 }
 
-const ErrorFallback: React.FC<FallbackProps> = ({ error, resetErrorBoundary }) => (
+const ErrorFallback: React.FC<FallbackProps> = ({
+  error,
+  resetErrorBoundary,
+}) => (
   <div role="alert">
     <h2>Something went wrong.</h2>
     <pre style={{ color: 'red' }}>{error.message}</pre>
@@ -17,7 +23,12 @@ const ErrorFallback: React.FC<FallbackProps> = ({ error, resetErrorBoundary }) =
   </div>
 );
 
-const ErrorBoundary: React.FC<Props> = ({ children, fallback, onReset, onError }) => {
+const ErrorBoundary: React.FC<Props> = ({
+  children,
+  fallback,
+  onReset,
+  onError,
+}) => {
   if (fallback) {
     return (
       <ReactErrorBoundary
