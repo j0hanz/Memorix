@@ -2,8 +2,6 @@
 export const GAME_CONFIG = {
   TOTAL_PAIRS: 6,
   LOADING_DELAY: 3000,
-  CARD_FLIP_DELAY: 400,
-  REVEAL_DELAY: 500,
   INITIAL_STATE: {
     GAME_ACTIVE: false,
     LOADING: false,
@@ -100,4 +98,6 @@ export const TIMER = {
 export const DELAYS = {
   INITIAL_REVEAL: 500,
   INITIAL_REVEAL_TIME: 3000,
+  MATCH_PROCESSING: 500,
+  RESTART_DELAY: 100,
 };
