@@ -129,8 +129,8 @@ function getCardAnimations() {
       },
       matched: {
         rotateY: 0,
-        opacity: 0.85,
-        scale: 0.92,
+        opacity: 0.8,
+        scale: 1,
         transition: {
           duration: MOTIONS.DEFAULT_DURATION,
         },
