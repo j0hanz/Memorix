@@ -60,7 +60,7 @@ export default function App() {
     <ErrorBoundary
       onReset={handleAppReset}
       onError={(error) => {
-        console.error("Application error:", error);
+        console.error('Application error:', error);
       }}
     >
       <LoadingSpinner isLoading={isLoading} />
@@ -78,7 +78,7 @@ export default function App() {
         <ErrorBoundary
           onReset={handleGameReset}
           onError={(error) => {
-            console.error("Game error:", error);
+            console.error('Game error:', error);
           }}
         >
           <GameProvider onExit={handleExit}>
