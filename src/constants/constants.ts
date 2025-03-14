@@ -64,7 +64,7 @@ export const CSS_CLASSES = {
 
 // Animation constants
 export const MOTIONS = {
-  DEFAULT_DURATION: 0.4,
+  DEFAULT_DURATION: 0.2,
   SPRING: {
     DEFAULT: {
       type: 'spring',
