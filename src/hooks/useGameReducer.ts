@@ -1,7 +1,13 @@
 import { useReducer, useEffect, useCallback, useRef } from 'react';
 import { gameReducer, initialGameState } from '@/reducers/gameReducer';
 import { useShuffledDeck } from '@/hooks/useShuffledDeck';
-import { DELAYS, FEEDBACK, SOUNDS, GAME_CONFIG } from '@/constants/constants';
+import {
+  DELAYS,
+  FEEDBACK,
+  SOUNDS,
+  GAME_CONFIG,
+  TIMER,
+} from '@/constants/constants';
 import { useSoundEffects } from '@/hooks/useSound';
 
 export function useGameReducer(onExit: () => void) {
@@ -38,7 +44,7 @@ export function useGameReducer(onExit: () => void) {
       state.matchedPairs > 0
     ) {
       const timeElapsed = state.startTime
-        ? Math.floor((Date.now() - state.startTime) / 1000)
+        ? Math.floor((Date.now() - state.startTime) / TIMER.INTERVAL)
         : 0;
 
       dispatch({
