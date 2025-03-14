@@ -1,7 +1,7 @@
 import Cards from './Cards';
 import ScoreboardModal from './Modal';
 import { GameProps } from '@/types/components';
-import { useGameUI } from '@/hooks/useGameUI';
+import { useGameState } from '@/hooks/useGameState';
 
 export default function Game({ onRestart }: GameProps) {
   const {
@@ -11,13 +11,24 @@ export default function Game({ onRestart }: GameProps) {
     moves,
     isGameOver,
     showModal,
-    setShowModal,
+    dispatch,
     timerActive,
     feedback,
     completedTime,
     exitToMainMenu,
-    handleReset,
-  } = useGameUI(onRestart);
+    resetGameState,
+  } = useGameState();
+
+  // Reset the game state
+  const handleReset = () => {
+    resetGameState();
+    onRestart();
+  };
+
+  // Close the modal
+  const handleModalClose = () => {
+    dispatch({ type: 'TOGGLE_MODAL', payload: { show: false } });
+  };
 
   return (
     <>
@@ -34,7 +45,7 @@ export default function Game({ onRestart }: GameProps) {
       {isGameOver && (
         <ScoreboardModal
           show={showModal}
-          onClose={() => setShowModal(false)}
+          onClose={handleModalClose}
           onReset={handleReset}
           onExit={exitToMainMenu}
           completedTime={completedTime.toString()}
