@@ -10,7 +10,7 @@ import { ScoreRowProps } from '@/types/data';
 function ScoreRow({ stars, moves, time }: ScoreRowProps) {
   return (
     <>
-      <Row className="d-flex justify-content-between align-items-center">
+      <Row className="d-flex justify-content-between align-items-center m-1">
         <Col className="d-flex justify-content-start align-items-center">
           {[...Array(5)].map((_, i) => (
             <StarOutlinedIcon
@@ -32,7 +32,7 @@ function ScoreRow({ stars, moves, time }: ScoreRowProps) {
           </Badge>
         </Col>
       </Row>
-      <hr />
+      <hr/>
     </>
   );
 }
