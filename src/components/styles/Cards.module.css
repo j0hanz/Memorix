@@ -44,10 +44,6 @@
   gap: 1.5rem;
 }
 
-.cardsMap {
-  padding: 0 clamp(0.3rem, 0.25rem + 0.25vw, 0.5rem);
-}
-
 /* Button */
 .btnExitRestart {
   cursor: pointer;
@@ -74,7 +70,7 @@
 
 @media (max-width: 550px) {
   .row {
-    width: min(98vw, 800px);
+    width: min(100vw, 800px);
   }
   .statsTop {
     width: calc(min(98vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));

@@ -46,15 +46,7 @@ export default function Cards({
           </div>
         </Col>
         {cards.map((card, index) => (
-          <Col
-            xs={4}
-            sm={4}
-            md={3}
-            lg={3}
-            xl={3}
-            key={index}
-            className={styles.cardsMap}
-          >
+          <Col xs={4} sm={4} md={3} lg={3} xl={3} key={index}>
             <motion.div
               initial="initial"
               animate="in"
