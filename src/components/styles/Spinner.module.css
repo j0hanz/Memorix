@@ -33,7 +33,7 @@
 .loader::after {
   background: var(--bg-card);
   background-image: url('@/assets/img/card-back.webp');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   transform: rotateY(180deg);
