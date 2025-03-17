@@ -32,7 +32,7 @@ function ScoreRow({ stars, moves, time }: ScoreRowProps) {
           </Badge>
         </Col>
       </Row>
-      <hr/>
+      <hr />
     </>
   );
 }
