@@ -15,10 +15,10 @@
 /* Color variables */
 :root {
   --text-color: #fafafa;
-  --text-count-color: #d8d8d8;
+  --text-count-color: #c77dff;
   --text-color-highlight: #ff0077;
-  --bg-primary: #0f1729;
-  --bg-card: #14253d;
+  --bg-primary: #101729;
+  --bg-card: #2a4a77;
   --bg-modal: #242424;
   --bg-modal-content: #181818;
   --btn-primary: #001e5f;
