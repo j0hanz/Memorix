@@ -40,7 +40,7 @@ img {
 
 /* Back face */
 .back {
-  background-image: url('@/assets/img/card-back.webp');
+  background-image: url('/img/card-back.webp');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
