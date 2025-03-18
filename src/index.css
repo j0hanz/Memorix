@@ -19,7 +19,6 @@
   --text-color-highlight: #ff2e79;
   --bg-primary: #101729;
   --bg-card: #476590;
-  --bg-modal: #242424;
   --bg-modal-content: #18233a;
   --btn-primary: #ff2e79;
   --btn-primary-hover: #ff5c96;
@@ -42,6 +41,7 @@
   --outline-card-wrong: 1px solid #ff4d4d;
   --outline-card-active: 2px solid #ff2e79;
   --text-spacing: 0.05rem;
+  --btn-catagory-border: 1px solid #18233a;
 }
 
 body {
