@@ -61,6 +61,7 @@ export function useCardInteraction(
       styles.card,
       !imageLoaded && !imageError ? styles.loading : '',
       isMatched ? styles.matched : '',
+      card.status === CARD_STATUS.ACTIVE ? styles.active : '',
     ]
       .filter(Boolean)
       .join(' ');

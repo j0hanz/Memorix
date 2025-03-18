@@ -15,6 +15,7 @@
   transform-style: preserve-3d;
   will-change: transform, opacity;
   transform-origin: center center;
+  transition: outline 0.1s ease-out 0.1s;
 }
 
 .front,
@@ -47,4 +48,8 @@ img {
 
 .matched {
   outline: var(--outline-card-matched);
+}
+
+.active {
+  outline: var(--outline-card-active);
 }
