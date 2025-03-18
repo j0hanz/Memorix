@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
   color: var(--text-color);
   border-bottom: 2px solid var(--bg-card);
   width: calc(min(60vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));
@@ -41,13 +41,16 @@
 
 .statsRight {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 /* Button */
 .btnExitRestart {
   cursor: pointer;
+  background-color: var(--btn-secondary);
   color: var(--moves);
+  padding: 0.5rem;
+  border-radius: 50%;
   transition: all 0.3s ease;
 }
 
