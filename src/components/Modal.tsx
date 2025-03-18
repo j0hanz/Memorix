@@ -95,7 +95,7 @@ export function CategorySelection({
       className={`${styles.modal} ${styles.categoryModal}`}
     >
       <Modal.Header className="border-0 d-flex justify-content-center">
-        <Modal.Title>Select Image Category:</Modal.Title>
+        <Modal.Title>Select Category:</Modal.Title>
       </Modal.Header>
       <Modal.Body className="px-0">
         <CategoryData onSelectCategory={onSelectCategory} />
