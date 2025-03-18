@@ -61,3 +61,9 @@ body {
     font-size: 0.9rem;
   }
 }
+
+@media (max-width: 315px) {
+  body {
+    font-size: 0.8rem;
+  }
+}
