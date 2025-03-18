@@ -27,8 +27,8 @@
   --btn-secondary-hover: #4a678c;
   --btn-secondary-active: #4a678c;
   --modal-header-active: #ff2e79;
-  --feedback-wrong: #c9302c;
-  --feedback-correct: #00c500;
+  --feedback-wrong: #ff4d4d;
+  --feedback-correct: #22c55e;
   --color-star-icon: #ffd700;
   --color-clock-icon: #fdc200;
   --color-star-icon-gray: #282e35;
@@ -38,8 +38,9 @@
 
 /* Style variables */
 :root {
-  --outline-card-matched: 2px solid #00c500;
-  --outline-card-wrong: 1px solid #c9302c;
+  --outline-card-matched: 2px solid #22c55e;
+  --outline-card-wrong: 1px solid #ff4d4d;
+  --outline-card-active: 2px solid #ff2e79;
   --text-spacing: 0.05rem;
 }
 
