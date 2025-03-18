@@ -141,13 +141,20 @@
   transform: scale(1);
 }
 
+.navLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.15rem;
+  font-size: 1.05em;
+}
+
 .navItemLeft,
 .navItemCenter,
 .navItemRight {
   border: none;
   background: var(--btn-secondary);
   transition: all 0.3s ease;
-  font-size: 1.1rem;
 }
 
 .navItemLeft {
@@ -192,9 +199,13 @@
     height: 100%;
   }
 
-  .navItemLeft,
-  .navItemCenter,
-  .navItemRight {
-    font-size: 0.9rem;
+  .navLink {
+    font-size: 0.95em;
+  }
+}
+
+@media (max-width: 315px) {
+  .navLink {
+    gap: 0.1rem;
   }
 }
