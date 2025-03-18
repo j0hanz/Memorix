@@ -98,7 +98,7 @@
 }
 
 .btnExit {
-  background: var(--bg-modal);
+  background: var(--btn-secondary);
   border: none;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -184,7 +184,7 @@
 .navItemLeft.active,
 .navItemCenter.active,
 .navItemRight.active {
-  background: var(--btn-secondary-active);
+  background: var(--modal-header-active);
 }
 
 @media (max-width: 425px) {
