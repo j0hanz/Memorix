@@ -8,6 +8,7 @@ export interface NavItemProps {
   title: string;
   className: string;
   isActive: boolean;
+  icon?: React.ReactNode;
 }
 
 export interface ScoreboardProps {
