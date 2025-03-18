@@ -7,12 +7,16 @@ import {
   SOUNDS,
   GAME_CONFIG,
   TIMER,
+  CATEGORIES,
 } from '@/constants/constants';
 import { useSoundEffects } from '@/hooks/useSound';
 
-export function useGameReducer(onExit: () => void) {
+export function useGameReducer(
+  onExit: () => void,
+  selectedCategory = CATEGORIES.ANIMALS,
+) {
   const [state, dispatch] = useReducer(gameReducer, initialGameState);
-  const { deck, refreshDeck } = useShuffledDeck();
+  const { deck, refreshDeck } = useShuffledDeck(selectedCategory);
   const { playSound } = useSoundEffects();
 
   // Store previous card index for matching logic

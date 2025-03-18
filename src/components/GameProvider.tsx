@@ -2,10 +2,12 @@ import React from 'react';
 import { GameContext } from '@/contexts/GameContext';
 import { GameProviderProps } from '@/types/context';
 import { useGameReducer } from '@/hooks/useGameReducer';
+import { CATEGORIES } from '@/constants/constants';
 
 export const GameProvider = ({
   children,
   onExit,
+  selectedCategory = CATEGORIES.ANIMALS,
 }: GameProviderProps): React.ReactElement => {
   const {
     state,
@@ -13,7 +15,7 @@ export const GameProvider = ({
     handleCardSelection,
     resetGameState,
     exitToMainMenu,
-  } = useGameReducer(onExit);
+  } = useGameReducer(onExit, selectedCategory);
 
   return (
     <GameContext.Provider
@@ -23,6 +25,7 @@ export const GameProvider = ({
         handleCardSelection,
         resetGameState,
         exitToMainMenu,
+        selectedCategory,
       }}
     >
       {children}

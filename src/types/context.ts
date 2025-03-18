@@ -6,6 +6,7 @@ import { GameAction } from '@/reducers/gameReducer';
 export interface GameProviderProps {
   children: ReactNode;
   onExit: () => void;
+  selectedCategory?: string;
 }
 
 // Game state
@@ -30,4 +31,5 @@ export interface GameContextType extends GameState {
   handleCardSelection: (index: number) => void;
   exitToMainMenu: () => void;
   resetGameState: () => void;
+  selectedCategory?: string;
 }

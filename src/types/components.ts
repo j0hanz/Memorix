@@ -54,6 +54,16 @@ export interface GameInstructionsProps {
   onClose: () => void;
 }
 
+export interface CategoryDataProps {
+  onSelectCategory: (category: string) => void;
+}
+
+export interface CategoryProps {
+  show: boolean;
+  onClose: () => void;
+  onSelectCategory: (category: string) => void;
+}
+
 export interface LatestUpdatesProps {
   show: boolean;
   onClose: () => void;

@@ -193,6 +193,31 @@
 .navItemRight.active {
   background: var(--modal-header-active);
 }
+.btnCategoryContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.btnCategorySelect {
+  background: var(--btn-secondary);
+  border: var(--btn-catagory-border);
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btnCategorySelect:hover {
+  background: var(--btn-secondary-hover);
+}
+
+.btnCategorySelect:active {
+  background: var(--btn-secondary-hover);
+}
 
 @media (max-width: 425px) {
   .instructionsModal :global(.modal-content) {

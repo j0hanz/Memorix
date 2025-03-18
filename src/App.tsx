@@ -2,6 +2,7 @@ import { useAppState } from '@/hooks/useAppState';
 import Game from '@/components/Game';
 import LoadingSpinner from '@/components/Spinner';
 import { GameInstructions, LatestUpdates } from '@/components/Modal';
+import { CategorySelection } from '@/components/Modal';
 import { GameProvider } from '@/components/GameProvider';
 import { useMotions } from '@/hooks/useMotions';
 import MainMenu from '@/components/MainMenu';
@@ -17,10 +18,14 @@ export default function App() {
     isLoading,
     showInstructions,
     showLatestUpdates,
+    showCategorySelection,
+    selectedCategory,
     setIsLoading,
     setIsGameActive,
     setShowInstructions,
     setShowLatestUpdates,
+    setShowCategorySelection,
+    setSelectedCategory,
   } = useAppState();
 
   // Get animations and sounds
@@ -30,17 +35,21 @@ export default function App() {
   // Destructure game handlers
   const {
     startGame,
+    startGameWithCategory,
     handleRestart,
     handleExit,
     openInstructions,
     closeInstructions,
     openLatestUpdates,
     closeLatestUpdates,
+    closeCategorySelection,
   } = useNavigation({
     setIsLoading,
     setIsGameActive,
     setShowInstructions,
     setShowLatestUpdates,
+    setShowCategorySelection,
+    setSelectedCategory,
   });
 
   // Handle app-level error recovery
@@ -54,6 +63,13 @@ export default function App() {
   const handleGameReset = () => {
     playSound(SOUNDS.BUTTON);
     handleRestart();
+  };
+
+  // Handle category selection
+  const handleSelectCategory = (category: string) => {
+    playSound(SOUNDS.BUTTON);
+    setSelectedCategory(category);
+    startGameWithCategory();
   };
 
   return (
@@ -81,7 +97,7 @@ export default function App() {
             console.error('Game error:', error);
           }}
         >
-          <GameProvider onExit={handleExit}>
+          <GameProvider onExit={handleExit} selectedCategory={selectedCategory}>
             <Game onRestart={handleRestart} />
           </GameProvider>
         </ErrorBoundary>
@@ -89,6 +105,11 @@ export default function App() {
 
       <GameInstructions show={showInstructions} onClose={closeInstructions} />
       <LatestUpdates show={showLatestUpdates} onClose={closeLatestUpdates} />
+      <CategorySelection
+        show={showCategorySelection}
+        onClose={closeCategorySelection}
+        onSelectCategory={handleSelectCategory}
+      />
     </ErrorBoundary>
   );
 }

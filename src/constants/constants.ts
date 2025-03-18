@@ -101,3 +101,26 @@ export const DELAYS = {
   MATCH_PROCESSING: 500,
   RESTART_DELAY: 100,
 };
+
+// Game categories and descriptions
+export const CATEGORIES = {
+  ANIMALS: 'animals',
+  ASTRONOMY: 'astronomy',
+  PATTERN: 'pattern',
+  SUSHI: 'sushi',
+};
+
+export const CATEGORY_INFO = {
+  [CATEGORIES.ANIMALS]: {
+    name: 'Animals',
+  },
+  [CATEGORIES.ASTRONOMY]: {
+    name: 'Astronomy',
+  },
+  [CATEGORIES.PATTERN]: {
+    name: 'Patterns',
+  },
+  [CATEGORIES.SUSHI]: {
+    name: 'Sushi',
+  },
+};

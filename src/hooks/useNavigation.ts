@@ -7,6 +7,7 @@ export const useNavigation = ({
   setIsGameActive,
   setShowInstructions,
   setShowLatestUpdates,
+  setShowCategorySelection,
 }: GameHandlerOptions) => {
   const { playSound } = useSoundEffects();
 
@@ -21,8 +22,17 @@ export const useNavigation = ({
     }, GAME_CONFIG.LOADING_DELAY);
   };
 
-  // Start a new game with loading screen
-  const startGame = () => showLoadingAndStartGame();
+  // Start game with category selection
+  const startGame = () => {
+    playSound(SOUNDS.BUTTON);
+    setShowCategorySelection(true);
+  };
+
+  // Start game with selected category
+  const startGameWithCategory = () => {
+    setShowCategorySelection(false);
+    showLoadingAndStartGame();
+  };
 
   // Restart game with loading screen
   const handleRestart = () => {
@@ -61,13 +71,21 @@ export const useNavigation = ({
     setShowLatestUpdates(false);
   };
 
+  // Close category selection modal
+  const closeCategorySelection = () => {
+    playSound(SOUNDS.BUTTON);
+    setShowCategorySelection(false);
+  };
+
   return {
     startGame,
+    startGameWithCategory,
     handleRestart,
     handleExit,
     openInstructions,
     closeInstructions,
     openLatestUpdates,
     closeLatestUpdates,
+    closeCategorySelection,
   };
 };

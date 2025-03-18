@@ -5,6 +5,8 @@ export interface AppState {
   isLoading: boolean;
   showInstructions: boolean;
   showLatestUpdates: boolean;
+  showCategorySelection: boolean;
+  selectedCategory: string;
 }
 
 export interface GameHandlerOptions {
@@ -12,6 +14,8 @@ export interface GameHandlerOptions {
   setIsGameActive: (value: boolean) => void;
   setShowInstructions: (value: boolean) => void;
   setShowLatestUpdates: (value: boolean) => void;
+  setShowCategorySelection: (value: boolean) => void;
+  setSelectedCategory: (value: string) => void;
 }
 
 export interface MotionOptions {
