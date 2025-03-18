@@ -6,10 +6,12 @@ import styles from './styles/Modal.module.css';
 import Scoreboard from '@/components/scoreData';
 import InstructionsData from '@/components/instructionsData';
 import CommitStatus from './CommitStatus';
+import CategoryData from './Category';
 import {
   ScoreboardModalProps,
   GameInstructionsProps,
   LatestUpdatesProps,
+  CategoryProps,
 } from '@/types/components';
 
 // Main modal
@@ -73,6 +75,34 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
       <Modal.Footer className="border-0 mt-2">
         <Button className={styles.btnClose} onClick={onClose}>
           Close
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+}
+
+// Category selection modal
+export function CategorySelection({
+  show,
+  onClose,
+  onSelectCategory,
+}: CategoryProps) {
+  return (
+    <Modal
+      show={show}
+      onHide={onClose}
+      centered
+      className={`${styles.modal} ${styles.categoryModal}`}
+    >
+      <Modal.Header className="border-0 d-flex justify-content-center">
+        <Modal.Title>Select Image Category:</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="px-0">
+        <CategoryData onSelectCategory={onSelectCategory} />
+      </Modal.Body>
+      <Modal.Footer className="border-0 mt-3">
+        <Button className={styles.btnClose} onClick={onClose}>
+          Cancel
         </Button>
       </Modal.Footer>
     </Modal>
