@@ -3,7 +3,7 @@
   --bs-body-font-weigh: none;
   --bs-primary-rgb: none;
   --bs-secondary-rgb: none;
-  --bs-emphasis-color: #ff8c00;
+  --bs-emphasis-color: #101729;
   --bs-link-color: none;
   --bs-link-hover-color: none;
   --bs-border-color: none;
@@ -14,24 +14,24 @@
 
 /* Color variables */
 :root {
-  --text-color: #fafafa;
+  --text-color: #f4f4f9;
   --text-count-color: #c77dff;
-  --text-color-highlight: #ff0077;
+  --text-color-highlight: #ff2e79;
   --bg-primary: #101729;
-  --bg-card: #5879a8;
+  --bg-card: #476590;
   --bg-modal: #242424;
   --bg-modal-content: #181818;
-  --btn-primary: #001e5f;
-  --btn-primary-hover: #00194e;
-  --btn-secondary: #2c2c2c;
-  --btn-secondary-hover: #242424;
-  --btn-secondary-active: #242424;
+  --btn-primary: #ff2e79;
+  --btn-primary-hover: #ff5c96;
+  --btn-secondary: #374e6e;
+  --btn-secondary-hover: #4a678c;
+  --btn-secondary-active: #4a678c;
   --feedback-wrong: #c9302c;
   --feedback-correct: #00c500;
   --color-star-icon: #ffd700;
   --color-clock-icon: #fdc200;
   --color-star-icon-gray: #282e35;
-  --moves: #fdc200;
+  --moves: #f4f4f9;
   --shadow-row: #0a0a0a;
 }
 
