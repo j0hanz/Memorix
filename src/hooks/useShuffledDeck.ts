@@ -6,6 +6,7 @@ import { CATEGORIES } from '@/constants/constants';
 export function useShuffledDeck(category = CATEGORIES.ANIMALS) {
   // Generate and shuffle deck initially with the selected category
   const [deck, setDeck] = useState<PairedCard[]>(() => {
+    // Try to generate and shuffle cards
     try {
       const cards = generateCards(category);
       return shuffleCards(cards);
@@ -18,8 +19,8 @@ export function useShuffledDeck(category = CATEGORIES.ANIMALS) {
     }
   });
 
-  // Refresh deck with a new shuffle using the same category
   function refreshDeck() {
+    // Refresh the deck with a new shuffled set of cards
     try {
       const newDeck = shuffleCards(generateCards(category));
       setDeck(newDeck);
