@@ -1,5 +1,4 @@
 import { CATEGORY_INFO } from '@/constants/constants';
-import Button from './Button';
 import styles from './styles/Modal.module.css';
 import { CategoryDataProps } from '@/types/components';
 
