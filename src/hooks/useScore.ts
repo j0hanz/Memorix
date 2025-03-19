@@ -1,11 +1,12 @@
 import { SCORING } from '@/constants/constants';
 
 export function useScore(moves: number, completedTime: number) {
-  // Calculate stars based on moves and time
+  // Calculate the score based on moves and time
   const stars = calculateStars(moves, completedTime);
   return { stars };
 }
 
+// This function determine the score based on the number of moves and time taken
 function calculateStars(moves: number, completedTime: number): number {
   try {
     if (
