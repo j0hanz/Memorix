@@ -1,26 +1,35 @@
-import { useState, useEffect } from 'react';
-import { TIMER } from '@/constants/constants';
+import { useState, useEffect, useRef } from 'react';
 
 // Manage timer state and elapsed time
 export function useTimer(timerActive: boolean): number {
   const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const startTimeRef = useRef<number | null>(null);
 
-  // Update elapsed time every second
   useEffect(() => {
-    let intervalId: number | null = null;
-    // Start timer if active
+    // Cleanup function to cancel the animation frame
+    let animationFrameId: number;
+
     if (timerActive) {
-      intervalId = window.setInterval(() => {
-        setElapsedTime((prev) => prev + 1);
-      }, TIMER.INTERVAL);
+      // Initialize start time if not already set
+      startTimeRef.current = startTimeRef.current || Date.now();
+      const updateTimer = () => {
+        // Calculate elapsed time
+        const currentTime = Math.floor(
+          (Date.now() - (startTimeRef.current || 0)) / 1000,
+        );
+        if (currentTime !== elapsedTime) {
+          setElapsedTime(currentTime);
+        }
+        animationFrameId = requestAnimationFrame(updateTimer);
+      };
+      animationFrameId = requestAnimationFrame(updateTimer);
     }
     return () => {
-      // Clear interval on unmount
-      if (intervalId !== null) {
-        clearInterval(intervalId);
+      cancelAnimationFrame(animationFrameId);
+      if (!timerActive) {
+        startTimeRef.current = null;
       }
     };
-  }, [timerActive]);
-
+  }, [timerActive, elapsedTime]);
   return elapsedTime;
 }
