@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Card from './Card';
 import Image from './Image';
-import styles from './styles/Card.module.css';
+import styles from './styles/GameCard.module.css';
 import { useMotions } from '@/hooks/useMotions';
 import { GameCardProps } from '@/types/card';
 import { useCards } from '@/hooks/useCards';
