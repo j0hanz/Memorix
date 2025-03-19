@@ -8,7 +8,7 @@ import { Timer, Moves } from './GameStats';
 import Feedback from './Feedback';
 import { CardsProps } from '@/types/components';
 import styles from './styles/Cards.module.css';
-import { useCardLayout } from '@/hooks/useCardLayout';
+import { useCards } from '@/hooks/useCards';
 
 // Component to display the game cards
 export default function Cards({
@@ -22,12 +22,12 @@ export default function Cards({
 }: CardsProps) {
   // Get the card entrance animation
   const { cardEntranceAnimation } = useMotions();
-  const { getStatsTopClass } = useCardLayout(feedback);
+  const { getStatsTopClass } = useCards();
 
   return (
     <Container>
       <Row className={styles.row}>
-        <Col xs={12} className={getStatsTopClass(styles)}>
+        <Col xs={12} className={getStatsTopClass(styles, feedback)}>
           <div className={styles.statsLeft}>
             <Moves moves={moves} />
             <Timer timerActive={timerActive} />

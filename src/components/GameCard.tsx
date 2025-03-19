@@ -4,7 +4,7 @@ import Image from './Image';
 import styles from './styles/Card.module.css';
 import { useMotions } from '@/hooks/useMotions';
 import { GameCardProps } from '@/types/card';
-import { useCardInteraction } from '@/hooks/useCardInteraction';
+import { useCards } from '@/hooks/useCards';
 
 function GameCard({ card, index, clickHandler }: GameCardProps) {
   const { flipAnimation, cardContentAnimation } = useMotions();
@@ -20,7 +20,7 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
     isImageLoaded,
     isImageError,
     ariaSelected,
-  } = useCardInteraction(card, index, clickHandler);
+  } = useCards(card, index, clickHandler);
 
   const baseStyles = getCardStyleClasses(styles);
 

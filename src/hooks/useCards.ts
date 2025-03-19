@@ -1,0 +1,100 @@
+import { useState } from 'react';
+import { useGameState } from '@/hooks/useGameState';
+import { CARD_STATUS, FEEDBACK, CSS_CLASSES } from '@/constants/constants';
+import { CardData } from '@/types/card';
+import { CSSModuleClasses } from '@/types/hooks';
+
+export function useCards(
+  card?: CardData,
+  index?: number,
+  clickHandler?: (index: number) => void,
+) {
+  // State to track image loading status
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  const { isInitialReveal, isProcessingMatch } = useGameState();
+
+  // Card animation states - available when card details are provided
+  const getCardAnimation = () => {
+    if (!card) return 'hidden';
+    if (card.status === CARD_STATUS.MATCHED) return 'matched';
+    if (card.status === CARD_STATUS.ACTIVE) return 'active';
+    return 'hidden';
+  };
+
+  const getCardFrontAnimation = () => {
+    if (!card) return 'initial';
+    if (card.status === CARD_STATUS.MATCHED) return 'matched';
+    if (card.status === CARD_STATUS.ACTIVE) return 'flipped';
+    return 'initial';
+  };
+
+  // Interactive state management
+  const isClickable =
+    !!card &&
+    typeof index === 'number' &&
+    (imageLoaded || imageError) &&
+    !isInitialReveal &&
+    !card.status.includes('matched') &&
+    !isProcessingMatch;
+
+  const handleClick = () => {
+    if (isClickable && clickHandler && typeof index === 'number') {
+      clickHandler(index);
+    }
+  };
+
+  // Card style classes
+  const getCardStyleClasses = (styles: CSSModuleClasses) => {
+    if (!card) return styles.card;
+
+    return [
+      styles.card,
+      !imageLoaded && !imageError ? styles.loading : '',
+      card.status.includes('matched') ? styles.matched : '',
+      card.status === CARD_STATUS.ACTIVE ? styles.active : '',
+    ]
+      .filter(Boolean)
+      .join(' ');
+  };
+
+  const ariaSelected = !!card && card.status === CSS_CLASSES.ACTIVE;
+
+  // Feedback handling
+  const getStatsTopClass = (styles: CSSModuleClasses, feedback?: string) => {
+    if (!feedback) return styles.statsTop;
+
+    if (feedback === FEEDBACK.SUCCESS) {
+      return `${styles.statsTop} ${styles.statsTopSuccess}`;
+    } else if (feedback === FEEDBACK.ERROR) {
+      return `${styles.statsTop} ${styles.statsTopError}`;
+    }
+
+    return styles.statsTop;
+  };
+
+  // Image handling functions
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoaded(true);
+  };
+
+  return {
+    getCardAnimation,
+    getCardFrontAnimation,
+    isClickable,
+    handleClick,
+    getCardStyleClasses,
+    ariaSelected,
+    getStatsTopClass,
+    handleImageLoad,
+    handleImageError,
+    isImageLoaded: imageLoaded,
+    isImageError: imageError,
+  };
+}
