@@ -2,18 +2,12 @@
   max-width: 100%;
   display: flex;
   justify-content: center;
-  gap: 0.5rem;
   align-items: center;
+  gap: 0.3rem;
   border: none;
   transition: all 0.3s ease;
 }
 
-.buttonIcon {
-  transition: all 0.3s ease;
-  line-height: 0;
-}
-
-.customButton:active,
-.buttonIcon:active {
+.customButton:active {
   transform: scale(0.95);
 }
