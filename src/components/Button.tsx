@@ -16,9 +16,9 @@ const Button: FC<CustomButtonProps> = ({
 
   return (
     <CustomButton {...props} onClick={onClick} className={buttonClassName}>
-      {text ? <span className={styles.buttonText}>{text}</span> : null}
+      {icon}
+      {text}
       {children}
-      {icon ? <span className={styles.buttonIcon}>{icon}</span> : null}
     </CustomButton>
   );
 };
