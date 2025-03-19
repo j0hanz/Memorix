@@ -9,14 +9,13 @@ export function useCards(
   index?: number,
   clickHandler?: (index: number) => void,
 ) {
-  // State to track image loading status
+  // State to manage image loading and error
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-
   const { isInitialReveal, isProcessingMatch } = useGameState();
 
-  // Card animation states - available when card details are provided
   const getCardAnimation = () => {
+    // Determine the animation class based on card status
     if (!card) return 'hidden';
     if (card.status === CARD_STATUS.MATCHED) return 'matched';
     if (card.status === CARD_STATUS.ACTIVE) return 'active';
@@ -24,13 +23,14 @@ export function useCards(
   };
 
   const getCardFrontAnimation = () => {
+    // Determine the front animation class based on card status
     if (!card) return 'initial';
     if (card.status === CARD_STATUS.MATCHED) return 'matched';
     if (card.status === CARD_STATUS.ACTIVE) return 'flipped';
     return 'initial';
   };
 
-  // Interactive state management
+  // Determines if the card can be clicked
   const isClickable =
     !!card &&
     typeof index === 'number' &&
@@ -40,13 +40,14 @@ export function useCards(
     !isProcessingMatch;
 
   const handleClick = () => {
+    // Handle card click
     if (isClickable && clickHandler && typeof index === 'number') {
       clickHandler(index);
     }
   };
 
-  // Card style classes
   const getCardStyleClasses = (styles: CSSModuleClasses) => {
+    // Determine the card style classes based on card status
     if (!card) return styles.card;
 
     return [
@@ -61,10 +62,9 @@ export function useCards(
 
   const ariaSelected = !!card && card.status === CSS_CLASSES.ACTIVE;
 
-  // Feedback handling
   const getStatsTopClass = (styles: CSSModuleClasses, feedback?: string) => {
+    // Determine the stats top class based on feedback
     if (!feedback) return styles.statsTop;
-
     if (feedback === FEEDBACK.SUCCESS) {
       return `${styles.statsTop} ${styles.statsTopSuccess}`;
     } else if (feedback === FEEDBACK.ERROR) {
@@ -79,6 +79,7 @@ export function useCards(
     setImageLoaded(true);
   };
 
+  // Handle image loading error
   const handleImageError = () => {
     setImageError(true);
     setImageLoaded(true);
