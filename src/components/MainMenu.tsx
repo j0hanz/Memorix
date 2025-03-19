@@ -33,7 +33,7 @@ export default function MainMenu({
         className={styles.btnStart}
         icon={<PlayCircleOutlineOutlinedIcon />}
       >
-        Start Game
+        Play Game
       </Button>
       <Button
         onClick={openInstructions}
