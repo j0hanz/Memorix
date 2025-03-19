@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Howl } from 'howler';
 import correctSound from '@/assets/sounds/correct.mp3';
 import wrongSound from '@/assets/sounds/wrong.mp3';
@@ -18,30 +18,24 @@ export function useSoundEffects() {
     }
   })();
 
-  const [sounds, setSounds] = useState<Record<string, Howl>>({});
+  // State to manage sound effects
+  const soundsRef = useRef<Record<string, Howl>>({});
+  // State to manage mute status
   const [isMuted, setIsMuted] = useState<boolean>(initialMuteState);
 
   // Initialize sounds on mount
   useEffect(() => {
-    const createSound = (src: string): Howl => new Howl({ src: [src] });
-    let soundInstances: Record<string, Howl> = {};
-
-    try {
-      soundInstances = {
-        [SOUNDS.CORRECT]: createSound(correctSound),
-        [SOUNDS.WRONG]: createSound(wrongSound),
-        [SOUNDS.CLICK]: createSound(clickSound),
-        [SOUNDS.BUTTON]: createSound(buttonSound),
-        [SOUNDS.COMPLETE]: createSound(completeSound),
-      };
-      setSounds(soundInstances);
-    } catch (error) {
-      console.error('Error initializing sound effects:', error);
-    }
+    soundsRef.current = {
+      [SOUNDS.CORRECT]: new Howl({ src: [correctSound] }),
+      [SOUNDS.WRONG]: new Howl({ src: [wrongSound] }),
+      [SOUNDS.CLICK]: new Howl({ src: [clickSound] }),
+      [SOUNDS.BUTTON]: new Howl({ src: [buttonSound] }),
+      [SOUNDS.COMPLETE]: new Howl({ src: [completeSound] }),
+    };
 
     // Cleanup sounds when component unmounts
     return () => {
-      Object.values(soundInstances).forEach((sound) => {
+      Object.values(soundsRef.current).forEach((sound) => {
         try {
           sound.unload();
         } catch (error) {
@@ -57,7 +51,8 @@ export function useSoundEffects() {
       localStorage.getItem(STORAGE_KEYS.MUTE_STATE) === 'true';
     if (currentMuteState) return;
 
-    const sound = sounds[soundName];
+    const sound = soundsRef.current[soundName];
+    // Check if sound exists
     if (!sound) {
       console.warn(`No sound found for key: "${soundName}"`);
       return;
