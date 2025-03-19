@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { Howl } from 'howler';
-import correctSound from '@/assets/sounds/correct.mp3';
-import wrongSound from '@/assets/sounds/wrong.mp3';
-import clickSound from '@/assets/sounds/click.mp3';
-import buttonSound from '@/assets/sounds/button.mp3';
-import completeSound from '@/assets/sounds/complete.mp3';
+import correctSound from '/sounds/correct.mp3';
+import wrongSound from '/sounds/wrong.mp3';
+import clickSound from '/sounds/click.mp3';
+import buttonSound from '/sounds/button.mp3';
+import completeSound from '/sounds/complete.mp3';
 import { SOUNDS, STORAGE_KEYS } from '@/constants/constants';
 
 export function useSoundEffects() {
@@ -32,7 +32,6 @@ export function useSoundEffects() {
       [SOUNDS.BUTTON]: new Howl({ src: [buttonSound] }),
       [SOUNDS.COMPLETE]: new Howl({ src: [completeSound] }),
     };
-
     // Cleanup sounds when component unmounts
     return () => {
       Object.values(soundsRef.current).forEach((sound) => {
