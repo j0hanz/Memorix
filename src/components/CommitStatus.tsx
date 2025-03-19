@@ -10,20 +10,32 @@ export default function LatestCommits() {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    // Cleanup function to prevent memory leaks
+    let isMounted = true;
     const loadCommits = async () => {
+      // Fetch commits from the GitHub API
       try {
         const data = await fetchLatestCommits();
-        setCommits(data);
+        // Check if the component is still mounted before updating state
+        if (isMounted) {
+          setCommits(data);
+        }
       } catch (err) {
-        setError(
-          err instanceof Error ? err : new Error('Failed to fetch commits'),
-        );
+        if (isMounted) {
+          setError(
+            err instanceof Error ? err : new Error('Failed to fetch commits'),
+          );
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
-
     loadCommits();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   if (loading) {
