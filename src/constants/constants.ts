@@ -68,8 +68,8 @@ export const MOTIONS = {
   SPRING: {
     DEFAULT: {
       type: 'spring',
-      stiffness: 175,
-      damping: 20,
+      stiffness: 200,
+      damping: 25,
     },
     CARD_MATCH: {
       type: 'spring',

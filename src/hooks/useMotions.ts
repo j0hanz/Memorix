@@ -123,13 +123,12 @@ function getCardAnimations() {
         rotateY: 0,
         opacity: 1,
         transition: {
-          opacity: { delay: 0.1 },
           duration: MOTIONS.DEFAULT_DURATION,
         },
       },
       matched: {
         rotateY: 0,
-        opacity: 0.8,
+        opacity: 1,
         scale: 1,
         transition: {
           duration: MOTIONS.DEFAULT_DURATION,
