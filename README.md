@@ -1,5 +1,7 @@
 # Memorix
 
+![Last Commit](https://img.shields.io/github/last-commit/j0hanz/Memorix?label=Updated&style=for-the-badge)[![Deployed on Heroku](https://img.shields.io/badge/Live-2a2a2a?style=for-the-badge&logo=heroku&logoColor=79589f)](https://memorix-128e93e43ff7.herokuapp.com/)
+
 Memorix is a memory game built with React. The goal is to match all pairs of cards with the least number of moves and time.
 
 ## Table of Contents
