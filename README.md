@@ -18,7 +18,7 @@ Memorix is a memory game built with React. The goal is to match all pairs of car
   - [API](#api)
   - [Configuration](#configuration)
   - [Contributing](#contributing)
-  - [License](#license)
+  - [Acknowledgements](#acknowledgements)
 
 ## Features
 
@@ -127,6 +127,13 @@ Memorix is a memory game built with React. The goal is to match all pairs of car
 5. Push to the branch (`git push origin feature-branch`).
 6. Create a new Pull Request.
 
-## License
+## Acknowledgements
 
-This project is licensed under the MIT License.
+- [React](https://reactjs.org/)
+- [React Bootstrap](https://react-bootstrap.github.io/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Howler.js](https://howlerjs.com/)
+- [Axios](https://axios-http.com/)
+- [Material UI](https://mui.com/material-ui/material-icons/)
+
+Special thanks to creators of GIFs used in the project from [Pixabay](https://pixabay.com/):
