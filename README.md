@@ -138,4 +138,4 @@ Memorix is a memory game built with React. The goal is to match all pairs of car
 - [Axios](https://axios-http.com/)
 - [Material UI](https://mui.com/material-ui/material-icons/)
 
-Special thanks to creators of GIFs used in the project from [Pixabay](https://pixabay.com/):
+Special thanks to creators of GIFs used in the project from [Pixabay](https://pixabay.com/)
