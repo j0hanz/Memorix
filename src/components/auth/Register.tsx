@@ -28,7 +28,10 @@ const Register = ({ onSuccess }: RegisterProps) => {
       if (value.length < 6) return 'Password must be at least 6 characters';
       return null;
     },
-    confirmPassword: (value: string, formValues?: Record<string, string>) => {
+    password_confirmation: (
+      value: string,
+      formValues?: Record<string, string>,
+    ) => {
       if (!value) return 'Please confirm your password';
       if (formValues && value !== formValues.password)
         return "Passwords don't match";
@@ -40,12 +43,10 @@ const Register = ({ onSuccess }: RegisterProps) => {
     username: string;
     email: string;
     password: string;
-    confirmPassword: string;
+    password_confirmation: string;
   }) => {
     try {
-      const { password, email, username } = values;
-      const success = await register({ username, email, password });
-
+      const success = await register(values);
       if (success) {
         onSuccess();
       }
@@ -66,7 +67,7 @@ const Register = ({ onSuccess }: RegisterProps) => {
     handleBlur,
     handleSubmit,
   } = useForm(
-    { username: '', email: '', password: '', confirmPassword: '' },
+    { username: '', email: '', password: '', password_confirmation: '' },
     validationRules,
     handleRegister,
   );
@@ -138,20 +139,20 @@ const Register = ({ onSuccess }: RegisterProps) => {
           <Form.Label className="d-none">Confirm Password</Form.Label>
           <Form.Control
             type="password"
-            name="confirmPassword"
-            value={values.confirmPassword}
+            name="password_confirmation"
+            value={values.password_confirmation}
             onChange={handleChange}
             onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
             placeholder="Confirm your password"
             isInvalid={
-              !!(touched.confirmPassword || formSubmitted) &&
-              !!errors.confirmPassword
+              !!(touched.password_confirmation || formSubmitted) &&
+              !!errors.password_confirmation
             }
             required
             className={styles.input}
           />
           <Form.Control.Feedback type="invalid">
-            {errors.confirmPassword}
+            {errors.password_confirmation}
           </Form.Control.Feedback>
         </Form.Group>
 

@@ -38,13 +38,9 @@ const Login = ({ onClose }: LoginProps) => {
     isSubmitting,
     formSubmitted,
     handleChange,
-    handleBlur: handleBlurFocus,
+    handleBlur,
     handleSubmit,
   } = useForm({ username: '', password: '' }, validationRules, handleLogin);
-
-  // Update type to handle Form.Control events
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) =>
-    handleBlurFocus(e as React.ChangeEvent<HTMLInputElement>);
 
   return (
     <div>
@@ -56,8 +52,9 @@ const Login = ({ onClose }: LoginProps) => {
           <Form.Control
             type="text"
             name="username"
+            value={values.username}
             onChange={handleChange}
-            onBlur={handleBlur}
+            onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
             placeholder="Enter username"
             isInvalid={
               !!(touched.username || formSubmitted) && !!errors.username
@@ -77,7 +74,7 @@ const Login = ({ onClose }: LoginProps) => {
             name="password"
             value={values.password}
             onChange={handleChange}
-            onBlur={handleBlur}
+            onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
             placeholder="Password"
             isInvalid={
               !!(touched.password || formSubmitted) && !!errors.password
