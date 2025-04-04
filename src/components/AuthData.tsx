@@ -50,13 +50,13 @@ export default function AuthData({ onClose }: { onClose: () => void }) {
       key: 'login',
       title: 'Login',
       className: styles.navItemLeft,
-      icon: <LoginIcon fontSize="small" />,
+      icon: <LoginIcon fontSize="small" className="me-1" />,
     },
     {
       key: 'register',
       title: 'Register',
       className: styles.navItemRight,
-      icon: <PersonAddIcon fontSize="small" />,
+      icon: <PersonAddIcon fontSize="small" className="me-1" />,
     },
   ];
 
