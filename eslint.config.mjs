@@ -35,7 +35,7 @@ export default tseslint.config(
     },
     settings: {
       react: {
-        version: '19.0',
+        version: '19',
         fragment: 'Fragment',
       },
       linkComponents: [{ name: 'Link', linkAttribute: 'to' }],
