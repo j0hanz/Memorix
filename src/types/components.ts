@@ -64,6 +64,11 @@ export interface CategoryProps {
   onSelectCategory: (category: string) => void;
 }
 
+export interface AuthModalProps {
+  show: boolean;
+  onClose: () => void;
+}
+
 export interface LatestUpdatesProps {
   show: boolean;
   onClose: () => void;

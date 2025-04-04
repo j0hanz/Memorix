@@ -1,6 +1,10 @@
 import { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Alert } from 'react-bootstrap';
 import { useAuth } from '@/hooks/useAuth';
+import Button from '@/components/Button';
+import styles from '@/components/styles/Modal.module.css';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 
 interface RegisterProps {
   onSuccess: () => void;
@@ -56,13 +60,11 @@ const Register = ({ onSuccess }: RegisterProps) => {
   };
 
   return (
-    <div>
-      <h2 className="text-center mb-4">Create Account</h2>
-
+    <>
       {error && <Alert variant="danger">{error}</Alert>}
 
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formUsername">
+        <Form.Group className="mb-3 p-2" controlId="formUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
@@ -77,7 +79,7 @@ const Register = ({ onSuccess }: RegisterProps) => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formEmail">
+        <Form.Group className="mb-3 p-2" controlId="formEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
@@ -92,7 +94,7 @@ const Register = ({ onSuccess }: RegisterProps) => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formPassword">
+        <Form.Group className="mb-3 p-2" controlId="formPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -108,7 +110,7 @@ const Register = ({ onSuccess }: RegisterProps) => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formConfirmPassword">
+        <Form.Group className="mb-3 p-2" controlId="formConfirmPassword">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
@@ -126,16 +128,26 @@ const Register = ({ onSuccess }: RegisterProps) => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Button
-          variant="primary"
-          type="submit"
-          disabled={loading}
-          className="w-100"
-        >
-          {loading ? 'Creating Account...' : 'Sign Up'}
-        </Button>
+        <div className="d-flex mt-4">
+          <Button
+            className={`${styles.btnRestart} ${styles.modalButton}`}
+            disabled={loading}
+            type="submit"
+          >
+            <PersonAddIcon className={`${styles.btnIcon} me-1`} />
+            {loading ? 'Creating Account...' : 'Sign Up'}
+          </Button>
+          <Button
+            className={`${styles.btnExit} ${styles.modalButton}`}
+            onClick={() => onSuccess()}
+            type="button"
+          >
+            <ExitToAppOutlinedIcon className={`${styles.btnIcon} me-1`} />
+            Back
+          </Button>
+        </div>
       </Form>
-    </div>
+    </>
   );
 };
 

@@ -1,6 +1,10 @@
 import { useState } from 'react';
-import { Form, Button, Alert } from 'react-bootstrap';
+import { Form, Alert } from 'react-bootstrap';
 import { useAuth } from '@/hooks/useAuth';
+import Button from '@/components/Button';
+import styles from '@/components/styles/Modal.module.css';
+import LoginIcon from '@mui/icons-material/Login';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 
 interface LoginProps {
   onClose?: () => void;
@@ -37,12 +41,10 @@ const Login = ({ onClose }: LoginProps) => {
 
   return (
     <div>
-      <h2 className="text-center mb-4">Login to Memorix</h2>
-
       {error && <Alert variant="danger">{error}</Alert>}
 
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="formUsername">
+        <Form.Group className="mb-3 p-2" controlId="formUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
@@ -57,7 +59,7 @@ const Login = ({ onClose }: LoginProps) => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formPassword">
+        <Form.Group className="mb-3 p-2" controlId="formPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
@@ -71,15 +73,24 @@ const Login = ({ onClose }: LoginProps) => {
             Password is required
           </Form.Control.Feedback>
         </Form.Group>
-
-        <Button
-          variant="primary"
-          type="submit"
-          disabled={loading}
-          className="w-100"
-        >
-          {loading ? 'Logging in...' : 'Login'}
-        </Button>
+        <div className="d-flex mt-4">
+          <Button
+            className={`${styles.btnRestart} ${styles.modalButton}`}
+            disabled={loading}
+            type="submit"
+          >
+            <LoginIcon className={`${styles.btnIcon} me-1`} />
+            {loading ? 'Logging in...' : 'Login'}
+          </Button>
+          <Button
+            className={`${styles.btnExit} ${styles.modalButton}`}
+            onClick={onClose}
+            type="button"
+          >
+            <ExitToAppOutlinedIcon className={`${styles.btnIcon} me-1`} />
+            Cancel
+          </Button>
+        </div>
       </Form>
     </div>
   );

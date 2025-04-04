@@ -13,7 +13,7 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 import { useSoundEffects } from '@/hooks/useSound';
 import { SOUNDS } from '@/constants/constants';
 import { AuthProvider } from '@/contexts/AuthProvider';
-import AuthModal from '@/components/auth/AuthModal';
+import { AuthModal } from '@/components/Modal';
 import ProtectedRoute from '@/utils/ProtectedRoute';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -149,9 +149,9 @@ export default function App() {
             onClose={closeCategorySelection}
             onSelectCategory={handleSelectCategory}
           />
-          <AuthModal show={showAuthModal} onClose={closeAuthModal} />
         </ErrorBoundary>
       </AuthProvider>
+      <AuthModal show={showAuthModal} onClose={closeAuthModal} />
     </Router>
   );
 }

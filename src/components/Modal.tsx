@@ -7,11 +7,13 @@ import Scoreboard from '@/components/scoreData';
 import InstructionsData from '@/components/instructionsData';
 import CommitStatus from './CommitStatus';
 import CategoryData from './Category';
+import AuthData from './AuthData';
 import {
   ScoreboardModalProps,
   GameInstructionsProps,
   LatestUpdatesProps,
   CategoryProps,
+  AuthModalProps,
 } from '@/types/components';
 
 // Main modal
@@ -58,6 +60,24 @@ export default function ScoreboardModal({
           Exit
         </Button>
       </Modal.Footer>
+    </Modal>
+  );
+}
+
+// Auth modal component
+export function AuthModal({ show, onClose }: AuthModalProps) {
+  return (
+    <Modal
+      show={show}
+      onHide={onClose}
+      centered
+      className={`${styles.modal} ${styles.authModal}`}
+      backdrop="static"
+    >
+      <Modal.Body className="p-0">
+        <AuthData onClose={onClose} />
+      </Modal.Body>
+      <Modal.Footer className="border-0" />
     </Modal>
   );
 }

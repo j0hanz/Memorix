@@ -52,7 +52,7 @@ export default function MainMenu({
         className={styles.btnGuide}
         icon={<PersonOutlineIcon />}
       >
-        {isAuthenticated ? 'Account' : 'Login / Register'}
+        {isAuthenticated ? 'Account' : 'Sign In'}
       </Button>
       <div className={styles.smallButtonsDiv}>
         <div onClick={openLatestUpdates} className={styles.btnUpdates}>
