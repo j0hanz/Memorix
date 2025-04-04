@@ -97,7 +97,7 @@ const Login = ({ onClose }: LoginProps) => {
             type="submit"
           >
             <LoginIcon className={`${styles.btnIcon} me-1`} />
-            {isSubmitting || loading ? 'Logging in...' : 'Login'}
+            {isSubmitting || loading ? 'Logging in...' : 'Sign In'}
           </Button>
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}
