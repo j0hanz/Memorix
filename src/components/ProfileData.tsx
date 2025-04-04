@@ -5,10 +5,11 @@ import Button from '@/components/Button';
 import styles from './styles/Modal.module.css';
 import { axiosReq } from '@/api/axios';
 import { ApiError } from '@/types/api';
+import Image from '@/components/Image';
 
-const ProfileData = () => {
+const ProfileData = ({ onClose }: { onClose: () => void }) => {
   const { profile, getProfile, user } = useAuth();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [profileImage, setProfileImage] = useState<File | null>(null);
@@ -19,8 +20,8 @@ const ProfileData = () => {
   }, [getProfile]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
+    const file = e.target.files?.[0];
+    if (file) {
       setProfileImage(file);
       const reader = new FileReader();
       reader.onloadend = () => setPreviewImage(reader.result as string);
@@ -34,23 +35,23 @@ const ProfileData = () => {
       setError('Please select an image first');
       return;
     }
+    if (!profile?.id) {
+      setError('Could not update profile: Profile ID not found');
+      return;
+    }
     setLoading(true);
     setError(null);
     setSuccess(null);
     try {
       const formData = new FormData();
       formData.append('profile_picture', profileImage);
-      if (profile?.id) {
-        await axiosReq.patch(`/api/profiles/${profile.id}/`, formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        });
-        await getProfile();
-        setSuccess('Profile updated successfully!');
-        setProfileImage(null);
-        setPreviewImage(null);
-      } else {
-        setError('Could not update profile: Profile ID not found');
-      }
+      await axiosReq.patch(`/api/profiles/${profile.id}/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      await getProfile();
+      setSuccess('Profile updated successfully!');
+      setProfileImage(null);
+      setPreviewImage(null);
     } catch (err) {
       console.error('Profile update error:', err);
       const errorObj = err as ApiError;
@@ -75,32 +76,33 @@ const ProfileData = () => {
   }
 
   return (
-    <div>
+    <>
       {error && <Alert variant="danger">{error}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
 
-      <div className="mb-4 text-center">
-        <img
+      <div>
+        <Image
           src={
             previewImage ||
-            profile?.profile_picture ||
-            'https://res.cloudinary.com/memorix/image/upload/v1/nobody_nrbk5n'
+            profile?.profile_picture_url ||
+            'https://res.cloudinary.com/dxly7tpdi/image/upload/nobody_nrbk5n'
           }
           alt="Profile"
-          className="rounded-circle"
-          style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+          className={styles.profileImage}
+          onError={(e) => {
+            if (!e) return;
+            const target = e.target as HTMLImageElement;
+            target.onerror = null;
+            target.src =
+              'https://res.cloudinary.com/dxly7tpdi/image/upload/nobody_nrbk5n';
+          }}
         />
+        <div className="my-3">{user.username}</div>
       </div>
-
-      <h4 className="mb-3">{user.username}&#39;s Profile</h4>
-
-      {profile && (
-        <p>Member since: {new Date(profile.created_at).toLocaleDateString()}</p>
-      )}
 
       <Form onSubmit={handleUpdateProfile}>
         <Form.Group className="mb-3">
-          <Form.Label>Profile Picture</Form.Label>
+          <Form.Label className="d-none">Profile Picture</Form.Label>
           <Form.Control
             type="file"
             accept="image/*"
@@ -111,17 +113,23 @@ const ProfileData = () => {
           </Form.Text>
         </Form.Group>
 
-        <div className="d-flex justify-content-center mt-4">
+        <div className="d-flex">
           <Button
-            className={styles.btnRestart}
+            className={`${styles.btnRestart} ${styles.modalButton}`}
             type="submit"
             disabled={loading || !profileImage}
           >
             {loading ? 'Updating...' : 'Update Profile'}
           </Button>
+          <Button
+            className={`${styles.btnExit} ${styles.modalButton}`}
+            onClick={onClose}
+          >
+            Close
+          </Button>
         </div>
       </Form>
-    </div>
+    </>
   );
 };
 

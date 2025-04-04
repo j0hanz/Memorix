@@ -229,6 +229,13 @@
   background: var(--btn-secondary-hover);
 }
 
+.profileImage {
+  aspect-ratio: 1/1;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 5%;
+}
+
 @media (max-width: 425px) {
   .instructionsModal :global(.modal-content) {
     height: 100%;

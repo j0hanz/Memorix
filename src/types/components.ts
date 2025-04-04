@@ -29,7 +29,7 @@ export interface ImageProps {
   style?: React.CSSProperties;
   onClick?: () => void;
   onLoad?: () => void;
-  onError?: () => void;
+  onError?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
   loading?: 'lazy' | 'eager';
   fallbackSrc?: string;
 }

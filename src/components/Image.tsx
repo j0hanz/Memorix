@@ -24,12 +24,14 @@ const Image: React.FC<ImageProps> = ({
   };
 
   // Handle image error with fallback
-  const handleError = () => {
+  const handleError = (
+    event: React.SyntheticEvent<HTMLImageElement, Event>,
+  ) => {
     if (!hasError && fallbackSrc) {
       setImgSrc(fallbackSrc);
       setHasError(true);
     }
-    onError?.();
+    onError?.(event);
   };
 
   return (

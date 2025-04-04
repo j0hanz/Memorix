@@ -9,6 +9,7 @@ export interface Profile {
   id: number;
   owner: number;
   profile_picture?: string;
+  profile_picture_url?: string;
   created_at: string;
   updated_at?: string;
 }

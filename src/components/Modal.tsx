@@ -92,17 +92,10 @@ export function ProfileModal({ show, onClose }: ProfileModalProps) {
       centered
       className={`${styles.modal} ${styles.profileModal}`}
     >
-      <Modal.Header className="border-0 d-flex justify-content-center">
-        <Modal.Title>Your Profile</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <ProfileData />
+      <Modal.Body className="p-0">
+        <ProfileData onClose={onClose} />
       </Modal.Body>
-      <Modal.Footer className="border-0 mt-2">
-        <Button className={styles.btnClose} onClick={onClose}>
-          Close
-        </Button>
-      </Modal.Footer>
+      <Modal.Footer className="border-0" />
     </Modal>
   );
 }
