@@ -1,81 +1,97 @@
-import { useState } from 'react';
 import { Form, Alert } from 'react-bootstrap';
 import { useAuth } from '@/hooks/useAuth';
 import Button from '@/components/Button';
 import styles from '@/components/styles/Modal.module.css';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import { useForm } from '@/hooks/useForm';
 
 interface RegisterProps {
   onSuccess: () => void;
 }
 
 const Register = ({ onSuccess }: RegisterProps) => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
-  const [validated, setValidated] = useState(false);
-  const [passwordMatch, setPasswordMatch] = useState(true);
-  const { register, loading, error } = useAuth();
+  const { register, loading, error: authError } = useAuth();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-
-    if (name === 'confirmPassword' || name === 'password') {
-      setPasswordMatch(
-        name === 'password'
-          ? value === formData.confirmPassword
-          : formData.password === value,
-      );
-    }
+  const validationRules = {
+    username: (value: string) =>
+      !value.trim() ? 'Username is required' : null,
+    email: (value: string) => {
+      if (!value.trim()) return 'Email is required';
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return !emailRegex.test(value)
+        ? 'Please enter a valid email address'
+        : null;
+    },
+    password: (value: string) => {
+      if (!value) return 'Password is required';
+      if (value.length < 6) return 'Password must be at least 6 characters';
+      return null;
+    },
+    confirmPassword: (value: string, formValues?: Record<string, string>) => {
+      if (!value) return 'Please confirm your password';
+      if (formValues && value !== formValues.password)
+        return "Passwords don't match";
+      return null;
+    },
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const form = e.currentTarget;
-    if (form.checkValidity() === false || !passwordMatch) {
-      e.stopPropagation();
-      setValidated(true);
-      return;
-    }
-
+  const handleRegister = async (values: {
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }) => {
     try {
-      const success = await register({
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
-      });
+      const { password, email, username } = values;
+      const success = await register({ username, email, password });
 
       if (success) {
-        onSuccess(); // Switch back to login view
+        onSuccess();
       }
+      return success;
     } catch (error) {
       console.error('Registration error:', error);
+      return false;
     }
   };
+
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    formSubmitted,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  } = useForm(
+    { username: '', email: '', password: '', confirmPassword: '' },
+    validationRules,
+    handleRegister,
+  );
 
   return (
     <>
-      {error && <Alert variant="danger">{error}</Alert>}
+      {authError && <Alert variant="danger">{authError}</Alert>}
 
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form noValidate onSubmit={handleSubmit}>
         <Form.Group className="mb-3 p-2" controlId="formUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
             name="username"
-            value={formData.username}
+            value={values.username}
             onChange={handleChange}
+            onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
             placeholder="Choose a username"
+            isInvalid={
+              !!(touched.username || formSubmitted) && !!errors.username
+            }
             required
           />
           <Form.Control.Feedback type="invalid">
-            Username is required
+            {errors.username}
           </Form.Control.Feedback>
         </Form.Group>
 
@@ -84,13 +100,15 @@ const Register = ({ onSuccess }: RegisterProps) => {
           <Form.Control
             type="email"
             name="email"
-            value={formData.email}
+            value={values.email}
             onChange={handleChange}
+            onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
             placeholder="Enter your email"
+            isInvalid={!!(touched.email || formSubmitted) && !!errors.email}
             required
           />
           <Form.Control.Feedback type="invalid">
-            Valid email is required
+            {errors.email}
           </Form.Control.Feedback>
         </Form.Group>
 
@@ -99,14 +117,17 @@ const Register = ({ onSuccess }: RegisterProps) => {
           <Form.Control
             type="password"
             name="password"
-            value={formData.password}
+            value={values.password}
             onChange={handleChange}
+            onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
             placeholder="Choose a password"
+            isInvalid={
+              !!(touched.password || formSubmitted) && !!errors.password
+            }
             required
-            minLength={6}
           />
           <Form.Control.Feedback type="invalid">
-            Password must be at least 6 characters
+            {errors.password}
           </Form.Control.Feedback>
         </Form.Group>
 
@@ -115,32 +136,35 @@ const Register = ({ onSuccess }: RegisterProps) => {
           <Form.Control
             type="password"
             name="confirmPassword"
-            value={formData.confirmPassword}
+            value={values.confirmPassword}
             onChange={handleChange}
+            onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
             placeholder="Confirm your password"
+            isInvalid={
+              !!(touched.confirmPassword || formSubmitted) &&
+              !!errors.confirmPassword
+            }
             required
-            isInvalid={validated && !passwordMatch}
           />
           <Form.Control.Feedback type="invalid">
-            {!passwordMatch
-              ? "Passwords don't match"
-              : 'Password confirmation required'}
+            {errors.confirmPassword}
           </Form.Control.Feedback>
         </Form.Group>
 
         <div className="d-flex mt-4">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}
-            disabled={loading}
+            disabled={isSubmitting || loading}
             type="submit"
           >
             <PersonAddIcon className={`${styles.btnIcon} me-1`} />
-            {loading ? 'Creating Account...' : 'Sign Up'}
+            {isSubmitting || loading ? 'Creating Account...' : 'Sign Up'}
           </Button>
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}
-            onClick={() => onSuccess()}
+            onClick={onSuccess}
             type="button"
+            disabled={isSubmitting || loading}
           >
             <ExitToAppOutlinedIcon className={`${styles.btnIcon} me-1`} />
             Back

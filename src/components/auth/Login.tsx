@@ -1,61 +1,71 @@
-import { useState } from 'react';
 import { Form, Alert } from 'react-bootstrap';
 import { useAuth } from '@/hooks/useAuth';
 import Button from '@/components/Button';
 import styles from '@/components/styles/Modal.module.css';
 import LoginIcon from '@mui/icons-material/Login';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import { useForm } from '@/hooks/useForm';
 
 interface LoginProps {
   onClose?: () => void;
 }
 
 const Login = ({ onClose }: LoginProps) => {
-  const [credentials, setCredentials] = useState({
-    username: '',
-    password: '',
-  });
-  const [validated, setValidated] = useState(false);
-  const { login, loading, error } = useAuth();
+  const { login, loading, error: authError } = useAuth();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setCredentials((prev) => ({ ...prev, [name]: value }));
+  const validationRules = {
+    username: (value: string) =>
+      !value.trim() ? 'Username is required' : null,
+    password: (value: string) =>
+      !value.trim() ? 'Password is required' : null,
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.stopPropagation();
-      setValidated(true);
-      return;
-    }
-
-    const success = await login(credentials);
+  const handleLogin = async (values: {
+    username: string;
+    password: string;
+  }) => {
+    const success = await login(values);
     if (success && onClose) {
       onClose();
     }
+    return success;
   };
+
+  const {
+    values,
+    errors,
+    touched,
+    isSubmitting,
+    formSubmitted,
+    handleChange,
+    handleBlur: handleBlurFocus,
+    handleSubmit,
+  } = useForm({ username: '', password: '' }, validationRules, handleLogin);
+
+  // Update type to handle Form.Control events
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) =>
+    handleBlurFocus(e as React.ChangeEvent<HTMLInputElement>);
 
   return (
     <div>
-      {error && <Alert variant="danger">{error}</Alert>}
+      {authError && <Alert variant="danger">{authError}</Alert>}
 
-      <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      <Form noValidate onSubmit={handleSubmit}>
         <Form.Group className="mb-3 p-2" controlId="formUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
             name="username"
-            value={credentials.username}
             onChange={handleChange}
+            onBlur={handleBlur}
             placeholder="Enter username"
+            isInvalid={
+              !!(touched.username || formSubmitted) && !!errors.username
+            }
             required
           />
           <Form.Control.Feedback type="invalid">
-            Username is required
+            {errors.username}
           </Form.Control.Feedback>
         </Form.Group>
 
@@ -64,28 +74,34 @@ const Login = ({ onClose }: LoginProps) => {
           <Form.Control
             type="password"
             name="password"
-            value={credentials.password}
+            value={values.password}
             onChange={handleChange}
+            onBlur={handleBlur}
             placeholder="Password"
+            isInvalid={
+              !!(touched.password || formSubmitted) && !!errors.password
+            }
             required
           />
           <Form.Control.Feedback type="invalid">
-            Password is required
+            {errors.password}
           </Form.Control.Feedback>
         </Form.Group>
+
         <div className="d-flex mt-4">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}
-            disabled={loading}
+            disabled={isSubmitting || loading}
             type="submit"
           >
             <LoginIcon className={`${styles.btnIcon} me-1`} />
-            {loading ? 'Logging in...' : 'Login'}
+            {isSubmitting || loading ? 'Logging in...' : 'Login'}
           </Button>
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}
             onClick={onClose}
             type="button"
+            disabled={isSubmitting || loading}
           >
             <ExitToAppOutlinedIcon className={`${styles.btnIcon} me-1`} />
             Cancel
