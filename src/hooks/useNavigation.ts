@@ -8,7 +8,9 @@ export const useNavigation = ({
   setShowInstructions,
   setShowLatestUpdates,
   setShowCategorySelection,
-}: GameHandlerOptions) => {
+  setSelectedCategory,
+  setShowAuthModal,
+}: GameHandlerOptions & { setShowAuthModal: (value: boolean) => void }) => {
   const { playSound } = useSoundEffects();
 
   // Common loading logic with sound
@@ -20,6 +22,12 @@ export const useNavigation = ({
       setIsGameActive(true);
       callback?.();
     }, GAME_CONFIG.LOADING_DELAY);
+  };
+
+  // Close the auth modal
+  const closeAuthModal = () => {
+    playSound(SOUNDS.BUTTON);
+    setShowAuthModal(false);
   };
 
   // Start game with category selection
@@ -45,6 +53,26 @@ export const useNavigation = ({
   const handleExit = () => {
     playSound(SOUNDS.BUTTON);
     setIsGameActive(false);
+  };
+
+  // Handle app-level error recovery
+  const handleAppReset = () => {
+    playSound(SOUNDS.BUTTON);
+    setIsGameActive(false);
+    setIsLoading(false);
+  };
+
+  // Handle game-specific error recovery
+  const handleGameReset = () => {
+    playSound(SOUNDS.BUTTON);
+    handleRestart();
+  };
+
+  // Handle category selection
+  const handleSelectCategory = (category: string) => {
+    playSound(SOUNDS.BUTTON);
+    setSelectedCategory(category);
+    startGameWithCategory();
   };
 
   // Modal control functions
@@ -82,8 +110,12 @@ export const useNavigation = ({
     startGameWithCategory,
     handleRestart,
     handleExit,
+    handleAppReset,
+    handleGameReset,
+    handleSelectCategory,
     openInstructions,
     closeInstructions,
+    closeAuthModal,
     openLatestUpdates,
     closeLatestUpdates,
     closeCategorySelection,
