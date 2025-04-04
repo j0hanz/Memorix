@@ -151,14 +151,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
         const userResponse = await axiosReq.get('/dj-rest-auth/user/');
         setUser(userResponse.data as User);
-        await fetchProfile();
       } catch (err) {
         console.error('Error during token initialization:', err);
         logout();
       }
     };
     initializeUser();
-  }, [token, logout, fetchProfile]);
+  }, [token, logout]);
+  useEffect(() => {
+    if (user?.id) {
+      fetchProfile();
+    }
+  }, [user, fetchProfile]);
 
   // Listen for global logout events
   useEffect(() => {

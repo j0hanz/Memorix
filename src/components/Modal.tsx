@@ -8,12 +8,14 @@ import InstructionsData from '@/components/instructionsData';
 import CommitStatus from './CommitStatus';
 import CategoryData from './Category';
 import AuthData from './AuthData';
+import ProfileData from './ProfileData';
 import {
   ScoreboardModalProps,
   GameInstructionsProps,
   LatestUpdatesProps,
   CategoryProps,
   AuthModalProps,
+  ProfileModalProps,
 } from '@/types/components';
 
 // Main modal
@@ -77,6 +79,30 @@ export function AuthModal({ show, onClose }: AuthModalProps) {
         <AuthData onClose={onClose} />
       </Modal.Body>
       <Modal.Footer className="border-0" />
+    </Modal>
+  );
+}
+
+// Profile modal component
+export function ProfileModal({ show, onClose }: ProfileModalProps) {
+  return (
+    <Modal
+      show={show}
+      onHide={onClose}
+      centered
+      className={`${styles.modal} ${styles.profileModal}`}
+    >
+      <Modal.Header className="border-0 d-flex justify-content-center">
+        <Modal.Title>Your Profile</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <ProfileData />
+      </Modal.Body>
+      <Modal.Footer className="border-0 mt-2">
+        <Button className={styles.btnClose} onClick={onClose}>
+          Close
+        </Button>
+      </Modal.Footer>
     </Modal>
   );
 }

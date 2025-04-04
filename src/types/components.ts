@@ -38,6 +38,11 @@ export interface LoadingSpinnerProps {
   isLoading: boolean;
 }
 
+export interface ProfileModalProps {
+  show: boolean;
+  onClose: () => void;
+}
+
 export interface ScoreboardModalProps {
   show: boolean;
   onClose: () => void;

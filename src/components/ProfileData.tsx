@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Card, Form, Alert } from 'react-bootstrap';
+import { Form, Alert } from 'react-bootstrap';
 import { useAuth } from '@/hooks/useAuth';
 import Button from '@/components/Button';
-import styles from '@/components/styles/Modal.module.css';
+import styles from './styles/Modal.module.css';
 import { axiosReq } from '@/api/axios';
 import { ApiError } from '@/types/api';
 
-const Profile = () => {
+const ProfileData = () => {
   const { profile, getProfile, user } = useAuth();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -75,43 +75,43 @@ const Profile = () => {
   }
 
   return (
-    <Card className="p-4">
-      <Card.Header>
-        <h3>Your Profile</h3>
-      </Card.Header>
-      <Card.Body>
-        {error && <Alert variant="danger">{error}</Alert>}
-        {success && <Alert variant="success">{success}</Alert>}
-        <div className="mb-4 text-center">
-          <img
-            src={
-              previewImage ||
-              profile?.profile_picture ||
-              'https://res.cloudinary.com/memorix/image/upload/v1/nobody_nrbk5n'
-            }
-            alt="Profile"
-            className="rounded-circle"
-            style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+    <div>
+      {error && <Alert variant="danger">{error}</Alert>}
+      {success && <Alert variant="success">{success}</Alert>}
+
+      <div className="mb-4 text-center">
+        <img
+          src={
+            previewImage ||
+            profile?.profile_picture ||
+            'https://res.cloudinary.com/memorix/image/upload/v1/nobody_nrbk5n'
+          }
+          alt="Profile"
+          className="rounded-circle"
+          style={{ width: '150px', height: '150px', objectFit: 'cover' }}
+        />
+      </div>
+
+      <h4 className="mb-3">{user.username}&#39;s Profile</h4>
+
+      {profile && (
+        <p>Member since: {new Date(profile.created_at).toLocaleDateString()}</p>
+      )}
+
+      <Form onSubmit={handleUpdateProfile}>
+        <Form.Group className="mb-3">
+          <Form.Label>Profile Picture</Form.Label>
+          <Form.Control
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
           />
-        </div>
-        <h4>{user.username}&apos;s Profile</h4>
-        {profile && (
-          <p>
-            Member since: {new Date(profile.created_at).toLocaleDateString()}
-          </p>
-        )}
-        <Form onSubmit={handleUpdateProfile}>
-          <Form.Group className="mb-3">
-            <Form.Label>Profile Picture</Form.Label>
-            <Form.Control
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-            />
-            <Form.Text className="text-muted">
-              Select a new profile picture to update
-            </Form.Text>
-          </Form.Group>
+          <Form.Text className="text-muted">
+            Select a new profile picture to update
+          </Form.Text>
+        </Form.Group>
+
+        <div className="d-flex justify-content-center mt-4">
           <Button
             className={styles.btnRestart}
             type="submit"
@@ -119,10 +119,10 @@ const Profile = () => {
           >
             {loading ? 'Updating...' : 'Update Profile'}
           </Button>
-        </Form>
-      </Card.Body>
-    </Card>
+        </div>
+      </Form>
+    </div>
   );
 };
 
-export default Profile;
+export default ProfileData;
