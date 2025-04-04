@@ -34,27 +34,31 @@ Memorix is a memory game built with React. The goal is to match all pairs of car
 ## Installation
 
 1. Clone the repository:
-    ```sh
-    git clone https://github.com/j0hanz/Memorix.git
-    cd Memorix
-    ```
+
+   ```sh
+   git clone https://github.com/j0hanz/Memorix.git
+   cd Memorix
+   ```
 
 2. Install dependencies:
-    ```sh
-    npm install
-    ```
+
+   ```sh
+   npm install
+   ```
 
 3. Configure environment variables:
-    - Create a `.env` file in the root directory of the project.
-    - Add the following line to the `.env` file:
-        ```properties
-        VITE_GITHUB_TOKEN=your_github_token_here
-        ```
+
+   - Create a `.env` file in the root directory of the project.
+   - Add the following line to the `.env` file:
+     ```properties
+     VITE_GITHUB_TOKEN=your_github_token_here
+     ```
 
 4. Start the development server:
-    ```sh
-    npm run dev
-    ```
+
+   ```sh
+   npm run dev
+   ```
 
 5. Open your browser and navigate to `http://localhost:3000`.
 
