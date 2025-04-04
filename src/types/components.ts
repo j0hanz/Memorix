@@ -80,6 +80,7 @@ export interface MainMenuProps {
   openInstructions: () => void;
   openLatestUpdates: () => void;
   enterAnimation: EnterAnimation;
+  openAuthModal: () => void;
 }
 
 export interface GameProps {

@@ -1,9 +1,5 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from 'react-router-dom';
+import { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { useAppState } from '@/hooks/useAppState';
 import Game from '@/components/Game';
 import LoadingSpinner from '@/components/Spinner';
@@ -17,11 +13,13 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 import { useSoundEffects } from '@/hooks/useSound';
 import { SOUNDS } from '@/constants/constants';
 import { AuthProvider } from '@/contexts/AuthProvider';
-import AuthPage from '@/components/auth/AuthPage';
+import AuthModal from '@/components/auth/AuthModal';
 import ProtectedRoute from '@/utils/ProtectedRoute';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function App() {
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
   // Get app state and handlers
   const {
     isGameActive,
@@ -83,6 +81,22 @@ export default function App() {
     startGameWithCategory();
   };
 
+  // Handle starting a game (check authentication first)
+  const handleStartGame = () => {
+    if (isAuthenticated) {
+      startGame();
+    } else {
+      playSound(SOUNDS.BUTTON);
+      setShowAuthModal(true);
+    }
+  };
+
+  // Close the auth modal
+  const closeAuthModal = () => {
+    playSound(SOUNDS.BUTTON);
+    setShowAuthModal(false);
+  };
+
   return (
     <Router>
       <AuthProvider>
@@ -94,53 +108,33 @@ export default function App() {
         >
           <LoadingSpinner isLoading={isLoading} />
 
-          <Routes>
-            <Route
-              path="/auth"
-              element={isAuthenticated ? <Navigate to="/" /> : <AuthPage />}
+          {!isLoading && !isGameActive && (
+            <MainMenu
+              startGame={handleStartGame}
+              openInstructions={openInstructions}
+              openLatestUpdates={openLatestUpdates}
+              enterAnimation={enterAnimation}
+              openAuthModal={() => setShowAuthModal(true)}
             />
+          )}
 
-            <Route
-              path="/game"
-              element={
-                <ProtectedRoute>
-                  {isGameActive && (
-                    <ErrorBoundary
-                      onReset={handleGameReset}
-                      onError={(error) => {
-                        console.error('Game error:', error);
-                      }}
-                    >
-                      <GameProvider
-                        onExit={handleExit}
-                        selectedCategory={selectedCategory}
-                      >
-                        <Game onRestart={handleRestart} />
-                      </GameProvider>
-                    </ErrorBoundary>
-                  )}
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/"
-              element={
-                !isLoading && !isGameActive ? (
-                  <MainMenu
-                    startGame={startGame}
-                    openInstructions={openInstructions}
-                    openLatestUpdates={openLatestUpdates}
-                    enterAnimation={enterAnimation}
-                  />
-                ) : (
-                  <Navigate to={isGameActive ? '/game' : '/'} />
-                )
-              }
-            />
-
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
+          {isGameActive && (
+            <ProtectedRoute onAuthRequired={() => setShowAuthModal(true)}>
+              <ErrorBoundary
+                onReset={handleGameReset}
+                onError={(error) => {
+                  console.error('Game error:', error);
+                }}
+              >
+                <GameProvider
+                  onExit={handleExit}
+                  selectedCategory={selectedCategory}
+                >
+                  <Game onRestart={handleRestart} />
+                </GameProvider>
+              </ErrorBoundary>
+            </ProtectedRoute>
+          )}
 
           <GameInstructions
             show={showInstructions}
@@ -155,6 +149,7 @@ export default function App() {
             onClose={closeCategorySelection}
             onSelectCategory={handleSelectCategory}
           />
+          <AuthModal show={showAuthModal} onClose={closeAuthModal} />
         </ErrorBoundary>
       </AuthProvider>
     </Router>

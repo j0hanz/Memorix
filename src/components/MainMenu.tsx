@@ -6,9 +6,11 @@ import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import styles from '@/App.module.css';
 import { MainMenuProps } from '@/types/components';
 import { useLinks } from '@/hooks/useLinks';
+import { useAuth } from '@/hooks/useAuth';
 
 // Main menu component
 export default function MainMenu({
@@ -16,8 +18,10 @@ export default function MainMenu({
   openInstructions,
   openLatestUpdates,
   enterAnimation,
+  openAuthModal,
 }: MainMenuProps) {
   const { isMuted, toggleMute, handleGitHubClick } = useLinks();
+  const { isAuthenticated } = useAuth();
 
   return (
     <div className={styles.menu}>
@@ -41,6 +45,14 @@ export default function MainMenu({
         icon={<InfoOutlinedIcon />}
       >
         Guide
+      </Button>
+      {/* Add new login/register button */}
+      <Button
+        onClick={openAuthModal}
+        className={styles.btnGuide}
+        icon={<PersonOutlineIcon />}
+      >
+        {isAuthenticated ? 'Account' : 'Login / Register'}
       </Button>
       <div className={styles.smallButtonsDiv}>
         <div onClick={openLatestUpdates} className={styles.btnUpdates}>
