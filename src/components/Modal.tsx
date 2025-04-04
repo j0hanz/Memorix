@@ -72,7 +72,6 @@ export function AuthModal({ show, onClose }: AuthModalProps) {
       onHide={onClose}
       centered
       className={`${styles.modal} ${styles.authModal}`}
-      backdrop="static"
     >
       <Modal.Body className="p-0">
         <AuthData onClose={onClose} />
