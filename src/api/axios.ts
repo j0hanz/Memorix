@@ -12,5 +12,3 @@ axios.defaults.withCredentials = true;
 // Create axios instances for request/response handling
 export const axiosReq = axios.create({});
 export const axiosRes = axios.create({});
-
-// Note: Token authorization is handled by the interceptor in jwt.ts
