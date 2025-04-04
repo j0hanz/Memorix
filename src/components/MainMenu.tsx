@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { ProfileModal } from '@/components/Modal';
+import { AuthModal } from '@/components/Modal';
 import { motion } from 'framer-motion';
 import Button from '@/components/Button';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
@@ -7,6 +10,7 @@ import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import styles from '@/App.module.css';
 import { MainMenuProps } from '@/types/components';
 import { useLinks } from '@/hooks/useLinks';
@@ -18,10 +22,19 @@ export default function MainMenu({
   openInstructions,
   openLatestUpdates,
   enterAnimation,
-  openAuthModal,
 }: MainMenuProps) {
   const { isMuted, toggleMute, handleGitHubClick } = useLinks();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const handleAccountClick = () => {
+    if (isAuthenticated) {
+      setShowProfileModal(true);
+    } else {
+      setShowAuthModal(true);
+    }
+  };
 
   return (
     <div className={styles.menu}>
@@ -46,14 +59,22 @@ export default function MainMenu({
       >
         Guide
       </Button>
-      {/* Add new login/register button */}
       <Button
-        onClick={openAuthModal}
+        onClick={handleAccountClick}
         className={styles.btnGuide}
         icon={<PersonOutlineIcon />}
       >
         {isAuthenticated ? 'Account' : 'Sign In'}
       </Button>
+      {isAuthenticated && (
+        <Button
+          onClick={logout}
+          className={styles.btnGuide}
+          icon={<ExitToAppOutlinedIcon />}
+        >
+          Sign Out
+        </Button>
+      )}
       <div className={styles.smallButtonsDiv}>
         <div onClick={openLatestUpdates} className={styles.btnUpdates}>
           <TrackChangesOutlinedIcon />
@@ -69,6 +90,11 @@ export default function MainMenu({
           <GitHubIcon />
         </div>
       </div>
+      <ProfileModal
+        show={showProfileModal}
+        onClose={() => setShowProfileModal(false)}
+      />
+      <AuthModal show={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </div>
   );
 }
