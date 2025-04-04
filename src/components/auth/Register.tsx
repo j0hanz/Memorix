@@ -76,8 +76,8 @@ const Register = ({ onSuccess }: RegisterProps) => {
       {authError && <Alert variant="danger">{authError}</Alert>}
 
       <Form noValidate onSubmit={handleSubmit}>
-        <Form.Group className="mb-3 p-2" controlId="formUsername">
-          <Form.Label>Username</Form.Label>
+        <Form.Group controlId="formUsername">
+          <Form.Label className="d-none">Username</Form.Label>
           <Form.Control
             type="text"
             name="username"
@@ -89,14 +89,15 @@ const Register = ({ onSuccess }: RegisterProps) => {
               !!(touched.username || formSubmitted) && !!errors.username
             }
             required
+            className={styles.input}
           />
           <Form.Control.Feedback type="invalid">
             {errors.username}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3 p-2" controlId="formEmail">
-          <Form.Label>Email</Form.Label>
+        <Form.Group className="my-4" controlId="formEmail">
+          <Form.Label className="d-none">Email</Form.Label>
           <Form.Control
             type="email"
             name="email"
@@ -106,14 +107,15 @@ const Register = ({ onSuccess }: RegisterProps) => {
             placeholder="Enter your email"
             isInvalid={!!(touched.email || formSubmitted) && !!errors.email}
             required
+            className={styles.input}
           />
           <Form.Control.Feedback type="invalid">
             {errors.email}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3 p-2" controlId="formPassword">
-          <Form.Label>Password</Form.Label>
+        <Form.Group className="my-4" controlId="formPassword">
+          <Form.Label className="d-none">Password</Form.Label>
           <Form.Control
             type="password"
             name="password"
@@ -125,14 +127,15 @@ const Register = ({ onSuccess }: RegisterProps) => {
               !!(touched.password || formSubmitted) && !!errors.password
             }
             required
+            className={styles.input}
           />
           <Form.Control.Feedback type="invalid">
             {errors.password}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3 p-2" controlId="formConfirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
+        <Form.Group className="my-4" controlId="formConfirmPassword">
+          <Form.Label className="d-none">Confirm Password</Form.Label>
           <Form.Control
             type="password"
             name="confirmPassword"
@@ -145,13 +148,14 @@ const Register = ({ onSuccess }: RegisterProps) => {
               !!errors.confirmPassword
             }
             required
+            className={styles.input}
           />
           <Form.Control.Feedback type="invalid">
             {errors.confirmPassword}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <div className="d-flex mt-4">
+        <div className="d-flex mt-5">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}
             disabled={isSubmitting || loading}

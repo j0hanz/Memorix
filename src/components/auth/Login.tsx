@@ -51,8 +51,8 @@ const Login = ({ onClose }: LoginProps) => {
       {authError && <Alert variant="danger">{authError}</Alert>}
 
       <Form noValidate onSubmit={handleSubmit}>
-        <Form.Group className="mb-3 p-2" controlId="formUsername">
-          <Form.Label>Username</Form.Label>
+        <Form.Group controlId="formUsername">
+          <Form.Label className="d-none">Username</Form.Label>
           <Form.Control
             type="text"
             name="username"
@@ -63,14 +63,15 @@ const Login = ({ onClose }: LoginProps) => {
               !!(touched.username || formSubmitted) && !!errors.username
             }
             required
+            className={styles.input}
           />
           <Form.Control.Feedback type="invalid">
             {errors.username}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3 p-2" controlId="formPassword">
-          <Form.Label>Password</Form.Label>
+        <Form.Group className="my-4" controlId="formPassword">
+          <Form.Label className="d-none">Password</Form.Label>
           <Form.Control
             type="password"
             name="password"
@@ -82,13 +83,14 @@ const Login = ({ onClose }: LoginProps) => {
               !!(touched.password || formSubmitted) && !!errors.password
             }
             required
+            className={styles.input}
           />
           <Form.Control.Feedback type="invalid">
             {errors.password}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <div className="d-flex mt-4">
+        <div className="d-flex">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}
             disabled={isSubmitting || loading}

@@ -198,6 +198,16 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
+.input {
+  border-bottom: 1px solid var(--input-border-color);
+  border-radius: 0;
+}
+
+.input::placeholder {
+  color: var(--text-color);
+  opacity: 0.6;
+}
+
 .btnCategorySelect {
   background: var(--btn-secondary);
   border: var(--btn-catagory-border);
