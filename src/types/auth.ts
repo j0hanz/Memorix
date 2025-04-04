@@ -1,7 +1,6 @@
 export interface User {
   id: number;
   username: string;
-  email?: string;
   profile_id?: number;
   profile_picture?: string;
 }
@@ -23,7 +22,6 @@ export interface RegisterData {
   username: string;
   password1: string;
   password2: string;
-  email: string;
 }
 
 export interface AuthResponse {
@@ -58,6 +56,7 @@ export interface AuthContextType {
   profile: Profile | null;
   token: string;
   refreshToken: string;
+  authError?: string;
   isAuthenticated: boolean;
   login: (credentials: LoginCredentials) => Promise<boolean>;
   register: (data: RegisterData) => Promise<boolean>;

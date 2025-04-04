@@ -16,13 +16,6 @@ const Register = ({ onSuccess }: RegisterProps) => {
   const validationRules = {
     username: (value: string) =>
       !value.trim() ? 'Username is required' : null,
-    email: (value: string) => {
-      if (!value.trim()) return 'Email is required';
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return !emailRegex.test(value)
-        ? 'Please enter a valid email address'
-        : null;
-    },
     password1: (value: string) => {
       if (!value) return 'Password is required';
       if (value.length < 6) return 'Password must be at least 6 characters';
@@ -35,10 +28,8 @@ const Register = ({ onSuccess }: RegisterProps) => {
       return null;
     },
   };
-
   const handleRegister = async (values: {
     username: string;
-    email: string;
     password1: string;
     password2: string;
   }) => {
@@ -62,7 +53,7 @@ const Register = ({ onSuccess }: RegisterProps) => {
     handleBlur,
     handleSubmit,
   } = useForm(
-    { username: '', email: '', password1: '', password2: '' },
+    { username: '', password1: '', password2: '' },
     validationRules,
     handleRegister,
   );
@@ -88,23 +79,6 @@ const Register = ({ onSuccess }: RegisterProps) => {
           />
           <Form.Control.Feedback type="invalid">
             {errors.username}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="my-4" controlId="formEmail">
-          <Form.Label className="d-none">Email</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            value={values.email}
-            onChange={handleChange}
-            onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
-            placeholder="Enter your email"
-            isInvalid={!!(touched.email || formSubmitted) && !!errors.email}
-            required
-            className={styles.input}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.email}
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="my-4" controlId="formPassword">
