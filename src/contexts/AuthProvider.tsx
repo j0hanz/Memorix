@@ -1,32 +1,15 @@
 import { ReactNode, useState, useEffect, useCallback } from 'react';
 import { axiosReq } from '@/api/axios';
-import { decodeToken, isTokenExpired } from '@/utils/jwt';
+import { isTokenExpired, refreshAccessToken } from '@/utils/jwt';
+import { AuthContext } from '@/contexts/AuthContext';
 import {
-  AuthContext,
   User,
   Profile,
   LoginCredentials,
   RegisterData,
   AuthResponse,
-} from '@/contexts/AuthContext';
-
-interface JwtPayload {
-  user_id: number;
-  username: string;
-  exp: number;
-  iat: number;
-  jti: string;
-  token_type: string;
-}
-
-interface ApiError {
-  response?: {
-    status?: number;
-    data?: Record<string, string | string[]>;
-  };
-  request?: unknown;
-  message?: string;
-}
+} from '@/types/auth';
+import { ApiError } from '@/types/api';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -37,57 +20,49 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [refreshToken, setRefreshToken] = useState<string>(
     localStorage.getItem('refreshToken') || '',
   );
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // Format API error messages into readable text
+  const formatErrorMessage = (error: ApiError): string => {
+    if (!error.response?.data) return 'An unexpected error occurred';
+    const data = error.response.data;
+    if (typeof data === 'string') return data;
+    return Object.entries(data)
+      .map(([key, value]) => {
+        const message = Array.isArray(value) ? value.join(', ') : String(value);
+        const formattedKey = key.charAt(0).toUpperCase() + key.slice(1);
+        return `${formattedKey}: ${message}`;
+      })
+      .join('; ');
+  };
+
+  // Clear user and tokens from state and localStorage
   const logout = useCallback(() => {
     setUser(null);
     setProfile(null);
     setToken('');
     setRefreshToken('');
-    setIsAuthenticated(false);
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
   }, []);
 
-  const handleAuthError = useCallback(
-    (err: ApiError, defaultMessage: string) => {
-      console.error(`${defaultMessage}:`, err);
-      if (!err.response) {
-        setError(
-          err.request
-            ? 'No response from server. Please check your connection.'
-            : `${defaultMessage}. Please try again.`,
-        );
-        return;
-      }
-      const { status, data } = err.response;
-      if (status === 401) {
-        setError('Invalid username or password');
-        return;
-      }
-      if (data && typeof data === 'object') {
-        const errorMessages = Object.entries(data)
-          .map(([key, value]) => {
-            const errorValue = Array.isArray(value) ? value.join(', ') : value;
-            return `${key}: ${errorValue}`;
-          })
-          .join('; ');
-        setError(errorMessages);
-        return;
-      }
-      setError(`${defaultMessage}. Please try again.`);
-    },
-    [],
-  );
+  // Utility to update tokens in both state and localStorage
+  const setAuthTokens = (access: string, refresh?: string) => {
+    setToken(access);
+    localStorage.setItem('token', access);
+    if (refresh) {
+      setRefreshToken(refresh);
+      localStorage.setItem('refreshToken', refresh);
+    }
+  };
 
-  const getProfile = useCallback(async (): Promise<Profile | null> => {
+  // Fetch the user's profile (assumes API returns an array of profiles)
+  const fetchProfile = useCallback(async (): Promise<Profile | null> => {
     if (!token || !user?.id) return null;
     setLoading(true);
     try {
       const response = await axiosReq.get('/api/profiles/');
-      if (!response.data) return null;
       if (Array.isArray(response.data)) {
         const userProfile = response.data.find(
           (p: Profile) => p.owner === user.id,
@@ -104,101 +79,94 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setLoading(false);
     }
-  }, [token, user?.id]);
+  }, [token, user]);
 
-  const login = useCallback(
-    async (credentials: LoginCredentials): Promise<boolean> => {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await axiosReq.post<AuthResponse>(
-          '/api/token/',
-          credentials,
-        );
-        const { access, refresh } = response.data;
-        if (!access || !refresh) {
-          setError('Invalid response from server');
-          return false;
-        }
-        localStorage.setItem('token', access);
-        localStorage.setItem('refreshToken', refresh);
-        setToken(access);
-        setRefreshToken(refresh);
-        try {
-          const decoded = decodeToken(access) as JwtPayload;
-          const userData: User = {
-            id: decoded.user_id,
-            username: decoded.username,
-          };
-          setUser(userData);
-          setIsAuthenticated(true);
-          await getProfile();
-          return true;
-        } catch (decodeError) {
-          console.error('Failed to decode token:', decodeError);
-          setError('Authentication failed: Invalid token format');
-          logout();
-          return false;
-        }
-      } catch (err: unknown) {
-        handleAuthError(err as ApiError, 'Login failed');
+  // Handle login: store tokens, set user and fetch profile
+  const login = async (credentials: LoginCredentials): Promise<boolean> => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axiosReq.post<AuthResponse>(
+        '/dj-rest-auth/login/',
+        credentials,
+      );
+      const access =
+        response.data.access ||
+        response.data.token ||
+        response.data.access_token;
+      const refresh = response.data.refresh || response.data.refresh_token;
+      if (!access) {
+        setError('Access token not found in response');
         return false;
-      } finally {
-        setLoading(false);
       }
-    },
-    [getProfile, handleAuthError, logout],
-  );
-
-  const register = useCallback(
-    async (userData: RegisterData): Promise<boolean> => {
-      setLoading(true);
-      setError(null);
-      try {
-        await axiosReq.post('/api/register/', userData);
-        return true;
-      } catch (err: unknown) {
-        handleAuthError(err as ApiError, 'Registration failed');
-        return false;
-      } finally {
-        setLoading(false);
+      setAuthTokens(access, refresh);
+      if (response.data.user) {
+        setUser(response.data.user);
+      } else {
+        const userResponse = await axiosReq.get('/dj-rest-auth/user/');
+        setUser(userResponse.data as User);
       }
-    },
-    [handleAuthError],
-  );
+      await fetchProfile();
+      return true;
+    } catch (err: unknown) {
+      console.error('Login failed:', err);
+      const errorObj = err as ApiError;
+      setError(formatErrorMessage(errorObj));
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // Handle registration
+  const register = async (userData: RegisterData): Promise<boolean> => {
+    setLoading(true);
+    setError(null);
+    try {
+      await axiosReq.post('/dj-rest-auth/registration/', userData);
+      return true;
+    } catch (err: unknown) {
+      console.error('Registration failed:', err);
+      const errorObj = err as ApiError;
+      setError(formatErrorMessage(errorObj));
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // On mount, initialize the user from stored token if available
   useEffect(() => {
-    const initializeFromToken = async () => {
-      if (!token) {
-        setIsAuthenticated(false);
-        return;
-      }
+    const initializeUser = async () => {
+      if (!token) return;
       try {
         if (isTokenExpired(token)) {
-          console.warn('Token expired, logging out');
-          logout();
-          return;
+          const newToken = await refreshAccessToken();
+          if (newToken) {
+            setAuthTokens(newToken);
+          } else {
+            logout();
+            return;
+          }
         }
-        const decoded = decodeToken(token) as JwtPayload;
-        setUser({
-          id: decoded.user_id,
-          username: decoded.username,
-        });
-        setIsAuthenticated(true);
-        await getProfile();
+        const userResponse = await axiosReq.get('/dj-rest-auth/user/');
+        setUser(userResponse.data as User);
+        await fetchProfile();
       } catch (err) {
-        console.error('Token verification failed:', err);
+        console.error('Error during token initialization:', err);
         logout();
       }
     };
-    initializeFromToken();
-  }, [token, logout, getProfile]);
+    initializeUser();
+  }, [token, logout, fetchProfile]);
 
+  // Listen for global logout events
   useEffect(() => {
-    const handleAuthLogout = () => logout();
-    window.addEventListener('auth:logout', handleAuthLogout);
-    return () => window.removeEventListener('auth:logout', handleAuthLogout);
+    window.addEventListener('auth:logout', logout);
+    return () => window.removeEventListener('auth:logout', logout);
   }, [logout]);
+
+  const isAuthenticated = Boolean(user && token);
 
   return (
     <AuthContext.Provider
@@ -211,7 +179,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         login,
         register,
         logout,
-        getProfile,
+        getProfile: fetchProfile,
         loading,
         error,
       }}

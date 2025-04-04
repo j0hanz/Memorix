@@ -19,3 +19,12 @@ export interface GitHubCommitResponse {
     login: string;
   } | null;
 }
+
+export interface ApiError {
+  response?: {
+    data?: Record<string, string | string[]>;
+    status?: number;
+  };
+  request?: unknown;
+  message?: string;
+}

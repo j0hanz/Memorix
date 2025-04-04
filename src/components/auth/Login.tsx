@@ -45,7 +45,6 @@ const Login = ({ onClose }: LoginProps) => {
   return (
     <div>
       {authError && <Alert variant="danger">{authError}</Alert>}
-
       <Form noValidate onSubmit={handleSubmit}>
         <Form.Group controlId="formUsername">
           <Form.Label className="d-none">Username</Form.Label>
@@ -66,7 +65,6 @@ const Login = ({ onClose }: LoginProps) => {
             {errors.username}
           </Form.Control.Feedback>
         </Form.Group>
-
         <Form.Group className="my-4" controlId="formPassword">
           <Form.Label className="d-none">Password</Form.Label>
           <Form.Control
@@ -86,7 +84,6 @@ const Login = ({ onClose }: LoginProps) => {
             {errors.password}
           </Form.Control.Feedback>
         </Form.Group>
-
         <div className="d-flex">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}

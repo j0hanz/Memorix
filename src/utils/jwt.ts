@@ -1,69 +1,114 @@
 import { jwtDecode } from 'jwt-decode';
-import axios from 'axios';
+import { axiosReq } from '@/api/axios';
+import { InternalAxiosRequestConfig } from 'axios';
 
-export interface JwtPayload {
-  user_id: number;
-  username: string;
-  exp: number;
-  iat: number;
-  jti: string;
-  token_type: string;
-}
+// State for token refresh process
+let isRefreshing = false;
+let refreshSubscribers: ((token: string) => void)[] = [];
 
-/**
- * Decodes a JWT token.
- */
-export const decodeToken = (token: string): JwtPayload => {
-  return jwtDecode<JwtPayload>(token);
-};
+// Token helpers
+const getToken = (): string | null => localStorage.getItem('token');
+const getRefreshToken = (): string | null =>
+  localStorage.getItem('refreshToken');
 
-/**
- * Checks whether the given token is expired.
- */
 export const isTokenExpired = (token: string): boolean => {
   try {
-    const payload = decodeToken(token);
-    const currentTime = Date.now() / 1000;
-    return payload.exp < currentTime;
+    const { exp } = jwtDecode<{ exp: number }>(token);
+    return exp * 1000 < Date.now();
   } catch (error) {
     console.error('Error decoding token:', error);
     return true;
   }
 };
 
-/**
- * Refreshes the access token using the stored refresh token.
- */
-export const refreshAccessToken = async (): Promise<string | null> => {
-  const baseURL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/';
-  const refreshToken = localStorage.getItem('refreshToken');
-  if (!refreshToken) return null;
+const clearTokens = (): void => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('refreshToken');
+};
 
+const subscribeTokenRefresh = (callback: (token: string) => void): void => {
+  refreshSubscribers.push(callback);
+};
+
+const onRefreshed = (token: string): void => {
+  refreshSubscribers.forEach((callback) => callback(token));
+  refreshSubscribers = [];
+};
+
+export const refreshAccessToken = async (): Promise<string | null> => {
   try {
-    const response = await axios.post<{ access: string }>(
-      `${baseURL}api/token/refresh/`,
-      { refresh: refreshToken },
-    );
-    const { access } = response.data;
-    if (access) {
-      localStorage.setItem('token', access);
-      return access;
+    const refresh = getRefreshToken();
+    if (!refresh) {
+      console.warn('No refresh token available');
+      return null;
     }
+
+    const response = await axiosReq.post('/dj-rest-auth/token/refresh/', {
+      refresh,
+    });
+    const newToken = (response.data as { access: string }).access;
+
+    if (newToken) {
+      localStorage.setItem('token', newToken);
+      return newToken;
+    }
+
     return null;
   } catch (error) {
-    console.error('Token refresh failed:', error);
+    console.error('Failed to refresh token:', error);
+    clearTokens();
     return null;
   }
 };
 
-export const getToken = (): string | null => {
-  return localStorage.getItem('token');
-};
+// Axios request interceptor to handle authentication
+axiosReq.interceptors.request.use(
+  async (config: InternalAxiosRequestConfig) => {
+    // Skip auth for authentication endpoints
+    const isAuthEndpoint =
+      config.url?.includes('/dj-rest-auth/login/') ||
+      config.url?.includes('/dj-rest-auth/registration/') ||
+      config.url?.includes('/dj-rest-auth/token/refresh/');
 
-/**
- * Clears the stored tokens from localStorage.
- */
-export const clearTokens = (): void => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('refreshToken');
-};
+    if (isAuthEndpoint) return config;
+
+    let token = getToken();
+    if (!token) return config;
+
+    // Handle token expiration
+    if (isTokenExpired(token)) {
+      if (!isRefreshing) {
+        isRefreshing = true;
+        const newToken = await refreshAccessToken();
+        isRefreshing = false;
+
+        if (newToken) {
+          token = newToken;
+          onRefreshed(newToken);
+          config.headers = config.headers || {};
+          config.headers.Authorization = `Bearer ${newToken}`;
+          return config;
+        } else {
+          // Trigger logout event
+          window.dispatchEvent(new Event('auth:logout'));
+          return Promise.reject(
+            new Error('Authentication expired. Please log in again.'),
+          );
+        }
+      }
+      return new Promise<InternalAxiosRequestConfig<unknown>>((resolve) => {
+        subscribeTokenRefresh((newToken: string) => {
+          config.headers = config.headers || {};
+          config.headers.Authorization = `Bearer ${newToken}`;
+          resolve(config);
+        });
+      });
+    }
+    if (config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error),
+);

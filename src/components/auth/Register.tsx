@@ -23,17 +23,14 @@ const Register = ({ onSuccess }: RegisterProps) => {
         ? 'Please enter a valid email address'
         : null;
     },
-    password: (value: string) => {
+    password1: (value: string) => {
       if (!value) return 'Password is required';
       if (value.length < 6) return 'Password must be at least 6 characters';
       return null;
     },
-    password_confirmation: (
-      value: string,
-      formValues?: Record<string, string>,
-    ) => {
+    password2: (value: string, formValues?: Record<string, string>) => {
       if (!value) return 'Please confirm your password';
-      if (formValues && value !== formValues.password)
+      if (formValues && value !== formValues.password1)
         return "Passwords don't match";
       return null;
     },
@@ -42,14 +39,12 @@ const Register = ({ onSuccess }: RegisterProps) => {
   const handleRegister = async (values: {
     username: string;
     email: string;
-    password: string;
-    password_confirmation: string;
+    password1: string;
+    password2: string;
   }) => {
     try {
       const success = await register(values);
-      if (success) {
-        onSuccess();
-      }
+      if (success) onSuccess();
       return success;
     } catch (error) {
       console.error('Registration error:', error);
@@ -67,7 +62,7 @@ const Register = ({ onSuccess }: RegisterProps) => {
     handleBlur,
     handleSubmit,
   } = useForm(
-    { username: '', email: '', password: '', password_confirmation: '' },
+    { username: '', email: '', password1: '', password2: '' },
     validationRules,
     handleRegister,
   );
@@ -75,7 +70,6 @@ const Register = ({ onSuccess }: RegisterProps) => {
   return (
     <>
       {authError && <Alert variant="danger">{authError}</Alert>}
-
       <Form noValidate onSubmit={handleSubmit}>
         <Form.Group controlId="formUsername">
           <Form.Label className="d-none">Username</Form.Label>
@@ -96,7 +90,6 @@ const Register = ({ onSuccess }: RegisterProps) => {
             {errors.username}
           </Form.Control.Feedback>
         </Form.Group>
-
         <Form.Group className="my-4" controlId="formEmail">
           <Form.Label className="d-none">Email</Form.Label>
           <Form.Control
@@ -114,48 +107,44 @@ const Register = ({ onSuccess }: RegisterProps) => {
             {errors.email}
           </Form.Control.Feedback>
         </Form.Group>
-
         <Form.Group className="my-4" controlId="formPassword">
           <Form.Label className="d-none">Password</Form.Label>
           <Form.Control
             type="password"
-            name="password"
-            value={values.password}
+            name="password1"
+            value={values.password1}
             onChange={handleChange}
             onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
             placeholder="Choose a password"
             isInvalid={
-              !!(touched.password || formSubmitted) && !!errors.password
+              !!(touched.password1 || formSubmitted) && !!errors.password1
             }
             required
             className={styles.input}
           />
           <Form.Control.Feedback type="invalid">
-            {errors.password}
+            {errors.password1}
           </Form.Control.Feedback>
         </Form.Group>
-
         <Form.Group className="my-4" controlId="formConfirmPassword">
           <Form.Label className="d-none">Confirm Password</Form.Label>
           <Form.Control
             type="password"
-            name="password_confirmation"
-            value={values.password_confirmation}
+            name="password2"
+            value={values.password2}
             onChange={handleChange}
             onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
             placeholder="Confirm your password"
             isInvalid={
-              !!(touched.password_confirmation || formSubmitted) &&
-              !!errors.password_confirmation
+              !!(touched.password2 || formSubmitted) && !!errors.password2
             }
             required
             className={styles.input}
           />
           <Form.Control.Feedback type="invalid">
-            {errors.password_confirmation}
+            {errors.password2}
           </Form.Control.Feedback>
         </Form.Group>
-
         <div className="d-flex mt-5">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}
