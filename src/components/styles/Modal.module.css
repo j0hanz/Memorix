@@ -5,29 +5,27 @@
   --bs-modal-border-radius: 10px;
 }
 
-.instructionsModal :global(.modal-content) {
-  min-height: 55vh;
-}
-
 .modal :global(.modal-header) {
   font-family: 'Fredoka';
   color: var(--text-color);
   letter-spacing: 1px;
 }
 
+.modal :global(.modal-footer) {
+  --bs-modal-footer-gap: 0;
+  color: var(--text-color);
+}
+
 .modal :global(.h4) {
   font-size: 1.5rem;
 }
 
-.modal :global(.modal-header),
-.modal :global(.modal-footer) {
-  color: var(--text-color);
+/* Modal variants */
+.instructionsModal :global(.modal-content) {
+  min-height: 55vh;
 }
 
-.modal :global(.modal-footer) {
-  --bs-modal-footer-gap: 0;
-}
-
+/* Scoreboard */
 .scoreboard {
   display: flex;
   justify-content: space-between;
@@ -41,6 +39,7 @@
   align-items: center;
 }
 
+/* Icons */
 .wrongPick {
   color: var(--feedback-wrong);
 }
@@ -65,6 +64,7 @@
   font-size: 1.2rem;
 }
 
+/* Buttons */
 .modalButton {
   flex: 1;
   display: flex;
@@ -77,6 +77,7 @@
   transition: all 0.3s ease;
 }
 
+/* Primary button */
 .btnRestart {
   background: var(--btn-primary);
   border: none;
@@ -97,6 +98,7 @@
   transform: scale(1);
 }
 
+/* Secondary button */
 .btnExit {
   background: var(--btn-secondary);
   border: none;
@@ -106,17 +108,20 @@
   border-bottom-right-radius: 10px;
 }
 
-.btnExit:hover {
+.btnExit:hover,
+.btnClose:hover {
   background: var(--btn-secondary-hover);
   color: var(--text-color);
 }
 
-.btnExit:active {
+.btnExit:active,
+.btnClose:active {
   background: var(--btn-secondary-hover) !important;
   color: var(--text-color);
   transform: scale(1);
 }
 
+/* Close button */
 .btnClose {
   flex: 1;
   display: flex;
@@ -131,83 +136,7 @@
   color: var(--text-color);
 }
 
-.btnClose:hover {
-  background: var(--btn-secondary-hover);
-  color: var(--text-color);
-}
-
-.btnClose:active {
-  background: var(--btn-secondary-hover) !important;
-  transform: scale(1);
-}
-
-.navLink {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.15rem;
-  font-size: 1.05em;
-}
-
-.navItemLeft,
-.navItemCenter,
-.navItemRight {
-  border: none;
-  background: var(--btn-secondary);
-  transition: all 0.3s ease;
-}
-
-.navItemLeft {
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-right: 1px solid var(--shadow-row);
-}
-
-.navItemCenter {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-left: 1px solid var(--shadow-row);
-  border-right: 1px solid var(--shadow-row);
-}
-
-.navItemRight {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 0;
-  border-left: 1px solid var(--shadow-row);
-}
-
-.navItemLeft:hover,
-.navItemCenter:hover,
-.navItemRight:hover {
-  background: var(--btn-secondary-hover);
-}
-
-.navItemLeft.active,
-.navItemCenter.active,
-.navItemRight.active {
-  background: var(--modal-header-active);
-}
-.btnCategoryContainer {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.input {
-  border-bottom: 1px solid var(--input-border-color);
-  border-radius: 0;
-}
-
-.input::placeholder {
-  color: var(--text-color);
-  opacity: 0.6;
-}
-
+/* Category buttons */
 .btnCategorySelect {
   background: var(--btn-secondary);
   border: var(--btn-catagory-border);
@@ -229,6 +158,82 @@
   background: var(--btn-secondary-hover);
 }
 
+.btnCategoryContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* 4. NAVIGATION */
+.navLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.15rem;
+  font-size: 1.05em;
+}
+
+/* Nav items */
+.navItemLeft,
+.navItemCenter,
+.navItemRight {
+  border: none;
+  background: var(--btn-secondary);
+  transition: all 0.3s ease;
+}
+
+/* Left tab */
+.navItemLeft {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 1px solid var(--shadow-row);
+}
+
+/* Center tab */
+.navItemCenter {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-left: 1px solid var(--shadow-row);
+  border-right: 1px solid var(--shadow-row);
+}
+
+/* Right tab */
+.navItemRight {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 0;
+  border-left: 1px solid var(--shadow-row);
+}
+
+/* Tab states */
+.navItemLeft:hover,
+.navItemCenter:hover,
+.navItemRight:hover {
+  background: var(--btn-secondary-hover);
+}
+
+.navItemLeft.active,
+.navItemCenter.active,
+.navItemRight.active {
+  background: var(--modal-header-active);
+}
+
+/* Forms */
+.input {
+  border-bottom: 1px solid var(--input-border-color);
+  border-radius: 0;
+}
+
+.input::placeholder {
+  color: var(--text-color);
+  opacity: 0.6;
+}
+
+/* Profile */
 .profileImage {
   aspect-ratio: 1/1;
   width: 10rem;
@@ -236,6 +241,7 @@
   border-radius: 5%;
 }
 
+/* Media */
 @media (max-width: 425px) {
   .instructionsModal :global(.modal-content) {
     height: 100%;
