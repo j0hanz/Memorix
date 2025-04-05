@@ -6,8 +6,9 @@ import Image from '@/components/Image';
 import { useProfile } from '@/hooks/useProfile';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ImageIcon from '@mui/icons-material/Image';
-import TabNavigation, { TabItem } from './TabNavigation';
+import TabNavigation from './TabNavigation';
 import { ProfileImageTabProps, ProfileSettingsTabProps } from '@/types/api';
+import { TabItem } from '@/types/components';
 
 // Profile Image Tab Component
 const ProfileImageTab: React.FC<ProfileImageTabProps> = ({

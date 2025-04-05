@@ -1,9 +1,8 @@
-import { ReactNode } from 'react';
 import { Nav } from 'react-bootstrap';
 import styles from './styles/Modal.module.css';
 import { useSoundEffects } from '@/hooks/useSound';
 import { SOUNDS } from '@/constants/constants';
-import { TabItem, TabNavigationProps } from '@/types/components';
+import { TabNavigationProps } from '@/types/components';
 
 // NavItem component for tab rendering
 export const NavItem = ({
@@ -36,7 +35,6 @@ export const NavItem = ({
     </Nav.Item>
   );
 };
-
 
 export default function TabNavigation({
   activeKey,
