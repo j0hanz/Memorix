@@ -1,42 +1,8 @@
-import { useState, useEffect } from 'react';
-import { fetchLatestCommits } from '@/api/github';
 import { Badge, ListGroup } from 'react-bootstrap';
-import { Commit } from '@/types/api';
+import { useCommitStatus } from '@/hooks/useCommitStatus';
 
-// Fetches and displays the latest commits
-export default function LatestCommits() {
-  const [commits, setCommits] = useState<Commit[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
-  useEffect(() => {
-    // Cleanup function to prevent memory leaks
-    let isMounted = true;
-    const loadCommits = async () => {
-      // Fetch commits from the GitHub API
-      try {
-        const data = await fetchLatestCommits();
-        // Check if the component is still mounted before updating state
-        if (isMounted) {
-          setCommits(data);
-        }
-      } catch (err) {
-        if (isMounted) {
-          setError(
-            err instanceof Error ? err : new Error('Failed to fetch commits'),
-          );
-        }
-      } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
-      }
-    };
-    loadCommits();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
+export default function CommitStatus() {
+  const { commits, loading, error } = useCommitStatus();
 
   if (loading) {
     return <div>Loading commit data...</div>;
@@ -51,28 +17,26 @@ export default function LatestCommits() {
   }
 
   return (
-    <>
-      <ListGroup>
-        {commits.map((commit, index) => {
-          const username = commit.author ? commit.author : 'Unknown';
+    <ListGroup>
+      {commits.map((commit, index) => {
+        const username = commit.author ? commit.author : 'Unknown';
 
-          return (
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start"
-              key={commit.sha || index}
-            >
-              <div>
-                <div>{new Date(commit.date).toISOString().split('T')[0]}</div>
-                <a href={commit.url}>{commit.message}</a>
-              </div>
-              <Badge bg="primary" pill>
-                {username}
-              </Badge>
-            </ListGroup.Item>
-          );
-        })}
-      </ListGroup>
-    </>
+        return (
+          <ListGroup.Item
+            as="li"
+            className="d-flex justify-content-between align-items-start"
+            key={commit.sha || index}
+          >
+            <div>
+              <div>{new Date(commit.date).toISOString().split('T')[0]}</div>
+              <a href={commit.url}>{commit.message}</a>
+            </div>
+            <Badge bg="primary" pill>
+              {username}
+            </Badge>
+          </ListGroup.Item>
+        );
+      })}
+    </ListGroup>
   );
 }
