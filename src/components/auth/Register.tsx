@@ -1,48 +1,13 @@
 import { Form, Alert } from 'react-bootstrap';
-import { useAuth } from '@/hooks/useAuth';
 import Button from '@/components/Button';
 import styles from '@/components/styles/Modal.module.css';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import { useForm } from '@/hooks/useForm';
-
-interface RegisterProps {
-  onSuccess: () => void;
-}
+import { useRegisterForm } from '@/hooks/useAuthForms';
+import FormField from '../FormField';
+import { RegisterProps } from '@/types/auth';
 
 const Register = ({ onSuccess }: RegisterProps) => {
-  const { register, loading, error: authError } = useAuth();
-
-  const validationRules = {
-    username: (value: string) =>
-      !value.trim() ? 'Username is required' : null,
-    password1: (value: string) => {
-      if (!value) return 'Password is required';
-      if (value.length < 6) return 'Password must be at least 6 characters';
-      return null;
-    },
-    password2: (value: string, formValues?: Record<string, string>) => {
-      if (!value) return 'Please confirm your password';
-      if (formValues && value !== formValues.password1)
-        return "Passwords don't match";
-      return null;
-    },
-  };
-  const handleRegister = async (values: {
-    username: string;
-    password1: string;
-    password2: string;
-  }) => {
-    try {
-      const success = await register(values);
-      if (success) onSuccess();
-      return success;
-    } catch (error) {
-      console.error('Registration error:', error);
-      return false;
-    }
-  };
-
   const {
     values,
     errors,
@@ -52,73 +17,60 @@ const Register = ({ onSuccess }: RegisterProps) => {
     handleChange,
     handleBlur,
     handleSubmit,
-  } = useForm(
-    { username: '', password1: '', password2: '' },
-    validationRules,
-    handleRegister,
-  );
+    loading,
+    authError,
+  } = useRegisterForm(onSuccess);
 
   return (
     <>
       {authError && <Alert variant="danger">{authError}</Alert>}
       <Form noValidate onSubmit={handleSubmit}>
-        <Form.Group controlId="formUsername">
-          <Form.Label className="d-none">Username</Form.Label>
-          <Form.Control
-            type="text"
-            name="username"
-            value={values.username}
-            onChange={handleChange}
-            onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
-            placeholder="Choose a username"
-            isInvalid={
-              !!(touched.username || formSubmitted) && !!errors.username
-            }
-            required
-            className={styles.input}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.username}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="my-4" controlId="formPassword">
-          <Form.Label className="d-none">Password</Form.Label>
-          <Form.Control
-            type="password"
+        <FormField
+          controlId="formUsername"
+          name="username"
+          type="text"
+          label="Username"
+          placeholder="Choose a username"
+          value={values.username}
+          onChange={handleChange}
+          onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
+          error={errors.username}
+          showError={!!(touched.username || formSubmitted)}
+          className={styles.input}
+        />
+
+        <div className="my-4">
+          <FormField
+            controlId="formPassword"
             name="password1"
+            type="password"
+            label="Password"
+            placeholder="Choose a password"
             value={values.password1}
             onChange={handleChange}
             onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
-            placeholder="Choose a password"
-            isInvalid={
-              !!(touched.password1 || formSubmitted) && !!errors.password1
-            }
-            required
+            error={errors.password1}
+            showError={!!(touched.password1 || formSubmitted)}
             className={styles.input}
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.password1}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="my-4" controlId="formConfirmPassword">
-          <Form.Label className="d-none">Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
+        </div>
+
+        <div className="my-4">
+          <FormField
+            controlId="formConfirmPassword"
             name="password2"
+            type="password"
+            label="Confirm Password"
+            placeholder="Confirm your password"
             value={values.password2}
             onChange={handleChange}
             onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
-            placeholder="Confirm your password"
-            isInvalid={
-              !!(touched.password2 || formSubmitted) && !!errors.password2
-            }
-            required
+            error={errors.password2}
+            showError={!!(touched.password2 || formSubmitted)}
             className={styles.input}
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.password2}
-          </Form.Control.Feedback>
-        </Form.Group>
+        </div>
+
         <div className="d-flex mt-5">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}

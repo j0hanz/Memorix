@@ -1,17 +1,17 @@
-import { ReactNode, useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { axiosReq } from '@/api/axios';
 import { isTokenExpired, refreshAccessToken } from '@/utils/jwt';
-import { AuthContext } from '@/contexts/AuthContext';
 import {
   User,
   Profile,
   LoginCredentials,
   RegisterData,
   AuthResponse,
+  AuthContextType,
 } from '@/types/auth';
 import { ApiError } from '@/types/api';
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export function useAuthProvider(): AuthContextType {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [token, setToken] = useState<string>(
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // Fetch the user's profile (assumes API returns an array of profiles)
+  // Fetch the user's profile
   const fetchProfile = useCallback(async (): Promise<Profile | null> => {
     if (!token || !user?.id) return null;
     setLoading(true);
@@ -81,7 +81,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [token, user]);
 
-  // Handle login: store tokens, set user and fetch profile
+  // Handle login
   const login = async (credentials: LoginCredentials): Promise<boolean> => {
     setLoading(true);
     setError(null);
@@ -135,7 +135,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // On mount, initialize the user from stored token if available
+  // Initialize user from stored token
   useEffect(() => {
     const initializeUser = async () => {
       if (!token) return;
@@ -158,6 +158,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     };
     initializeUser();
   }, [token, logout]);
+
+  // Fetch profile when user changes
   useEffect(() => {
     if (user?.id) {
       fetchProfile();
@@ -172,23 +174,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const isAuthenticated = Boolean(user && token);
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        profile,
-        token,
-        refreshToken,
-        isAuthenticated,
-        login,
-        register,
-        logout,
-        getProfile: fetchProfile,
-        loading,
-        error,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
-};
+  return {
+    user,
+    profile,
+    token,
+    refreshToken,
+    isAuthenticated,
+    login,
+    register,
+    logout,
+    getProfile: fetchProfile,
+    loading,
+    error,
+  };
+}

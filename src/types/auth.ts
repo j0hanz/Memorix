@@ -19,6 +19,14 @@ export interface LoginCredentials {
   password: string;
 }
 
+export interface LoginProps {
+  onClose?: () => void;
+}
+
+export interface RegisterProps {
+  onSuccess: () => void;
+}
+
 export interface RegisterData {
   username: string;
   password1: string;
