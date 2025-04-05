@@ -8,31 +8,18 @@ export function useScore(moves: number, completedTime: number) {
 
 // This function determine the score based on the number of moves and time taken
 function calculateStars(moves: number, completedTime: number): number {
-  try {
-    if (
-      moves <= SCORING.FIVE_STAR.moves &&
-      completedTime <= SCORING.FIVE_STAR.time
-    )
-      return 5;
-    if (
-      moves <= SCORING.FOUR_STAR.moves &&
-      completedTime <= SCORING.FOUR_STAR.time
-    )
-      return 4;
-    if (
-      moves <= SCORING.THREE_STAR.moves &&
-      completedTime <= SCORING.THREE_STAR.time
-    )
-      return 3;
-    if (
-      moves <= SCORING.TWO_STAR.moves &&
-      completedTime <= SCORING.TWO_STAR.time
-    )
-      return 2;
-    return 1;
-  } catch (error) {
-    console.error('Error calculating stars:', error);
-    // Fallback to 1 star in case of error
-    return 1;
+  const scoreThresholds = [
+    { threshold: SCORING.FIVE_STAR, stars: 5 },
+    { threshold: SCORING.FOUR_STAR, stars: 4 },
+    { threshold: SCORING.THREE_STAR, stars: 3 },
+    { threshold: SCORING.TWO_STAR, stars: 2 },
+  ];
+
+  for (const { threshold, stars } of scoreThresholds) {
+    if (moves <= threshold.moves && completedTime <= threshold.time) {
+      return stars;
+    }
   }
+
+  return 1; // Default to 1 star
 }

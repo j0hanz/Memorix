@@ -47,7 +47,6 @@ export function useCards(
   };
 
   const getCardStyleClasses = (styles: CSSModuleClasses) => {
-    // Determine the card style classes based on card status
     if (!card) return styles.card;
 
     return [
