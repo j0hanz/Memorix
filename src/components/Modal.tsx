@@ -1,20 +1,7 @@
-import { ReactNode } from 'react';
 import { Modal as CustomModal } from 'react-bootstrap';
 import styles from './styles/Modal.module.css';
 import Button from './Button';
-
-interface ModalProps {
-  show: boolean;
-  onClose: () => void;
-  title?: string | ReactNode;
-  children: ReactNode;
-  footerContent?: ReactNode;
-  modalClassName?: string;
-  hasCloseButton?: boolean;
-  backdrop?: 'static' | boolean;
-  closeButtonText?: string;
-  bodyClassName?: string;
-}
+import { ModalProps } from '@/types/components';
 
 export function Modal({
   show,

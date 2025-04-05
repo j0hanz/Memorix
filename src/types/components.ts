@@ -73,6 +73,19 @@ export interface ImageProps {
   fallbackSrc?: string;
 }
 
+export interface ModalProps {
+  show: boolean;
+  onClose: () => void;
+  title?: string | ReactNode;
+  children: ReactNode;
+  footerContent?: ReactNode;
+  modalClassName?: string;
+  hasCloseButton?: boolean;
+  backdrop?: 'static' | boolean;
+  closeButtonText?: string;
+  bodyClassName?: string;
+}
+
 export interface LoadingSpinnerProps {
   isLoading: boolean;
 }
