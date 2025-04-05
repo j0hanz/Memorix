@@ -7,7 +7,8 @@ import ScoringTab from './ScoringTab';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-import TabNavigation, { TabItem } from './TabNavigation';
+import TabNavigation from './TabNavigation';
+import { TabItem } from '@/types/components';
 
 export default function InstructionsData() {
   // State to manage the active tab

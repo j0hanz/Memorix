@@ -46,7 +46,6 @@ export default function TabNavigation({
       variant="tabs"
       activeKey={activeKey}
       onSelect={(selectedKey) => onSelect(selectedKey || '')}
-      className="mb-3"
       justify
     >
       {tabs.map((tab) => (

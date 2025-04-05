@@ -238,7 +238,7 @@
   aspect-ratio: 1/1;
   width: 10rem;
   height: 10rem;
-  border-radius: 5%;
+  object-fit: cover;
 }
 
 /* Media */
