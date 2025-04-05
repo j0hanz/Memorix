@@ -4,13 +4,7 @@ import {
   FallbackProps,
 } from 'react-error-boundary';
 import Button from './Button';
-
-interface Props {
-  children: React.ReactNode;
-  fallback?: React.ReactNode;
-  onReset?: () => void;
-  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
-}
+import { ErrorBoundaryProps } from '@/types/components';
 
 const ErrorFallback: React.FC<FallbackProps> = ({
   error,
@@ -23,7 +17,7 @@ const ErrorFallback: React.FC<FallbackProps> = ({
   </div>
 );
 
-const ErrorBoundary: React.FC<Props> = ({
+const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
   children,
   fallback,
   onReset,

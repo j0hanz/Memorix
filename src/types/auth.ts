@@ -19,6 +19,10 @@ export interface LoginCredentials {
   password: string;
 }
 
+export interface AuthProviderProps {
+  children: React.ReactNode;
+}
+
 export interface LoginProps {
   onClose?: () => void;
 }

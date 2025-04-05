@@ -1,3 +1,5 @@
+import { User, Profile } from './auth';
+
 export interface Commit {
   sha: string;
   message: string;
@@ -27,4 +29,22 @@ export interface ApiError {
   };
   request?: unknown;
   message?: string;
+}
+
+export interface ProfileImageTabProps {
+  user: User;
+  profile: Profile | null;
+  loading: boolean;
+  error: string | null;
+  success: string | null;
+  profileImage: File | null;
+  previewImage: string | null;
+  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleUpdateProfile: (e: React.FormEvent) => Promise<void>;
+  onClose: () => void;
+}
+
+export interface ProfileSettingsTabProps {
+  user: User;
+  onClose: () => void;
 }

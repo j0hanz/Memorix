@@ -1,31 +1,27 @@
+import { useState } from 'react';
 import { Form, Alert } from 'react-bootstrap';
 import Button from '@/components/Button';
 import styles from './styles/Modal.module.css';
 import Image from '@/components/Image';
 import { useProfile } from '@/hooks/useProfile';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ImageIcon from '@mui/icons-material/Image';
+import TabNavigation, { TabItem } from './TabNavigation';
+import { ProfileImageTabProps, ProfileSettingsTabProps } from '@/types/api';
 
-const ProfileData = ({ onClose }: { onClose: () => void }) => {
-  const {
-    user,
-    profile,
-    loading,
-    error,
-    success,
-    profileImage,
-    previewImage,
-    handleImageChange,
-    handleUpdateProfile,
-  } = useProfile();
-
-  if (!user) {
-    return <p>Please log in to view your profile</p>;
-  }
-
+// Profile Image Tab Component
+const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
+  user,
+  profile,
+  loading,
+  profileImage,
+  previewImage,
+  handleImageChange,
+  handleUpdateProfile,
+  onClose,
+}) => {
   return (
     <>
-      {error && <Alert variant="danger">{error}</Alert>}
-      {success && <Alert variant="success">{success}</Alert>}
-
       <div>
         <Image
           src={
@@ -75,6 +71,95 @@ const ProfileData = ({ onClose }: { onClose: () => void }) => {
           </Button>
         </div>
       </Form>
+    </>
+  );
+};
+
+// Profile Settings Tab Component
+const ProfileSettingsTab: React.FC<ProfileSettingsTabProps> = ({
+  user,
+  onClose,
+}) => {
+  return (
+    <div>
+      <h5>Account Settings</h5>
+      <p>Username: {user.username}</p>
+      <p>Account created: {user.id ? `User ID: ${user.id}` : 'N/A'}</p>
+
+      <div className="d-flex mt-4">
+        <Button
+          className={`${styles.btnExit} ${styles.modalButton}`}
+          onClick={onClose}
+        >
+          Close
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+// Main ProfileData component
+const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const [activeKey, setActiveKey] = useState<string>('image');
+  const {
+    user,
+    profile,
+    loading,
+    error,
+    success,
+    profileImage,
+    previewImage,
+    handleImageChange,
+    handleUpdateProfile,
+  } = useProfile();
+
+  if (!user) {
+    return <p>Please log in to view your profile</p>;
+  }
+
+  const tabs: TabItem[] = [
+    {
+      key: 'image',
+      title: 'Profile Image',
+      className: styles.navItemLeft,
+      icon: <ImageIcon fontSize="small" className="me-1" />,
+    },
+    {
+      key: 'settings',
+      title: 'Settings',
+      className: styles.navItemRight,
+      icon: <SettingsIcon fontSize="small" className="me-1" />,
+    },
+  ];
+
+  return (
+    <>
+      {error && <Alert variant="danger">{error}</Alert>}
+      {success && <Alert variant="success">{success}</Alert>}
+
+      <TabNavigation
+        activeKey={activeKey}
+        tabs={tabs}
+        onSelect={setActiveKey}
+      />
+
+      {activeKey === 'image' && (
+        <ProfileImageTab
+          user={user}
+          profile={profile}
+          loading={loading}
+          error={error}
+          success={success}
+          profileImage={profileImage}
+          previewImage={previewImage}
+          handleImageChange={handleImageChange}
+          handleUpdateProfile={handleUpdateProfile}
+          onClose={onClose}
+        />
+      )}
+      {activeKey === 'settings' && (
+        <ProfileSettingsTab user={user} onClose={onClose} />
+      )}
     </>
   );
 };

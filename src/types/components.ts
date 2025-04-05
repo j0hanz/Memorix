@@ -20,6 +20,13 @@ export interface CardsProps {
   feedback: string;
 }
 
+export interface ErrorBoundaryProps {
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
+  onReset?: () => void;
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
+}
+
 export interface FormFieldProps {
   controlId: string;
   name: string;
@@ -37,6 +44,19 @@ export interface FormFieldProps {
 export interface ProtectedRouteProps {
   children: ReactNode;
   onAuthRequired: () => void;
+}
+
+export interface TabItem {
+  key: string;
+  title: string;
+  className: string;
+  icon?: ReactNode;
+}
+
+export interface TabNavigationProps {
+  activeKey: string;
+  tabs: TabItem[];
+  onSelect: (key: string) => void;
 }
 
 export interface ImageProps {

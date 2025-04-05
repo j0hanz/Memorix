@@ -18,6 +18,13 @@ export interface GameHandlerOptions {
   setSelectedCategory: (value: string) => void;
 }
 
+export interface ValidationRules {
+  [key: string]: (
+    value: string,
+    formValues?: Record<string, string>,
+  ) => string | null;
+}
+
 export interface MotionOptions {
   duration?: number;
   delay?: number;

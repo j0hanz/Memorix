@@ -1,11 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from 'react';
-
-interface ValidationRules {
-  [key: string]: (
-    value: string,
-    formValues?: Record<string, string>,
-  ) => string | null;
-}
+import { ValidationRules } from '@/types/hooks';
 
 export function useForm<T extends Record<string, string>>(
   initialValues: T,
