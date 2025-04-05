@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Alert } from 'react-bootstrap';
+import { Form, Alert, Row, Col, Container } from 'react-bootstrap';
 import Button from '@/components/Button';
 import styles from './styles/Modal.module.css';
 import Image from '@/components/Image';
@@ -32,9 +32,9 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
 }) => {
   return (
     <Form onSubmit={handleUpdateProfile}>
-      <div className="d-flex flex-column">
-        <div className="row">
-          <div className="col d-flex justify-content-start">
+      <Container fluid className="p-0">
+        <Row className="p-4">
+          <Col className="d-flex justify-content-start">
             <div className="position-relative">
               <Image
                 src={
@@ -46,13 +46,10 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
                 className={styles.profileImage}
                 onError={handleImageError}
               />
-              <div className={styles.usernameOverlay}>{user.username}</div>
-            </div>
-          </div>
-          <div className="col d-flex flex-column justify-content-end">
-            <Form.Group>
-              <Form.Label className="d-none">Profile Picture</Form.Label>
-              <div className="d-flex align-items-center">
+              <Button
+                className={styles.btnUpload}
+                icon={<DriveFolderUploadIcon fontSize="small" />}
+              >
                 <input
                   type="file"
                   id="profilePictureInput"
@@ -60,38 +57,47 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
                   onChange={handleImageChange}
                   className={styles.fileInputHidden}
                 />
-                <div className={styles.btnImage}>
-                  <label
-                    htmlFor="profilePictureInput"
-                    className={styles.clickableLabel}
-                  >
-                    <DriveFolderUploadIcon className={styles.btnImageIcon} />
-                  </label>
-                </div>
-                <span>Upload image</span>
-              </div>
-              <Form.Text className="text-muted">
-                Select a new profile picture to update
-              </Form.Text>
+                <label
+                  htmlFor="profilePictureInput"
+                  className={styles.clickableLabel}
+                >
+                  Upload
+                </label>
+              </Button>
+            </div>
+          </Col>
+          <Col xs="auto" className="d-flex flex-column">
+            <div className={styles.profileUsername}>{user.username}</div>
+            <span className={styles.accountInfo}>
+              {user.id ? `User ID: ${user.id}` : 'Account details unavailable'}
+            </span>
+          </Col>
+          <Col className="d-flex flex-column justify-content-center text-center">
+            <Form.Group>
+              <Form.Label className="d-none">Profile Picture</Form.Label>
             </Form.Group>
-          </div>
-        </div>
-        <div className="d-flex">
-          <Button
-            className={`${styles.btnRestart} ${styles.modalButton}`}
-            type="submit"
-            disabled={loading || !profileImage}
-          >
-            {loading ? 'Updating...' : 'Update Profile'}
-          </Button>
-          <Button
-            className={`${styles.btnExit} ${styles.modalButton}`}
-            onClick={onClose}
-          >
-            Close
-          </Button>
-        </div>
-      </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <div className="d-flex">
+              <Button
+                className={`${styles.btnRestart} ${styles.modalButton}`}
+                type="submit"
+                disabled={loading || !profileImage}
+              >
+                {loading ? 'Updating...' : 'Update Profile'}
+              </Button>
+              <Button
+                className={`${styles.btnExit} ${styles.modalButton}`}
+                onClick={onClose}
+              >
+                Close
+              </Button>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </Form>
   );
 };
@@ -102,19 +108,21 @@ const ProfileSettingsTab: React.FC<ProfileSettingsTabProps> = ({
   onClose,
 }) => {
   return (
-    <div>
+    <Container className="p-0">
       <h5>Account Settings</h5>
       <p>Username: {user.username}</p>
       <p>Account created: {user.id ? `User ID: ${user.id}` : 'N/A'}</p>
-      <div className="d-flex mt-4">
-        <Button
-          className={`${styles.btnExit} ${styles.modalButton}`}
-          onClick={onClose}
-        >
-          Close
-        </Button>
-      </div>
-    </div>
+      <Row className="mt-4">
+        <Col>
+          <Button
+            className={`${styles.btnExit} ${styles.modalButton}`}
+            onClick={onClose}
+          >
+            Close
+          </Button>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
