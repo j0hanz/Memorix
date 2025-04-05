@@ -63,11 +63,14 @@ export function useAuthProvider(): AuthContextType {
     setLoading(true);
     try {
       const response = await axiosReq.get('/api/profiles/');
+      console.log('API response:', response.data);
+
       if (Array.isArray(response.data)) {
         const userProfile = response.data.find(
           (p: Profile) => p.owner === user.id,
         );
         if (userProfile) {
+          console.log('Found user profile:', userProfile);
           setProfile(userProfile);
           return userProfile;
         }

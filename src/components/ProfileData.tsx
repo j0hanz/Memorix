@@ -71,6 +71,26 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
             <span className={styles.accountInfo}>
               {user.id ? `User ID: ${user.id}` : 'Account details unavailable'}
             </span>
+            {profile ? (
+              <>
+                <span className={styles.accountInfo}>
+                  Created:{' '}
+                  {profile.created_at
+                    ? new Date(profile.created_at).toLocaleDateString()
+                    : 'N/A'}
+                </span>
+                <span className={styles.accountInfo}>
+                  Updated:{' '}
+                  {profile.updated_at
+                    ? new Date(profile.updated_at).toLocaleDateString()
+                    : 'N/A'}
+                </span>
+              </>
+            ) : (
+              <span className={styles.accountInfo}>
+                Profile data not available
+              </span>
+            )}
           </Col>
           <Col className="d-flex flex-column justify-content-center text-center">
             <Form.Group>

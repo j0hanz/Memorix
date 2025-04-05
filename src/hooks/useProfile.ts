@@ -12,8 +12,13 @@ export function useProfile() {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   useEffect(() => {
-    getProfile();
-  }, [getProfile]);
+    const fetchProfileData = async () => {
+      await getProfile();
+    };
+    if (user && !profile) {
+      fetchProfileData();
+    }
+  }, [user, profile, getProfile]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
