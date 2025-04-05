@@ -1,11 +1,7 @@
-import { ReactNode, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import LoadingSpinner from '@/components/Spinner';
-
-interface ProtectedRouteProps {
-  children: ReactNode;
-  onAuthRequired: () => void;
-}
+import { ProtectedRouteProps } from '@/types/components';
 
 const ProtectedRoute = ({ children, onAuthRequired }: ProtectedRouteProps) => {
   const { isAuthenticated, loading } = useAuth();

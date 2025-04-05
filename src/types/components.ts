@@ -34,6 +34,11 @@ export interface FormFieldProps {
   className?: string;
 }
 
+export interface ProtectedRouteProps {
+  children: ReactNode;
+  onAuthRequired: () => void;
+}
+
 export interface ImageProps {
   src: string;
   alt: string;
