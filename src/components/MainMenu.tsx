@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ProfileModal } from '@/components/Modal';
-import { AuthModal } from '@/components/Modal';
+import { ProfileModal } from '@/components/ModalComponents';
+import { AuthModal } from '@/components/ModalComponents';
 import { motion } from 'framer-motion';
 import Button from '@/components/Button';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';

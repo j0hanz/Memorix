@@ -3,14 +3,14 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { useAppState } from '@/hooks/useAppState';
 import Game from '@/components/Game';
 import LoadingSpinner from '@/components/Spinner';
-import { GameInstructions, LatestUpdates } from '@/components/Modal';
-import { CategorySelection } from '@/components/Modal';
+import { GameInstructions, LatestUpdates } from '@/components/ModalComponents';
+import { CategorySelection } from '@/components/ModalComponents';
 import { GameProvider } from '@/components/GameProvider';
 import { useMotions } from '@/hooks/useMotions';
 import MainMenu from '@/components/MainMenu';
 import { useNavigation } from '@/hooks/useNavigation';
 import ErrorBoundary from '@/components/ErrorBoundary';
-import { AuthModal } from '@/components/Modal';
+import { AuthModal } from '@/components/ModalComponents';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import { useAuth } from '@/hooks/useAuth';
 

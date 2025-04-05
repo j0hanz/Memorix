@@ -1,5 +1,5 @@
 import Cards from './Cards';
-import ScoreboardModal from './Modal';
+import ScoreboardModal from './ModalComponents';
 import { GameProps } from '@/types/components';
 import { useGameState } from '@/hooks/useGameState';
 

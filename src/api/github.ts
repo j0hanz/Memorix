@@ -6,6 +6,11 @@ const GITHUB_API_URL: string = GITHUB_API.API_URL;
 // GitHub personal access token (requires public repo access only)
 const GITHUB_TOKEN: string | undefined = import.meta.env.VITE_GITHUB_TOKEN;
 
+// GitHub API base URL
+const githubAxios = axios.create({
+  baseURL: '',
+});
+
 // Fetches the latest commits from the repository
 export const fetchLatestCommits = async (): Promise<Commit[]> => {
   try {
@@ -13,16 +18,19 @@ export const fetchLatestCommits = async (): Promise<Commit[]> => {
       console.warn('GitHub token not provided. API rate limits may apply.');
     }
 
-    const response = await axios.get<GitHubCommitResponse[]>(GITHUB_API_URL, {
-      headers: GITHUB_TOKEN
-        ? {
-            Authorization: `token ${GITHUB_TOKEN}`,
-          }
-        : {},
-      params: {
-        per_page: GITHUB_API.COMMITS_PER_PAGE, // Fetch latest commits
+    const response = await githubAxios.get<GitHubCommitResponse[]>(
+      GITHUB_API_URL,
+      {
+        headers: GITHUB_TOKEN
+          ? {
+              Authorization: `token ${GITHUB_TOKEN}`,
+            }
+          : {},
+        params: {
+          per_page: GITHUB_API.COMMITS_PER_PAGE, // Fetch latest commits
+        },
       },
-    });
+    );
     const commits = response.data;
     return commits.map((commit) => ({
       sha: commit.sha,
