@@ -11,7 +11,7 @@ import MainMenu from '@/components/MainMenu';
 import { useNavigation } from '@/hooks/useNavigation';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { AuthModal } from '@/components/Modal';
-import ProtectedRoute from '@/utils/ProtectedRoute';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function App() {
