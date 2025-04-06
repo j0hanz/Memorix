@@ -62,27 +62,18 @@ export function useAuthProvider(): AuthContextType {
     if (!token || !user?.profile_id) return null;
     setLoading(true);
     try {
-      const response = await axiosReq.get('/api/profiles/');
+      // Fetch the specific profile directly
+      const response = await axiosReq.get(`/api/profiles/${user.profile_id}/`);
       console.log('API response:', response.data);
-
-      if (Array.isArray(response.data)) {
-        const userProfile = response.data.find(
-          (p: Profile) => p.owner === user.profile_id,
-        );
-        if (userProfile) {
-          console.log('Found user profile:', userProfile);
-          setProfile(userProfile);
-          return userProfile;
-        }
-      }
-      return null;
+      setProfile(response.data);
+      return response.data;
     } catch (err) {
       console.error('Failed to fetch profile:', err);
       return null;
     } finally {
       setLoading(false);
     }
-  }, [token, user]);
+  }, [token, user?.profile_id]);
 
   // Handle login
   const login = async (credentials: LoginCredentials): Promise<boolean> => {
