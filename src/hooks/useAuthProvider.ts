@@ -59,7 +59,7 @@ export function useAuthProvider(): AuthContextType {
 
   // Fetch the user's profile
   const fetchProfile = useCallback(async (): Promise<Profile | null> => {
-    if (!token || !user?.id) return null;
+    if (!token || !user?.profile_id) return null;
     setLoading(true);
     try {
       const response = await axiosReq.get('/api/profiles/');
@@ -67,7 +67,7 @@ export function useAuthProvider(): AuthContextType {
 
       if (Array.isArray(response.data)) {
         const userProfile = response.data.find(
-          (p: Profile) => p.owner === user.id,
+          (p: Profile) => p.owner === user.profile_id,
         );
         if (userProfile) {
           console.log('Found user profile:', userProfile);

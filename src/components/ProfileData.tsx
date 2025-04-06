@@ -68,9 +68,6 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
           </Col>
           <Col xs="auto" className="d-flex flex-column">
             <div className={styles.profileUsername}>{user.username}</div>
-            <span className={styles.accountInfo}>
-              {user.id ? `User ID: ${user.id}` : 'Account details unavailable'}
-            </span>
             {profile ? (
               <>
                 <span className={styles.accountInfo}>
@@ -131,7 +128,10 @@ const ProfileSettingsTab: React.FC<ProfileSettingsTabProps> = ({
     <Container className="p-0">
       <h5>Account Settings</h5>
       <p>Username: {user.username}</p>
-      <p>Account created: {user.id ? `User ID: ${user.id}` : 'N/A'}</p>
+      <p>
+        Account created:{' '}
+        {user.profile_id ? `User ID: ${user.profile_id}` : 'N/A'}
+      </p>
       <Row className="mt-4">
         <Col>
           <Button
