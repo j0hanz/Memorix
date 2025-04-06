@@ -47,38 +47,37 @@ export default function MainMenu({
       </motion.div>
       <Button
         onClick={startGame}
-        className={styles.btnStart}
+        className={`${styles.btnMain} ${styles.btnStart}`}
         icon={<PlayCircleOutlineOutlinedIcon />}
-      >
-        Play Game
-      </Button>
-      <Button
-        onClick={openInstructions}
-        className={styles.btnGuide}
-        icon={<InfoOutlinedIcon />}
-      >
-        Guide
-      </Button>
+        text="Start Game"
+      ></Button>
       <Button
         onClick={handleAccountClick}
-        className={styles.btnGuide}
+        className={`${styles.btnMain} ${styles.btnMenu}`}
         icon={<PersonOutlineIcon />}
-      >
-        {isAuthenticated ? 'Account' : 'Sign In'}
-      </Button>
+        text={isAuthenticated ? 'Account' : 'Sign In'}
+      ></Button>
       {isAuthenticated && (
         <Button
           onClick={logout}
-          className={styles.btnGuide}
+          className={`${styles.btnMain} ${styles.btnMenu}`}
           icon={<ExitToAppOutlinedIcon />}
-        >
-          Sign Out
-        </Button>
+          text="Sign Out"
+        ></Button>
       )}
+      <Button
+        onClick={openInstructions}
+        className={`${styles.btnMain} ${styles.btnMenu}`}
+        icon={<InfoOutlinedIcon />}
+        text="Guide"
+      ></Button>
+      <Button
+        onClick={openLatestUpdates}
+        icon={<TrackChangesOutlinedIcon />}
+        className={`${styles.btnMain} ${styles.btnEnd}`}
+        text="Updates"
+      ></Button>
       <div className={styles.smallButtonsDiv}>
-        <div onClick={openLatestUpdates} className={styles.btnUpdates}>
-          <TrackChangesOutlinedIcon />
-        </div>
         <div
           onClick={toggleMute}
           className={styles.btnUpdates}

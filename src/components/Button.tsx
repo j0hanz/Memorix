@@ -16,8 +16,8 @@ const Button: FC<CustomButtonProps> = ({
 
   return (
     <CustomButton {...props} onClick={onClick} className={buttonClassName}>
-      {icon}
-      {text}
+      {icon && <div className={styles.icon}>{icon}</div>}
+      {text && <div className={styles.text}>{text}</div>}
       {children}
     </CustomButton>
   );
