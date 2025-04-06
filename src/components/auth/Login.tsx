@@ -25,20 +25,21 @@ const Login = ({ onClose }: LoginProps) => {
     <>
       {authError && <Alert variant="danger">{authError}</Alert>}
       <Form noValidate onSubmit={handleSubmit}>
-        <FormField
-          controlId="formUsername"
-          name="username"
-          type="text"
-          label="Username"
-          placeholder="Enter username"
-          value={values.username}
-          onChange={handleChange}
-          onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
-          error={errors.username}
-          showError={!!(touched.username || formSubmitted)}
-          className={styles.input}
-        />
-
+        <div className="my-4">
+          <FormField
+            controlId="formUsername"
+            name="username"
+            type="text"
+            label="Username"
+            placeholder="Enter username"
+            value={values.username}
+            onChange={handleChange}
+            onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
+            error={errors.username}
+            showError={!!(touched.username || formSubmitted)}
+            className={styles.input}
+          />
+        </div>
         <div className="my-4">
           <FormField
             controlId="formPassword"
@@ -54,7 +55,6 @@ const Login = ({ onClose }: LoginProps) => {
             className={styles.input}
           />
         </div>
-
         <div className="d-flex">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}
