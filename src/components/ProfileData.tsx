@@ -25,33 +25,31 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
     <Form onSubmit={handleUpdateProfile}>
       <Container fluid className="p-0">
         <Row className="p-4">
-          <Col className="d-flex justify-content-start">
-            <div className="position-relative">
-              <img
-                src={previewImage || profile?.profile_picture_url || ''}
-                alt="Profile"
-                className={styles.profileImage}
-                onError={(e) => console.error('Image load error:', e)}
+          <Col className="d-flex justify-content-start flex-column">
+            <img
+              src={previewImage || profile?.profile_picture_url || ''}
+              alt="Profile"
+              className={styles.profileImage}
+              onError={(e) => console.error('Image load error:', e)}
+            />
+            <Button
+              className={styles.btnUpload}
+              icon={<DriveFolderUploadIcon fontSize="small" />}
+            >
+              <input
+                type="file"
+                id="profilePictureInput"
+                accept="image/*"
+                onChange={handleImageChange}
+                className={styles.fileInputHidden}
               />
-              <Button
-                className={styles.btnUpload}
-                icon={<DriveFolderUploadIcon fontSize="small" />}
+              <label
+                htmlFor="profilePictureInput"
+                className={styles.clickableLabel}
               >
-                <input
-                  type="file"
-                  id="profilePictureInput"
-                  accept="image/*"
-                  onChange={handleImageChange}
-                  className={styles.fileInputHidden}
-                />
-                <label
-                  htmlFor="profilePictureInput"
-                  className={styles.clickableLabel}
-                >
-                  Upload
-                </label>
-              </Button>
-            </div>
+                Upload
+              </label>
+            </Button>
           </Col>
           <Col xs="auto" className="d-flex flex-column">
             <div className={styles.profileUsername}>{user.username}</div>
