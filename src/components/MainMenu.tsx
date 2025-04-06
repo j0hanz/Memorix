@@ -9,7 +9,7 @@ import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import styles from '@/App.module.css';
 import { MainMenuProps } from '@/types/components';
@@ -50,33 +50,33 @@ export default function MainMenu({
         className={`${styles.btnMain} ${styles.btnStart}`}
         icon={<PlayCircleOutlineOutlinedIcon />}
         text="Start Game"
-      ></Button>
+      />
       <Button
         onClick={handleAccountClick}
         className={`${styles.btnMain} ${styles.btnMenu}`}
-        icon={<PersonOutlineIcon />}
-        text={isAuthenticated ? 'Account' : 'Sign In'}
-      ></Button>
+        icon={<PersonIcon />}
+        text={isAuthenticated ? 'Profile' : 'Account'}
+      />
       {isAuthenticated && (
         <Button
           onClick={logout}
           className={`${styles.btnMain} ${styles.btnMenu}`}
           icon={<ExitToAppOutlinedIcon />}
           text="Sign Out"
-        ></Button>
+        />
       )}
       <Button
         onClick={openInstructions}
         className={`${styles.btnMain} ${styles.btnMenu}`}
         icon={<InfoOutlinedIcon />}
         text="Guide"
-      ></Button>
+      />
       <Button
         onClick={openLatestUpdates}
         icon={<TrackChangesOutlinedIcon />}
         className={`${styles.btnMain} ${styles.btnEnd}`}
         text="Updates"
-      ></Button>
+      />
       <div className={styles.smallButtonsDiv}>
         <div
           onClick={toggleMute}

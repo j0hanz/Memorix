@@ -48,19 +48,16 @@ export default function ScoreboardModal({
         <Button
           className={`${styles.btnRestart} ${styles.modalButton}`}
           onClick={onReset}
-        >
-          <ReplayCircleFilledOutlinedIcon
-            className={`${styles.btnIcon} me-1`}
-          />
-          Restart
-        </Button>
+          icon={<ReplayCircleFilledOutlinedIcon />}
+          text="Restart"
+        />
+
         <Button
           className={`${styles.btnExit} ${styles.modalButton}`}
           onClick={onExit}
-        >
-          <ExitToAppOutlinedIcon className={`${styles.btnIcon} me-1`} />
-          Exit
-        </Button>
+          icon={<ExitToAppOutlinedIcon />}
+          text="Exit"
+        />
       </Modal.Footer>
     </Modal>
   );
@@ -111,9 +108,7 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
     >
       <InstructionsData />
       <Modal.Footer className="border-0 mt-2">
-        <Button className={styles.btnClose} onClick={onClose}>
-          Close
-        </Button>
+        <Button className={styles.btnClose} onClick={onClose} text="Close" />
       </Modal.Footer>
     </Modal>
   );
@@ -139,9 +134,7 @@ export function CategorySelection({
         <CategoryData onSelectCategory={onSelectCategory} />
       </Modal.Body>
       <Modal.Footer className="border-0 mt-3">
-        <Button className={styles.btnClose} onClick={onClose}>
-          Cancel
-        </Button>
+        <Button className={styles.btnClose} onClick={onClose} text="Close" />
       </Modal.Footer>
     </Modal>
   );
@@ -163,9 +156,7 @@ export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
         <CommitStatus />
       </Modal.Body>
       <Modal.Footer className="border-0 mt-2">
-        <Button className={styles.btnClose} onClick={onClose}>
-          Close
-        </Button>
+        <Button className={styles.btnClose} onClick={onClose} text="Close" />
       </Modal.Footer>
     </Modal>
   );

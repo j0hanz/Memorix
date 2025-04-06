@@ -76,19 +76,17 @@ const Register = ({ onSuccess }: RegisterProps) => {
             className={`${styles.btnRestart} ${styles.modalButton}`}
             disabled={isSubmitting || loading}
             type="submit"
-          >
-            <PersonAddIcon className={`${styles.btnIcon} me-1`} />
-            {isSubmitting || loading ? 'Creating Account...' : 'Sign Up'}
-          </Button>
+            icon={<PersonAddIcon fontSize="small" />}
+            text={isSubmitting || loading ? 'Creating Account...' : 'Sign Up'}
+          />
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}
             onClick={onSuccess}
             type="button"
             disabled={isSubmitting || loading}
-          >
-            <ExitToAppOutlinedIcon className={`${styles.btnIcon} me-1`} />
-            Back
-          </Button>
+            icon={<ExitToAppOutlinedIcon fontSize="small" />}
+            text="Back"
+          />
         </div>
       </Form>
     </>

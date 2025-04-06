@@ -87,15 +87,14 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
                 className={`${styles.btnRestart} ${styles.modalButton}`}
                 type="submit"
                 disabled={loading || !profileImage}
-              >
-                {loading ? 'Updating...' : 'Update Profile'}
-              </Button>
+                text={loading ? 'Updating...' : 'Update Profile'}
+              />
+
               <Button
                 className={`${styles.btnExit} ${styles.modalButton}`}
                 onClick={onClose}
-              >
-                Close
-              </Button>
+                text="Close"
+              />
             </div>
           </Col>
         </Row>
@@ -122,9 +121,8 @@ const ProfileSettingsTab: React.FC<ProfileSettingsTabProps> = ({
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}
             onClick={onClose}
-          >
-            Close
-          </Button>
+            text="Close"
+          />
         </Col>
       </Row>
     </Container>
