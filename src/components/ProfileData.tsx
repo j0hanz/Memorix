@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Form, Alert, Row, Col, Container } from 'react-bootstrap';
 import Button from '@/components/Button';
 import styles from './styles/Modal.module.css';
-import Image from '@/components/Image';
 import { useProfile } from '@/hooks/useProfile';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ImageIcon from '@mui/icons-material/Image';
@@ -10,14 +9,6 @@ import TabNavigation from './TabNavigation';
 import { ProfileImageTabProps, ProfileSettingsTabProps } from '@/types/api';
 import { TabItem } from '@/types/components';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-
-// Utility function for handling image error
-const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-  const target = e.target as HTMLImageElement;
-  target.onerror = null;
-  target.src =
-    'https://res.cloudinary.com/dxly7tpdi/image/upload/nobody_nrbk5n';
-};
 
 // Profile Image Tab Component
 const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
@@ -36,15 +27,11 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
         <Row className="p-4">
           <Col className="d-flex justify-content-start">
             <div className="position-relative">
-              <Image
-                src={
-                  previewImage ||
-                  profile?.profile_picture_url ||
-                  'https://res.cloudinary.com/dxly7tpdi/image/upload/nobody_nrbk5n'
-                }
+              <img
+                src={previewImage || profile?.profile_picture_url || ''}
                 alt="Profile"
                 className={styles.profileImage}
-                onError={handleImageError}
+                onError={(e) => console.error('Image load error:', e)}
               />
               <Button
                 className={styles.btnUpload}
