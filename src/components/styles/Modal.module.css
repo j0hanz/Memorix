@@ -60,10 +60,6 @@
   font-size: 1.1rem !important;
 }
 
-.btnIcon {
-  font-size: 1.2rem;
-}
-
 /* Buttons */
 .modalButton {
   flex: 1;
@@ -85,6 +81,29 @@
   border-bottom-left-radius: 10px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+}
+
+.btnLeft {
+  background: var(--btn-secondary);
+  border: none;
+  border-radius: 0 0 0 10px;
+  border-right: 1px solid var(--bg-modal-content);
+}
+
+.btnRight {
+  background: var(--btn-secondary);
+  border: none;
+  border-radius: 0 0 10px 0;
+  border-left: 1px solid var(--bg-modal-content);
+}
+
+.btnLeft:hover,
+.btnRight:hover {
+  background: var(--btn-secondary-hover) !important;
+}
+.btnLeft:active,
+.btnRight:active {
+  background: var(--btn-secondary-hover) !important;
 }
 
 .btnRestart:hover {

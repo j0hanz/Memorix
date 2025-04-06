@@ -61,7 +61,7 @@ const Login = ({ onClose }: LoginProps) => {
             disabled={isSubmitting || loading}
             type="submit"
           >
-            <LoginIcon className={`${styles.btnIcon} me-1`} />
+            <LoginIcon fontSize="small" className={`${styles.btnIcon} me-2`} />
             {isSubmitting || loading ? 'Logging in...' : 'Sign In'}
           </Button>
           <Button
@@ -70,7 +70,10 @@ const Login = ({ onClose }: LoginProps) => {
             type="button"
             disabled={isSubmitting || loading}
           >
-            <ExitToAppOutlinedIcon className={`${styles.btnIcon} me-1`} />
+            <ExitToAppOutlinedIcon
+              fontSize="small"
+              className={`${styles.btnIcon} me-2`}
+            />
             Cancel
           </Button>
         </div>

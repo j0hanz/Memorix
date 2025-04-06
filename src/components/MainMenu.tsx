@@ -8,7 +8,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
-import GitHubIcon from '@mui/icons-material/GitHub';
+import Switch from '@mui/material/Switch';
 import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import styles from '@/App.module.css';
@@ -23,7 +23,7 @@ export default function MainMenu({
   openLatestUpdates,
   enterAnimation,
 }: MainMenuProps) {
-  const { isMuted, toggleMute, handleGitHubClick } = useLinks();
+  const { isMuted, toggleMute } = useLinks();
   const { isAuthenticated, logout } = useAuth();
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -77,17 +77,18 @@ export default function MainMenu({
         className={`${styles.btnMain} ${styles.btnEnd}`}
         text="Updates"
       />
-      <div className={styles.smallButtonsDiv}>
-        <div
-          onClick={toggleMute}
-          className={styles.btnUpdates}
-          aria-label={isMuted ? 'Unmute sounds' : 'Mute sounds'}
-        >
-          {isMuted ? <VolumeOffOutlinedIcon /> : <VolumeUpOutlinedIcon />}
-        </div>
-        <div onClick={handleGitHubClick} className={styles.btnUpdates}>
-          <GitHubIcon />
-        </div>
+      <div className={styles.bottomMenu}>
+        {isMuted ? <VolumeOffOutlinedIcon /> : <VolumeUpOutlinedIcon />}
+        <Switch
+          checked={!isMuted}
+          onChange={toggleMute}
+          color="secondary"
+          slotProps={{
+            input: {
+              'aria-label': isMuted ? 'Unmute sounds' : 'Mute sounds',
+            },
+          }}
+        />
       </div>
       <ProfileModal
         show={showProfileModal}

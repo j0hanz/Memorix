@@ -17,6 +17,7 @@ import {
   AuthModalProps,
   ProfileModalProps,
 } from '@/types/components';
+import { useLinks } from '@/hooks/useLinks';
 
 // Main modal
 export default function ScoreboardModal({
@@ -155,8 +156,17 @@ export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
       <Modal.Body>
         <CommitStatus />
       </Modal.Body>
-      <Modal.Footer className="border-0 mt-2">
-        <Button className={styles.btnClose} onClick={onClose} text="Close" />
+      <Modal.Footer className="border-0">
+        <Button
+          className={`${styles.btnLeft} ${styles.modalButton}`}
+          onClick={onClose}
+          text="Close"
+        />
+        <Button
+          className={`${styles.btnRight} ${styles.modalButton}`}
+          onClick={useLinks().handleGitHubClick}
+          text="Github"
+        />
       </Modal.Footer>
     </Modal>
   );
