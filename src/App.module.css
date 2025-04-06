@@ -8,20 +8,22 @@
 .gameTitle {
   font-family: 'Fredoka';
   font-weight: 500;
-  font-size: 4rem;
-  margin-bottom: 2rem;
+  font-size: 4.5rem;
   color: var(--text-color-highlight);
 }
 
-.bottomMenu {
-  margin-top: 1rem;
+.menuButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 1rem 0;
+  width: 100%;
 }
 
 .btnMain {
   width: 100%;
   height: 3rem;
   font-size: 1.1rem;
-  border-bottom: 2px solid var(--bg-primary);
   background: var(--btn-secondary);
 }
 
@@ -39,29 +41,10 @@
 
 .btnMain:hover {
   background: var(--btn-primary);
-  border-bottom: 2px solid var(--bg-primary) !important;
 }
 
 .btnMain:active {
   background: var(--btn-primary) !important;
-  border-bottom: 2px solid var(--bg-primary) !important;
-}
-
-.btnUpdates {
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background-color: var(--btn-secondary);
-  padding: 0.5rem;
-  border-radius: 50%;
-  display: none;
-}
-
-.btnUpdates:hover {
-  transform: scale(1.1);
-}
-
-.btnUpdates:active {
-  transform: scale(0.95);
 }
 
 @media (max-width: 480px) {

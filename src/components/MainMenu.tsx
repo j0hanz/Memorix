@@ -45,38 +45,40 @@ export default function MainMenu({
       >
         <div className={styles.gameTitle}>Memorix</div>
       </motion.div>
-      <Button
-        onClick={startGame}
-        className={`${styles.btnMain} ${styles.btnStart}`}
-        icon={<PlayCircleOutlineOutlinedIcon />}
-        text="Start Game"
-      />
-      <Button
-        onClick={handleAccountClick}
-        className={`${styles.btnMain} ${styles.btnMenu}`}
-        icon={<PersonIcon />}
-        text={isAuthenticated ? 'Profile' : 'Account'}
-      />
-      {isAuthenticated && (
+      <div className={styles.menuButtons}>
         <Button
-          onClick={logout}
-          className={`${styles.btnMain} ${styles.btnMenu}`}
-          icon={<ExitToAppOutlinedIcon />}
-          text="Sign Out"
+          onClick={startGame}
+          className={`${styles.btnMain} ${styles.btnStart}`}
+          icon={<PlayCircleOutlineOutlinedIcon />}
+          text="Start Game"
         />
-      )}
-      <Button
-        onClick={openInstructions}
-        className={`${styles.btnMain} ${styles.btnMenu}`}
-        icon={<InfoOutlinedIcon />}
-        text="Guide"
-      />
-      <Button
-        onClick={openLatestUpdates}
-        icon={<TrackChangesOutlinedIcon />}
-        className={`${styles.btnMain} ${styles.btnEnd}`}
-        text="Updates"
-      />
+        <Button
+          onClick={handleAccountClick}
+          className={`${styles.btnMain} ${styles.btnMenu}`}
+          icon={<PersonIcon />}
+          text={isAuthenticated ? 'Profile' : 'Account'}
+        />
+        {isAuthenticated && (
+          <Button
+            onClick={logout}
+            className={`${styles.btnMain} ${styles.btnMenu}`}
+            icon={<ExitToAppOutlinedIcon />}
+            text="Sign Out"
+          />
+        )}
+        <Button
+          onClick={openInstructions}
+          className={`${styles.btnMain} ${styles.btnMenu}`}
+          icon={<InfoOutlinedIcon />}
+          text="Guide"
+        />
+        <Button
+          onClick={openLatestUpdates}
+          icon={<TrackChangesOutlinedIcon />}
+          className={`${styles.btnMain} ${styles.btnEnd}`}
+          text="Updates"
+        />
+      </div>
       <div className={styles.bottomMenu}>
         {isMuted ? <VolumeOffOutlinedIcon /> : <VolumeUpOutlinedIcon />}
         <Switch
