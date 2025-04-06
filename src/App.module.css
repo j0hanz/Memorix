@@ -1,8 +1,6 @@
 .menu {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
 }
 
 .gameTitle {
@@ -15,47 +13,35 @@
 .smallButtonsDiv {
   display: flex;
   justify-content: space-between;
-  width: 12rem;
+  width: 100%;
   margin-top: 1.5rem;
 }
 
-/* Button styles */
-.btnStart,
-.btnGuide {
-  border: none;
-  border-radius: 10px;
-  width: 12rem;
-  font-size: 1.3rem;
+.btnMain {
+  width: 100%;
+  height: 3rem;
+  border-bottom: 1px solid var(--bg-primary);
+  background: var(--btn-secondary);
 }
 
 .btnStart {
+  border-radius: 6px 6px 0 0;
+}
+
+.btnEnd {
+  border-radius: 0 0 6px 6px;
+}
+
+.btnMenu {
+  border-radius: 0;
+}
+
+.btnMain:hover {
   background: var(--btn-primary);
-  color: var(--text-color);
 }
 
-.btnStart:hover {
-  background: var(--btn-primary-hover);
-  color: var(--text-color);
-}
-
-.btnStart:active {
-  background: var(--btn-primary-hover) !important;
-  color: var(--text-color);
-}
-
-.btnGuide {
-  background: var(--btn-secondary);
-  color: var(--text-color);
-}
-
-.btnGuide:hover {
-  background: var(--btn-secondary-hover);
-  color: var(--text-color);
-}
-
-.btnGuide:active {
-  background: var(--btn-secondary-hover) !important;
-  color: var(--text-color);
+.btnMain:active {
+  background: var(--btn-primary) !important;
 }
 
 .btnUpdates {
@@ -72,20 +58,4 @@
 
 .btnUpdates:active {
   transform: scale(0.95);
-}
-
-@media (max-width: 425px) {
-  .smallButtonsDiv {
-    width: 10rem;
-  }
-
-  .gameTitle {
-    font-size: 4rem;
-  }
-
-  .btnStart,
-  .btnGuide {
-    width: 10rem;
-    font-size: 1.1rem;
-  }
 }
