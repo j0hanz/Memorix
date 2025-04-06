@@ -1,6 +1,8 @@
 .menu {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 13rem;
 }
 
 .gameTitle {
@@ -20,7 +22,8 @@
 .btnMain {
   width: 100%;
   height: 3rem;
-  border-bottom: 1px solid var(--bg-primary);
+  font-size: 1.05rem;
+  border-bottom: 2px solid var(--bg-primary);
   background: var(--btn-secondary);
 }
 
@@ -38,10 +41,12 @@
 
 .btnMain:hover {
   background: var(--btn-primary);
+  border-bottom: 2px solid var(--bg-primary) !important;
 }
 
 .btnMain:active {
   background: var(--btn-primary) !important;
+  border-bottom: 2px solid var(--bg-primary) !important;
 }
 
 .btnUpdates {
