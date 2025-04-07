@@ -26,30 +26,32 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
       <Container fluid className="p-0">
         <Row className="p-4">
           <Col className="d-flex justify-content-start flex-column">
-            <img
-              src={previewImage || profile?.profile_picture_url || undefined}
-              alt="Profile"
-              className={styles.profileImage}
-              onError={(e) => console.error('Image load error:', e)}
-            />
-            <Button
-              className={styles.btnUpload}
-              icon={<DriveFolderUploadIcon fontSize="small" />}
-            >
-              <input
-                type="file"
-                id="profilePictureInput"
-                accept="image/*"
-                onChange={handleImageChange}
-                className={styles.fileInputHidden}
+            <div className={styles.profileImageContainer}>
+              <img
+                src={previewImage || profile?.profile_picture_url || undefined}
+                alt="Profile"
+                className={styles.profileImage}
+                onError={(e) => console.error('Image load error:', e)}
               />
-              <label
-                htmlFor="profilePictureInput"
-                className={styles.clickableLabel}
+              <Button
+                className={styles.btnUpload}
+                icon={<DriveFolderUploadIcon fontSize="small" />}
               >
-                Upload
-              </label>
-            </Button>
+                <input
+                  type="file"
+                  id="profilePictureInput"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className={styles.fileInputHidden}
+                />
+                <label
+                  htmlFor="profilePictureInput"
+                  className={styles.clickableLabel}
+                >
+                  Upload
+                </label>
+              </Button>
+            </div>
           </Col>
           <Col xs="auto" className="d-flex flex-column">
             <div className={styles.profileUsername}>{user.username}</div>

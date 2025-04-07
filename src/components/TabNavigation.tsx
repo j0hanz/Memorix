@@ -22,7 +22,7 @@ export const NavItem = ({
 
   return (
     <Nav.Item
-      className={`py-1 d-flex align-items-center ${className} ${isActive ? styles.active : ''}`}
+      className={`py-1 mb-1 d-flex align-items-center ${className} ${isActive ? styles.active : ''}`}
     >
       <Nav.Link
         eventKey={eventKey}
