@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ProfileModal } from '@/components/ModalComponents';
 import { AuthModal } from '@/components/ModalComponents';
 import { motion } from 'framer-motion';
@@ -24,11 +24,19 @@ export default function MainMenu({
   enterAnimation,
 }: MainMenuProps) {
   const { isMuted, toggleMute } = useLinks();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, user, profile, getProfile } = useAuth();
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
+  useEffect(() => {
+    // Fetch the profile if authenticated
+    if (isAuthenticated && user && !profile) {
+      getProfile();
+    }
+  }, [isAuthenticated, user, profile, getProfile]);
+
   const handleAccountClick = () => {
+    // Open profile modal if authenticated, otherwise open auth modal
     if (isAuthenticated) {
       setShowProfileModal(true);
     } else {
@@ -38,6 +46,19 @@ export default function MainMenu({
 
   return (
     <div className={styles.menu}>
+      {isAuthenticated && user && (
+        <div className={styles.userInfoTopRight}>
+          {profile && profile.profile_picture_url && (
+            <img
+              src={profile.profile_picture_url}
+              alt="Profile"
+              className={styles.menuProfileImage}
+              onClick={() => setShowProfileModal(true)}
+            />
+          )}
+        </div>
+      )}
+
       <motion.div
         initial={enterAnimation.initial}
         animate={enterAnimation.animate}
@@ -45,6 +66,7 @@ export default function MainMenu({
       >
         <div className={styles.gameTitle}>Memorix</div>
       </motion.div>
+
       <div className={styles.menuButtons}>
         <Button
           onClick={startGame}
