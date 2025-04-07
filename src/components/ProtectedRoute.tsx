@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/contexts/AuthContext';
 import LoadingSpinner from '@/components/Spinner';
 import { ProtectedRouteProps } from '@/types/components';
 

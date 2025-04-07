@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { axiosReq } from '@/api/axios';
-import { isTokenExpired, refreshAccessToken } from '@/utils/jwt';
+import { isTokenExpired } from '@/utils/tokenUtils';
+import { refreshAccessToken } from '@/utils/axiosUtils';
 import {
   User,
   Profile,
