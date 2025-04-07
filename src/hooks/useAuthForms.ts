@@ -1,4 +1,4 @@
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 import { useForm } from '@/hooks/useForm';
 import { LoginCredentials, RegisterData } from '@/types/auth';
 import {

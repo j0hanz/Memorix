@@ -12,7 +12,7 @@ import { useNavigation } from '@/hooks/useNavigation';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { AuthModal } from '@/components/ModalComponents';
 import ProtectedRoute from '@/components/ProtectedRoute';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);

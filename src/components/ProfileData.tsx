@@ -27,7 +27,7 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
         <Row className="p-4">
           <Col className="d-flex justify-content-start flex-column">
             <img
-              src={previewImage || profile?.profile_picture_url || ''}
+              src={previewImage || profile?.profile_picture_url || undefined}
               alt="Profile"
               className={styles.profileImage}
               onError={(e) => console.error('Image load error:', e)}

@@ -7,10 +7,9 @@ import {
   Profile,
   LoginCredentials,
   RegisterData,
-  AuthResponse,
   AuthContextType,
 } from '@/types/auth';
-import { ApiError } from '@/types/api';
+import { authService } from '@/hooks/useAuth';
 
 export function useAuthProvider(): AuthContextType {
   const [user, setUser] = useState<User | null>(null);
@@ -23,20 +22,6 @@ export function useAuthProvider(): AuthContextType {
   );
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
-  // Format API error messages into readable text
-  const formatErrorMessage = (error: ApiError): string => {
-    if (!error.response?.data) return 'An unexpected error occurred';
-    const data = error.response.data;
-    if (typeof data === 'string') return data;
-    return Object.entries(data)
-      .map(([key, value]) => {
-        const message = Array.isArray(value) ? value.join(', ') : String(value);
-        const formattedKey = key.charAt(0).toUpperCase() + key.slice(1);
-        return `${formattedKey}: ${message}`;
-      })
-      .join('; ');
-  };
 
   // Clear user and tokens from state and localStorage
   const logout = useCallback(() => {
@@ -65,7 +50,6 @@ export function useAuthProvider(): AuthContextType {
     try {
       // Fetch the specific profile directly
       const response = await axiosReq.get(`/api/profiles/${user.profile_id}/`);
-      console.log('API response:', response.data);
       setProfile(response.data);
       return response.data;
     } catch (err) {
@@ -76,58 +60,20 @@ export function useAuthProvider(): AuthContextType {
     }
   }, [token, user?.profile_id]);
 
-  // Handle login
+  // Using the service for login
   const login = async (credentials: LoginCredentials): Promise<boolean> => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await axiosReq.post<AuthResponse>(
-        '/dj-rest-auth/login/',
-        credentials,
-      );
-      const access =
-        response.data.access ||
-        response.data.token ||
-        response.data.access_token;
-      const refresh = response.data.refresh || response.data.refresh_token;
-      if (!access) {
-        setError('Access token not found in response');
-        return false;
-      }
-      setAuthTokens(access, refresh);
-      if (response.data.user) {
-        setUser(response.data.user);
-      } else {
-        const userResponse = await axiosReq.get('/dj-rest-auth/user/');
-        setUser(userResponse.data as User);
-      }
-      await fetchProfile();
-      return true;
-    } catch (err: unknown) {
-      console.error('Login failed:', err);
-      const errorObj = err as ApiError;
-      setError(formatErrorMessage(errorObj));
-      return false;
-    } finally {
-      setLoading(false);
-    }
+    return authService.login(credentials, {
+      setLoading,
+      setError,
+      setAuthTokens,
+      setUser,
+      fetchProfile,
+    });
   };
 
-  // Handle registration
+  // Using the service for registration
   const register = async (userData: RegisterData): Promise<boolean> => {
-    setLoading(true);
-    setError(null);
-    try {
-      await axiosReq.post('/dj-rest-auth/registration/', userData);
-      return true;
-    } catch (err: unknown) {
-      console.error('Registration failed:', err);
-      const errorObj = err as ApiError;
-      setError(formatErrorMessage(errorObj));
-      return false;
-    } finally {
-      setLoading(false);
-    }
+    return authService.register(userData, { setLoading, setError });
   };
 
   // Initialize user from stored token
