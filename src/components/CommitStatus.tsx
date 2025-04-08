@@ -1,5 +1,6 @@
-import { Badge, ListGroup } from 'react-bootstrap';
+import styles from './styles/Modal.module.css';
 import { useCommitStatus } from '@/hooks/useCommitStatus';
+import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 
 export default function CommitStatus() {
   const { commits, loading, error } = useCommitStatus();
@@ -13,30 +14,35 @@ export default function CommitStatus() {
   }
 
   if (!commits.length) {
-    return <div>No commits found.</div>;
+    return <div>No commit history available.</div>;
   }
 
   return (
-    <ListGroup>
-      {commits.map((commit, index) => {
-        const username = commit.author ? commit.author : 'Unknown';
-
-        return (
-          <ListGroup.Item
-            as="li"
-            className="d-flex justify-content-between align-items-start"
-            key={commit.sha || index}
-          >
-            <div>
-              <div>{new Date(commit.date).toISOString().split('T')[0]}</div>
-              <a href={commit.url}>{commit.message}</a>
+    <div className={styles.commitStatus}>
+      <ul className={styles.commitList}>
+        {commits.map((commit, index) => (
+          <li key={commit.sha || index} className={styles.commitItem}>
+            <div className={styles.commitDate}>
+              <CalendarTodayOutlinedIcon
+                fontSize="small"
+                className={styles.commitIcon}
+              />
+              <span>{new Date(commit.date).toLocaleDateString()}</span>
             </div>
-            <Badge bg="primary" pill>
-              {username}
-            </Badge>
-          </ListGroup.Item>
-        );
-      })}
-    </ListGroup>
+
+            <div className={styles.commitMessage}>
+              <a
+                href={commit.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.commitLink}
+              >
+                {commit.message}
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

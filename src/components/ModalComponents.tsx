@@ -153,7 +153,7 @@ export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
       <Modal.Header className="border-0 d-flex justify-content-center">
         <Modal.Title>Latest Changes</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="p-0">
         <CommitStatus />
       </Modal.Body>
       <Modal.Footer className="border-0">

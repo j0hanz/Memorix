@@ -24,6 +24,52 @@
   min-height: 50vh;
 }
 
+.commitStatus {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.commitList {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.commitItem {
+  padding: 0.8rem;
+  border-bottom: 1px solid var(--input-border-color);
+  border-radius: 0;
+}
+
+.commitDate {
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  font-size: 0.9em;
+  color: var(--text-count-color);
+}
+
+.commitMessage a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-color);
+  opacity: 0.6;
+  padding: 0.3rem 0;
+  transition: all 0.2s ease;
+}
+
+.commitMessage a:hover {
+  opacity: 1;
+}
+
+.commitIcon {
+  margin-right: 0.5rem;
+}
+
 /* Scoreboard */
 .scoreboard {
   display: flex;
@@ -265,7 +311,6 @@
   font-size: 1.5rem;
   color: var(--text-color);
   font-weight: 500;
-  margin-bottom: 0.5rem;
 }
 
 .accountInfo {
