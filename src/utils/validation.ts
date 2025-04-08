@@ -1,19 +1,19 @@
-import { ValidationRules } from '@/types/form';
+import type { ValidationRules } from '@/types/form';
 
 export const required =
-  (fieldName: string = 'Field') =>
+  (fieldName = 'Field') =>
   (value: string): string | null =>
     !value.trim() ? `${fieldName} is required` : null;
 
 export const minLength =
-  (length: number, fieldName: string = 'Field') =>
+  (length: number, fieldName = 'Field') =>
   (value: string): string | null =>
     value && value.length < length
       ? `${fieldName} must be at least ${length} characters`
       : null;
 
 export const matches =
-  (matchField: string, fieldName: string = 'Field') =>
+  (matchField: string, fieldName = 'Field') =>
   (value: string, formValues?: Record<string, string>): string | null => {
     if (!formValues) return null;
     return value !== formValues[matchField]
@@ -23,9 +23,10 @@ export const matches =
 
 export const compose =
   (
-    ...validators: Array<
-      (value: string, formValues?: Record<string, string>) => string | null
-    >
+    ...validators: ((
+      value: string,
+      formValues?: Record<string, string>,
+    ) => string | null)[]
   ) =>
   (value: string, formValues?: Record<string, string>): string | null => {
     for (const validator of validators) {

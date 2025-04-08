@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { axiosReq } from '@/api/axios';
-import { ApiError } from '@/types/api';
+import type { ApiError } from '@/types/api';
 
 export function useProfile() {
   const { profile, getProfile, user } = useAuth();

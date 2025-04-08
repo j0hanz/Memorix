@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { AuthContextType } from '@/types/auth';
+import type { AuthContextType } from '@/types/auth';
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,
@@ -9,7 +9,9 @@ export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   login: async () => false,
   register: async () => false,
-  logout: () => {},
+  logout: () => {
+    // Default implementation does nothing
+  },
   getProfile: async () => null,
   loading: false,
   error: null,

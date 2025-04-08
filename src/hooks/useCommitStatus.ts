@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchLatestCommits } from '@/api/github';
-import { Commit } from '@/types/api';
+import type { Commit } from '@/types/api';
 
 export function useCommitStatus() {
   const [commits, setCommits] = useState<Commit[]>([]);

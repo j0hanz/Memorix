@@ -1,4 +1,4 @@
-import { Variants, TargetAndTransition, Transition } from 'framer-motion';
+import type { Variants, TargetAndTransition, Transition } from 'framer-motion';
 
 export interface AppState {
   isGameActive: boolean;
@@ -18,12 +18,10 @@ export interface GameHandlerOptions {
   setSelectedCategory: (value: string) => void;
 }
 
-export interface ValidationRules {
-  [key: string]: (
-    value: string,
-    formValues?: Record<string, string>,
-  ) => string | null;
-}
+export type ValidationRules = Record<
+  string,
+  (value: string, formValues?: Record<string, string>) => string | null
+>;
 
 export interface MotionOptions {
   duration?: number;
@@ -35,9 +33,7 @@ export interface MotionOptions {
 }
 
 // Interface for CSS module styles
-export interface CSSModuleClasses {
-  [key: string]: string;
-}
+export type CSSModuleClasses = Record<string, string>;
 
 export interface AnimationReturn {
   enterAnimation: {

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useGameState } from '@/hooks/useGameState';
 import { CARD_STATUS, FEEDBACK, CSS_CLASSES } from '@/constants/constants';
-import { CardData } from '@/types/card';
-import { CSSModuleClasses } from '@/types/hooks';
+import type { CardData } from '@/types/card';
+import type { CSSModuleClasses } from '@/types/hooks';
 
 export function useCards(
   card?: CardData,

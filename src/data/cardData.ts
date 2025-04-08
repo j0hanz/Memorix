@@ -1,6 +1,6 @@
 import { GAME_CONFIG, CATEGORIES } from '@/constants/constants';
 import { shuffleCards } from '@/utils/deckUtils';
-import { CardDef, PairedCard } from '@/types/card';
+import type { CardDef, PairedCard } from '@/types/card';
 
 // Image paths for each category
 const IMAGE_PATHS = {

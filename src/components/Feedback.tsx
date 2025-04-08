@@ -4,7 +4,7 @@ import styles from './styles/GameStats.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMotions } from '@/hooks/useMotions';
 import { FEEDBACK } from '@/constants/constants';
-import { FeedbackProps } from '@/types/components';
+import type { FeedbackProps } from '@/types/components';
 
 // Display feedback messages based on the message prop
 const Feedback = ({ message }: FeedbackProps) => {
@@ -13,23 +13,21 @@ const Feedback = ({ message }: FeedbackProps) => {
   if (!message) return null;
 
   return (
-    <>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={message}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          variants={feedbackAnimation}
-        >
-          {message === FEEDBACK.SUCCESS ? (
-            <CheckOutlinedIcon fontSize="large" className={styles.success} />
-          ) : (
-            <CloseOutlinedIcon fontSize="large" className={styles.error} />
-          )}
-        </motion.div>
-      </AnimatePresence>
-    </>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={message}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={feedbackAnimation}
+      >
+        {message === FEEDBACK.SUCCESS ? (
+          <CheckOutlinedIcon fontSize="large" className={styles.success} />
+        ) : (
+          <CloseOutlinedIcon fontSize="large" className={styles.error} />
+        )}
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

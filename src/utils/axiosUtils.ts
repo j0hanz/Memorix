@@ -1,4 +1,4 @@
-import { InternalAxiosRequestConfig } from 'axios';
+import type { InternalAxiosRequestConfig } from 'axios';
 import { axiosReq } from '@/api/axios';
 import {
   getToken,

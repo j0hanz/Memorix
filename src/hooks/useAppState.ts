@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { AppState } from '@/types/hooks';
+import type { AppState } from '@/types/hooks';
 import { GAME_CONFIG, CATEGORIES } from '@/constants/constants';
 
 type AppAction =

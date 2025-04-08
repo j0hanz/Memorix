@@ -4,7 +4,7 @@ import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import { useTimer } from '@/hooks/useTimer';
 import { useScore } from '@/hooks/useScore';
 import styles from './styles/GameStats.module.css';
-import { MovesProps, TimerProps, ScoreProps } from '@/types/components';
+import type { MovesProps, TimerProps, ScoreProps } from '@/types/components';
 
 // Moves component
 export const Moves = ({ moves }: MovesProps) => {
@@ -42,7 +42,7 @@ export const Score = ({ moves, completedTime }: ScoreProps) => {
               ? styles.scoreIcon
               : `${styles.scoreIcon} ${styles.grayedOut}`
           }
-          aria-hidden={true}
+          aria-hidden
         />
       ))}
       <span className="visually-hidden">{stars} stars out of 5</span>

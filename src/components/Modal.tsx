@@ -1,7 +1,7 @@
 import { Modal as CustomModal } from 'react-bootstrap';
 import styles from './styles/Modal.module.css';
 import Button from './Button';
-import { ModalProps } from '@/types/components';
+import type { ModalProps } from '@/types/components';
 
 export function Modal({
   show,

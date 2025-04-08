@@ -1,6 +1,6 @@
-import { Variants } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { MOTIONS } from '@/constants/constants';
-import { MotionOptions } from '@/types/hooks';
+import type { MotionOptions } from '@/types/hooks';
 
 function getEnterAnimation() {
   // Animation for initial card entrance

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { PairedCard, generateCards } from '@/data/cardData';
+import type { PairedCard } from '@/data/cardData';
+import { generateCards } from '@/data/cardData';
 import { shuffleCards } from '@/utils/deckUtils';
 import { CATEGORIES } from '@/constants/constants';
 

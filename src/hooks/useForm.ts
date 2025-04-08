@@ -1,5 +1,6 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
-import { ValidationRules } from '@/types/hooks';
+import type { ChangeEvent, FormEvent } from 'react';
+import { useState } from 'react';
+import type { ValidationRules } from '@/types/hooks';
 
 export function useForm<T extends Record<string, string>>(
   initialValues: T,

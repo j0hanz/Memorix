@@ -1,5 +1,5 @@
 import { GAME_CONFIG, SOUNDS } from '@/constants/constants';
-import { GameHandlerOptions } from '@/types/hooks';
+import type { GameHandlerOptions } from '@/types/hooks';
 import { useSoundEffects } from './useSound';
 
 export const useNavigation = ({

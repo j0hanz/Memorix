@@ -1,6 +1,6 @@
 import { CATEGORY_INFO } from '@/constants/constants';
 import styles from './styles/Modal.module.css';
-import { CategoryDataProps } from '@/types/components';
+import type { CategoryDataProps } from '@/types/components';
 
 // Pure data component for category selection
 export default function CategoryData({ onSelectCategory }: CategoryDataProps) {

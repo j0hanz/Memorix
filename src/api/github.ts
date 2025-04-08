@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { GITHUB_API } from '@/constants/constants';
-import { Commit, GitHubCommitResponse } from '@/types/api';
+import type { Commit, GitHubCommitResponse } from '@/types/api';
 
 const GITHUB_API_URL: string = GITHUB_API.API_URL;
 // GitHub personal access token (requires public repo access only)

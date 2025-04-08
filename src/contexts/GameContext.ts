@@ -1,6 +1,7 @@
-import { createContext, Dispatch } from 'react';
-import { GameState } from '@/types/context';
-import { GameAction } from '@/reducers/gameReducer';
+import type { Dispatch } from 'react';
+import { createContext } from 'react';
+import type { GameState } from '@/types/context';
+import type { GameAction } from '@/reducers/gameReducer';
 
 export interface GameContextType extends GameState {
   // Dispatch function for game actions and event handlers

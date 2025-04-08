@@ -5,7 +5,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { useLoginForm } from '@/hooks/useAuthForms';
 import FormField from '../FormField';
-import { LoginProps } from '@/types/auth';
+import type { LoginProps } from '@/types/auth';
 
 const Login = ({ onClose }: LoginProps) => {
   const {

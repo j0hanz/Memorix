@@ -9,7 +9,7 @@ import CommitStatus from './CommitStatus';
 import CategoryData from './Category';
 import AuthData from './AuthData';
 import ProfileData from './ProfileData';
-import {
+import type {
   ScoreboardModalProps,
   GameInstructionsProps,
   LatestUpdatesProps,

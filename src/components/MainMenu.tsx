@@ -12,7 +12,7 @@ import Switch from '@mui/material/Switch';
 import PersonIcon from '@mui/icons-material/Person';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import styles from '@/App.module.css';
-import { MainMenuProps } from '@/types/components';
+import type { MainMenuProps } from '@/types/components';
 import { useLinks } from '@/hooks/useLinks';
 import { useAuth } from '@/hooks/useAuth';
 

@@ -1,6 +1,6 @@
 import { useAuth } from '@/hooks/useAuth';
 import { useForm } from '@/hooks/useForm';
-import { LoginCredentials, RegisterData } from '@/types/auth';
+import type { LoginCredentials, RegisterData } from '@/types/auth';
 import {
   loginValidationRules,
   registerValidationRules,

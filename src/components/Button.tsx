@@ -1,6 +1,6 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import { Button as CustomButton } from 'react-bootstrap';
-import { CustomButtonProps } from '@/types/components';
+import type { CustomButtonProps } from '@/types/components';
 import styles from './styles/Button.module.css';
 
 // Button component with optional icon and text

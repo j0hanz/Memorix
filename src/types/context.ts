@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { PairedCard } from './card';
-import { Dispatch } from 'react';
-import { GameAction } from '@/reducers/gameReducer';
+import type { ReactNode } from 'react';
+import type { PairedCard } from './card';
+import type { Dispatch } from 'react';
+import type { GameAction } from '@/reducers/gameReducer';
 
 export interface GameProviderProps {
   children: ReactNode;

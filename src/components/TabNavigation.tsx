@@ -2,7 +2,7 @@ import { Nav } from 'react-bootstrap';
 import styles from './styles/Modal.module.css';
 import { useSoundEffects } from '@/hooks/useSound';
 import { SOUNDS } from '@/constants/constants';
-import { TabNavigationProps } from '@/types/components';
+import type { TabNavigationProps } from '@/types/components';
 
 // NavItem component for tab rendering
 export const NavItem = ({

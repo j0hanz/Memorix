@@ -1,5 +1,5 @@
 import { Form } from 'react-bootstrap';
-import { FormFieldProps } from '@/types/components';
+import type { FormFieldProps } from '@/types/components';
 
 const FormField = ({
   controlId,

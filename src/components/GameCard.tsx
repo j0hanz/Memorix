@@ -3,7 +3,7 @@ import Card from './Card';
 import Image from './Image';
 import styles from './styles/GameCard.module.css';
 import { useMotions } from '@/hooks/useMotions';
-import { GameCardProps } from '@/types/card';
+import type { GameCardProps } from '@/types/card';
 import { useCards } from '@/hooks/useCards';
 
 function GameCard({ card, index, clickHandler }: GameCardProps) {

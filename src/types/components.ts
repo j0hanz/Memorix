@@ -1,7 +1,7 @@
-import { ReactNode } from 'react';
-import { ButtonProps } from 'react-bootstrap';
-import { TargetAndTransition, Transition } from 'framer-motion';
-import { PairedCard } from './card';
+import type { ReactNode } from 'react';
+import type { ButtonProps } from 'react-bootstrap';
+import type { TargetAndTransition, Transition } from 'framer-motion';
+import type { PairedCard } from './card';
 
 export interface CustomButtonProps extends ButtonProps {
   icon?: ReactNode;

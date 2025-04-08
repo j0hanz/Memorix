@@ -6,8 +6,11 @@ import { useProfile } from '@/hooks/useProfile';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ImageIcon from '@mui/icons-material/Image';
 import TabNavigation from './TabNavigation';
-import { ProfileImageTabProps, ProfileSettingsTabProps } from '@/types/api';
-import { TabItem } from '@/types/components';
+import type {
+  ProfileImageTabProps,
+  ProfileSettingsTabProps,
+} from '@/types/api';
+import type { TabItem } from '@/types/components';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 
 // Profile Image Tab Component

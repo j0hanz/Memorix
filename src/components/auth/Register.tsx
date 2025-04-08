@@ -5,7 +5,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { useRegisterForm } from '@/hooks/useAuthForms';
 import FormField from '../FormField';
-import { RegisterProps } from '@/types/auth';
+import type { RegisterProps } from '@/types/auth';
 
 const Register = ({ onSuccess }: RegisterProps) => {
   const {

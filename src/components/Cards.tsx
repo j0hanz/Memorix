@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { useMotions } from '@/hooks/useMotions';
 import { Timer, Moves } from './GameStats';
 import Feedback from './Feedback';
-import { CardsProps } from '@/types/components';
+import type { CardsProps } from '@/types/components';
 import styles from './styles/Cards.module.css';
 import { useCards } from '@/hooks/useCards';
 

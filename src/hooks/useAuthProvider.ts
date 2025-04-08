@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { axiosReq } from '@/api/axios';
 import { isTokenExpired } from '@/utils/tokenUtils';
 import { refreshAccessToken } from '@/utils/axiosUtils';
-import {
+import type {
   User,
   Profile,
   LoginCredentials,

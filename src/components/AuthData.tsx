@@ -5,7 +5,7 @@ import Register from './auth/Register';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import TabNavigation from './TabNavigation';
-import { TabItem } from '@/types/components';
+import type { TabItem } from '@/types/components';
 
 // Auth data component for the modal content
 export default function AuthData({ onClose }: { onClose: () => void }) {

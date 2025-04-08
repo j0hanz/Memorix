@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ImageProps } from '@/types/components';
+import type { ImageProps } from '@/types/components';
 
 // Enhanced Image component with error handling and loading management
 const Image: React.FC<ImageProps> = ({

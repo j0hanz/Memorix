@@ -1,6 +1,6 @@
 import { CARD_STATUS } from '@/constants/constants';
-import { PairedCard } from '@/types/card';
-import { GameState } from '@/types/context';
+import type { PairedCard } from '@/types/card';
+import type { GameState } from '@/types/context';
 
 export type GameAction =
   | { type: 'INITIALIZE_GAME'; payload: { cards: PairedCard[] } }

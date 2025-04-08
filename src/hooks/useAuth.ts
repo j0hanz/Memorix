@@ -1,14 +1,14 @@
 import { useContext } from 'react';
 import { axiosReq } from '@/api/axios';
 import { AuthContext } from '@/contexts/AuthContext';
-import {
+import type {
   LoginCredentials,
   RegisterData,
   AuthResponse,
   User,
   Profile,
 } from '@/types/auth';
-import { ApiError } from '@/types/api';
+import type { ApiError } from '@/types/api';
 
 export function useAuth() {
   const context = useContext(AuthContext);

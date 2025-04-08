@@ -1,4 +1,4 @@
-import { User, Profile } from './auth';
+import type { User, Profile } from './auth';
 
 export interface Commit {
   sha: string;
