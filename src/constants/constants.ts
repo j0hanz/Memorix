@@ -1,85 +1,21 @@
-// Game configuration
-export const GAME_CONFIG = {
-  TOTAL_PAIRS: 6,
-  LOADING_DELAY: 3000,
-  INITIAL_STATE: {
-    GAME_ACTIVE: false,
-    LOADING: false,
-    SHOW_INSTRUCTIONS: false,
-    SHOW_UPDATES: false,
-  },
-};
-
-// Scoring thresholds
-export const SCORING = {
-  FIVE_STAR: { moves: 6, time: 15 },
-  FOUR_STAR: { moves: 7, time: 30 },
-  THREE_STAR: { moves: 8, time: 45 },
-  TWO_STAR: { moves: 9, time: 60 },
-  // One star is default
-};
-
-// Game state constants
-export const CARD_STATUS = {
-  ACTIVE: 'active',
-  MATCHED: 'active matched',
-  DEFAULT: '',
-};
-
-// Feedback types
-export const FEEDBACK = {
-  SUCCESS: 'success',
-  ERROR: 'error',
-};
-
-// Sound identifiers
-export const SOUNDS = {
-  CORRECT: 'correct',
-  WRONG: 'wrong',
-  CLICK: 'click',
-  BUTTON: 'button',
-  COMPLETE: 'complete',
-};
-
-// Local storage keys
-export const STORAGE_KEYS = {
-  MUTE_STATE: 'memorixMuted',
-};
-
-// GitHub API config
-export const GITHUB_API = {
-  COMMITS_PER_PAGE: 3,
-  API_URL: 'https://api.github.com/repos/j0hanz/Memorix/commits',
-};
-
-// CSS class variants
-export const CSS_CLASSES = {
-  ACTIVE: 'active',
-  MATCHED: 'matched',
-  LOADING: 'loading',
-  SUCCESS: 'success',
-  ERROR: 'error',
-  GRAYED_OUT: 'grayedOut',
-};
-
 // Animation constants
 export const MOTIONS = {
   DEFAULT_DURATION: 0.2,
   SPRING: {
-    DEFAULT: {
+    CARD_ENTRANCE: {
       type: 'spring',
-      stiffness: 200,
-      damping: 25,
+      stiffness: 175,
+      damping: 40,
     },
     CARD_MATCH: {
       type: 'spring',
       stiffness: 100,
       damping: 20,
     },
-    CARD_ENTRANCE: {
+    DEFAULT: {
       type: 'spring',
-      stiffness: 175,
-      damping: 40,
+      stiffness: 200,
+      damping: 25,
     },
     HOVER: {
       type: 'spring',
@@ -87,11 +23,6 @@ export const MOTIONS = {
       damping: 25,
     },
   },
-};
-
-// Timer constants
-export const TIMER = {
-  INTERVAL: 1000,
 };
 
 // Card interaction delays
@@ -102,7 +33,14 @@ export const DELAYS = {
   RESTART_DELAY: 100,
 };
 
-// Game categories and descriptions
+// Card status constants
+export const CARD_STATUS = {
+  ACTIVE: 'active',
+  DEFAULT: '',
+  MATCHED: 'active matched',
+};
+
+// Categories and descriptions
 export const CATEGORIES = {
   ANIMALS: 'animals',
   ASTRONOMY: 'astronomy',
@@ -122,5 +60,75 @@ export const CATEGORY_INFO = {
   },
   [CATEGORIES.SUSHI]: {
     name: 'Sushi',
+  },
+};
+
+// CSS class variants
+export const CSS_CLASSES = {
+  ACTIVE: 'active',
+  ERROR: 'error',
+  GRAYED_OUT: 'grayedOut',
+  LOADING: 'loading',
+  MATCHED: 'matched',
+  SUCCESS: 'success',
+};
+
+// Feedback types
+export const FEEDBACK = {
+  ERROR: 'error',
+  SUCCESS: 'success',
+};
+
+// Game configuration
+export const GAME_CONFIG = {
+  INITIAL_STATE: {
+    GAME_ACTIVE: false,
+    LOADING: false,
+    SHOW_INSTRUCTIONS: false,
+    SHOW_UPDATES: false,
+  },
+  LOADING_DELAY: 3000,
+  TOTAL_PAIRS: 6,
+};
+
+// GitHub API config
+export const GITHUB_API = {
+  API_URL: 'https://api.github.com/repos/j0hanz/Memorix/commits',
+  COMMITS_PER_PAGE: 3,
+};
+
+// Local storage keys
+export const STORAGE_KEYS = {
+  MUTE_STATE: 'memorixMuted',
+};
+
+// Scoring thresholds
+export const SCORING = {
+  FIVE_STAR: { moves: 6, time: 15 },
+  FOUR_STAR: { moves: 7, time: 30 },
+  THREE_STAR: { moves: 8, time: 45 },
+  TWO_STAR: { moves: 9, time: 60 },
+  // One star is default
+};
+
+// Sound identifiers
+export const SOUNDS = {
+  BUTTON: 'button',
+  CLICK: 'click',
+  COMPLETE: 'complete',
+  CORRECT: 'correct',
+  WRONG: 'wrong',
+};
+
+// Timer constants
+export const TIMER = {
+  INTERVAL: 1000,
+};
+
+// Axios configuration
+export const AXIOS_CONFIG = {
+  baseURL: 'http://127.0.0.1:8000',
+  headersPost: {
+    'Content-Type': 'application/json',
   },
 };
