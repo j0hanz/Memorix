@@ -5,6 +5,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { useLoginForm } from '@/hooks/useAuthForms';
 import FormField from '../FormField';
+import { useFormStatus } from 'react-dom';
 import type { LoginProps } from '@/types/auth';
 
 const Login = ({ onClose }: LoginProps) => {
@@ -20,6 +21,8 @@ const Login = ({ onClose }: LoginProps) => {
     loading,
     authError,
   } = useLoginForm(onClose);
+
+  const { pending } = useFormStatus();
 
   return (
     <>
@@ -58,11 +61,11 @@ const Login = ({ onClose }: LoginProps) => {
         <div className="d-flex">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}
-            disabled={isSubmitting || loading}
+            disabled={isSubmitting || loading || pending}
             type="submit"
           >
             <LoginIcon fontSize="small" className={`${styles.btnIcon} me-2`} />
-            {isSubmitting || loading ? 'Logging in...' : 'Sign In'}
+            {isSubmitting || loading || pending ? 'Logging in...' : 'Sign In'}
           </Button>
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}

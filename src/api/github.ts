@@ -9,6 +9,7 @@ const GITHUB_TOKEN: string | undefined = import.meta.env.VITE_GITHUB_TOKEN;
 // GitHub API base URL
 const githubAxios = axios.create({
   baseURL: '',
+  withCredentials: false,
 });
 
 // Fetches the latest commits from the repository
@@ -27,7 +28,7 @@ export const fetchLatestCommits = async (): Promise<Commit[]> => {
             }
           : {},
         params: {
-          per_page: GITHUB_API.COMMITS_PER_PAGE, // Fetch latest commits
+          per_page: GITHUB_API.COMMITS_PER_PAGE,
         },
       },
     );

@@ -5,6 +5,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { useRegisterForm } from '@/hooks/useAuthForms';
 import FormField from '../FormField';
+import { useFormStatus } from 'react-dom';
 import type { RegisterProps } from '@/types/auth';
 
 const Register = ({ onSuccess }: RegisterProps) => {
@@ -20,6 +21,8 @@ const Register = ({ onSuccess }: RegisterProps) => {
     loading,
     authError,
   } = useRegisterForm(onSuccess);
+
+  const { pending } = useFormStatus();
 
   return (
     <>
@@ -75,10 +78,14 @@ const Register = ({ onSuccess }: RegisterProps) => {
         <div className="d-flex">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}
-            disabled={isSubmitting || loading}
+            disabled={isSubmitting || loading || pending}
             type="submit"
             icon={<PersonAddIcon fontSize="small" />}
-            text={isSubmitting || loading ? 'Creating Account...' : 'Sign Up'}
+            text={
+              isSubmitting || loading || pending
+                ? 'Creating Account...'
+                : 'Sign Up'
+            }
           />
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}
