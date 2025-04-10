@@ -84,6 +84,12 @@
   align-items: center;
 }
 
+.scoreTab {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
 /* Icons */
 .wrongPick {
   color: var(--feedback-wrong);

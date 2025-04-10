@@ -17,6 +17,7 @@ export default function Game({ onRestart }: GameProps) {
     completedTime,
     exitToMainMenu,
     resetGameState,
+    selectedCategory,
   } = useGameState();
 
   // Reset the game state
@@ -48,8 +49,9 @@ export default function Game({ onRestart }: GameProps) {
           onClose={handleModalClose}
           onReset={handleReset}
           onExit={exitToMainMenu}
-          completedTime={completedTime.toString()}
+          completedTime={completedTime}
           moves={moves}
+          categoryCode={selectedCategory}
         />
       )}
     </>

@@ -101,9 +101,10 @@ export interface ScoreboardModalProps {
   onReset: () => void;
   onExit: () => void;
   title?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
   moves: number;
-  completedTime: string;
+  completedTime: number;
+  categoryCode: string;
 }
 
 export interface GameInstructionsProps {

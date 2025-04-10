@@ -12,6 +12,10 @@ import type {
 } from '@/types/api';
 import type { TabItem } from '@/types/components';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import { Table, Spinner } from 'react-bootstrap';
+import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
+import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 
 // Profile Image Tab Component
 const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
@@ -110,17 +114,63 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
 
 // Profile Settings Tab Component
 const ProfileSettingsTab: React.FC<ProfileSettingsTabProps> = ({
-  user,
+  user: _user,
   onClose,
+  scores = [],
+  loadingScores = false,
 }) => {
+  // Function to render stars
+  const renderStars = (count: number) => {
+    return Array.from({ length: count }, (_, i) => (
+      <StarOutlinedIcon
+        key={i}
+        className={styles.scoreIcon}
+        style={{ fontSize: '1rem' }}
+      />
+    ));
+  };
+
   return (
     <Container className="p-0">
-      <h5>Account Settings</h5>
-      <p>Username: {user.username}</p>
-      <p>
-        Account created:{' '}
-        {user.profile_id ? `User ID: ${user.profile_id}` : 'N/A'}
-      </p>
+      <h5 className="mt-4">Your Game History</h5>
+      {loadingScores ? (
+        <div className="text-center p-4">
+          <Spinner animation="border" size="sm" />
+          <p className="mt-2">Loading your game history...</p>
+        </div>
+      ) : scores.length > 0 ? (
+        <div className="table-responsive">
+          <Table striped hover size="sm">
+            <tbody>
+              {scores.map((score) => (
+                <tr
+                  key={score.id}
+                  className="d-flex justify-content-between align-items-center"
+                >
+                  <td className={styles.scoreTab}>{score.category_name}</td>
+                  <td className={styles.scoreTab}>
+                    {renderStars(score.stars)}
+                  </td>
+                  <td className={styles.scoreTab}>
+                    <FlipOutlinedIcon />
+                    {score.moves}
+                  </td>
+                  <td className={styles.scoreTab}>
+                    <TimerOutlinedIcon />
+                    {score.time_seconds}
+                  </td>
+                  <td className={styles.scoreTab}>{score.completed_at}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      ) : (
+        <div className="text-center p-3">
+          <p>No game history found. Start playing to see your scores here!</p>
+        </div>
+      )}
+
       <Row className="mt-4">
         <Col>
           <Button
@@ -147,6 +197,8 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     previewImage,
     handleImageChange,
     handleUpdateProfile,
+    scores,
+    loadingScores,
   } = useProfile();
 
   if (!user) {
@@ -194,10 +246,14 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         />
       )}
       {activeKey === 'settings' && (
-        <ProfileSettingsTab user={user} onClose={onClose} />
+        <ProfileSettingsTab
+          user={user}
+          onClose={onClose}
+          scores={scores}
+          loadingScores={loadingScores}
+        />
       )}
     </>
   );
 };
-
 export default ProfileData;

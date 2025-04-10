@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { axiosReq } from '@/api/axios';
-import type { ApiError } from '@/types/api';
+import gameService from '@/api/gameService';
+import type { ApiError, UserScore } from '@/types/api';
 
 export function useProfile() {
-  const { profile, getProfile, user } = useAuth();
+  const { profile, getProfile, user, isAuthenticated } = useAuth();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [scores, setScores] = useState<UserScore[]>([]);
+  const [loadingScores, setLoadingScores] = useState(false);
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -19,6 +22,25 @@ export function useProfile() {
       fetchProfileData();
     }
   }, [user, profile, getProfile]);
+
+  // Fetch user scores
+  useEffect(() => {
+    const fetchScores = async () => {
+      if (user && isAuthenticated) {
+        setLoadingScores(true);
+        try {
+          const data = await gameService.getUserScores();
+          setScores(data);
+        } catch (err) {
+          console.error('Failed to fetch scores:', err);
+        } finally {
+          setLoadingScores(false);
+        }
+      }
+    };
+
+    fetchScores();
+  }, [user, isAuthenticated]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -84,5 +106,7 @@ export function useProfile() {
     previewImage,
     handleImageChange,
     handleUpdateProfile,
+    scores,
+    loadingScores,
   };
 }

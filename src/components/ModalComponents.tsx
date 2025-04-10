@@ -1,4 +1,7 @@
+import { useState, useEffect, useRef } from 'react';
 import { Modal } from 'react-bootstrap';
+import { useAuth } from '@/hooks/useAuth';
+import { useScore } from '@/hooks/useScore';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import Button from './Button';
@@ -9,6 +12,7 @@ import CommitStatus from './CommitStatus';
 import CategoryData from './Category';
 import AuthData from './AuthData';
 import ProfileData from './ProfileData';
+import gameService from '@/api/gameService';
 import type {
   ScoreboardModalProps,
   GameInstructionsProps,
@@ -19,7 +23,6 @@ import type {
 } from '@/types/components';
 import { useLinks } from '@/hooks/useLinks';
 
-// Main modal
 export default function ScoreboardModal({
   show,
   onClose,
@@ -29,7 +32,48 @@ export default function ScoreboardModal({
   children,
   moves,
   completedTime,
+  categoryCode,
 }: ScoreboardModalProps) {
+  const { isAuthenticated } = useAuth();
+  const { stars } = useScore(moves, completedTime);
+  const [scoreSaved, setScoreSaved] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const isSaving = useRef(false);
+
+  // Save the score when the modal is shown
+  useEffect(() => {
+    const saveScore = async () => {
+      // Check if already saving or already saved
+      if (show && isAuthenticated && !scoreSaved && !isSaving.current) {
+        isSaving.current = true;
+        try {
+          await gameService.saveGameResult({
+            category: categoryCode.toUpperCase(),
+            moves,
+            time_seconds: completedTime,
+            stars,
+          });
+          setScoreSaved(true);
+        } catch (error) {
+          console.error('Failed to save score:', error);
+          setSaveError('Failed to save your score. Try again later.');
+        } finally {
+          isSaving.current = false;
+        }
+      }
+    };
+
+    saveScore();
+  }, [
+    show,
+    isAuthenticated,
+    scoreSaved,
+    categoryCode,
+    completedTime,
+    moves,
+    stars,
+  ]);
+
   return (
     <Modal
       show={show}
@@ -43,7 +87,17 @@ export default function ScoreboardModal({
       </Modal.Header>
       <Modal.Body>
         {children}
-        <Scoreboard moves={moves} completedTime={completedTime} />
+        <Scoreboard moves={moves} completedTime={completedTime.toString()} />
+        {isAuthenticated && scoreSaved && (
+          <div className="text-success text-center mt-3">
+            <small>Score saved successfully!</small>
+          </div>
+        )}
+        {saveError && (
+          <div className="text-danger text-center mt-3">
+            <small>{saveError}</small>
+          </div>
+        )}
       </Modal.Body>
       <Modal.Footer className="border-0 mt-2">
         <Button
@@ -52,7 +106,6 @@ export default function ScoreboardModal({
           icon={<ReplayCircleFilledOutlinedIcon />}
           text="Restart"
         />
-
         <Button
           className={`${styles.btnExit} ${styles.modalButton}`}
           onClick={onExit}

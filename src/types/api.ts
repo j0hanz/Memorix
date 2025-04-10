@@ -44,7 +44,26 @@ export interface ProfileImageTabProps {
   onClose: () => void;
 }
 
+export interface GameResultData {
+  category: string;
+  moves: number;
+  time_seconds: number;
+  stars: number;
+}
+
+export interface UserScore {
+  id: number;
+  username: string;
+  category_name: string;
+  moves: number;
+  time_seconds: number;
+  stars: number;
+  completed_at: string;
+}
+
 export interface ProfileSettingsTabProps {
   user: User;
   onClose: () => void;
+  scores?: UserScore[];
+  loadingScores?: boolean;
 }
