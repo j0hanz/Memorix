@@ -3,9 +3,8 @@ import Button from '@/components/Button';
 import styles from '@/components/styles/Modal.module.css';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import { useRegisterForm } from '@/hooks/useAuthForms';
+import { useRegister } from '@/hooks/useRegister';
 import FormField from '../FormField';
-import { useFormStatus } from 'react-dom';
 import type { RegisterProps } from '@/types/auth';
 
 const Register = ({ onSuccess }: RegisterProps) => {
@@ -13,16 +12,13 @@ const Register = ({ onSuccess }: RegisterProps) => {
     values,
     errors,
     touched,
-    isSubmitting,
     formSubmitted,
     handleChange,
     handleBlur,
     handleSubmit,
     loading,
     authError,
-  } = useRegisterForm(onSuccess);
-
-  const { pending } = useFormStatus();
+  } = useRegister(onSuccess);
 
   return (
     <>
@@ -58,7 +54,6 @@ const Register = ({ onSuccess }: RegisterProps) => {
             className={styles.input}
           />
         </div>
-
         <div className="my-4">
           <FormField
             controlId="formConfirmPassword"
@@ -74,24 +69,19 @@ const Register = ({ onSuccess }: RegisterProps) => {
             className={styles.input}
           />
         </div>
-
         <div className="d-flex">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}
-            disabled={isSubmitting || loading || pending}
+            disabled={loading}
             type="submit"
             icon={<PersonAddIcon fontSize="small" />}
-            text={
-              isSubmitting || loading || pending
-                ? 'Creating Account...'
-                : 'Sign Up'
-            }
+            text={loading ? 'Creating Account...' : 'Sign Up'}
           />
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}
             onClick={onSuccess}
             type="button"
-            disabled={isSubmitting || loading}
+            disabled={loading}
             icon={<ExitToAppOutlinedIcon fontSize="small" />}
             text="Back"
           />

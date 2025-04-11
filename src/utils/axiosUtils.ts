@@ -1,4 +1,4 @@
-import type { InternalAxiosRequestConfig } from 'axios';
+import type { InternalAxiosRequestConfig, AxiosError } from 'axios';
 import { axiosReq } from '@/api/axios';
 import {
   getToken,
@@ -10,36 +10,47 @@ import {
   subscribeTokenRefresh,
   getIsRefreshing,
   setIsRefreshing,
+  parseTokensFromResponse,
 } from '@/utils/tokenUtils';
 
-// Refresh the access token using the refresh token
+// Improved refresh token function with better error handling
 export const refreshAccessToken = async (): Promise<string | null> => {
   try {
     const refresh = getRefreshToken();
     if (!refresh) {
       console.warn('No refresh token available');
+      clearTokens(); // Clear any potentially invalid tokens
       return null;
     }
 
     const response = await axiosReq.post('/dj-rest-auth/token/refresh/', {
       refresh,
     });
-    const newToken = (response.data as { access: string }).access;
 
-    if (newToken) {
-      setToken(newToken);
-      return newToken;
+    const { accessToken } = parseTokensFromResponse(response.data);
+
+    if (accessToken) {
+      setToken(accessToken);
+      return accessToken;
     }
 
+    console.warn('Access token not found in refresh response');
     return null;
   } catch (error) {
-    console.error('Failed to refresh token:', error);
+    const axiosError = error as AxiosError;
+
+    if (axiosError.response?.status === 401) {
+      console.error('Refresh token invalid or expired');
+    } else {
+      console.error('Failed to refresh token:', axiosError.message);
+    }
+
     clearTokens();
     return null;
   }
 };
 
-// Configure Axios request interceptor for authentication
+// Configure Axios request interceptor for authentication with improved error handling
 const setupAxiosInterceptors = (): void => {
   axiosReq.interceptors.request.use(
     async (config: InternalAxiosRequestConfig) => {
@@ -54,27 +65,45 @@ const setupAxiosInterceptors = (): void => {
       let token = getToken();
       if (!token) return config;
 
-      // Handle token expiration
+      // Handle token expiration with better error recovery
       if (isTokenExpired(token)) {
         if (!getIsRefreshing()) {
           setIsRefreshing(true);
-          const newToken = await refreshAccessToken();
-          setIsRefreshing(false);
+          try {
+            const newToken = await refreshAccessToken();
+            setIsRefreshing(false);
 
-          if (newToken) {
-            token = newToken;
-            onRefreshed(newToken);
-            config.headers = config.headers || {};
-            config.headers.Authorization = `Bearer ${newToken}`;
-            return config;
-          } else {
-            // Trigger logout event
-            window.dispatchEvent(new Event('auth:logout'));
-            return Promise.reject(
-              new Error('Authentication expired. Please log in again.'),
+            if (newToken) {
+              token = newToken;
+              onRefreshed(newToken);
+              config.headers = config.headers || {};
+              config.headers.Authorization = `Bearer ${newToken}`;
+              return config;
+            } else {
+              // Trigger logout event with more context
+              window.dispatchEvent(
+                new CustomEvent('auth:logout', {
+                  detail: { reason: 'token-refresh-failed' },
+                }),
+              );
+
+              return Promise.reject(
+                new Error('Authentication expired. Please log in again.'),
+              );
+            }
+          } catch (error) {
+            setIsRefreshing(false);
+            // Handle unexpected errors during refresh
+            window.dispatchEvent(
+              new CustomEvent('auth:logout', {
+                detail: { reason: 'refresh-error' },
+              }),
             );
+            return Promise.reject(error);
           }
         }
+
+        // Wait for the ongoing refresh to complete
         return new Promise<InternalAxiosRequestConfig<unknown>>((resolve) => {
           subscribeTokenRefresh((newToken: string) => {
             config.headers = config.headers || {};
@@ -83,6 +112,8 @@ const setupAxiosInterceptors = (): void => {
           });
         });
       }
+
+      // Normal case: Add token to request
       if (config.headers) {
         config.headers.Authorization = `Bearer ${token}`;
       }

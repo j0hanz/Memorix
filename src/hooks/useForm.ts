@@ -1,6 +1,17 @@
 import type { ChangeEvent, FormEvent } from 'react';
 import { useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import type { ValidationRules } from '@/types/hooks';
+
+// This hook is used to manage form state and validation.
+export function useFormSubmitStatus() {
+  const { pending, data } = useFormStatus();
+
+  return {
+    isPending: pending,
+    formData: data,
+  };
+}
 
 export function useForm<T extends Record<string, string>>(
   initialValues: T,
@@ -10,7 +21,6 @@ export function useForm<T extends Record<string, string>>(
   const [values, setValues] = useState<T>(initialValues);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -68,27 +78,32 @@ export function useForm<T extends Record<string, string>>(
     const isValid = validateForm();
     if (!isValid || !onSubmit) return false;
 
-    setIsSubmitting(true);
     try {
       const result = await onSubmit(values);
-      setIsSubmitting(false);
       return result;
     } catch {
-      setIsSubmitting(false);
       return false;
     }
+  };
+
+  const createFormAction = () => {
+    return async (formData: FormData) => {
+      if (!onSubmit) return false;
+      const formValues = Object.fromEntries(formData.entries()) as unknown as T;
+      return await onSubmit(formValues);
+    };
   };
 
   return {
     values,
     errors,
     touched,
-    isSubmitting,
     formSubmitted,
     handleChange,
     handleBlur,
     handleSubmit,
     setValues,
     setErrors,
+    createFormAction,
   };
 }

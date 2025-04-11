@@ -77,4 +77,7 @@ export interface AuthContextType {
   getProfile: () => Promise<Profile | null>;
   loading: boolean;
   error: string | null;
+  setUser: (user: User | null) => void;
+  setAuthTokens: (accessToken: string, refreshToken?: string) => void;
+  fetchProfile: () => Promise<Profile | null>;
 }

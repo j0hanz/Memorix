@@ -3,9 +3,8 @@ import Button from '@/components/Button';
 import styles from '@/components/styles/Modal.module.css';
 import LoginIcon from '@mui/icons-material/Login';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import { useLoginForm } from '@/hooks/useAuthForms';
+import { useLogin } from '@/hooks/useLogin';
 import FormField from '../FormField';
-import { useFormStatus } from 'react-dom';
 import type { LoginProps } from '@/types/auth';
 
 const Login = ({ onClose }: LoginProps) => {
@@ -13,16 +12,13 @@ const Login = ({ onClose }: LoginProps) => {
     values,
     errors,
     touched,
-    isSubmitting,
     formSubmitted,
     handleChange,
     handleBlur,
     handleSubmit,
     loading,
     authError,
-  } = useLoginForm(onClose);
-
-  const { pending } = useFormStatus();
+  } = useLogin(onClose);
 
   return (
     <>
@@ -61,17 +57,17 @@ const Login = ({ onClose }: LoginProps) => {
         <div className="d-flex">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}
-            disabled={isSubmitting || loading || pending}
+            disabled={loading}
             type="submit"
           >
             <LoginIcon fontSize="small" className={`${styles.btnIcon} me-2`} />
-            {isSubmitting || loading || pending ? 'Loading...' : 'Sign In'}
+            {loading ? 'Loading...' : 'Sign In'}
           </Button>
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}
             onClick={onClose}
             type="button"
-            disabled={isSubmitting || loading}
+            disabled={loading}
           >
             <ExitToAppOutlinedIcon
               fontSize="small"

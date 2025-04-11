@@ -1,111 +1,150 @@
-import { useContext } from 'react';
-import { axiosReq } from '@/api/axios';
+import { useState, useEffect, useCallback, useContext } from 'react';
 import { AuthContext } from '@/contexts/AuthContext';
-import type {
-  LoginCredentials,
-  RegisterData,
-  AuthResponse,
-  User,
-  Profile,
-} from '@/types/auth';
+import { axiosReq } from '@/api/axios';
+import {
+  getToken,
+  setToken,
+  setRefreshToken,
+  isTokenExpired,
+  clearTokens,
+} from '@/utils/tokenUtils';
+import { refreshAccessToken } from '@/utils/axiosUtils';
+import type { User, Profile, AuthContextType } from '@/types/auth';
 import type { ApiError } from '@/types/api';
 
+// Hook to use auth context in components
 export function useAuth() {
   const context = useContext(AuthContext);
   return context;
 }
 
-// AuthService to handle authentication-related tasks
-export const authService = {
-  // Format API error messages
-  formatErrorMessage: (error: ApiError): string => {
-    if (!error.response?.data) return 'An unexpected error occurred';
-    const data = error.response.data;
-    if (typeof data === 'string') return data;
-    return Object.entries(data)
-      .map(([key, value]) => {
-        const message = Array.isArray(value) ? value.join(', ') : String(value);
-        const formattedKey = key.charAt(0).toUpperCase() + key.slice(1);
-        return `${formattedKey}: ${message}`;
-      })
-      .join('; ');
-  },
+// Hook to create auth provider state and logic
+export function useAuthProvider(): AuthContextType {
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [token, setTokenState] = useState<string>(getToken() || '');
+  const [refreshToken, setRefreshTokenState] = useState<string>(
+    localStorage.getItem('refreshToken') || '',
+  );
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Login function
-  login: async (
-    credentials: LoginCredentials,
-    callbacks: {
-      setLoading: (loading: boolean) => void;
-      setError: (error: string | null) => void;
-      setAuthTokens: (access: string, refresh?: string) => void;
-      setUser: (user: User) => void;
-      fetchProfile: () => Promise<Profile | null>;
-    },
-  ): Promise<boolean> => {
-    const { setLoading, setError, setAuthTokens, setUser, fetchProfile } =
-      callbacks;
+  // Clear user and tokens from state and localStorage
+  const logout = useCallback(() => {
+    setUser(null);
+    setProfile(null);
+    setTokenState('');
+    setRefreshTokenState('');
+    clearTokens();
+  }, []);
+
+  // Utility to update tokens in both state and localStorage with validation
+  const setAuthTokens = useCallback((access: string, refresh?: string) => {
+    if (access) {
+      setTokenState(access);
+      setToken(access); // Use the enhanced utility
+    }
+
+    if (refresh) {
+      setRefreshTokenState(refresh);
+      setRefreshToken(refresh); // Use the enhanced utility
+    }
+  }, []);
+
+  // Fetch the user's profile with better error handling
+  const fetchProfile = useCallback(async (): Promise<Profile | null> => {
+    if (!token || !user?.profile_id) return null;
 
     setLoading(true);
     setError(null);
 
     try {
-      const response = await axiosReq.post<AuthResponse>(
-        '/dj-rest-auth/login/',
-        credentials,
-      );
-      const access =
-        response.data.access ||
-        response.data.token ||
-        response.data.access_token;
-      const refresh = response.data.refresh || response.data.refresh_token;
-      if (!access) {
-        setError('Access token not found in response');
-        return false;
-      }
+      const response = await axiosReq.get(`/api/profiles/${user.profile_id}/`);
+      setProfile(response.data);
+      return response.data;
+    } catch (err: unknown) {
+      console.error('Failed to fetch profile:', err);
+      const errorObj = err as ApiError;
+      setError(errorObj.response?.data?.detail || 'Failed to load profile');
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  }, [token, user?.profile_id]);
 
-      setAuthTokens(access, refresh);
+  // Initialize user from stored token with improved token validation
+  useEffect(() => {
+    const initializeUser = async () => {
+      if (!token) return;
 
-      if (response.data.user) {
-        setUser(response.data.user);
-      } else {
+      setLoading(true);
+      setError(null);
+
+      try {
+        if (isTokenExpired(token)) {
+          const newToken = await refreshAccessToken();
+          if (newToken) {
+            setAuthTokens(newToken);
+          } else {
+            logout();
+            return;
+          }
+        }
+
         const userResponse = await axiosReq.get('/dj-rest-auth/user/');
         setUser(userResponse.data as User);
+      } catch (err: unknown) {
+        console.error('Error during token initialization:', err);
+        const errorObj = err as ApiError;
+        const errorMessage =
+          errorObj.response?.data?.detail || 'Authentication error';
+        setError(errorMessage);
+        logout();
+      } finally {
+        setLoading(false);
       }
-      await fetchProfile();
-      return true;
-    } catch (err: unknown) {
-      console.error('Login failed:', err);
-      const errorObj = err as ApiError;
-      setError(authService.formatErrorMessage(errorObj));
-      return false;
-    } finally {
-      setLoading(false);
+    };
+
+    initializeUser();
+  }, [token, logout, setAuthTokens]);
+
+  // Fetch profile when user changes
+  useEffect(() => {
+    if (user?.id) {
+      fetchProfile();
     }
-  },
+  }, [user, fetchProfile]);
 
-  // Register function
-  register: async (
-    userData: RegisterData,
-    callbacks: {
-      setLoading: (loading: boolean) => void;
-      setError: (error: string | null) => void;
-    },
-  ): Promise<boolean> => {
-    const { setLoading, setError } = callbacks;
+  // Listen for global logout events with enhanced event data
+  useEffect(() => {
+    const handleLogout = (event: Event) => {
+      const customEvent = event as CustomEvent;
+      if (customEvent.detail?.reason) {
+        console.log(`Logout triggered: ${customEvent.detail.reason}`);
+      }
+      logout();
+    };
 
-    setLoading(true);
-    setError(null);
+    window.addEventListener('auth:logout', handleLogout);
+    return () => window.removeEventListener('auth:logout', handleLogout);
+  }, [logout]);
 
-    try {
-      await axiosReq.post('/dj-rest-auth/registration/', userData);
-      return true;
-    } catch (err: unknown) {
-      console.error('Registration failed:', err);
-      const errorObj = err as ApiError;
-      setError(authService.formatErrorMessage(errorObj));
-      return false;
-    } finally {
-      setLoading(false);
-    }
-  },
-};
+  const isAuthenticated = Boolean(user && token);
+
+  return {
+    user,
+    profile,
+    token,
+    refreshToken,
+    isAuthenticated,
+    login: () => Promise.resolve(false),
+    register: () => Promise.resolve(false),
+    logout,
+    getProfile: fetchProfile,
+    loading,
+    error,
+    setUser,
+    setAuthTokens,
+    fetchProfile,
+  };
+}

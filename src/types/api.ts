@@ -24,11 +24,15 @@ export interface GitHubCommitResponse {
 
 export interface ApiError {
   response?: {
-    data?: Record<string, string | string[]>;
+    data?: {
+      detail?: string;
+      [key: string]: string | string[] | undefined;
+    };
     status?: number;
+    statusText?: string;
   };
-  request?: unknown;
   message?: string;
+  [key: string]: unknown;
 }
 
 export interface ProfileImageTabProps {
