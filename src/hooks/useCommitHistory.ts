@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchLatestCommits } from '@/api/github';
 import type { Commit } from '@/types/api';
 
-export function useCommitStatus() {
+export function useCommit() {
   const [commits, setCommits] = useState<Commit[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -18,9 +18,8 @@ export function useCommitStatus() {
         }
       } catch (err) {
         if (isMounted) {
-          setError(
-            err instanceof Error ? err : new Error('Failed to fetch commits'),
-          );
+          setError(err as Error);
+          console.error('Failed to fetch commits:', err);
         }
       } finally {
         if (isMounted) {

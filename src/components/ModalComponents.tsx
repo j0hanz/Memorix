@@ -8,7 +8,7 @@ import Button from './Button';
 import styles from './styles/Modal.module.css';
 import Scoreboard from '@/components/scoreData';
 import InstructionsData from '@/components/instructionsData';
-import CommitStatus from './CommitStatus';
+import CommitStatus from './CommitHistory';
 import CategoryData from './Category';
 import AuthData from './AuthData';
 import ProfileData from './ProfileData';

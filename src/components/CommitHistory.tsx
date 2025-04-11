@@ -1,18 +1,11 @@
+import type { Commit } from '@/types/api';
 import styles from './styles/Modal.module.css';
-import { useCommitStatus } from '@/hooks/useCommitStatus';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import { useCommit } from '@/hooks/useCommitHistory';
 
-export default function CommitStatus() {
-  const { commits, loading, error } = useCommitStatus();
-
-  if (loading) {
-    return <div>Loading commit data...</div>;
-  }
-
-  if (error) {
-    return <div>Error loading commits: {error.message}</div>;
-  }
-
+// Component that displays the commit list
+const CommitList = ({ commits }: { commits: Commit[] }) => {
+  // Handle empty commit list
   if (!commits.length) {
     return <div>No commit history available.</div>;
   }
@@ -45,4 +38,19 @@ export default function CommitStatus() {
       </ul>
     </div>
   );
+};
+
+// Main component
+export default function CommitStatus() {
+  const { commits, loading, error } = useCommit();
+
+  if (loading) {
+    return <div>Loading commit data...</div>;
+  }
+
+  if (error) {
+    return <div>Failed to load commit data.</div>;
+  }
+
+  return <CommitList commits={commits} />;
 }
