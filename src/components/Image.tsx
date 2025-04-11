@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { ImageProps } from '@/types/components';
 
 // Enhanced Image component with error handling and loading management

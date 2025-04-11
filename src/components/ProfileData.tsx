@@ -1,21 +1,24 @@
-import React, { useState } from 'react';
-import { Form, Alert, Row, Col, Container } from 'react-bootstrap';
+import { useState } from 'react';
+import { Form, Alert, Row, Col, Container, Table } from 'react-bootstrap';
 import Button from '@/components/Button';
 import styles from './styles/Modal.module.css';
 import { useProfile } from '@/hooks/useProfile';
-import SettingsIcon from '@mui/icons-material/Settings';
-import ImageIcon from '@mui/icons-material/Image';
 import TabNavigation from './TabNavigation';
 import type {
   ProfileImageTabProps,
   ProfileSettingsTabProps,
 } from '@/types/api';
 import type { TabItem } from '@/types/components';
+import ImageIcon from '@mui/icons-material/Image';
+import SettingsIcon from '@mui/icons-material/Settings';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import { Table, Spinner } from 'react-bootstrap';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+
+// Helper function to format dates
+const formatDate = (date?: string) =>
+  date ? new Date(date).toLocaleDateString() : 'N/A';
 
 // Profile Image Tab Component
 const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
@@ -35,7 +38,7 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
           <Col className="d-flex justify-content-start flex-column">
             <div className={styles.profileImageContainer}>
               <img
-                src={previewImage || profile?.profile_picture_url || undefined}
+                src={previewImage || profile?.profile_picture_url}
                 alt="Profile"
                 className={styles.profileImage}
                 onError={(e) => console.error('Image load error:', e)}
@@ -65,16 +68,10 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
             {profile ? (
               <>
                 <span className={styles.accountInfo}>
-                  Created:{' '}
-                  {profile.created_at
-                    ? new Date(profile.created_at).toLocaleDateString()
-                    : 'N/A'}
+                  Created: {formatDate(profile.created_at)}
                 </span>
                 <span className={styles.accountInfo}>
-                  Updated:{' '}
-                  {profile.updated_at
-                    ? new Date(profile.updated_at).toLocaleDateString()
-                    : 'N/A'}
+                  Updated: {formatDate(profile.updated_at)}
                 </span>
               </>
             ) : (
@@ -98,7 +95,6 @@ const ProfileImageTab: React.FC<ProfileImageTabProps> = ({
                 disabled={loading || !profileImage}
                 text={loading ? 'Updating...' : 'Update Profile'}
               />
-
               <Button
                 className={`${styles.btnExit} ${styles.modalButton}`}
                 onClick={onClose}
@@ -119,25 +115,20 @@ const ProfileSettingsTab: React.FC<ProfileSettingsTabProps> = ({
   scores = [],
   loadingScores = false,
 }) => {
-  // Function to render stars
-  const renderStars = (count: number) => {
-    return Array.from({ length: count }, (_, i) => (
+  const renderStars = (count: number) =>
+    Array.from({ length: count }, (_, i) => (
       <StarOutlinedIcon
         key={i}
         className={styles.scoreIcon}
         style={{ fontSize: '1rem' }}
       />
     ));
-  };
 
   return (
     <Container className="p-0">
       <h5 className="mt-4">Your Game History</h5>
       {loadingScores ? (
-        <div className="text-center p-4">
-          <Spinner animation="border" size="sm" />
-          <p className="mt-2">Loading your game history...</p>
-        </div>
+        <div className="text-center p-4">Loading...</div>
       ) : scores.length > 0 ? (
         <div className="table-responsive">
           <Table striped hover size="sm">
@@ -167,10 +158,9 @@ const ProfileSettingsTab: React.FC<ProfileSettingsTabProps> = ({
         </div>
       ) : (
         <div className="text-center p-3">
-          <p>No game history found. Start playing to see your scores here!</p>
+          No game history found. Start playing to see your scores here!
         </div>
       )}
-
       <Row className="mt-4">
         <Col>
           <Button
@@ -184,7 +174,7 @@ const ProfileSettingsTab: React.FC<ProfileSettingsTabProps> = ({
   );
 };
 
-// Main ProfileData component
+// Main ProfileData Component
 const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const [activeKey, setActiveKey] = useState<string>('image');
   const {
@@ -201,9 +191,7 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     loadingScores,
   } = useProfile();
 
-  if (!user) {
-    return <p>Please log in to view your profile</p>;
-  }
+  if (!user) return <>Please log in to view your profile</>;
 
   const tabs: TabItem[] = [
     {
@@ -224,13 +212,11 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     <>
       {error && <Alert variant="danger">{error}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
-
       <TabNavigation
         activeKey={activeKey}
         tabs={tabs}
         onSelect={setActiveKey}
       />
-
       {activeKey === 'image' && (
         <ProfileImageTab
           user={user}
@@ -256,4 +242,5 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
     </>
   );
 };
+
 export default ProfileData;
