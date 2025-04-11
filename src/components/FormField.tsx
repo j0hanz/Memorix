@@ -7,6 +7,7 @@ const FormField = ({
   type,
   label,
   placeholder,
+  defaultValue,
   value,
   onChange,
   onBlur,
@@ -14,21 +15,26 @@ const FormField = ({
   showError,
   className,
 }: FormFieldProps) => {
+  // Determine if this is a controlled or uncontrolled input
+  const isControlled = value !== undefined && onChange !== undefined;
+  // Handle default value for uncontrolled inputs
+  const errorMessage = Array.isArray(error) ? error.join(', ') : error;
+
   return (
     <Form.Group controlId={controlId}>
       <Form.Label className="d-none">{label}</Form.Label>
       <Form.Control
         type={type}
         name={name}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
+        {...(isControlled ? { value, onChange, onBlur } : { defaultValue })}
         placeholder={placeholder}
         isInvalid={showError && !!error}
         required
         className={className}
       />
-      <Form.Control.Feedback type="invalid">{error}</Form.Control.Feedback>
+      <Form.Control.Feedback type="invalid">
+        {errorMessage}
+      </Form.Control.Feedback>
     </Form.Group>
   );
 };

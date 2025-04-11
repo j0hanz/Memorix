@@ -32,12 +32,13 @@ export interface FormFieldProps {
   name: string;
   type: string;
   label: string;
-  placeholder: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
-  error?: string;
-  showError: boolean;
+  placeholder?: string;
+  defaultValue?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  error?: string | string[];
+  showError?: boolean;
   className?: string;
 }
 

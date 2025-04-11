@@ -1,36 +1,53 @@
-import { useState } from 'react';
+import { useActionState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { useForm } from '@/hooks/useForm';
 import { axiosReq } from '@/api/axios';
 import { parseTokensFromResponse } from '@/utils/tokenUtils';
-import type { LoginCredentials, AuthResponse, User } from '@/types/auth';
+import type {
+  LoginCredentials,
+  AuthResponse,
+  User,
+  LoginState,
+} from '@/types/auth';
 import type { ApiError } from '@/types/api';
-import { loginValidationRules } from '@/utils/validation';
-import { formatErrorMessage } from '@/utils/errorUtils';
 
 export function useLogin(onSuccess?: () => void) {
   const { setAuthTokens, setUser, fetchProfile, error: authError } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = async (values: LoginCredentials) => {
-    setLoading(true);
-    setError(null);
+  // Initial state for the login form
+  const initialState: LoginState = {
+    error: null,
+    fieldErrors: {},
+    values: { username: '', password: '' },
+    success: false,
+  };
 
+  // Define the login action handler with proper types
+  const loginAction = async (
+    _state: LoginState,
+    formData: FormData,
+  ): Promise<LoginState> => {
     try {
+      const values: LoginCredentials = {
+        username: formData.get('username') as string,
+        password: formData.get('password') as string,
+      };
+
       const response = await axiosReq.post<AuthResponse>(
         '/dj-rest-auth/login/',
         values,
       );
 
-      // Use the enhanced token parser
       const { accessToken, refreshToken } = parseTokensFromResponse(
         response.data,
       );
 
       if (!accessToken) {
-        setError('Access token not found in response');
-        return false;
+        return {
+          error: 'Access token not found in response',
+          fieldErrors: {},
+          values,
+          success: false,
+        };
       }
 
       setAuthTokens(accessToken, refreshToken || undefined);
@@ -38,14 +55,8 @@ export function useLogin(onSuccess?: () => void) {
       if (response.data.user) {
         setUser(response.data.user);
       } else {
-        try {
-          const userResponse = await axiosReq.get('/dj-rest-auth/user/');
-          setUser(userResponse.data as User);
-        } catch (userError) {
-          console.error('Failed to fetch user data after login:', userError);
-          setError('Login successful but could not fetch user data');
-          return false;
-        }
+        const userResponse = await axiosReq.get('/dj-rest-auth/user/');
+        setUser(userResponse.data as User);
       }
 
       await fetchProfile();
@@ -54,26 +65,40 @@ export function useLogin(onSuccess?: () => void) {
         onSuccess();
       }
 
-      return true;
+      return {
+        error: null,
+        fieldErrors: {},
+        values: { username: '', password: '' },
+        success: true,
+      };
     } catch (err: unknown) {
-      console.error('Login failed:', err);
       const errorObj = err as ApiError;
-      setError(formatErrorMessage(errorObj));
-      return false;
-    } finally {
-      setLoading(false);
+      return {
+        error: errorObj.response?.data?.detail || 'Login failed',
+        fieldErrors: Object.fromEntries(
+          Object.entries(errorObj.response?.data || {}).filter(
+            ([, value]) => value !== undefined,
+          ),
+        ) as Record<string, string | string[]>,
+        values: {
+          username: formData.get('username') as string,
+          password: '',
+        },
+        success: false,
+      };
     }
   };
 
-  const formMethods = useForm(
-    { username: '', password: '' },
-    loginValidationRules,
-    handleLogin,
+  // Use the useActionState hook with proper type arguments
+  const [state, formAction, isPending] = useActionState<LoginState, FormData>(
+    loginAction,
+    initialState,
   );
 
   return {
-    ...formMethods,
-    loading,
-    authError: error || authError,
+    state,
+    formAction,
+    isPending,
+    authError: state.error || authError,
   };
 }

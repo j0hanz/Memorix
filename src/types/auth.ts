@@ -14,6 +14,13 @@ export interface Profile {
   updated_at?: string;
 }
 
+export interface LoginState {
+  error: string | null;
+  fieldErrors: Record<string, string | string[]>;
+  values: { username: string; password: string };
+  success: boolean;
+}
+
 export interface LoginCredentials {
   username: string;
   password: string;
