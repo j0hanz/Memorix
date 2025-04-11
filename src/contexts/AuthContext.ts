@@ -6,6 +6,7 @@ export const AuthContext = createContext<AuthContextType>({
   profile: null,
   token: '',
   refreshToken: '',
+  authError: undefined,
   isAuthenticated: false,
   login: async () => false,
   register: async () => false,
@@ -15,4 +16,11 @@ export const AuthContext = createContext<AuthContextType>({
   getProfile: async () => null,
   loading: false,
   error: null,
+  setUser: () => {
+    // Default implementation does nothing
+  },
+  setAuthTokens: () => {
+    // Default implementation does nothing
+  },
+  fetchProfile: async () => null,
 });
