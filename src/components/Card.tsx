@@ -1,4 +1,3 @@
-import React from 'react';
 import type { CardProps } from '@/types/card';
 
 const Card: React.FC<CardProps> = ({
