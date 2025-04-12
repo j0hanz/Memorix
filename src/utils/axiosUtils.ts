@@ -1,5 +1,5 @@
 import type { InternalAxiosRequestConfig, AxiosError } from 'axios';
-import { axiosReq } from '@/api/axios';
+import { axiosReq } from '@/services/axios';
 import {
   getToken,
   getRefreshToken,

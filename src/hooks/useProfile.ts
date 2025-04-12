@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { axiosReq } from '@/api/axios';
-import gameService from '@/api/gameService';
+import { axiosReq } from '@/services/axios';
+import gameService from '@/services/gameService';
 import type { ApiError, UserScore } from '@/types/api';
 
 export function useProfile() {

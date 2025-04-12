@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { axiosReq } from '@/api/axios';
+import { axiosReq } from '@/services/axios';
 import { useForm } from '@/hooks/useForm';
 import type { RegisterData } from '@/types/auth';
 import type { ApiError } from '@/types/api';

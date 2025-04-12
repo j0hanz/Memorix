@@ -12,7 +12,7 @@ import CommitStatus from './CommitHistory';
 import CategoryData from './Category';
 import AuthData from './AuthData';
 import ProfileData from './ProfileData';
-import gameService from '@/api/gameService';
+import gameService from '@/services/gameService';
 import type {
   ScoreboardModalProps,
   GameInstructionsProps,

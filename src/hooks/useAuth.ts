@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useContext } from 'react';
 import { AuthContext } from '@/contexts/AuthContext';
-import { axiosReq } from '@/api/axios';
+import { axiosReq } from '@/services/axios';
 import {
   getToken,
   setToken,

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchLatestCommits } from '@/api/github';
+import { fetchLatestCommits } from '@/services/github';
 import type { Commit } from '@/types/api';
 
 export function useCommit() {

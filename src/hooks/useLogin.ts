@@ -1,6 +1,6 @@
 import { useActionState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import { axiosReq } from '@/api/axios';
+import { axiosReq } from '@/services/axios';
 import { parseTokensFromResponse } from '@/utils/tokenUtils';
 import type {
   LoginCredentials,
