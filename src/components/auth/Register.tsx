@@ -4,7 +4,7 @@ import styles from '@/components/styles/Modal.module.css';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { useRegister } from '@/hooks/useRegister';
-import FormField from '../FormField';
+import FormField from '@/components/FormField';
 import type { RegisterProps } from '@/types/auth';
 
 const Register = ({ onSuccess }: RegisterProps) => {

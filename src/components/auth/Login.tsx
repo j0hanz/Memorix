@@ -4,7 +4,7 @@ import styles from '@/components/styles/Modal.module.css';
 import LoginIcon from '@mui/icons-material/Login';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { useLogin } from '@/hooks/useLogin';
-import FormField from '../FormField';
+import FormField from '@/components/FormField';
 import type { LoginProps } from '@/types/auth';
 
 const Login = ({ onClose }: LoginProps) => {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AXIOS_CONFIG } from '../constants/constants';
+import { AXIOS_CONFIG } from '@/constants/constants';
 
 // Set the base URL for all axios requests
 axios.defaults.baseURL = AXIOS_CONFIG.baseURL;
