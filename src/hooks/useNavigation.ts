@@ -13,6 +13,14 @@ export const useNavigation = ({
 }: GameHandlerOptions & { setShowAuthModal: (value: boolean) => void }) => {
   const { playSound } = useSoundEffects();
 
+  // Define a function to handle sound actions
+  const createSoundAction = <T>(action: (arg?: T) => void) => {
+    return (arg?: T) => {
+      playSound(SOUNDS.BUTTON);
+      action(arg);
+    };
+  };
+
   // Common loading logic with sound
   const showLoadingAndStartGame = (callback?: () => void) => {
     playSound(SOUNDS.BUTTON);
@@ -24,17 +32,23 @@ export const useNavigation = ({
     }, GAME_CONFIG.LOADING_DELAY);
   };
 
-  // Close the auth modal
-  const closeAuthModal = () => {
-    playSound(SOUNDS.BUTTON);
-    setShowAuthModal(false);
-  };
-
-  // Start game with category selection
-  const startGame = () => {
-    playSound(SOUNDS.BUTTON);
-    setShowCategorySelection(true);
-  };
+  // Navigation actions
+  const closeAuthModal = createSoundAction(() => setShowAuthModal(false));
+  const startGame = createSoundAction(() => setShowCategorySelection(true));
+  const handleExit = createSoundAction(() => setIsGameActive(false));
+  const handleAppReset = createSoundAction(() => {
+    setIsGameActive(false);
+    setIsLoading(false);
+  });
+  const openInstructions = createSoundAction(() => setShowInstructions(true));
+  const closeInstructions = createSoundAction(() => setShowInstructions(false));
+  const openLatestUpdates = createSoundAction(() => setShowLatestUpdates(true));
+  const closeLatestUpdates = createSoundAction(() =>
+    setShowLatestUpdates(false),
+  );
+  const closeCategorySelection = createSoundAction(() =>
+    setShowCategorySelection(false),
+  );
 
   // Start game with selected category
   const startGameWithCategory = () => {
@@ -43,66 +57,19 @@ export const useNavigation = ({
   };
 
   // Restart game with loading screen
-  const handleRestart = () => {
-    playSound(SOUNDS.BUTTON);
+  const handleRestart = createSoundAction(() => {
     setIsGameActive(false);
     showLoadingAndStartGame();
-  };
-
-  // Exit to main menu
-  const handleExit = () => {
-    playSound(SOUNDS.BUTTON);
-    setIsGameActive(false);
-  };
-
-  // Handle app-level error recovery
-  const handleAppReset = () => {
-    playSound(SOUNDS.BUTTON);
-    setIsGameActive(false);
-    setIsLoading(false);
-  };
+  });
 
   // Handle game-specific error recovery
-  const handleGameReset = () => {
-    playSound(SOUNDS.BUTTON);
-    handleRestart();
-  };
+  const handleGameReset = createSoundAction(handleRestart);
 
   // Handle category selection
   const handleSelectCategory = (category: string) => {
     playSound(SOUNDS.BUTTON);
     setSelectedCategory(category);
     startGameWithCategory();
-  };
-
-  // Modal control functions
-  const openInstructions = () => {
-    playSound(SOUNDS.BUTTON);
-    setShowInstructions(true);
-  };
-
-  // Close instructions modal
-  const closeInstructions = () => {
-    playSound(SOUNDS.BUTTON);
-    setShowInstructions(false);
-  };
-
-  // Open latest updates modal
-  const openLatestUpdates = () => {
-    playSound(SOUNDS.BUTTON);
-    setShowLatestUpdates(true);
-  };
-
-  // Close latest updates modal
-  const closeLatestUpdates = () => {
-    playSound(SOUNDS.BUTTON);
-    setShowLatestUpdates(false);
-  };
-
-  // Close category selection modal
-  const closeCategorySelection = () => {
-    playSound(SOUNDS.BUTTON);
-    setShowCategorySelection(false);
   };
 
   return {
