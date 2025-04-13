@@ -117,6 +117,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 0.5rem;
   border: none;
   color: var(--text-color);
   width: 100%;

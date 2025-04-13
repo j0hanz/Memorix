@@ -71,12 +71,14 @@ export default function MainMenu({
         <Button
           onClick={startGame}
           className={`${styles.btnMain} ${styles.btnStart}`}
+          variant="menu"
           icon={<PlayCircleOutlineOutlinedIcon />}
           text="Start Game"
         />
         <Button
           onClick={handleAccountClick}
           className={`${styles.btnMain} ${styles.btnMenu}`}
+          variant="menu"
           icon={<PersonIcon />}
           text={isAuthenticated ? 'Profile' : 'Account'}
         />
@@ -84,6 +86,7 @@ export default function MainMenu({
           <Button
             onClick={logout}
             className={`${styles.btnMain} ${styles.btnMenu}`}
+            variant="menu"
             icon={<ExitToAppOutlinedIcon />}
             text="Sign Out"
           />
@@ -91,6 +94,7 @@ export default function MainMenu({
         <Button
           onClick={openInstructions}
           className={`${styles.btnMain} ${styles.btnMenu}`}
+          variant="menu"
           icon={<InfoOutlinedIcon />}
           text="Guide"
         />
@@ -98,6 +102,7 @@ export default function MainMenu({
           onClick={openLatestUpdates}
           icon={<TrackChangesOutlinedIcon />}
           className={`${styles.btnMain} ${styles.btnEnd}`}
+          variant="menu"
           text="Updates"
         />
       </div>

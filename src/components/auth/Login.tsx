@@ -46,7 +46,7 @@ const Login = ({ onClose }: LoginProps) => {
             disabled={isPending}
             type="submit"
           >
-            <LoginIcon fontSize="small" className={`${styles.btnIcon} me-2`} />
+            <LoginIcon fontSize="small" className={styles.btnIcon} />
             {isPending ? 'Loading...' : 'Sign In'}
           </Button>
           <Button
@@ -57,7 +57,7 @@ const Login = ({ onClose }: LoginProps) => {
           >
             <ExitToAppOutlinedIcon
               fontSize="small"
-              className={`${styles.btnIcon} me-2`}
+              className={styles.btnIcon}
             />
             Cancel
           </Button>
