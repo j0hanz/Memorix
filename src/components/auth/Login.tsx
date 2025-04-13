@@ -45,22 +45,22 @@ const Login = ({ onClose }: LoginProps) => {
             className={`${styles.btnRestart} ${styles.modalButton}`}
             disabled={isPending}
             type="submit"
-          >
-            <LoginIcon fontSize="small" className={styles.btnIcon} />
-            {isPending ? 'Loading...' : 'Sign In'}
-          </Button>
+            icon={<LoginIcon fontSize="small" className={styles.btnIcon} />}
+            text={isPending ? 'Loading...' : 'Sign In'}
+          />
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}
             onClick={onClose}
             type="button"
             disabled={isPending}
-          >
-            <ExitToAppOutlinedIcon
-              fontSize="small"
-              className={styles.btnIcon}
-            />
-            Cancel
-          </Button>
+            icon={
+              <ExitToAppOutlinedIcon
+                fontSize="small"
+                className={styles.btnIcon}
+              />
+            }
+            text="Cancel"
+          />
         </div>
       </Form>
     </>
