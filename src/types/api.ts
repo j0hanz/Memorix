@@ -35,7 +35,7 @@ export interface ApiError {
   [key: string]: unknown;
 }
 
-export interface ProfileImageTabProps {
+export interface ProfileOverviewProps {
   user: User;
   profile: Profile | null;
   loading: boolean;
@@ -65,7 +65,7 @@ export interface UserScore {
   completed_at: string;
 }
 
-export interface ProfileSettingsTabProps {
+export interface GameHistoryProps {
   user: User;
   onClose: () => void;
   scores?: UserScore[];
