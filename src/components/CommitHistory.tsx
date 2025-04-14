@@ -7,7 +7,7 @@ import { useCommit } from '@/hooks/useCommitHistory';
 const CommitList = ({ commits }: { commits: Commit[] }) => {
   // Handle empty commit list
   if (!commits.length) {
-    return <div>No commit history available.</div>;
+    return <>No commit history available.</>;
   }
 
   return (
@@ -45,11 +45,11 @@ export default function CommitStatus() {
   const { commits, loading, error } = useCommit();
 
   if (loading) {
-    return <div>Loading commit data...</div>;
+    return <>Loading commit data...</>;
   }
 
   if (error) {
-    return <div>Failed to load commit data.</div>;
+    return <>Failed to load commit data.</>;
   }
 
   return <CommitList commits={commits} />;
