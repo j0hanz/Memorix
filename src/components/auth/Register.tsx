@@ -24,51 +24,45 @@ const Register = ({ onSuccess }: RegisterProps) => {
     <>
       {authError && <Alert variant="danger">{authError}</Alert>}
       <Form noValidate onSubmit={handleSubmit}>
-        <div className="my-4">
-          <FormField
-            controlId="formUsername"
-            name="username"
-            type="text"
-            label="Username"
-            placeholder="Choose a username"
-            value={values.username}
-            onChange={handleChange}
-            onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
-            error={errors.username}
-            showError={!!(touched.username || formSubmitted)}
-            className={styles.input}
-          />
-        </div>
-        <div className="my-4">
-          <FormField
-            controlId="formPassword"
-            name="password1"
-            type="password"
-            label="Password"
-            placeholder="Choose a password"
-            value={values.password1}
-            onChange={handleChange}
-            onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
-            error={errors.password1}
-            showError={!!(touched.password1 || formSubmitted)}
-            className={styles.input}
-          />
-        </div>
-        <div className="my-4">
-          <FormField
-            controlId="formConfirmPassword"
-            name="password2"
-            type="password"
-            label="Confirm Password"
-            placeholder="Confirm your password"
-            value={values.password2}
-            onChange={handleChange}
-            onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
-            error={errors.password2}
-            showError={!!(touched.password2 || formSubmitted)}
-            className={styles.input}
-          />
-        </div>
+        <FormField
+          controlId="formUsername"
+          name="username"
+          type="text"
+          label="Username"
+          placeholder="Choose a username"
+          value={values.username}
+          onChange={handleChange}
+          onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
+          error={errors.username}
+          showError={!!(touched.username || formSubmitted)}
+          className={styles.input}
+        />
+        <FormField
+          controlId="formPassword"
+          name="password1"
+          type="password"
+          label="Password"
+          placeholder="Choose a password"
+          value={values.password1}
+          onChange={handleChange}
+          onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
+          error={errors.password1}
+          showError={!!(touched.password1 || formSubmitted)}
+          className={styles.input}
+        />
+        <FormField
+          controlId="formConfirmPassword"
+          name="password2"
+          type="password"
+          label="Confirm Password"
+          placeholder="Confirm your password"
+          value={values.password2}
+          onChange={handleChange}
+          onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
+          error={errors.password2}
+          showError={!!(touched.password2 || formSubmitted)}
+          className={styles.input}
+        />
         <div className="d-flex">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}

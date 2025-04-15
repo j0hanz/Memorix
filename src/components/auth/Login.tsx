@@ -14,32 +14,28 @@ const Login = ({ onClose }: LoginProps) => {
     <>
       {authError && <Alert variant="danger">{authError}</Alert>}
       <Form action={formAction}>
-        <div className="my-4">
-          <FormField
-            controlId="formUsername"
-            name="username"
-            type="text"
-            label="Username"
-            placeholder="Enter username"
-            defaultValue={state.values.username}
-            error={state.fieldErrors?.username}
-            showError={!!state.fieldErrors?.username}
-            className={styles.input}
-          />
-        </div>
-        <div className="my-4">
-          <FormField
-            controlId="formPassword"
-            name="password"
-            type="password"
-            label="Password"
-            placeholder="Password"
-            defaultValue={state.values.password}
-            error={state.fieldErrors?.password}
-            showError={!!state.fieldErrors?.password}
-            className={styles.input}
-          />
-        </div>
+        <FormField
+          controlId="formUsername"
+          name="username"
+          type="text"
+          label="Username"
+          placeholder="Enter username"
+          defaultValue={state.values.username}
+          error={state.fieldErrors?.username}
+          showError={!!state.fieldErrors?.username}
+          className={styles.input}
+        />
+        <FormField
+          controlId="formPassword"
+          name="password"
+          type="password"
+          label="Password"
+          placeholder="Password"
+          defaultValue={state.values.password}
+          error={state.fieldErrors?.password}
+          showError={!!state.fieldErrors?.password}
+          className={styles.input}
+        />
         <div className="d-flex">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}
