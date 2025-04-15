@@ -9,9 +9,11 @@ export function useCards(
   index?: number,
   clickHandler?: (index: number) => void,
 ) {
-  // State to manage image loading and error
-  const [imageLoaded, setImageLoaded] = useState(false);
-  const [imageError, setImageError] = useState(false);
+  // State to manage image loading status
+  const [imageState, setImageState] = useState({
+    loaded: false,
+    error: false,
+  });
   const { isInitialReveal, isProcessingMatch } = useGameState();
 
   const getCardAnimation = () => {
@@ -34,7 +36,7 @@ export function useCards(
   const isClickable =
     !!card &&
     typeof index === 'number' &&
-    (imageLoaded || imageError) &&
+    (imageState.loaded || imageState.error) &&
     !isInitialReveal &&
     !card.status.includes('matched') &&
     !isProcessingMatch;
@@ -51,7 +53,7 @@ export function useCards(
 
     return [
       styles.card,
-      !imageLoaded && !imageError ? styles.loading : '',
+      !imageState.loaded && !imageState.error ? styles.loading : '',
       card.status.includes('matched') ? styles.matched : '',
       card.status === CARD_STATUS.ACTIVE ? styles.active : '',
     ]
@@ -73,15 +75,14 @@ export function useCards(
     return styles.statsTop;
   };
 
-  // Image handling functions
+  // Handle image loading success
   const handleImageLoad = () => {
-    setImageLoaded(true);
+    setImageState({ loaded: true, error: false });
   };
 
   // Handle image loading error
   const handleImageError = () => {
-    setImageError(true);
-    setImageLoaded(true);
+    setImageState({ loaded: true, error: true });
   };
 
   return {
@@ -94,7 +95,7 @@ export function useCards(
     getStatsTopClass,
     handleImageLoad,
     handleImageError,
-    isImageLoaded: imageLoaded,
-    isImageError: imageError,
+    isImageLoaded: imageState.loaded,
+    isImageError: imageState.error,
   };
 }
