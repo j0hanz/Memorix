@@ -70,6 +70,10 @@
   margin-right: 0.5rem;
 }
 
+.underBorder {
+  border-bottom: 1px solid var(--input-border-color);
+}
+
 /* Scoreboard */
 .scoreboard {
   display: flex;
@@ -105,10 +109,6 @@
 
 .grayedOut {
   color: var(--color-star-icon-gray);
-}
-
-.scoreIcon {
-  font-size: 1.1rem !important;
 }
 
 /* Buttons */
@@ -329,7 +329,22 @@
   margin-bottom: 0.25rem;
 }
 
+.scoreIcon {
+  font-size: 1rem !important;
+}
+
+.scoreIconStar {
+  font-size: 0.8rem !important;
+}
+
 /* Responsive */
+
+@media (max-width: 520px) {
+  .scoreIcon {
+    font-size: 0.8rem !important;
+  }
+}
+
 @media (max-width: 425px) {
   .instructionsModal :global(.modal-content) {
     height: 100%;
@@ -337,6 +352,10 @@
 
   .navLink {
     font-size: 0.95em;
+  }
+
+  .scoreIcon {
+    font-size: 0.7rem !important;
   }
 }
 

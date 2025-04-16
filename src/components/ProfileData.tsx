@@ -11,6 +11,10 @@ import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import PetsIcon from '@mui/icons-material/Pets'; // For Animals
+import PublicIcon from '@mui/icons-material/Public'; // For Astronomy
+import PatternIcon from '@mui/icons-material/Wallpaper'; // For Patterns
+import RestaurantIcon from '@mui/icons-material/Restaurant'; // For Sushi
 
 // Helper function to format dates
 const formatDate = (date?: string) =>
@@ -19,12 +23,20 @@ const formatDate = (date?: string) =>
 // Helper function to render star ratings
 const renderStars = (count: number) =>
   Array.from({ length: count }, (_, i) => (
-    <StarOutlinedIcon
-      key={i}
-      className={styles.scoreIcon}
-      style={{ fontSize: '1rem' }}
-    />
+    <StarOutlinedIcon key={i} className={styles.scoreIconStar} />
   ));
+
+// Helper function to map category names to icons
+const getscoreIcon = (categoryName: string) => {
+  const categoryMap: Record<string, React.ReactElement> = {
+    Animals: <PetsIcon className={styles.scoreIcon} />,
+    Astronomy: <PublicIcon className={styles.scoreIcon} />,
+    Patterns: <PatternIcon className={styles.scoreIcon} />,
+    Sushi: <RestaurantIcon className={styles.scoreIcon} />,
+  };
+
+  return categoryMap[categoryName] || <span>{categoryName}</span>;
+};
 
 // Component for displaying user profile data
 const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
@@ -138,44 +150,32 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 {loadingScores ? (
                   <div className="text-center p-4">Loading game history...</div>
                 ) : scores.length > 0 ? (
-                  <div className="table-responsive mt-3">
-                    <Table striped hover size="sm">
-                      <thead>
-                        <tr className="d-flex justify-content-between">
-                          <th>Category</th>
-                          <th>Rating</th>
-                          <th>Moves</th>
-                          <th>Time</th>
-                          <th>Date</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {scores.map((score) => (
-                          <tr
-                            key={score.id}
-                            className="d-flex justify-content-between align-items-center"
-                          >
-                            <td className={styles.scoreTab}>
-                              {score.category_name}
-                            </td>
-                            <td className={styles.scoreTab}>
-                              {renderStars(score.stars)}
-                            </td>
-                            <td className={styles.scoreTab}>
-                              <FlipOutlinedIcon />
-                              {score.moves}
-                            </td>
-                            <td className={styles.scoreTab}>
-                              <TimerOutlinedIcon />
-                              {score.time_seconds}
-                            </td>
-                            <td className={styles.scoreTab}>
-                              {score.completed_at}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </Table>
+                  <div className="mt-3">
+                    {scores.map((score) => (
+                      <Row
+                        key={score.id}
+                        className="d-flex justify-content-between align-items-center"
+                      >
+                        <Col className="d-flex justify-content-start align-items-center">
+                          {renderStars(score.stars)}
+                        </Col>
+                        <Col className="d-flex justify-content-end align-items-center">
+                          {getscoreIcon(score.category_name)}
+                        </Col>
+
+                        <Col className="d-flex justify-content-end align-items-center">
+                          {score.moves}
+                          <FlipOutlinedIcon className={styles.scoreIcon} />
+                        </Col>
+                        <Col className="d-flex justify-content-end align-items-center">
+                          {score.time_seconds}
+                          <TimerOutlinedIcon className={styles.scoreIcon} />
+                        </Col>
+                        <Col className="d-flex justify-content-end align-items-center">
+                          {score.completed_at}
+                        </Col>
+                      </Row>
+                    ))}
                   </div>
                 ) : (
                   <div className="text-center p-3 mt-3">

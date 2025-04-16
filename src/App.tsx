@@ -11,8 +11,8 @@ import MainMenu from '@/components/MainMenu';
 import { useNavigation } from '@/hooks/useNavigation';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { AuthModal } from '@/components/ModalComponents';
-import ProtectedRoute from '@/components/ProtectedRoute';
-import { useAuth } from '@/hooks/useAuth';
+/* import ProtectedRoute from '@/components/ProtectedRoute';
+import { useAuth } from '@/hooks/useAuth'; */
 
 export default function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -35,7 +35,7 @@ export default function App() {
 
   // Get animations and sounds
   const { enterAnimation } = useMotions();
-  const { isAuthenticated } = useAuth();
+  /*   const { isAuthenticated } = useAuth(); */
 
   // Destructure game handlers
   const {
@@ -62,12 +62,16 @@ export default function App() {
   });
 
   const handleStartGame = () => {
+    startGame();
+  };
+
+  /* const handleStartGame = () => {
     if (isAuthenticated) {
       startGame();
     } else {
       setShowAuthModal(true);
     }
-  };
+  }; */
 
   return (
     <Router>
@@ -88,8 +92,22 @@ export default function App() {
             openAuthModal={() => setShowAuthModal(true)}
           />
         )}
-
         {isGameActive && (
+          <ErrorBoundary
+            onReset={handleGameReset}
+            onError={(error) => {
+              console.error('Game error:', error);
+            }}
+          >
+            <GameProvider
+              onExit={handleExit}
+              selectedCategory={selectedCategory}
+            >
+              <Game onRestart={handleRestart} />
+            </GameProvider>
+          </ErrorBoundary>
+        )}
+        {/* {isGameActive && (
           <ProtectedRoute onAuthRequired={() => setShowAuthModal(true)}>
             <ErrorBoundary
               onReset={handleGameReset}
@@ -105,7 +123,7 @@ export default function App() {
               </GameProvider>
             </ErrorBoundary>
           </ProtectedRoute>
-        )}
+        )} */}
 
         <GameInstructions show={showInstructions} onClose={closeInstructions} />
         <LatestUpdates show={showLatestUpdates} onClose={closeLatestUpdates} />
