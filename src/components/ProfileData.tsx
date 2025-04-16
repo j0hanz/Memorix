@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Alert, Row, Col, Container, Table } from 'react-bootstrap';
+import { Form, Alert, Row, Col, Container } from 'react-bootstrap';
 import Button from '@/components/Button';
 import styles from './styles/Modal.module.css';
 import { useProfile } from '@/hooks/useProfile';
@@ -29,10 +29,10 @@ const renderStars = (count: number) =>
 // Helper function to map category names to icons
 const getscoreIcon = (categoryName: string) => {
   const categoryMap: Record<string, React.ReactElement> = {
-    Animals: <PetsIcon className={styles.scoreIcon} />,
-    Astronomy: <PublicIcon className={styles.scoreIcon} />,
-    Patterns: <PatternIcon className={styles.scoreIcon} />,
-    Sushi: <RestaurantIcon className={styles.scoreIcon} />,
+    Animals: <PetsIcon fontSize="small" />,
+    Astronomy: <PublicIcon fontSize="small" />,
+    Patterns: <PatternIcon fontSize="small" />,
+    Sushi: <RestaurantIcon fontSize="small" />,
   };
 
   return categoryMap[categoryName] || <span>{categoryName}</span>;
@@ -94,12 +94,12 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         tabs={tabs}
         onSelect={setActiveTab}
       />
-      <Form onSubmit={handleUpdateProfile}>
-        <Container fluid>
+      <Container>
+        <Form onSubmit={handleUpdateProfile}>
           <Row className="py-4">
             {activeTab === 'overview' && (
               <>
-                <Col className="d-flex justify-content-start flex-column">
+                <Col>
                   <div className={styles.profileImageContainer}>
                     <img
                       src={previewImage || profile?.profile_picture_url}
@@ -146,7 +146,6 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             )}
             {activeTab === 'history' && (
               <>
-                <h5>Your Game History</h5>
                 {loadingScores ? (
                   <div className="text-center p-4">Loading game history...</div>
                 ) : scores.length > 0 ? (
@@ -154,12 +153,12 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                     {scores.map((score) => (
                       <Row key={score.id} className={styles.scoreRow}>
                         <Col
-                          xs={'auto'}
+                          xs={1}
                           className="d-flex justify-content-start align-items-center"
                         >
                           {getscoreIcon(score.category_name)}
                         </Col>
-                        <Col className="align-items-center">
+                        <Col className="d-flex justify-content-center align-items-center">
                           {renderStars(score.stars)}
                         </Col>
                         <Col
@@ -167,14 +166,17 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                           className="d-flex justify-content-end align-items-center"
                         >
                           {score.moves}
-                          <FlipOutlinedIcon className={styles.scoreIcon} />
+                          <FlipOutlinedIcon className="ms-1" fontSize="small" />
                         </Col>
                         <Col
-                          xs={2}
+                          xs={3}
                           className="d-flex justify-content-end align-items-center"
                         >
                           {score.time_seconds}
-                          <TimerOutlinedIcon className={styles.scoreIcon} />
+                          <TimerOutlinedIcon
+                            className="ms-1"
+                            fontSize="small"
+                          />
                         </Col>
                         <Col
                           xs={2}
@@ -211,8 +213,8 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               </div>
             </Col>
           </Row>
-        </Container>
-      </Form>
+        </Form>
+      </Container>
     </>
   );
 };
