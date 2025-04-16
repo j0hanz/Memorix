@@ -336,15 +336,12 @@
 .scoreIconStar {
   font-size: 0.8rem !important;
 }
-
-/* Responsive */
-
-@media (max-width: 520px) {
-  .scoreIcon {
-    font-size: 0.8rem !important;
-  }
+.scoreRow {
+  border-bottom: 1px solid var(--input-border-color);
+  padding: 0.5rem 0;
 }
 
+/* Responsive */
 @media (max-width: 425px) {
   .instructionsModal :global(.modal-content) {
     height: 100%;
@@ -352,10 +349,6 @@
 
   .navLink {
     font-size: 0.95em;
-  }
-
-  .scoreIcon {
-    font-size: 0.7rem !important;
   }
 }
 

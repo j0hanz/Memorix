@@ -95,8 +95,8 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         onSelect={setActiveTab}
       />
       <Form onSubmit={handleUpdateProfile}>
-        <Container fluid className="p-0">
-          <Row className="p-4">
+        <Container fluid>
+          <Row className="py-4">
             {activeTab === 'overview' && (
               <>
                 <Col className="d-flex justify-content-start flex-column">
@@ -152,26 +152,34 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                 ) : scores.length > 0 ? (
                   <div className="mt-3">
                     {scores.map((score) => (
-                      <Row
-                        key={score.id}
-                        className="d-flex justify-content-between align-items-center"
-                      >
-                        <Col className="d-flex justify-content-start align-items-center">
-                          {renderStars(score.stars)}
-                        </Col>
-                        <Col className="d-flex justify-content-end align-items-center">
+                      <Row key={score.id} className={styles.scoreRow}>
+                        <Col
+                          xs={'auto'}
+                          className="d-flex justify-content-start align-items-center"
+                        >
                           {getscoreIcon(score.category_name)}
                         </Col>
-
-                        <Col className="d-flex justify-content-end align-items-center">
+                        <Col className="align-items-center">
+                          {renderStars(score.stars)}
+                        </Col>
+                        <Col
+                          xs={2}
+                          className="d-flex justify-content-end align-items-center"
+                        >
                           {score.moves}
                           <FlipOutlinedIcon className={styles.scoreIcon} />
                         </Col>
-                        <Col className="d-flex justify-content-end align-items-center">
+                        <Col
+                          xs={2}
+                          className="d-flex justify-content-end align-items-center"
+                        >
                           {score.time_seconds}
                           <TimerOutlinedIcon className={styles.scoreIcon} />
                         </Col>
-                        <Col className="d-flex justify-content-end align-items-center">
+                        <Col
+                          xs={2}
+                          className="d-flex justify-content-end align-items-center"
+                        >
                           {score.completed_at}
                         </Col>
                       </Row>
