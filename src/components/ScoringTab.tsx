@@ -11,24 +11,27 @@ function ScoreRow({ stars, moves, time }: ScoreRowProps) {
   return (
     <>
       <Row className="d-flex justify-content-between align-items-center m-1">
-        <Col className="d-flex justify-content-start align-items-center">
+        <Col xs={1} className="d-flex justify-content-start align-items-center">
           {[...Array(5)].map((_, i) => (
             <StarOutlinedIcon
               key={i}
-              className={`${styles.scoreIcon} ${
+              className={`${styles.scoreIconStar} ${
                 i < stars ? styles.starIcon : styles.grayedOut
               }`}
             />
           ))}
         </Col>
-        <Col className="d-flex justify-content-center align-items-center">
-          <FlipOutlinedIcon className={styles.scoreIcon} />
+        <Col
+          xs={1}
+          className="d-flex justify-content-center align-items-center"
+        >
           {moves}
+          <FlipOutlinedIcon fontSize="small" />
         </Col>
-        <Col className="d-flex justify-content-end align-items-center">
-          <Badge>
-            <TimerOutlinedIcon className={styles.scoreIcon} />
+        <Col xs={1} className="d-flex justify-content-end align-items-center">
+          <Badge className="d-flex align-items-center">
             {time}
+            <TimerOutlinedIcon fontSize="small" />
           </Badge>
         </Col>
       </Row>
@@ -47,7 +50,7 @@ export default function ScoringTab() {
     {
       stars: 1,
       moves: 10,
-      time: <AllInclusiveOutlinedIcon className={styles.scoreIcon} />,
+      time: <AllInclusiveOutlinedIcon fontSize="small" />,
     },
   ];
 

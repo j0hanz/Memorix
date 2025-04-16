@@ -3,6 +3,33 @@ import type { ButtonProps } from 'react-bootstrap';
 import type { TargetAndTransition, Transition } from 'framer-motion';
 import type { PairedCard } from './card';
 
+export interface ProfileOverviewProps {
+  user: {
+    username: string;
+  };
+  profile: {
+    profile_picture_url?: string;
+    created_at?: string;
+    updated_at?: string;
+  } | null;
+  previewImage: string | null;
+  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface Score {
+  id: string | number;
+  category_name: string;
+  stars: number;
+  moves: number;
+  time_seconds: number;
+  completed_at: string;
+}
+
+export interface ProfileGameHistoryProps {
+  scores: Score[];
+  loadingScores: boolean;
+}
+
 export interface CustomButtonProps extends ButtonProps {
   icon?: ReactNode;
   text?: string;

@@ -1,5 +1,3 @@
-import type { User, Profile } from './auth';
-
 export interface Commit {
   sha: string;
   message: string;
@@ -35,19 +33,6 @@ export interface ApiError {
   [key: string]: unknown;
 }
 
-export interface ProfileOverviewProps {
-  user: User;
-  profile: Profile | null;
-  loading: boolean;
-  error: string | null;
-  success: string | null;
-  profileImage: File | null;
-  previewImage: string | null;
-  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleUpdateProfile: (e: React.FormEvent) => Promise<void>;
-  onClose: () => void;
-}
-
 export interface GameResultData {
   category: string;
   moves: number;
@@ -63,11 +48,4 @@ export interface UserScore {
   time_seconds: number;
   stars: number;
   completed_at: string;
-}
-
-export interface GameHistoryProps {
-  user: User;
-  onClose: () => void;
-  scores?: UserScore[];
-  loadingScores?: boolean;
 }
