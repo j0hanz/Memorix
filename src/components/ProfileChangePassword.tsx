@@ -35,7 +35,7 @@ const ProfileChangePassword: React.FC<Props> = ({
   };
 
   return (
-    <div className="w-100">
+    <>
       <Form onSubmit={handleSubmit} className="mb-3">
         <Form.Group controlId="oldPassword" className="mb-2">
           <Form.Label className="d-none">Current Password</Form.Label>
@@ -93,7 +93,7 @@ const ProfileChangePassword: React.FC<Props> = ({
           text="Back"
         />
       </div>
-    </div>
+    </>
   );
 };
 
