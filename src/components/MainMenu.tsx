@@ -10,7 +10,6 @@ import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import Switch from '@mui/material/Switch';
 import PersonIcon from '@mui/icons-material/Person';
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import styles from '@/App.module.css';
 import type { MainMenuProps } from '@/types/components';
 import { useLinks } from '@/hooks/useLinks';
@@ -27,6 +26,7 @@ export default function MainMenu({
   const { isAuthenticated, logout, user, profile, getProfile } = useAuth();
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const handleProfileModalClose = () => setShowProfileModal(false);
 
   useEffect(() => {
     // Fetch the profile if authenticated
@@ -42,6 +42,11 @@ export default function MainMenu({
     } else {
       setShowAuthModal(true);
     }
+  };
+
+  const handleSignOut = () => {
+    logout();
+    setShowProfileModal(false);
   };
 
   return (
@@ -82,15 +87,7 @@ export default function MainMenu({
           icon={<PersonIcon />}
           text={isAuthenticated ? 'Profile' : 'Account'}
         />
-        {isAuthenticated && (
-          <Button
-            onClick={logout}
-            className={`${styles.btnMain} ${styles.btnMenu}`}
-            variant="menu"
-            icon={<ExitToAppOutlinedIcon />}
-            text="Sign Out"
-          />
-        )}
+        {/* Sign Out button moved to ProfileOverview */}
         <Button
           onClick={openInstructions}
           className={`${styles.btnMain} ${styles.btnMenu}`}
@@ -121,7 +118,8 @@ export default function MainMenu({
       </div>
       <ProfileModal
         show={showProfileModal}
-        onClose={() => setShowProfileModal(false)}
+        onClose={handleProfileModalClose}
+        logout={handleSignOut}
       />
       <AuthModal show={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </div>

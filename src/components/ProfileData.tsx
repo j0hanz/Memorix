@@ -10,7 +10,10 @@ import HistoryIcon from '@mui/icons-material/History';
 import ProfileOverview from './ProfileOverview';
 import ProfileGameHistory from './ProfileGameHistory';
 
-const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
+  onClose,
+  logout,
+}) => {
   const [activeTab, setActiveTab] = useState<string>('overview');
   const {
     user,
@@ -72,6 +75,7 @@ const ProfileData: React.FC<{ onClose: () => void }> = ({ onClose }) => {
               profile={profile}
               previewImage={previewImage}
               handleImageChange={handleImageChange}
+              logout={logout}
             />
           )}
           {activeTab === 'history' && (

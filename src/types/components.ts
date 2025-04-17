@@ -14,6 +14,7 @@ export interface ProfileOverviewProps {
   } | null;
   previewImage: string | null;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  logout: () => void;
 }
 
 export interface Score {
@@ -121,6 +122,7 @@ export interface LoadingSpinnerProps {
 export interface ProfileModalProps {
   show: boolean;
   onClose: () => void;
+  logout: () => void;
 }
 
 export interface ScoreboardModalProps {

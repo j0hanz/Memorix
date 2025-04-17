@@ -135,7 +135,7 @@ export function AuthModal({ show, onClose }: AuthModalProps) {
 }
 
 // Profile modal component
-export function ProfileModal({ show, onClose }: ProfileModalProps) {
+export function ProfileModal({ show, onClose, logout }: ProfileModalProps) {
   return (
     <Modal
       show={show}
@@ -144,13 +144,12 @@ export function ProfileModal({ show, onClose }: ProfileModalProps) {
       className={`${styles.modal} ${styles.profileModal}`}
     >
       <Modal.Body className="p-0">
-        <ProfileData onClose={onClose} />
+        <ProfileData onClose={onClose} logout={logout} />
       </Modal.Body>
       <Modal.Footer className="border-0" />
     </Modal>
   );
 }
-
 // Game instructions modal
 export function GameInstructions({ show, onClose }: GameInstructionsProps) {
   return (

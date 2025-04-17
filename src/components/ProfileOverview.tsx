@@ -1,18 +1,16 @@
 import { Col } from 'react-bootstrap';
 import Button from '@/components/Button';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import styles from './styles/Modal.module.css';
 import type { ProfileOverviewProps } from '@/types/components';
 
 const formatDate = (date?: string) =>
   date ? new Date(date).toLocaleDateString() : 'N/A';
 
-const ProfileOverview: React.FC<ProfileOverviewProps> = ({
-  user,
-  profile,
-  previewImage,
-  handleImageChange,
-}) => (
+const ProfileOverview: React.FC<
+  ProfileOverviewProps & { logout: () => void }
+> = ({ user, profile, previewImage, handleImageChange, logout }) => (
   <>
     <Col>
       <div className={styles.profileImageContainer}>
@@ -52,6 +50,13 @@ const ProfileOverview: React.FC<ProfileOverviewProps> = ({
           <span className={styles.accountInfo}>
             Updated: {formatDate(profile.updated_at)}
           </span>
+          <Button
+            onClick={logout}
+            className={`${styles.btnMain} ${styles.btnMenu}`}
+            variant="menu"
+            icon={<ExitToAppOutlinedIcon />}
+            text="Sign Out"
+          />
         </>
       ) : (
         <span className={styles.accountInfo} />
