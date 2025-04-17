@@ -9,8 +9,15 @@ const formatDate = (date?: string) =>
   date ? new Date(date).toLocaleDateString() : 'N/A';
 
 const ProfileOverview: React.FC<
-  ProfileOverviewProps & { logout: () => void }
-> = ({ user, profile, previewImage, handleImageChange, logout }) => (
+  ProfileOverviewProps & { logout: () => void; extraButton?: React.ReactNode }
+> = ({
+  user,
+  profile,
+  previewImage,
+  handleImageChange,
+  logout,
+  extraButton,
+}) => (
   <>
     <Col>
       <div className={styles.profileImageContainer}>
@@ -57,6 +64,7 @@ const ProfileOverview: React.FC<
             icon={<ExitToAppOutlinedIcon />}
             text="Sign Out"
           />
+          {extraButton}
         </>
       ) : (
         <span className={styles.accountInfo} />
