@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from '@/components/Button';
-import LockResetIcon from '@mui/icons-material/LockReset';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from './styles/Modal.module.css';
 
@@ -80,7 +79,6 @@ const ProfileChangePassword: React.FC<Props> = ({
           className={`${styles.btnRestart} ${styles.modalButton}`}
           type="submit"
           disabled={loading || !allFilled}
-          icon={<LockResetIcon fontSize="small" />}
           text={loading ? 'Changing...' : 'Update Password'}
           onClick={handleSubmit}
         />

@@ -7,7 +7,6 @@ import TabNavigation from './TabNavigation';
 import type { TabItem } from '@/types/components';
 import PersonIcon from '@mui/icons-material/Person';
 import HistoryIcon from '@mui/icons-material/History';
-import LockResetIcon from '@mui/icons-material/LockReset';
 import ProfileOverview from './ProfileOverview';
 import ProfileGameHistory from './ProfileGameHistory';
 import ProfileChangePassword from './ProfileChangePassword';
@@ -127,9 +126,8 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
           logout={logout}
           extraButton={
             <Button
-              className={`${styles.btnMain} ${styles.btnMenu}`}
+              className={`${styles.btnMain} ${styles.btnPassword}`}
               variant="menu"
-              icon={<LockResetIcon />}
               text="Change Password"
               onClick={() => setShowPasswordTab(true)}
               type="button"

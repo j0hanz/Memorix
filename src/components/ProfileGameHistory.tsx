@@ -32,7 +32,7 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
     {loadingScores ? (
       <div className="text-center p-4">Loading game history...</div>
     ) : scores.length > 0 ? (
-      <div className="mt-3">
+      <div className="my-3">
         {scores.map((score) => (
           <Row key={score.id} className={styles.scoreRow}>
             <Col

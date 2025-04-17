@@ -1,7 +1,6 @@
 import { Col } from 'react-bootstrap';
 import Button from '@/components/Button';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import styles from './styles/Modal.module.css';
 import type { ProfileOverviewProps } from '@/types/components';
 
@@ -19,7 +18,7 @@ const ProfileOverview: React.FC<
   extraButton,
 }) => (
   <>
-    <Col>
+    <Col className="my-4">
       <div className={styles.profileImageContainer}>
         <img
           src={previewImage || profile?.profile_picture_url}
@@ -47,7 +46,7 @@ const ProfileOverview: React.FC<
         </Button>
       </div>
     </Col>
-    <Col className="d-flex flex-column">
+    <Col className="d-flex flex-column my-4">
       <div className={styles.profileUsername}>{user.username}</div>
       {profile ? (
         <>
@@ -57,14 +56,15 @@ const ProfileOverview: React.FC<
           <span className={styles.accountInfo}>
             Updated: {formatDate(profile.updated_at)}
           </span>
-          <Button
-            onClick={logout}
-            className={`${styles.btnMain} ${styles.btnMenu}`}
-            variant="menu"
-            icon={<ExitToAppOutlinedIcon />}
-            text="Sign Out"
-          />
-          {extraButton}
+          <div className={styles.menuButtons}>
+            <Button
+              onClick={logout}
+              className={`${styles.btnMain} ${styles.btnLogout}`}
+              variant="menu"
+              text="Sign Out"
+            />
+            {extraButton}
+          </div>
         </>
       ) : (
         <span className={styles.accountInfo} />
