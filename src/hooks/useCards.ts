@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import clsx from 'clsx';
 import { useGameState } from '@/hooks/useGameState';
-import { CARD_STATUS, FEEDBACK, CSS_CLASSES } from '@/constants/constants';
+import { CARD_STATUS, FEEDBACK } from '@/constants/constants';
 import type { CardData } from '@/types/card';
 import type { CSSModuleClasses } from '@/types/hooks';
 
@@ -38,7 +39,7 @@ export function useCards(
     typeof index === 'number' &&
     (imageState.loaded || imageState.error) &&
     !isInitialReveal &&
-    !card.status.includes('matched') &&
+    !card.status.includes(CARD_STATUS.MATCHED) &&
     !isProcessingMatch;
 
   const handleClick = () => {
@@ -48,31 +49,24 @@ export function useCards(
     }
   };
 
+  // Determine the CSS classes for the card
   const getCardStyleClasses = (styles: CSSModuleClasses) => {
-    if (!card) return styles.card;
-
-    return [
-      styles.card,
-      !imageState.loaded && !imageState.error ? styles.loading : '',
-      card.status.includes('matched') ? styles.matched : '',
-      card.status === CARD_STATUS.ACTIVE ? styles.active : '',
-    ]
-      .filter(Boolean)
-      .join(' ');
+    return clsx(styles.card, {
+      [styles.loading]: !imageState.loaded && !imageState.error,
+      [styles.matched]: card?.status.includes(CARD_STATUS.MATCHED),
+      [styles.active]: card?.status === CARD_STATUS.ACTIVE,
+    });
   };
 
-  const ariaSelected = !!card && card.status === CSS_CLASSES.ACTIVE;
+  // Determine if the card is selected for ARIA attributes
+  const ariaSelected = !!card && card.status === CARD_STATUS.ACTIVE;
 
+  // Determine the CSS classes for the stats top element
   const getStatsTopClass = (styles: CSSModuleClasses, feedback?: string) => {
-    // Determine the stats top class based on feedback
-    if (!feedback) return styles.statsTop;
-    if (feedback === FEEDBACK.SUCCESS) {
-      return `${styles.statsTop} ${styles.statsTopSuccess}`;
-    } else if (feedback === FEEDBACK.ERROR) {
-      return `${styles.statsTop} ${styles.statsTopError}`;
-    }
-
-    return styles.statsTop;
+    return clsx(styles.statsTop, {
+      [styles.statsTopSuccess]: feedback === FEEDBACK.SUCCESS,
+      [styles.statsTopError]: feedback === FEEDBACK.ERROR,
+    });
   };
 
   // Handle image loading success
