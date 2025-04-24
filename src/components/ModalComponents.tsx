@@ -211,13 +211,13 @@ export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
       <Modal.Footer className="border-0">
         <Button
           className={`${styles.btnLeft} ${styles.modalButton}`}
-          onClick={onClose}
-          text="Close"
+          onClick={useLinks().handleGitHubClick}
+          text="Github"
         />
         <Button
           className={`${styles.btnRight} ${styles.modalButton}`}
-          onClick={useLinks().handleGitHubClick}
-          text="Github"
+          onClick={onClose}
+          text="Close"
         />
       </Modal.Footer>
     </Modal>
