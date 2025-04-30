@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useAppState } from '@/hooks/useAppState';
+import { useMotions } from '@/hooks/useMotions';
+import { useNavigation } from '@/hooks/useNavigation';
 import Game from '@/components/Game';
 import LoadingSpinner from '@/components/Spinner';
 import {
   GameInstructions,
   LatestUpdates,
   LeaderboardModal,
+  CategorySelection,
+  AuthModal,
 } from '@/components/ModalComponents';
-import { CategorySelection } from '@/components/ModalComponents';
 import { GameProvider } from '@/components/GameProvider';
-import { useMotions } from '@/hooks/useMotions';
 import MainMenu from '@/components/MainMenu';
-import { useNavigation } from '@/hooks/useNavigation';
 import ErrorBoundary from '@/components/ErrorBoundary';
-import { AuthModal } from '@/components/ModalComponents';
 
 export default function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);
