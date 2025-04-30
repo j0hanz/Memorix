@@ -8,6 +8,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import Switch from '@mui/material/Switch';
 import PersonIcon from '@mui/icons-material/Person';
 import styles from '@/App.module.css';
@@ -21,6 +22,7 @@ export default function MainMenu({
   openInstructions,
   openLatestUpdates,
   enterAnimation,
+  openLeaderboardModal,
 }: MainMenuProps) {
   const { isMuted, toggleMute } = useLinks();
   const { isAuthenticated, logout, user, profile, getProfile } = useAuth();
@@ -87,7 +89,13 @@ export default function MainMenu({
           icon={<PersonIcon />}
           text={isAuthenticated ? 'Profile' : 'Account'}
         />
-        {/* Sign Out button moved to ProfileOverview */}
+        <Button
+          onClick={openLeaderboardModal}
+          className={`${styles.btnMain} ${styles.btnMenu}`}
+          variant="menu"
+          icon={<EmojiEventsIcon />}
+          text="Leaderboard"
+        />
         <Button
           onClick={openInstructions}
           className={`${styles.btnMain} ${styles.btnMenu}`}

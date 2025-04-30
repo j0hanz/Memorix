@@ -1,5 +1,5 @@
 import { axiosReq } from './axios';
-import type { UserScore, GameResultData } from '@/types/api';
+import type { UserScore, GameResultData, LeaderboardEntry } from '@/types/api';
 
 const gameService = {
   // Save a completed game score
@@ -13,14 +13,14 @@ const gameService = {
     }
   },
 
-  // Get leaderboard data
+  // Get leaderboard entries
   getLeaderboard: async (categoryId?: number) => {
     const url = categoryId
       ? `/api/memorix/results/leaderboard/?category=${categoryId}`
       : '/api/memorix/results/leaderboard/';
 
     try {
-      const response = await axiosReq.get(url);
+      const response = await axiosReq.get<LeaderboardEntry[]>(url);
       return response.data;
     } catch (error) {
       console.error('Error fetching leaderboard:', error);

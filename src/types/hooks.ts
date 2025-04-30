@@ -16,6 +16,7 @@ export interface GameHandlerOptions {
   setShowLatestUpdates: (value: boolean) => void;
   setShowCategorySelection: (value: boolean) => void;
   setSelectedCategory: (value: string) => void;
+  setShowLeaderboardModal?: (value: boolean) => void;
 }
 
 export type ValidationRules = Record<

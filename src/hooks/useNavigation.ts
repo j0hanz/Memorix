@@ -10,7 +10,11 @@ export const useNavigation = ({
   setShowCategorySelection,
   setSelectedCategory,
   setShowAuthModal,
-}: GameHandlerOptions & { setShowAuthModal: (value: boolean) => void }) => {
+  setShowLeaderboardModal,
+}: GameHandlerOptions & {
+  setShowAuthModal: (value: boolean) => void;
+  setShowLeaderboardModal: (value: boolean) => void;
+}) => {
   const { playSound } = useSoundEffects();
 
   // Define a function to handle sound actions
@@ -50,6 +54,16 @@ export const useNavigation = ({
     setShowCategorySelection(false),
   );
 
+  // Leaderboard modal actions
+  const openLeaderboardModal = createSoundAction(() =>
+    setShowLeaderboardModal(true),
+  );
+
+  // Close leaderboard modal
+  const closeLeaderboardModal = createSoundAction(() =>
+    setShowLeaderboardModal(false),
+  );
+
   // Start game with selected category
   const startGameWithCategory = () => {
     setShowCategorySelection(false);
@@ -86,5 +100,7 @@ export const useNavigation = ({
     openLatestUpdates,
     closeLatestUpdates,
     closeCategorySelection,
+    openLeaderboardModal,
+    closeLeaderboardModal,
   };
 };

@@ -20,6 +20,24 @@
   font-size: 1.5rem;
 }
 
+.leaderboardAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.rank {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.navItemMiddle {
+  border-radius: 0;
+  border-top: 1px solid var(--btn-secondary);
+  border-bottom: 1px solid var(--btn-secondary);
+}
+
 .instructionsModal :global(.modal-content) {
   min-height: 50vh;
 }

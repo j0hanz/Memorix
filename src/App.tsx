@@ -3,7 +3,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { useAppState } from '@/hooks/useAppState';
 import Game from '@/components/Game';
 import LoadingSpinner from '@/components/Spinner';
-import { GameInstructions, LatestUpdates } from '@/components/ModalComponents';
+import {
+  GameInstructions,
+  LatestUpdates,
+  LeaderboardModal,
+} from '@/components/ModalComponents';
 import { CategorySelection } from '@/components/ModalComponents';
 import { GameProvider } from '@/components/GameProvider';
 import { useMotions } from '@/hooks/useMotions';
@@ -11,11 +15,10 @@ import MainMenu from '@/components/MainMenu';
 import { useNavigation } from '@/hooks/useNavigation';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { AuthModal } from '@/components/ModalComponents';
-/* import ProtectedRoute from '@/components/ProtectedRoute';
-import { useAuth } from '@/hooks/useAuth'; */
 
 export default function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
 
   // Get app state and handlers
   const {
@@ -35,7 +38,6 @@ export default function App() {
 
   // Get animations and sounds
   const { enterAnimation } = useMotions();
-  /*   const { isAuthenticated } = useAuth(); */
 
   // Destructure game handlers
   const {
@@ -51,6 +53,8 @@ export default function App() {
     closeLatestUpdates,
     closeCategorySelection,
     closeAuthModal,
+    openLeaderboardModal,
+    closeLeaderboardModal,
   } = useNavigation({
     setIsLoading,
     setIsGameActive,
@@ -59,19 +63,12 @@ export default function App() {
     setShowCategorySelection,
     setSelectedCategory,
     setShowAuthModal,
+    setShowLeaderboardModal,
   });
 
   const handleStartGame = () => {
     startGame();
   };
-
-  /* const handleStartGame = () => {
-    if (isAuthenticated) {
-      startGame();
-    } else {
-      setShowAuthModal(true);
-    }
-  }; */
 
   return (
     <Router>
@@ -90,6 +87,7 @@ export default function App() {
             openLatestUpdates={openLatestUpdates}
             enterAnimation={enterAnimation}
             openAuthModal={() => setShowAuthModal(true)}
+            openLeaderboardModal={openLeaderboardModal}
           />
         )}
         {isGameActive && (
@@ -107,23 +105,6 @@ export default function App() {
             </GameProvider>
           </ErrorBoundary>
         )}
-        {/* {isGameActive && (
-          <ProtectedRoute onAuthRequired={() => setShowAuthModal(true)}>
-            <ErrorBoundary
-              onReset={handleGameReset}
-              onError={(error) => {
-                console.error('Game error:', error);
-              }}
-            >
-              <GameProvider
-                onExit={handleExit}
-                selectedCategory={selectedCategory}
-              >
-                <Game onRestart={handleRestart} />
-              </GameProvider>
-            </ErrorBoundary>
-          </ProtectedRoute>
-        )} */}
 
         <GameInstructions show={showInstructions} onClose={closeInstructions} />
         <LatestUpdates show={showLatestUpdates} onClose={closeLatestUpdates} />
@@ -131,6 +112,10 @@ export default function App() {
           show={showCategorySelection}
           onClose={closeCategorySelection}
           onSelectCategory={handleSelectCategory}
+        />
+        <LeaderboardModal
+          show={showLeaderboardModal}
+          onClose={closeLeaderboardModal}
         />
       </ErrorBoundary>
       <AuthModal show={showAuthModal} onClose={closeAuthModal} />

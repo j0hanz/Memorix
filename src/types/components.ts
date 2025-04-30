@@ -17,6 +17,15 @@ export interface ProfileOverviewProps {
   logout: () => void;
 }
 
+export interface LeaderboardProps {
+  categoryId?: number;
+}
+
+export interface LeaderboardModalProps {
+  show: boolean;
+  onClose: () => void;
+}
+
 export interface Score {
   id: string | number;
   category_name: string;
@@ -174,6 +183,7 @@ export interface MainMenuProps {
   openLatestUpdates: () => void;
   enterAnimation: EnterAnimation;
   openAuthModal: () => void;
+  openLeaderboardModal: () => void;
 }
 
 export interface GameProps {

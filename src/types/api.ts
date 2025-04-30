@@ -49,3 +49,7 @@ export interface UserScore {
   stars: number;
   completed_at: string;
 }
+
+export interface LeaderboardEntry extends UserScore {
+  profile_picture_url?: string;
+}
