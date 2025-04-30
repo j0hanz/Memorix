@@ -2,7 +2,7 @@
   background: var(--bg-modal-content);
   color: var(--text-color);
   border: none;
-  --bs-modal-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .modal :global(.modal-header) {
@@ -12,8 +12,8 @@
 }
 
 .modal :global(.modal-footer) {
-  --bs-modal-footer-gap: 0;
   color: var(--text-color);
+  --bs-modal-footer-gap: 0;
 }
 
 .modal :global(.h4) {
@@ -34,8 +34,7 @@
 
 .navItemMiddle {
   border-radius: 0;
-  border-top: 1px solid var(--btn-secondary);
-  border-bottom: 1px solid var(--btn-secondary);
+  border-block: 1px solid var(--btn-secondary);
 }
 
 option {
@@ -45,7 +44,7 @@ option {
 /* Button */
 .btnRounded {
   cursor: pointer;
-  background-color: var(--btn-secondary);
+  background: var(--btn-secondary);
   color: var(--moves);
   padding: 0.5rem;
   border-radius: 50%;
@@ -231,15 +230,12 @@ option {
   width: 100%;
 }
 
-.btnCategorySelect:hover {
-  background: var(--btn-secondary-hover) !important;
-  border: var(--btn-catagory-border) !important;
-}
-
+.btnCategorySelect:hover,
 .btnCategorySelect:active {
   background: var(--btn-secondary-hover) !important;
   border: var(--btn-catagory-border) !important;
 }
+
 /* Navigation */
 .navLink {
   display: flex;
@@ -265,8 +261,7 @@ option {
 
 .navItemCenter {
   border-radius: 0;
-  border-left: 1px solid var(--shadow-row);
-  border-right: 1px solid var(--shadow-row);
+  border-inline: 1px solid var(--shadow-row);
 }
 
 .navItemRight {
@@ -288,20 +283,19 @@ option {
 }
 
 /* Forms */
-.input {
+.input,
+.formSelect {
   border-bottom: 1px solid var(--input-border-color);
   border-radius: 0;
+}
+
+.input {
   margin: 2rem 0;
 }
 
 .input::placeholder {
   color: var(--text-color);
   opacity: 0.6;
-}
-
-.formSelect {
-  border-bottom: 1px solid var(--input-border-color);
-  border-radius: 0;
 }
 
 /* Profile */
@@ -318,10 +312,9 @@ option {
 .profileImage {
   aspect-ratio: 1/1;
   width: 100%;
-  background-color: transparent;
+  background: transparent;
   border: 1px solid var(--btn-secondary);
   border-radius: 10px 10px 0 0;
-  height: auto;
   object-fit: cover;
 }
 
@@ -336,12 +329,9 @@ option {
   cursor: pointer;
 }
 
-.btnUpload:hover {
-  background-color: var(--btn-upload-hover) !important;
-}
-
+.btnUpload:hover,
 .btnUpload:active {
-  background-color: var(--btn-upload-hover) !important;
+  background: var(--btn-upload-hover) !important;
   transform: scale(1);
 }
 
@@ -369,6 +359,7 @@ option {
 .scoreIconStar {
   font-size: 0.9rem !important;
 }
+
 .scoreRow {
   border-bottom: 1px solid var(--input-border-color);
   padding: 0.5rem 0;
@@ -403,10 +394,7 @@ option {
   border-radius: 0 0 6px 6px;
 }
 
-.btnMain:hover {
-  background: var(--btn-primary);
-}
-
+.btnMain:hover,
 .btnMain:active {
   background: var(--btn-primary) !important;
 }
@@ -420,15 +408,12 @@ option {
   .instructionsModal :global(.modal-content) {
     height: 100%;
   }
-
   .navLink {
     font-size: 0.95em;
   }
-
   .scoreIconStar {
     font-size: 0.8rem !important;
   }
-
   .btnMain {
     font-size: 0.8rem;
   }
@@ -438,7 +423,6 @@ option {
   .navLink {
     gap: 0.1rem;
   }
-
   .scoreIconStar {
     font-size: 0.7rem !important;
   }
