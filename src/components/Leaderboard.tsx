@@ -44,7 +44,7 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
         <Form.Select
           onChange={handleCategoryChange}
           value={selectedCategory || ''}
-          className={styles.input}
+          className={styles.formSelect}
         >
           <option value="">All Categories</option>
           <option value="1">Animals</option>

@@ -299,6 +299,11 @@ option {
   opacity: 0.6;
 }
 
+.formSelect {
+  border-bottom: 1px solid var(--input-border-color);
+  border-radius: 0;
+}
+
 /* Profile */
 .profileImageContainer {
   display: flex;

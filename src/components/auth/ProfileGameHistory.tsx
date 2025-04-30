@@ -63,7 +63,7 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
         <Form.Select
           onChange={handleCategoryChange}
           value={selectedCategory}
-          className={styles.input}
+          className={styles.formSelect}
         >
           <option value="">All Categories</option>
           <option value="Animals">Animals</option>
