@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useScore } from '@/hooks/useScore';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
@@ -12,7 +12,7 @@ import CommitStatus from './CommitHistory';
 import CategoryData from './Category';
 import AuthData from './auth/AuthData';
 import ProfileData from './auth/ProfileData';
-import gameService from '@/services/gameService';
+import { useSaveScore } from '@/hooks/useSaveScore';
 import type {
   ScoreboardModalProps,
   GameInstructionsProps,
@@ -41,41 +41,18 @@ export default function ScoreboardModal({
   const { stars } = useScore(moves, completedTime);
   const [scoreSaved, setScoreSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
-  const isSaving = useRef(false);
 
-  // Save the score when the modal is shown
-  useEffect(() => {
-    const saveScore = async () => {
-      // Check if already saving or already saved
-      if (show && isAuthenticated && !scoreSaved && !isSaving.current) {
-        isSaving.current = true;
-        try {
-          await gameService.saveGameResult({
-            category: categoryCode.toUpperCase(),
-            moves,
-            time_seconds: completedTime,
-            stars,
-          });
-          setScoreSaved(true);
-        } catch (error) {
-          console.error('Failed to save score:', error);
-          setSaveError('Failed to save your score. Try again later.');
-        } finally {
-          isSaving.current = false;
-        }
-      }
-    };
-
-    saveScore();
-  }, [
+  useSaveScore({
     show,
     isAuthenticated,
     scoreSaved,
+    setScoreSaved,
+    setSaveError,
     categoryCode,
-    completedTime,
     moves,
+    completedTime,
     stars,
-  ]);
+  });
 
   return (
     <Modal

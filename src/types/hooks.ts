@@ -9,6 +9,18 @@ export interface AppState {
   selectedCategory: string;
 }
 
+export interface UseSaveScoreProps {
+  show: boolean;
+  isAuthenticated: boolean;
+  scoreSaved: boolean;
+  setScoreSaved: (v: boolean) => void;
+  setSaveError: (v: string | null) => void;
+  categoryCode: string;
+  moves: number;
+  completedTime: number;
+  stars: number;
+}
+
 export interface GameHandlerOptions {
   setIsLoading: (value: boolean) => void;
   setIsGameActive: (value: boolean) => void;
