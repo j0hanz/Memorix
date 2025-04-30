@@ -1,11 +1,11 @@
 import { Form, Alert } from 'react-bootstrap';
-import Button from '@/components/Button';
-import styles from '@/components/styles/Modal.module.css';
 import LoginIcon from '@mui/icons-material/Login';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import { useLogin } from '@/hooks/useLogin';
+import Button from '@/components/Button';
 import FormField from '@/components/FormField';
+import { useLogin } from '@/hooks/useLogin';
 import type { LoginProps } from '@/types/auth';
+import styles from '@/components/styles/Modal.module.css';
 
 const Login = ({ onClose }: LoginProps) => {
   const {

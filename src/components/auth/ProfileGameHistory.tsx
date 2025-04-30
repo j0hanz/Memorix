@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
-import Button from '@/components/Button';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import styles from '@/components/styles/Modal.module.css';
-import type { ProfileGameHistoryProps } from '@/types/components';
-import { CATEGORY_OPTIONS, getCategoryIcon } from '@/utils/categoryUtils';
+import Button from '@/components/Button';
 import StarRating from '../StarRating';
+import { CATEGORY_OPTIONS, getCategoryIcon } from '@/utils/categoryUtils';
+import type { ProfileGameHistoryProps } from '@/types/components';
+import styles from '@/components/styles/Modal.module.css';
 
 const ITEMS_PER_PAGE = 5;
 

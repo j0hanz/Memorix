@@ -1,8 +1,8 @@
 import { Form } from 'react-bootstrap';
-import Button from '@/components/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import styles from '@/components/styles/Modal.module.css';
+import Button from '@/components/Button';
 import type { ProfileChangePasswordProps } from '@/types/components';
+import styles from '@/components/styles/Modal.module.css';
 
 const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
   onBack,

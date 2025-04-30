@@ -1,11 +1,11 @@
 import { Form, Alert } from 'react-bootstrap';
-import Button from '@/components/Button';
-import styles from '@/components/styles/Modal.module.css';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import { useRegister } from '@/hooks/useRegister';
+import Button from '@/components/Button';
 import FormField from '@/components/FormField';
+import { useRegister } from '@/hooks/useRegister';
 import type { RegisterProps } from '@/types/auth';
+import styles from '@/components/styles/Modal.module.css';
 
 const Register = ({ onSuccess }: RegisterProps) => {
   const {

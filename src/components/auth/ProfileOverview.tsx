@@ -1,8 +1,8 @@
 import { Col } from 'react-bootstrap';
-import Button from '@/components/Button';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import styles from '@/components/styles/Modal.module.css';
+import Button from '@/components/Button';
 import type { ProfileOverviewProps } from '@/types/components';
+import styles from '@/components/styles/Modal.module.css';
 
 const formatDate = (date?: string) =>
   date ? new Date(date).toLocaleDateString() : 'N/A';
