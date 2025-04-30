@@ -1,5 +1,5 @@
-import type { ChangeEvent, FormEvent } from 'react';
 import { useState } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 import { useFormStatus } from 'react-dom';
 import type { ValidationRules } from '@/types/hooks';
 

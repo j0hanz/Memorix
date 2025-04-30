@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
-import type { AppState } from '@/types/hooks';
 import { GAME_CONFIG, CATEGORIES } from '@/constants/constants';
+import type { AppState } from '@/types/hooks';
 
 type AppAction =
   | { type: 'SET_LOADING'; value: boolean }
