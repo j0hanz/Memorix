@@ -38,6 +38,10 @@
   border-bottom: 1px solid var(--btn-secondary);
 }
 
+option {
+  background: var(--bg-modal-content);
+}
+
 /* Button */
 .btnRounded {
   cursor: pointer;
