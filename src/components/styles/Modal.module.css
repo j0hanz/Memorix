@@ -38,6 +38,15 @@
   border-bottom: 1px solid var(--btn-secondary);
 }
 
+/* Button */
+.btnRounded {
+  cursor: pointer;
+  background-color: var(--btn-secondary);
+  color: var(--moves);
+  padding: 0.5rem;
+  border-radius: 50%;
+}
+
 .instructionsModal :global(.modal-content) {
   min-height: 50vh;
 }
