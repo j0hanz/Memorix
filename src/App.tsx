@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useAppState } from '@/hooks/useAppState';
 import { useMotions } from '@/hooks/useMotions';
@@ -19,6 +19,7 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 export default function App() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
+  const [showInitialLoading, setShowInitialLoading] = useState(true);
 
   // Get app state and handlers
   const {
@@ -70,6 +71,14 @@ export default function App() {
     startGame();
   };
 
+  useEffect(() => {
+    setShowInitialLoading(true);
+    const timer = setTimeout(() => {
+      setShowInitialLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <Router>
       <ErrorBoundary
@@ -79,11 +88,14 @@ export default function App() {
         }}
       >
         <LoadingCardSpinner
-          isLoading={isLoading}
+          isLoading={showInitialLoading}
+          message="Loading..."
+        />
+        <LoadingCardSpinner
+          isLoading={!showInitialLoading && isLoading}
           message={isLoading ? 'Starting...' : undefined}
         />
-
-        {!isLoading && !isGameActive && (
+        {!showInitialLoading && !isLoading && !isGameActive && (
           <MainMenu
             startGame={handleStartGame}
             openInstructions={openInstructions}
@@ -93,7 +105,7 @@ export default function App() {
             openLeaderboardModal={openLeaderboardModal}
           />
         )}
-        {isGameActive && (
+        {isGameActive && !showInitialLoading && (
           <ErrorBoundary
             onReset={handleGameReset}
             onError={(error) => {
