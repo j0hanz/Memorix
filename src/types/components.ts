@@ -164,6 +164,7 @@ export interface ModalProps {
 
 export interface LoadingSpinnerProps {
   isLoading: boolean;
+  message?: string;
 }
 
 export interface ProfileModalProps {

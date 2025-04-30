@@ -78,7 +78,10 @@ export default function App() {
           console.error('Application error:', error);
         }}
       >
-        <LoadingSpinner isLoading={isLoading} />
+        <LoadingSpinner
+          isLoading={isLoading}
+          message={isLoading ? 'Starting...' : undefined}
+        />
 
         {!isLoading && !isGameActive && (
           <MainMenu
