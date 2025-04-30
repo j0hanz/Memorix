@@ -4,7 +4,7 @@ import { useAppState } from '@/hooks/useAppState';
 import { useMotions } from '@/hooks/useMotions';
 import { useNavigation } from '@/hooks/useNavigation';
 import Game from '@/components/Game';
-import LoadingSpinner from '@/components/Spinner';
+import { LoadingCardSpinner } from '@/components/Spinner';
 import {
   GameInstructions,
   LatestUpdates,
@@ -78,7 +78,7 @@ export default function App() {
           console.error('Application error:', error);
         }}
       >
-        <LoadingSpinner
+        <LoadingCardSpinner
           isLoading={isLoading}
           message={isLoading ? 'Starting...' : undefined}
         />

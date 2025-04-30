@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Alert, Row } from 'react-bootstrap';
 import PersonIcon from '@mui/icons-material/Person';
 import HistoryIcon from '@mui/icons-material/History';
+import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import Button from '@/components/Button';
 import TabNavigation from '@/components/TabNavigation';
 import { useProfile } from '@/hooks/useProfile';
@@ -9,6 +10,7 @@ import ProfileOverview from './ProfileOverview';
 import ProfileGameHistory from './ProfileGameHistory';
 import ProfileChangePassword from './ProfileChangePassword';
 import type { TabItem } from '@/types/components';
+import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
 
 const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
@@ -121,7 +123,10 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
           className={`${styles.btnRestart} ${styles.modalButton}`}
           type="submit"
           disabled={loading || !profileImage}
-          text={loading ? 'Updating...' : 'Update Profile'}
+          text={loading ? <LoadingSpinner /> : 'Update Profile'}
+          icon={
+            loading ? undefined : <DriveFolderUploadIcon fontSize="small" />
+          }
           onClick={() => {
             handleUpdateProfile({
               preventDefault: () => {

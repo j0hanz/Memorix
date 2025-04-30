@@ -74,7 +74,7 @@ export interface ProfileGameHistoryProps {
 
 export interface CustomButtonProps extends ButtonProps {
   icon?: ReactNode;
-  text?: string;
+  text?: React.ReactNode;
   className?: string;
 }
 
@@ -162,7 +162,7 @@ export interface ModalProps {
   bodyClassName?: string;
 }
 
-export interface LoadingSpinnerProps {
+export interface LoadingCardSpinnerProps {
   isLoading: boolean;
   message?: string;
 }

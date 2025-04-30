@@ -1,12 +1,12 @@
-import type { LoadingSpinnerProps } from '@/types/components';
+import type { LoadingCardSpinnerProps } from '@/types/components';
 import styles from './styles/Spinner.module.css';
 
-// LoadingSpinner component to show a loading spinner with an optional message
-interface SpinnerProps extends LoadingSpinnerProps {
+// This component is used to show a loading spinner with an optional message.
+interface SpinnerProps extends LoadingCardSpinnerProps {
   message?: string;
 }
 
-const LoadingSpinner = ({ isLoading, message }: SpinnerProps) => (
+const LoadingCardSpinner = ({ isLoading, message }: SpinnerProps) => (
   <div
     className={`${styles.spinnerContainer} ${!isLoading ? styles.hidden : ''}`}
     role="status"
@@ -17,4 +17,13 @@ const LoadingSpinner = ({ isLoading, message }: SpinnerProps) => (
   </div>
 );
 
-export default LoadingSpinner;
+const LoadingSpinner = () => (
+  <div className={styles.loadership_XESUH} role="status" aria-label="Loading">
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+);
+
+export { LoadingCardSpinner, LoadingSpinner };

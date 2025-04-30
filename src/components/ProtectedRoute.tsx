@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
-import LoadingSpinner from '@/components/Spinner';
+import { LoadingCardSpinner } from '@/components/Spinner';
 import type { ProtectedRouteProps } from '@/types/components';
 
 const ProtectedRoute = ({ children, onAuthRequired }: ProtectedRouteProps) => {
@@ -12,7 +12,7 @@ const ProtectedRoute = ({ children, onAuthRequired }: ProtectedRouteProps) => {
     }
   }, [loading, isAuthenticated, onAuthRequired]);
 
-  if (loading) return <LoadingSpinner isLoading />;
+  if (loading) return <LoadingCardSpinner isLoading />;
 
   return isAuthenticated ? <>{children}</> : null;
 };

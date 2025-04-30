@@ -4,6 +4,7 @@ import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import Button from '@/components/Button';
 import FormField from '@/components/FormField';
 import { useRegister } from '@/hooks/useRegister';
+import { LoadingSpinner } from '@/components/Spinner';
 import type { RegisterProps } from '@/types/auth';
 import styles from '@/components/styles/Modal.module.css';
 
@@ -68,8 +69,8 @@ const Register = ({ onSuccess }: RegisterProps) => {
             className={`${styles.btnRestart} ${styles.modalButton}`}
             disabled={loading}
             type="submit"
-            icon={<PersonAddIcon fontSize="small" />}
-            text={loading ? 'Creating Account...' : 'Sign Up'}
+            text={loading ? <LoadingSpinner /> : 'Sign Up'}
+            icon={loading ? null : <PersonAddIcon fontSize="small" />}
           />
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}

@@ -4,6 +4,7 @@ import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import Button from '@/components/Button';
 import FormField from '@/components/FormField';
 import { useLogin } from '@/hooks/useLogin';
+import { LoadingSpinner } from '@/components/Spinner';
 import type { LoginProps } from '@/types/auth';
 import styles from '@/components/styles/Modal.module.css';
 
@@ -54,8 +55,14 @@ const Login = ({ onClose }: LoginProps) => {
             className={`${styles.btnRestart} ${styles.modalButton}`}
             disabled={loading}
             type="submit"
-            icon={<LoginIcon fontSize="small" className={styles.btnIcon} />}
-            text={loading ? 'Loading...' : 'Sign In'}
+            icon={
+              !loading ? (
+                <LoginIcon fontSize="small" className={styles.btnIcon} />
+              ) : (
+                null
+              )
+            }
+            text={loading ? <LoadingSpinner /> : 'Sign In'}
           />
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}

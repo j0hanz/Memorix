@@ -1,7 +1,9 @@
 import { Form } from 'react-bootstrap';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import LockResetIcon from '@mui/icons-material/LockReset';
 import Button from '@/components/Button';
 import type { ProfileChangePasswordProps } from '@/types/components';
+import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
 
 const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
@@ -83,8 +85,8 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
           className={`${styles.btnRestart} ${styles.modalButton}`}
           type="submit"
           disabled={loading || !allFilled}
-          text={loading ? 'Changing...' : 'Update Password'}
-          onClick={handleSubmit}
+          text={loading ? <LoadingSpinner /> : 'Change Password'}
+          icon={loading ? undefined : <LockResetIcon fontSize="small" />}
         />
         <Button
           className={`${styles.btnExit} ${styles.modalButton}`}
