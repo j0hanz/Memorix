@@ -31,16 +31,17 @@ const getscoreIcon = (categoryName: string) => {
 };
 
 const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
-  scores,
+  scores = [],
   loadingScores,
 }) => {
   const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const scoresArray = Array.isArray(scores) ? scores : [];
 
   // Filter scores by selected category (if any)
   const filteredScores = selectedCategory
-    ? scores.filter((score) => score.category_name === selectedCategory)
-    : scores;
+    ? scoresArray.filter((score) => score.category_name === selectedCategory)
+    : scoresArray;
 
   const totalPages = Math.ceil(filteredScores.length / ITEMS_PER_PAGE);
   const paginatedScores = filteredScores.slice(
