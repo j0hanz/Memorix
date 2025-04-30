@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from '@/components/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -7,20 +6,18 @@ import type { ProfileChangePasswordProps } from '@/types/components';
 
 const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
   onBack,
-  onSubmit,
   loading,
   error,
   success,
+  values,
+  errors,
+  touched,
+  handleChange,
+  handleBlur,
+  handleSubmit,
 }) => {
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword1, setNewPassword1] = useState('');
-  const [newPassword2, setNewPassword2] = useState('');
-  const allFilled = oldPassword && newPassword1 && newPassword2;
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await onSubmit(oldPassword, newPassword1, newPassword2);
-  };
+  const allFilled =
+    values.oldPassword && values.newPassword1 && values.newPassword2;
 
   return (
     <>
@@ -31,10 +28,16 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
             type="password"
             placeholder="Enter current password"
             className={styles.input}
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
+            name="oldPassword"
+            value={values.oldPassword}
+            onChange={handleChange}
+            onBlur={handleBlur}
             autoComplete="current-password"
+            isInvalid={!!errors.oldPassword && touched.oldPassword}
           />
+          <Form.Control.Feedback type="invalid">
+            {errors.oldPassword}
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="newPassword1" className="mb-2">
           <Form.Label className="d-none">New Password</Form.Label>
@@ -42,10 +45,16 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
             type="password"
             placeholder="Enter new password"
             className={styles.input}
-            value={newPassword1}
-            onChange={(e) => setNewPassword1(e.target.value)}
+            name="newPassword1"
+            value={values.newPassword1}
+            onChange={handleChange}
+            onBlur={handleBlur}
             autoComplete="new-password"
+            isInvalid={!!errors.newPassword1 && touched.newPassword1}
           />
+          <Form.Control.Feedback type="invalid">
+            {errors.newPassword1}
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="newPassword2" className="mb-3">
           <Form.Label className="d-none">Confirm New Password</Form.Label>
@@ -53,10 +62,16 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
             type="password"
             placeholder="Confirm new password"
             className={styles.input}
-            value={newPassword2}
-            onChange={(e) => setNewPassword2(e.target.value)}
+            name="newPassword2"
+            value={values.newPassword2}
+            onChange={handleChange}
+            onBlur={handleBlur}
             autoComplete="new-password"
+            isInvalid={!!errors.newPassword2 && touched.newPassword2}
           />
+          <Form.Control.Feedback type="invalid">
+            {errors.newPassword2}
+          </Form.Control.Feedback>
         </Form.Group>
       </Form>
       {error && <div className="text-danger mb-3 text-center">{error}</div>}

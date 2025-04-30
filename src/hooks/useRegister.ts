@@ -19,9 +19,7 @@ export function useRegister(onSuccess: () => void) {
       onSuccess();
       return true;
     } catch (err: unknown) {
-      console.error('Registration failed:', err);
-      const errorObj = err as ApiError;
-      setError(formatErrorMessage(errorObj));
+      setError(formatErrorMessage(err as ApiError));
       return false;
     } finally {
       setLoading(false);

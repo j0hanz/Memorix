@@ -17,9 +17,6 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [showPasswordTab, setShowPasswordTab] = useState(false);
-  const [passwordLoading, setPasswordLoading] = useState(false);
-  const [passwordError, setPasswordError] = useState<string | null>(null);
-  const [passwordSuccess, setPasswordSuccess] = useState<string | null>(null);
 
   const {
     user,
@@ -33,55 +30,8 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
     handleUpdateProfile,
     scores,
     loadingScores,
+    passwordForm,
   } = useProfile();
-
-  // Password change handler
-  const handlePasswordChange = async (
-    oldPassword: string,
-    newPassword1: string,
-    newPassword2: string,
-  ) => {
-    setPasswordLoading(true);
-    setPasswordError(null);
-    setPasswordSuccess(null);
-
-    if (!oldPassword || !newPassword1 || !newPassword2) {
-      setPasswordError('Please fill in all fields');
-      setPasswordLoading(false);
-      return;
-    }
-    if (newPassword1 !== newPassword2) {
-      setPasswordError('New passwords do not match');
-      setPasswordLoading(false);
-      return;
-    }
-
-    try {
-      const { axiosReq } = await import('@/services/axios');
-      await axiosReq.post('/dj-rest-auth/password/change/', {
-        old_password: oldPassword,
-        new_password1: newPassword1,
-        new_password2: newPassword2,
-      });
-      setPasswordSuccess('Password changed successfully!');
-      setTimeout(() => {
-        setShowPasswordTab(false);
-        setPasswordSuccess(null);
-      }, 1200);
-    } catch (err) {
-      const errorObj = err as { response?: { data?: Record<string, unknown> } };
-      const detail =
-        typeof errorObj?.response?.data?.detail === 'string'
-          ? errorObj.response.data.detail
-          : '';
-      const otherErrors = Object.values(errorObj?.response?.data || {})
-        .filter((v) => typeof v === 'string')
-        .join(' ');
-      setPasswordError(detail || otherErrors || 'Failed to change password');
-    } finally {
-      setPasswordLoading(false);
-    }
-  };
 
   if (!user) {
     return (
@@ -110,10 +60,25 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
       return (
         <ProfileChangePassword
           onBack={() => setShowPasswordTab(false)}
-          onSubmit={handlePasswordChange}
-          loading={passwordLoading}
-          error={passwordError}
-          success={passwordSuccess}
+          loading={loading}
+          error={error}
+          success={success}
+          values={passwordForm.values}
+          errors={passwordForm.errors}
+          touched={passwordForm.touched}
+          handleChange={passwordForm.handleChange}
+          handleBlur={passwordForm.handleBlur}
+          handleSubmit={(e) => {
+            if (e) {
+              passwordForm.handleSubmit(e as React.FormEvent<HTMLFormElement>);
+            } else {
+              passwordForm.handleSubmit({
+                preventDefault: () => {
+                  /* no-op for linter */
+                },
+              } as React.FormEvent<HTMLFormElement>);
+            }
+          }}
         />
       );
     } else if (activeTab === 'overview') {
@@ -157,7 +122,13 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
           type="submit"
           disabled={loading || !profileImage}
           text={loading ? 'Updating...' : 'Update Profile'}
-          onClick={handleUpdateProfile}
+          onClick={() => {
+            handleUpdateProfile({
+              preventDefault: () => {
+                /* no-op for linter */
+              },
+            } as React.FormEvent<HTMLFormElement>);
+          }}
         />
         <Button
           className={`${styles.btnExit} ${styles.modalButton}`}

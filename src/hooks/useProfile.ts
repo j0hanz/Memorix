@@ -3,6 +3,9 @@ import { useAuth } from '@/hooks/useAuth';
 import { axiosReq } from '@/services/axios';
 import gameService from '@/services/gameService';
 import type { ApiError, UserScore } from '@/types/api';
+import { useForm } from '@/hooks/useForm';
+import { profilePasswordValidationRules } from '@/utils/validation';
+import { formatErrorMessage } from '@/utils/errorUtils';
 
 export function useProfile() {
   const { profile, getProfile, user, isAuthenticated } = useAuth();
@@ -31,8 +34,8 @@ export function useProfile() {
         try {
           const data = await gameService.getUserScores();
           setScores(data);
-        } catch (err) {
-          console.error('Failed to fetch scores:', err);
+        } catch {
+          // Ignore errors when fetching scores
         } finally {
           setLoadingScores(false);
         }
@@ -80,23 +83,38 @@ export function useProfile() {
       setProfileImage(null);
       setPreviewImage(null);
     } catch (err) {
-      console.error('Profile update error:', err);
-      const errorObj = err as ApiError;
-      if (errorObj.response?.data) {
-        const errorMessages = Object.entries(errorObj.response.data)
-          .map(
-            ([key, value]) =>
-              `${key}: ${Array.isArray(value) ? value.join(', ') : value}`,
-          )
-          .join('; ');
-        setError(errorMessages || 'Failed to update profile');
-      } else {
-        setError('Failed to update profile. Please try again.');
-      }
+      setError(
+        formatErrorMessage(err as ApiError) || 'Failed to update profile',
+      );
     } finally {
       setLoading(false);
     }
   };
+
+  // Example: useForm for password change (if you want to standardize this as well)
+  const passwordForm = useForm(
+    { oldPassword: '', newPassword1: '', newPassword2: '' },
+    profilePasswordValidationRules,
+    async (values) => {
+      setLoading(true);
+      setError(null);
+      setSuccess(null);
+      try {
+        await axiosReq.post('/dj-rest-auth/password/change/', {
+          old_password: values.oldPassword,
+          new_password1: values.newPassword1,
+          new_password2: values.newPassword2,
+        });
+        setSuccess('Password changed successfully!');
+        return true;
+      } catch (err) {
+        setError(formatErrorMessage(err as ApiError));
+        return false;
+      } finally {
+        setLoading(false);
+      }
+    },
+  );
 
   return {
     user,
@@ -110,5 +128,6 @@ export function useProfile() {
     handleUpdateProfile,
     scores,
     loadingScores,
+    passwordForm,
   };
 }

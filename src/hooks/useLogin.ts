@@ -1,37 +1,23 @@
-import { useActionState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { axiosReq } from '@/services/axios';
 import { parseTokensFromResponse } from '@/utils/tokenUtils';
-import type {
-  LoginCredentials,
-  AuthResponse,
-  User,
-  LoginState,
-} from '@/types/auth';
+import { useForm } from '@/hooks/useForm';
+import { loginValidationRules } from '@/utils/validation';
+import { formatErrorMessage } from '@/utils/errorUtils';
+import type { LoginCredentials, AuthResponse, User } from '@/types/auth';
 import type { ApiError } from '@/types/api';
 
 export function useLogin(onSuccess?: () => void) {
-  const { setAuthTokens, setUser, fetchProfile, error: authError } = useAuth();
+  const { setAuthTokens, setUser, fetchProfile } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  // Initial state for the login form
-  const initialState: LoginState = {
-    error: null,
-    fieldErrors: {},
-    values: { username: '', password: '' },
-    success: false,
-  };
+  const handleLogin = async (values: LoginCredentials) => {
+    setLoading(true);
+    setError(null);
 
-  // Define the login action handler with proper types
-  const loginAction = async (
-    _state: LoginState,
-    formData: FormData,
-  ): Promise<LoginState> => {
     try {
-      const values: LoginCredentials = {
-        username: formData.get('username') as string,
-        password: formData.get('password') as string,
-      };
-
       const response = await axiosReq.post<AuthResponse>(
         '/dj-rest-auth/login/',
         values,
@@ -42,12 +28,8 @@ export function useLogin(onSuccess?: () => void) {
       );
 
       if (!accessToken) {
-        return {
-          error: 'Access token not found in response',
-          fieldErrors: {},
-          values,
-          success: false,
-        };
+        setError('Access token not found in response');
+        return false;
       }
 
       setAuthTokens(accessToken, refreshToken || undefined);
@@ -65,40 +47,24 @@ export function useLogin(onSuccess?: () => void) {
         onSuccess();
       }
 
-      return {
-        error: null,
-        fieldErrors: {},
-        values: { username: '', password: '' },
-        success: true,
-      };
+      return true;
     } catch (err: unknown) {
-      const errorObj = err as ApiError;
-      return {
-        error: errorObj.response?.data?.detail || 'Login failed',
-        fieldErrors: Object.fromEntries(
-          Object.entries(errorObj.response?.data || {}).filter(
-            ([, value]) => value !== undefined,
-          ),
-        ) as Record<string, string | string[]>,
-        values: {
-          username: formData.get('username') as string,
-          password: '',
-        },
-        success: false,
-      };
+      setError(formatErrorMessage(err as ApiError));
+      return false;
+    } finally {
+      setLoading(false);
     }
   };
 
-  // Use the useActionState hook with proper type arguments
-  const [state, formAction, isPending] = useActionState<LoginState, FormData>(
-    loginAction,
-    initialState,
+  const formMethods = useForm(
+    { username: '', password: '' },
+    loginValidationRules,
+    handleLogin,
   );
 
   return {
-    state,
-    formAction,
-    isPending,
-    authError: state.error || authError,
+    ...formMethods,
+    loading,
+    authError: error,
   };
 }

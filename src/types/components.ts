@@ -5,14 +5,34 @@ import type { PairedCard } from './card';
 
 export interface ProfileChangePasswordProps {
   onBack: () => void;
-  onSubmit: (
-    oldPassword: string,
-    newPassword1: string,
-    newPassword2: string,
-  ) => Promise<void>;
   loading: boolean;
   error?: string | null;
   success?: string | null;
+  values: {
+    oldPassword: string;
+    newPassword1: string;
+    newPassword2: string;
+  };
+  errors: {
+    oldPassword?: string;
+    newPassword1?: string;
+    newPassword2?: string;
+    [key: string]: string | undefined;
+  };
+  touched: {
+    oldPassword?: boolean;
+    newPassword1?: boolean;
+    newPassword2?: boolean;
+    [key: string]: boolean | undefined;
+  };
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
+  handleSubmit?: (
+    e?:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<Element, MouseEvent>
+      | undefined,
+  ) => void | Promise<void>;
 }
 
 export interface ProfileOverviewProps {

@@ -8,21 +8,32 @@ import FormField from '@/components/FormField';
 import type { LoginProps } from '@/types/auth';
 
 const Login = ({ onClose }: LoginProps) => {
-  const { state, formAction, isPending, authError } = useLogin(onClose);
+  const {
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    loading,
+    authError,
+  } = useLogin(onClose);
 
   return (
     <>
       {authError && <Alert variant="danger">{authError}</Alert>}
-      <Form action={formAction}>
+      <Form onSubmit={handleSubmit}>
         <FormField
           controlId="formUsername"
           name="username"
           type="text"
           label="Username"
           placeholder="Enter username"
-          defaultValue={state.values.username}
-          error={state.fieldErrors?.username}
-          showError={!!state.fieldErrors?.username}
+          value={values.username}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.username}
+          showError={!!errors.username && touched.username}
           className={styles.input}
         />
         <FormField
@@ -31,24 +42,26 @@ const Login = ({ onClose }: LoginProps) => {
           type="password"
           label="Password"
           placeholder="Password"
-          defaultValue={state.values.password}
-          error={state.fieldErrors?.password}
-          showError={!!state.fieldErrors?.password}
+          value={values.password}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          error={errors.password}
+          showError={!!errors.password && touched.password}
           className={styles.input}
         />
         <div className="d-flex">
           <Button
             className={`${styles.btnRestart} ${styles.modalButton}`}
-            disabled={isPending}
+            disabled={loading}
             type="submit"
             icon={<LoginIcon fontSize="small" className={styles.btnIcon} />}
-            text={isPending ? 'Loading...' : 'Sign In'}
+            text={loading ? 'Loading...' : 'Sign In'}
           />
           <Button
             className={`${styles.btnExit} ${styles.modalButton}`}
             onClick={onClose}
             type="button"
-            disabled={isPending}
+            disabled={loading}
             icon={
               <ExitToAppOutlinedIcon
                 fontSize="small"

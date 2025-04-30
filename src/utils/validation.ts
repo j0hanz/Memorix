@@ -49,3 +49,12 @@ export const registerValidationRules: ValidationRules = {
     matches('password1', 'Password'),
   ),
 };
+
+export const profilePasswordValidationRules: ValidationRules = {
+  oldPassword: required('Current password'),
+  newPassword1: compose(required('New password'), minLength(6, 'New password')),
+  newPassword2: compose(
+    required('Password confirmation'),
+    matches('newPassword1', 'New password'),
+  ),
+};
