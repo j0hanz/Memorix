@@ -71,6 +71,24 @@ body {
   border-color: var(--btn-secondary);
 }
 
+.form-select {
+  background-color: var(--bg-secondary);
+  border: none;
+}
+
+select {
+  background-color: var(--bg-secondary);
+  border: none;
+}
+
+select:focus {
+  box-shadow: none !important;
+}
+
+option {
+  background: var(--bg-modal-content);
+}
+
 @media (max-width: 425px) {
   body {
     font-size: 0.9rem;
