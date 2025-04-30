@@ -24,3 +24,28 @@
 .customButton:active .text {
   transform: scale(0.9);
 }
+
+/* Color classes */
+.primaryColor {
+  background: var(--btn-primary);
+}
+
+.primaryColor:hover {
+  background: var(--btn-primary-hover) !important;
+}
+
+.primaryColor:active {
+  background: var(--btn-primary-hover) !important;
+}
+
+.secondaryColor {
+  background: var(--btn-secondary);
+}
+
+.secondaryColor:hover {
+  background: var(--btn-secondary-hover) !important;
+}
+
+.secondaryColor:active {
+  background: var(--btn-secondary-active) !important;
+}

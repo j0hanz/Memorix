@@ -50,9 +50,9 @@ const Login = ({ onClose }: LoginProps) => {
           showError={!!errors.password && touched.password}
           className={styles.input}
         />
-        <div className="d-flex">
+        <div className={`d-flex ${styles.modalButtons}`}>
           <Button
-            className={`${styles.btnRestart} ${styles.modalButton}`}
+            className={`${styles.btnLeft} ${styles.modalButton}`}
             disabled={loading}
             type="submit"
             icon={
@@ -61,9 +61,10 @@ const Login = ({ onClose }: LoginProps) => {
               ) : null
             }
             text={loading ? <LoadingSpinner /> : 'Sign In'}
+            color="primary"
           />
           <Button
-            className={`${styles.btnExit} ${styles.modalButton}`}
+            className={`${styles.btnRight} ${styles.modalButton}`}
             onClick={onClose}
             type="button"
             disabled={loading}
@@ -74,6 +75,7 @@ const Login = ({ onClose }: LoginProps) => {
               />
             }
             text="Cancel"
+            color="secondary"
           />
         </div>
       </Form>

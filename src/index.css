@@ -61,6 +61,16 @@ body {
   font-weight: 400;
 }
 
+.btn {
+  --bs-btn-disabled-bg: var(--btn-secondary);
+  --bs-btn-disabled-border-color: transparent;
+}
+
+.btn:hover {
+  background-color: var(--btn-secondary);
+  border-color: var(--btn-secondary);
+}
+
 @media (max-width: 425px) {
   body {
     font-size: 0.9rem;

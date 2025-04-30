@@ -29,6 +29,7 @@ const ProfileOverview: React.FC<
         <Button
           className={styles.btnUpload}
           icon={<DriveFolderUploadIcon fontSize="small" />}
+          color="secondary"
         >
           <input
             type="file"
@@ -62,6 +63,7 @@ const ProfileOverview: React.FC<
               className={`${styles.btnMain} ${styles.btnLogout}`}
               variant="menu"
               text="Sign Out"
+              color="secondary"
             />
             {extraButton}
           </div>

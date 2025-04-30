@@ -104,6 +104,7 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
                 disabled={page === 1}
                 aria-label="Previous Page"
                 icon={<ArrowBackIosNewIcon fontSize="small" />}
+                color="secondary"
               />
               {page} of {totalPages}
               <Button
@@ -112,6 +113,7 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
                 disabled={page === totalPages}
                 aria-label="Next Page"
                 icon={<ArrowForwardIosIcon fontSize="small" />}
+                color="secondary"
               />
             </div>
           )}

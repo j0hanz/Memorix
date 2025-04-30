@@ -44,7 +44,6 @@ option {
 /* Button */
 .btnRounded {
   cursor: pointer;
-  background: var(--btn-secondary);
   color: var(--moves);
   width: 2rem;
   height: 2rem;
@@ -149,25 +148,9 @@ option {
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  border: none;
-  color: var(--text-color);
-  width: 100%;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-}
-
-.btnRestart {
-  background: var(--btn-primary);
-  border-radius: 0 0 0 10px;
-}
-
-.btnExit {
-  background: var(--btn-secondary);
-  border-radius: 0 0 10px 0;
 }
 
 .btnClose {
-  background: var(--btn-secondary);
   border-radius: 0 0 10px 10px;
   flex: 1;
   display: flex;
@@ -175,40 +158,34 @@ option {
   align-items: center;
 }
 
-.btnLeft {
-  background: var(--btn-secondary);
-  border-radius: 0 0 0 10px;
-  border-right: 1px solid var(--bg-modal-content);
+.modalButtons {
+  gap: 1px;
 }
 
 .btnRight {
-  background: var(--btn-secondary);
   border-radius: 0 0 10px 0;
   border-left: 1px solid var(--bg-modal-content);
 }
 
-.btnRestart:hover {
-  background: var(--btn-primary-hover);
+.btnLeft {
+  border-radius: 0 0 0 10px;
+  border-right: 1px solid var(--bg-modal-content);
 }
 
-.btnRestart:active {
-  background: var(--btn-primary-hover) !important;
-  transform: scale(1);
+.btnRight:hover {
+  border-left: 1px solid var(--bg-modal-content);
 }
 
-.btnLeft:hover,
-.btnRight:hover,
-.btnExit:hover,
-.btnClose:hover {
-  background: var(--btn-secondary-hover) !important;
+.btnLeft:hover {
+  border-right: 1px solid var(--bg-modal-content);
 }
 
-.btnLeft:active,
-.btnRight:active,
-.btnExit:active,
-.btnClose:active {
-  background: var(--btn-secondary-hover) !important;
-  transform: scale(1);
+.btnRight:active {
+  border-left: 1px solid var(--bg-modal-content) !important;
+}
+
+.btnLeft:active {
+  border-right: 1px solid var(--bg-modal-content) !important;
 }
 
 /* Category */
@@ -218,22 +195,13 @@ option {
 }
 
 .btnCategorySelect {
-  background: var(--btn-secondary);
   border: var(--btn-catagory-border);
   height: 3rem;
   border-radius: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  width: 100%;
 }
 
 .btnCategorySelect:hover,
 .btnCategorySelect:active {
-  background: var(--btn-secondary-hover) !important;
   border: var(--btn-catagory-border) !important;
 }
 
@@ -251,7 +219,7 @@ option {
 .navItemCenter,
 .navItemRight {
   border: none;
-  background: var(--btn-secondary);
+  background-color: var(--btn-secondary);
   transition: all 0.3s ease;
 }
 
@@ -324,16 +292,7 @@ option {
   display: flex;
   gap: 0.5rem;
   width: 100%;
-  border: 1px solid var(--btn-secondary);
   border-radius: 0 0 10px 10px;
-  background: var(--btn-upload);
-  cursor: pointer;
-}
-
-.btnUpload:hover,
-.btnUpload:active {
-  background: var(--btn-upload-hover) !important;
-  transform: scale(1);
 }
 
 .fileInputHidden {
@@ -381,23 +340,14 @@ option {
 .btnMain {
   width: 100%;
   height: 2rem;
-  background: var(--btn-secondary);
-  transition: all 0.2s ease;
 }
 
 .btnLogout {
-  background: var(--btn-secondary);
   border-radius: 6px 6px 0 0;
 }
 
 .btnPassword {
-  background: var(--btn-secondary);
   border-radius: 0 0 6px 6px;
-}
-
-.btnMain:hover,
-.btnMain:active {
-  background: var(--btn-primary) !important;
 }
 
 .btnMenu {

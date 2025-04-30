@@ -80,6 +80,7 @@ export default function MainMenu({
           variant="menu"
           icon={<PlayCircleOutlineOutlinedIcon />}
           text="Start Game"
+          color="primary"
         />
         <Button
           onClick={handleAccountClick}
@@ -87,6 +88,7 @@ export default function MainMenu({
           variant="menu"
           icon={<PersonIcon />}
           text={isAuthenticated ? 'Profile' : 'Account'}
+          color="secondary"
         />
         <Button
           onClick={openLeaderboardModal}
@@ -94,6 +96,7 @@ export default function MainMenu({
           variant="menu"
           icon={<EmojiEventsIcon />}
           text="Leaderboard"
+          color="secondary"
         />
         <Button
           onClick={openInstructions}
@@ -101,6 +104,7 @@ export default function MainMenu({
           variant="menu"
           icon={<InfoOutlinedIcon />}
           text="Guide"
+          color="secondary"
         />
         <Button
           onClick={openLatestUpdates}
@@ -108,6 +112,7 @@ export default function MainMenu({
           className={`${styles.btnMain} ${styles.btnEnd}`}
           variant="menu"
           text="Updates"
+          color="secondary"
         />
       </div>
       <div className={styles.bottomMenu}>

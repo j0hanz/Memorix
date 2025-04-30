@@ -80,21 +80,23 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
       {success && (
         <div className="text-success mb-3 text-center">{success}</div>
       )}
-      <div className="d-flex">
+      <div className={`d-flex ${styles.modalButtons}`}>
         <Button
-          className={`${styles.btnRestart} ${styles.modalButton}`}
+          className={`${styles.btnLeft} ${styles.modalButton}`}
           type="submit"
           disabled={loading || !allFilled}
           text={loading ? <LoadingSpinner /> : 'Change Password'}
           icon={loading ? undefined : <LockResetIcon fontSize="small" />}
+          color="primary"
         />
         <Button
-          className={`${styles.btnExit} ${styles.modalButton}`}
+          className={`${styles.modalButton} ${styles.btnRight}`}
           onClick={onBack}
           type="button"
           disabled={loading}
           icon={<ArrowBackIcon fontSize="small" />}
           text="Back"
+          color="secondary"
         />
       </div>
     </>

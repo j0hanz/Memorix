@@ -81,16 +81,18 @@ export default function ScoreboardModal({
       </Modal.Body>
       <Modal.Footer className="border-0 mt-2">
         <Button
-          className={`${styles.btnRestart} ${styles.modalButton}`}
+          className={`${styles.btnLeft} ${styles.modalButton}`}
           onClick={onReset}
           icon={<ReplayCircleFilledOutlinedIcon />}
           text="Restart"
+          color="primary"
         />
         <Button
-          className={`${styles.btnExit} ${styles.modalButton}`}
+          className={`${styles.btnRight} ${styles.modalButton}`}
           onClick={onExit}
           icon={<ExitToAppOutlinedIcon />}
           text="Exit"
+          color="secondary"
         />
       </Modal.Footer>
     </Modal>

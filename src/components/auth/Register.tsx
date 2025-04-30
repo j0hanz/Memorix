@@ -64,21 +64,23 @@ const Register = ({ onSuccess }: RegisterProps) => {
           showError={!!(touched.password2 || formSubmitted)}
           className={styles.input}
         />
-        <div className="d-flex">
+        <div className={`d-flex ${styles.modalButtons}`}>
           <Button
-            className={`${styles.btnRestart} ${styles.modalButton}`}
+            className={`${styles.btnLeft} ${styles.modalButton}`}
             disabled={loading}
             type="submit"
             text={loading ? <LoadingSpinner /> : 'Sign Up'}
             icon={loading ? null : <PersonAddIcon fontSize="small" />}
+            color="primary"
           />
           <Button
-            className={`${styles.btnExit} ${styles.modalButton}`}
+            className={`${styles.btnRight} ${styles.modalButton}`}
             onClick={onSuccess}
             type="button"
             disabled={loading}
             icon={<ExitToAppOutlinedIcon fontSize="small" />}
             text="Back"
+            color="secondary"
           />
         </div>
       </Form>

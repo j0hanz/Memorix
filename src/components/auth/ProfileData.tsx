@@ -98,6 +98,7 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
               text="Change Password"
               onClick={() => setShowPasswordTab(true)}
               type="button"
+              color="secondary"
             />
           }
         />
@@ -118,9 +119,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
     }
 
     return (
-      <div className="d-flex">
+      <div className={`d-flex ${styles.modalButtons}`}>
         <Button
-          className={`${styles.btnRestart} ${styles.modalButton}`}
+          className={`${styles.btnLeft} ${styles.modalButton}`}
           type="submit"
           disabled={loading || !profileImage}
           text={loading ? <LoadingSpinner /> : 'Update Profile'}
@@ -134,11 +135,13 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
               },
             } as React.FormEvent<HTMLFormElement>);
           }}
+          color="primary"
         />
         <Button
-          className={`${styles.btnExit} ${styles.modalButton}`}
+          className={`${styles.btnRight} ${styles.modalButton}`}
           onClick={onClose}
           text="Close"
+          color="secondary"
         />
       </div>
     );

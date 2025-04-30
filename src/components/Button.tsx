@@ -4,16 +4,23 @@ import type { CustomButtonProps } from '@/types/components';
 import styles from './styles/Button.module.css';
 
 // Button component with optional icon and text
-const Button: FC<CustomButtonProps & { variant?: 'menu' | 'centered' }> = ({
+const Button: FC<
+  CustomButtonProps & {
+    variant?: 'menu' | 'centered';
+    color?: 'primary' | 'secondary';
+  }
+> = ({
   icon,
   text = '',
   className = '',
   children,
   onClick,
   variant,
+  color = 'secondary',
   ...props
 }) => {
-  const buttonClassName = `${styles.customButton} ${className}`.trim();
+  const buttonClassName =
+    `${styles.customButton} ${className} ${color === 'primary' ? styles.primaryColor : styles.secondaryColor}`.trim();
   const textClassName =
     `${styles.text} ${variant === 'menu' ? styles.menuText : ''}`.trim();
 

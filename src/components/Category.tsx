@@ -18,6 +18,7 @@ export default function CategoryData({ onSelectCategory }: CategoryDataProps) {
           onClick={() => onSelectCategory(category)}
           aria-label={`Select ${info.name} category`}
           text={info.name}
+          color="secondary"
         />
       ))}
     </div>
