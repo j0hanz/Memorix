@@ -6,13 +6,13 @@ import type { ApiError, UserScore } from '@/types/api';
 
 export function useProfile() {
   const { profile, getProfile, user, isAuthenticated } = useAuth();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [scores, setScores] = useState<UserScore[]>([]);
-  const [loadingScores, setLoadingScores] = useState(false);
+  const [loadingScores, setLoadingScores] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -42,7 +42,7 @@ export function useProfile() {
     fetchScores();
   }, [user, isAuthenticated]);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const file = e.target.files?.[0];
     if (file) {
       setProfileImage(file);
@@ -52,7 +52,9 @@ export function useProfile() {
     }
   };
 
-  const handleUpdateProfile = async (e: React.FormEvent) => {
+  const handleUpdateProfile = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ): Promise<void> => {
     e.preventDefault();
     if (!profileImage) {
       setError('Please select an image first');

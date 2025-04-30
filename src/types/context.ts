@@ -3,6 +3,7 @@ import type { PairedCard } from './card';
 import type { Dispatch } from 'react';
 import type { GameAction } from '@/reducers/gameReducer';
 
+// Game provider props
 export interface GameProviderProps {
   children: ReactNode;
   onExit: () => void;
