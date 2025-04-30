@@ -1,14 +1,14 @@
-import GameCard from './GameCard';
 import { Row, Col, Container } from 'react-bootstrap';
+import { motion } from 'framer-motion';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import { motion } from 'framer-motion';
+import GameCard from './GameCard';
 import { useMotions } from '@/hooks/useMotions';
 import { Timer, Moves } from './GameStats';
 import Feedback from './Feedback';
 import type { CardsProps } from '@/types/components';
-import styles from './styles/Cards.module.css';
 import { useCards } from '@/hooks/useCards';
+import styles from './styles/Cards.module.css';
 
 // Component to display the game cards
 export default function Cards({

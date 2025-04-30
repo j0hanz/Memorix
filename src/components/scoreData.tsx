@@ -1,8 +1,8 @@
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
-import styles from './styles/Modal.module.css';
 import Score from '@/components/GameStats';
 import type { ScoreboardProps } from '@/types/data';
+import styles from './styles/Modal.module.css';
 
 // Displays the game statistics
 export default function Scoreboard({ moves, completedTime }: ScoreboardProps) {

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Modal } from 'react-bootstrap';
-import styles from './styles/Modal.module.css';
 import OverviewTab from './OverviewTab';
 import IconsTab from './IconsTab';
 import ScoringTab from './ScoringTab';
@@ -9,6 +8,7 @@ import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBullet
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import TabNavigation from './TabNavigation';
 import type { TabItem } from '@/types/components';
+import styles from './styles/Modal.module.css';
 
 export default function InstructionsData() {
   // State to manage the active tab

@@ -1,7 +1,7 @@
-import type { Commit } from '@/types/api';
-import styles from './styles/Modal.module.css';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import type { Commit } from '@/types/api';
 import { useCommit } from '@/hooks/useCommitHistory';
+import styles from './styles/Modal.module.css';
 
 // Component that displays the commit list
 const CommitList = ({ commits }: { commits: Commit[] }) => {

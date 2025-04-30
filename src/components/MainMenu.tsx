@@ -1,20 +1,19 @@
 import { useState, useEffect } from 'react';
-import { ProfileModal } from '@/components/ModalComponents';
-import { AuthModal } from '@/components/ModalComponents';
 import { motion } from 'framer-motion';
-import Button from '@/components/Button';
+import Switch from '@mui/material/Switch';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import Switch from '@mui/material/Switch';
 import PersonIcon from '@mui/icons-material/Person';
-import styles from '@/App.module.css';
+import { ProfileModal, AuthModal } from '@/components/ModalComponents';
+import Button from '@/components/Button';
 import type { MainMenuProps } from '@/types/components';
 import { useLinks } from '@/hooks/useLinks';
 import { useAuth } from '@/hooks/useAuth';
+import styles from '@/App.module.css';
 
 // Main menu component
 export default function MainMenu({

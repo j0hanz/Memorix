@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
-import styles from './styles/Modal.module.css';
 import { useLeaderboard } from '@/hooks/useLeaderboard';
 import type { LeaderboardProps } from '@/types/components';
 import { CATEGORY_OPTIONS } from '@/utils/categoryUtils';
 import StarRating from './StarRating';
+import styles from './styles/Modal.module.css';
 
 const Leaderboard: React.FC<LeaderboardProps> = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(

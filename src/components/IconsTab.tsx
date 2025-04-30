@@ -6,8 +6,8 @@ import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
-import styles from './styles/Modal.module.css';
 import type { IconExplanationProps } from '@/types/data';
+import styles from './styles/Modal.module.css';
 
 // Component for each icon explanation row
 function IconExplanation({ icon, description }: IconExplanationProps) {

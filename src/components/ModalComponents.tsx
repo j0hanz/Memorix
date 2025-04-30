@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { useAuth } from '@/hooks/useAuth';
-import { useScore } from '@/hooks/useScore';
+import { Modal } from 'react-bootstrap';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import { Modal } from 'react-bootstrap';
+import { useAuth } from '@/hooks/useAuth';
+import { useScore } from '@/hooks/useScore';
 import Button from './Button';
-import styles from './styles/Modal.module.css';
 import Scoreboard from '@/components/scoreData';
 import InstructionsData from '@/components/instructionsData';
 import CommitStatus from './CommitHistory';
@@ -24,6 +23,7 @@ import type {
 } from '@/types/components';
 import { useLinks } from '@/hooks/useLinks';
 import Leaderboard from './Leaderboard';
+import styles from './styles/Modal.module.css';
 
 // Scoreboard modal component
 export default function ScoreboardModal({
