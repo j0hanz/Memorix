@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
-import { Modal } from 'react-bootstrap';
+import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useScore } from '@/hooks/useScore';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import { Modal } from 'react-bootstrap';
 import Button from './Button';
 import styles from './styles/Modal.module.css';
 import Scoreboard from '@/components/scoreData';
@@ -25,6 +25,7 @@ import type {
 import { useLinks } from '@/hooks/useLinks';
 import Leaderboard from './Leaderboard';
 
+// Scoreboard modal component
 export default function ScoreboardModal({
   show,
   onClose,
@@ -119,7 +120,7 @@ export default function ScoreboardModal({
   );
 }
 
-// Add this to exports
+// Leaderboard modal component
 export function LeaderboardModal({ show, onClose }: LeaderboardModalProps) {
   return (
     <Modal
@@ -174,6 +175,7 @@ export function ProfileModal({ show, onClose, logout }: ProfileModalProps) {
     </Modal>
   );
 }
+
 // Game instructions modal
 export function GameInstructions({ show, onClose }: GameInstructionsProps) {
   return (
@@ -198,14 +200,9 @@ export function CategorySelection({
   onSelectCategory,
 }: CategoryProps) {
   return (
-    <Modal
-      show={show}
-      onHide={onClose}
-      centered
-      className={`${styles.modal} ${styles.categoryModal}`}
-    >
+    <Modal show={show} onHide={onClose} centered className={styles.modal}>
       <Modal.Header className="border-0 d-flex justify-content-center">
-        <Modal.Title>Select Category:</Modal.Title>
+        <Modal.Title>Select Category</Modal.Title>
       </Modal.Header>
       <Modal.Body className="px-0">
         <CategoryData onSelectCategory={onSelectCategory} />
@@ -219,6 +216,8 @@ export function CategorySelection({
 
 // Latest updates modal
 export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
+  const { handleGitHubClick } = useLinks();
+
   return (
     <Modal
       show={show}
@@ -235,7 +234,7 @@ export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
       <Modal.Footer className="border-0">
         <Button
           className={`${styles.btnLeft} ${styles.modalButton}`}
-          onClick={useLinks().handleGitHubClick}
+          onClick={handleGitHubClick}
           text="Github"
         />
         <Button

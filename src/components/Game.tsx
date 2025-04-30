@@ -51,7 +51,7 @@ export default function Game({ onRestart }: GameProps) {
           onExit={exitToMainMenu}
           completedTime={completedTime}
           moves={moves}
-          categoryCode={selectedCategory}
+          categoryCode={selectedCategory ?? ''}
         />
       )}
     </>
