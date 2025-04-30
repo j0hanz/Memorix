@@ -4,14 +4,11 @@ import Button from '@/components/Button';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
-import PetsIcon from '@mui/icons-material/Pets';
-import PublicIcon from '@mui/icons-material/Public';
-import PatternIcon from '@mui/icons-material/Wallpaper';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
-import styles from '@/components/styles/Modal.module.css';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import styles from '@/components/styles/Modal.module.css';
 import type { ProfileGameHistoryProps } from '@/types/components';
+import { CATEGORY_OPTIONS, getCategoryIcon } from '@/utils/categoryUtils';
 
 const ITEMS_PER_PAGE = 5;
 
@@ -19,16 +16,6 @@ const renderStars = (count: number) =>
   Array.from({ length: count }, (_, i) => (
     <StarOutlinedIcon key={i} className={styles.scoreIconStar} />
   ));
-
-const getscoreIcon = (categoryName: string) => {
-  const categoryMap: Record<string, React.ReactElement> = {
-    Animals: <PetsIcon fontSize="small" />,
-    Astronomy: <PublicIcon fontSize="small" />,
-    Patterns: <PatternIcon fontSize="small" />,
-    Sushi: <RestaurantIcon fontSize="small" />,
-  };
-  return categoryMap[categoryName] || <span>{categoryName}</span>;
-};
 
 const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
   scores = [],
@@ -67,10 +54,11 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
           className={styles.formSelect}
         >
           <option value="">All Categories</option>
-          <option value="Animals">Animals</option>
-          <option value="Astronomy">Astronomy</option>
-          <option value="Patterns">Patterns</option>
-          <option value="Sushi">Sushi</option>
+          {CATEGORY_OPTIONS.map((cat) => (
+            <option key={cat.value} value={cat.value}>
+              {cat.label}
+            </option>
+          ))}
         </Form.Select>
       </Form.Group>
       {loadingScores ? (
@@ -83,7 +71,7 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
                 xs={1}
                 className="d-flex justify-content-start align-items-center"
               >
-                {getscoreIcon(score.category_name)}
+                {getCategoryIcon(score.category_name)}
               </Col>
               <Col
                 xs={1}

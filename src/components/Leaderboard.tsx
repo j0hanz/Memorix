@@ -6,25 +6,12 @@ import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import styles from './styles/Modal.module.css';
 import { useLeaderboard } from '@/hooks/useLeaderboard';
 import type { LeaderboardProps } from '@/types/components';
-import PetsIcon from '@mui/icons-material/Pets';
-import PublicIcon from '@mui/icons-material/Public';
-import PatternIcon from '@mui/icons-material/Wallpaper';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
+import { CATEGORY_OPTIONS } from '@/utils/categoryUtils';
 
 const renderStars = (count: number) =>
   Array.from({ length: count }, (_, i) => (
     <StarOutlinedIcon key={i} className={styles.scoreIconStar} />
   ));
-
-const getCategoryIcon = (categoryName: string) => {
-  const categoryMap: Record<string, React.ReactElement> = {
-    Animals: <PetsIcon fontSize="small" />,
-    Astronomy: <PublicIcon fontSize="small" />,
-    Patterns: <PatternIcon fontSize="small" />,
-    Sushi: <RestaurantIcon fontSize="small" />,
-  };
-  return categoryMap[categoryName] || <span>{categoryName}</span>;
-};
 
 const Leaderboard: React.FC<LeaderboardProps> = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
@@ -47,10 +34,11 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
           className={styles.formSelect}
         >
           <option value="">All Categories</option>
-          <option value="1">Animals</option>
-          <option value="2">Astronomy</option>
-          <option value="3">Patterns</option>
-          <option value="4">Sushi</option>
+          {CATEGORY_OPTIONS.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.label}
+            </option>
+          ))}
         </Form.Select>
       </Form.Group>
       {loading ? (
