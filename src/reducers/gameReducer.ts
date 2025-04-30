@@ -1,6 +1,11 @@
 import { CARD_STATUS } from '@/constants/constants';
 import type { PairedCard } from '@/types/card';
 import type { GameState } from '@/types/context';
+import {
+  updateCardStatus,
+  updateMultipleCardStatus,
+  updateAllCardsStatus,
+} from '@/utils/cardUtils';
 
 export type GameAction =
   | { type: 'INITIALIZE_GAME'; payload: { cards: PairedCard[] } }
@@ -48,10 +53,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       return {
         ...state,
         isProcessingMatch: true,
-        cards: state.cards.map((card) => ({
-          ...card,
-          status: CARD_STATUS.ACTIVE,
-        })),
+        cards: updateAllCardsStatus(state.cards, CARD_STATUS.ACTIVE),
       };
 
     case 'HIDE_ALL_CARDS':
@@ -71,15 +73,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
     case 'SELECT_CARD': {
       // Select a card for comparison
       const { index } = action.payload;
-      const updatedCards = [...state.cards];
-      updatedCards[index] = {
-        ...updatedCards[index],
-        status: CARD_STATUS.ACTIVE,
-      };
-
       return {
         ...state,
-        cards: updatedCards,
+        cards: updateCardStatus(state.cards, index, CARD_STATUS.ACTIVE),
         selectedCardIndex:
           state.selectedCardIndex === null ? index : state.selectedCardIndex,
       };
@@ -90,17 +86,13 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       const { index, isMatch } = action.payload;
       const prevIndex = state.selectedCardIndex as number;
       const newStatus = isMatch ? CARD_STATUS.MATCHED : CARD_STATUS.DEFAULT;
-      const updatedCards = [...state.cards];
-
-      updatedCards[index] = { ...updatedCards[index], status: newStatus };
-      updatedCards[prevIndex] = {
-        ...updatedCards[prevIndex],
-        status: newStatus,
-      };
-
       return {
         ...state,
-        cards: updatedCards,
+        cards: updateMultipleCardStatus(
+          state.cards,
+          [index, prevIndex],
+          newStatus,
+        ),
         selectedCardIndex: null,
         matchedPairs: isMatch ? state.matchedPairs + 1 : state.matchedPairs,
         isProcessingMatch: false,
