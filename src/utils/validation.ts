@@ -1,4 +1,4 @@
-import type { ValidationRules } from '@/types/form';
+import type { ValidationRules } from '@/types/hooks';
 
 export const required =
   (fieldName = 'Field') =>
