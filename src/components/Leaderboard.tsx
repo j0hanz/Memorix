@@ -39,23 +39,20 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
 
   return (
     <>
-      <div>
-        <Form.Group>
-          <Form.Label className="d-none">Filter by Category</Form.Label>
-          <Form.Select
-            onChange={handleCategoryChange}
-            value={selectedCategory || ''}
-            className={styles.input}
-          >
-            <option value="">All Categories</option>
-            <option value="1">Animals</option>
-            <option value="2">Astronomy</option>
-            <option value="3">Patterns</option>
-            <option value="4">Sushi</option>
-          </Form.Select>
-        </Form.Group>
-      </div>
-
+      <Form.Group>
+        <Form.Label className="d-none">Filter by Category</Form.Label>
+        <Form.Select
+          onChange={handleCategoryChange}
+          value={selectedCategory || ''}
+          className={styles.input}
+        >
+          <option value="">All Categories</option>
+          <option value="1">Animals</option>
+          <option value="2">Astronomy</option>
+          <option value="3">Patterns</option>
+          <option value="4">Sushi</option>
+        </Form.Select>
+      </Form.Group>
       {loading ? (
         <div className="text-center p-4">Loading leaderboard...</div>
       ) : error ? (

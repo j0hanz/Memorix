@@ -58,22 +58,20 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
 
   return (
     <>
-      <div>
-        <Form.Group>
-          <Form.Label className="d-none">Filter by Category</Form.Label>
-          <Form.Select
-            onChange={handleCategoryChange}
-            value={selectedCategory}
-            className={styles.input}
-          >
-            <option value="">All Categories</option>
-            <option value="Animals">Animals</option>
-            <option value="Astronomy">Astronomy</option>
-            <option value="Patterns">Patterns</option>
-            <option value="Sushi">Sushi</option>
-          </Form.Select>
-        </Form.Group>
-      </div>
+      <Form.Group>
+        <Form.Label className="d-none">Filter by Category</Form.Label>
+        <Form.Select
+          onChange={handleCategoryChange}
+          value={selectedCategory}
+          className={styles.input}
+        >
+          <option value="">All Categories</option>
+          <option value="Animals">Animals</option>
+          <option value="Astronomy">Astronomy</option>
+          <option value="Patterns">Patterns</option>
+          <option value="Sushi">Sushi</option>
+        </Form.Select>
+      </Form.Group>
       {loadingScores ? (
         <div className="text-center p-4">Loading game history...</div>
       ) : filteredScores.length > 0 ? (
