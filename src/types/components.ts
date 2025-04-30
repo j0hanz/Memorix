@@ -3,6 +3,18 @@ import type { ButtonProps } from 'react-bootstrap';
 import type { TargetAndTransition, Transition } from 'framer-motion';
 import type { PairedCard } from './card';
 
+export interface ProfileChangePasswordProps {
+  onBack: () => void;
+  onSubmit: (
+    oldPassword: string,
+    newPassword1: string,
+    newPassword2: string,
+  ) => Promise<void>;
+  loading: boolean;
+  error?: string | null;
+  success?: string | null;
+}
+
 export interface ProfileOverviewProps {
   user: {
     username: string;

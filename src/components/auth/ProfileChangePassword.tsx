@@ -3,20 +3,9 @@ import { Form } from 'react-bootstrap';
 import Button from '@/components/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import styles from '@/components/styles/Modal.module.css';
+import type { ProfileChangePasswordProps } from '@/types/components';
 
-interface Props {
-  onBack: () => void;
-  onSubmit: (
-    oldPassword: string,
-    newPassword1: string,
-    newPassword2: string,
-  ) => Promise<void>;
-  loading: boolean;
-  error?: string | null;
-  success?: string | null;
-}
-
-const ProfileChangePassword: React.FC<Props> = ({
+const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
   onBack,
   onSubmit,
   loading,
