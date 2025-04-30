@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Button from '@/components/Button';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import styles from './styles/Modal.module.css';
+import styles from '@/components/styles/Modal.module.css';
 
 interface Props {
   onBack: () => void;

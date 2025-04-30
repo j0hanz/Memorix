@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Alert, Row } from 'react-bootstrap';
 import Button from '@/components/Button';
-import styles from './styles/Modal.module.css';
+import styles from '@/components/styles/Modal.module.css';
 import { useProfile } from '@/hooks/useProfile';
-import TabNavigation from './TabNavigation';
+import TabNavigation from '@/components/TabNavigation';
 import type { TabItem } from '@/types/components';
 import PersonIcon from '@mui/icons-material/Person';
 import HistoryIcon from '@mui/icons-material/History';

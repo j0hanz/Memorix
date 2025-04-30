@@ -10,8 +10,8 @@ import Scoreboard from '@/components/scoreData';
 import InstructionsData from '@/components/instructionsData';
 import CommitStatus from './CommitHistory';
 import CategoryData from './Category';
-import AuthData from './AuthData';
-import ProfileData from './ProfileData';
+import AuthData from './auth/AuthData';
+import ProfileData from './auth/ProfileData';
 import gameService from '@/services/gameService';
 import type {
   ScoreboardModalProps,

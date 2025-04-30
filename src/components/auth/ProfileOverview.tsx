@@ -1,7 +1,7 @@
 import { Col } from 'react-bootstrap';
 import Button from '@/components/Button';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import styles from './styles/Modal.module.css';
+import styles from '@/components/styles/Modal.module.css';
 import type { ProfileOverviewProps } from '@/types/components';
 
 const formatDate = (date?: string) =>

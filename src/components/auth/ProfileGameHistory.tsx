@@ -6,7 +6,7 @@ import PetsIcon from '@mui/icons-material/Pets';
 import PublicIcon from '@mui/icons-material/Public';
 import PatternIcon from '@mui/icons-material/Wallpaper';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
-import styles from './styles/Modal.module.css';
+import styles from '@/components/styles/Modal.module.css';
 import type { ProfileGameHistoryProps } from '@/types/components';
 
 const renderStars = (count: number) =>

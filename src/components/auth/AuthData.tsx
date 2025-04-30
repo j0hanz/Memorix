@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import styles from './styles/Modal.module.css';
-import Login from './auth/Login';
-import Register from './auth/Register';
+import styles from '@/components/styles/Modal.module.css';
+import Login from './Login';
+import Register from './Register';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import TabNavigation from './TabNavigation';
+import TabNavigation from '../TabNavigation';
 import type { TabItem } from '@/types/components';
 
 // Auth data component for the modal content
