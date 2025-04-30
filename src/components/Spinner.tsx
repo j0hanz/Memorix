@@ -18,7 +18,7 @@ const LoadingCardSpinner = ({ isLoading, message }: SpinnerProps) => (
 );
 
 const LoadingSpinner = () => (
-  <div className={styles.loadership_XESUH} role="status" aria-label="Loading">
+  <div className={styles.loadership_JWZDT} role="status" aria-label="Loading">
     <div />
     <div />
     <div />

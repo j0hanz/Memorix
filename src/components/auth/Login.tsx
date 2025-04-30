@@ -58,9 +58,7 @@ const Login = ({ onClose }: LoginProps) => {
             icon={
               !loading ? (
                 <LoginIcon fontSize="small" className={styles.btnIcon} />
-              ) : (
-                null
-              )
+              ) : null
             }
             text={loading ? <LoadingSpinner /> : 'Sign In'}
           />
