@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Form } from 'react-bootstrap';
 import Button from '@/components/Button';
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
@@ -35,9 +35,15 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
   loadingScores,
 }) => {
   const [page, setPage] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
 
-  const totalPages = Math.ceil(scores.length / ITEMS_PER_PAGE);
-  const paginatedScores = scores.slice(
+  // Filter scores by selected category (if any)
+  const filteredScores = selectedCategory
+    ? scores.filter((score) => score.category_name === selectedCategory)
+    : scores;
+
+  const totalPages = Math.ceil(filteredScores.length / ITEMS_PER_PAGE);
+  const paginatedScores = filteredScores.slice(
     (page - 1) * ITEMS_PER_PAGE,
     page * ITEMS_PER_PAGE,
   );
@@ -45,11 +51,32 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
   const handlePrev = () => setPage((p) => Math.max(1, p - 1));
   const handleNext = () => setPage((p) => Math.min(totalPages, p + 1));
 
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedCategory(e.target.value);
+    setPage(1);
+  };
+
   return (
     <>
+      <div>
+        <Form.Group>
+          <Form.Label className="d-none">Filter by Category</Form.Label>
+          <Form.Select
+            onChange={handleCategoryChange}
+            value={selectedCategory}
+            className={styles.input}
+          >
+            <option value="">All Categories</option>
+            <option value="Animals">Animals</option>
+            <option value="Astronomy">Astronomy</option>
+            <option value="Patterns">Patterns</option>
+            <option value="Sushi">Sushi</option>
+          </Form.Select>
+        </Form.Group>
+      </div>
       {loadingScores ? (
         <div className="text-center p-4">Loading game history...</div>
-      ) : scores.length > 0 ? (
+      ) : filteredScores.length > 0 ? (
         <div className="my-3">
           {paginatedScores.map((score) => (
             <Row key={score.id} className={styles.scoreRow}>
