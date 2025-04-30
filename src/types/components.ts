@@ -129,6 +129,12 @@ export interface TabNavigationProps {
   onSelect: (key: string) => void;
 }
 
+export interface StarRatingProps {
+  count: number;
+  max?: number;
+  className?: string;
+}
+
 export interface ImageProps {
   src: string;
   alt: string;

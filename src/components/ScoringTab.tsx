@@ -1,10 +1,9 @@
 import { ListGroup, Badge, Row, Col } from 'react-bootstrap';
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import AllInclusiveOutlinedIcon from '@mui/icons-material/AllInclusiveOutlined';
-import styles from './styles/Modal.module.css';
 import type { ScoreRowProps } from '@/types/data';
+import StarRating from './StarRating';
 
 // Component for each scoring criteria row
 function ScoreRow({ stars, moves, time }: ScoreRowProps) {
@@ -12,14 +11,7 @@ function ScoreRow({ stars, moves, time }: ScoreRowProps) {
     <>
       <Row className="d-flex justify-content-between align-items-center m-1">
         <Col xs={1} className="d-flex justify-content-start align-items-center">
-          {[...Array(5)].map((_, i) => (
-            <StarOutlinedIcon
-              key={i}
-              className={`${styles.scoreIconStar} ${
-                i < stars ? styles.starIcon : styles.grayedOut
-              }`}
-            />
-          ))}
+          <StarRating count={stars} />
         </Col>
         <Col
           xs={1}

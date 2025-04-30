@@ -1,17 +1,12 @@
 import { useState } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import styles from './styles/Modal.module.css';
 import { useLeaderboard } from '@/hooks/useLeaderboard';
 import type { LeaderboardProps } from '@/types/components';
 import { CATEGORY_OPTIONS } from '@/utils/categoryUtils';
-
-const renderStars = (count: number) =>
-  Array.from({ length: count }, (_, i) => (
-    <StarOutlinedIcon key={i} className={styles.scoreIconStar} />
-  ));
+import StarRating from './StarRating';
 
 const Leaderboard: React.FC<LeaderboardProps> = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
@@ -68,7 +63,7 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
                 xs={1}
                 className="d-flex justify-content-center align-items-center"
               >
-                {renderStars(entry.stars)}
+                <StarRating count={entry.stars} />
               </Col>
               <Col
                 xs={1}

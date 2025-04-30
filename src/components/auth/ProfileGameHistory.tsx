@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 import Button from '@/components/Button';
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -9,13 +8,9 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import styles from '@/components/styles/Modal.module.css';
 import type { ProfileGameHistoryProps } from '@/types/components';
 import { CATEGORY_OPTIONS, getCategoryIcon } from '@/utils/categoryUtils';
+import StarRating from '../StarRating';
 
 const ITEMS_PER_PAGE = 5;
-
-const renderStars = (count: number) =>
-  Array.from({ length: count }, (_, i) => (
-    <StarOutlinedIcon key={i} className={styles.scoreIconStar} />
-  ));
 
 const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
   scores = [],
@@ -77,7 +72,7 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
                 xs={1}
                 className="d-flex justify-content-center align-items-center"
               >
-                {renderStars(score.stars)}
+                <StarRating count={score.stars} />
               </Col>
               <Col
                 xs={1}
