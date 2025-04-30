@@ -97,7 +97,7 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
             </Row>
           ))}
           {totalPages > 1 && (
-            <div className="d-flex justify-content-center align-items-center mt-3 gap-2">
+            <div className="d-flex justify-content-center align-items-center mt-4 gap-5">
               <Button
                 className={styles.btnRounded}
                 onClick={handlePrev}
@@ -105,10 +105,7 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
                 aria-label="Previous Page"
                 icon={<ArrowBackIosNewIcon fontSize="small" />}
               />
-
-              <span>
-                {page} of {totalPages}
-              </span>
+              {page} of {totalPages}
               <Button
                 className={styles.btnRounded}
                 onClick={handleNext}

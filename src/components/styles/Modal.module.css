@@ -46,7 +46,8 @@ option {
   cursor: pointer;
   background: var(--btn-secondary);
   color: var(--moves);
-  padding: 0.5rem;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
 }
 
@@ -409,7 +410,7 @@ option {
     height: 100%;
   }
   .navLink {
-    font-size: 0.95em;
+    font-size: 0.9em;
   }
   .scoreIconStar {
     font-size: 0.8rem !important;
