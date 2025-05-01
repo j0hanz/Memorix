@@ -11,13 +11,15 @@ import {
   LeaderboardModal,
   CategorySelection,
   AuthModal,
+  ProfileModal,
 } from '@/components/ModalComponents';
 import { GameProvider } from '@/components/GameProvider';
 import MainMenu from '@/components/MainMenu';
 import ErrorBoundary from '@/components/ErrorBoundary';
+import { useModal } from '@/hooks/useModal';
+import { useAuth } from '@/hooks/useAuth';
 
-export default function App() {
-  const [showAuthModal, setShowAuthModal] = useState(false);
+const App = () => {
   const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
   const [showInitialLoading, setShowInitialLoading] = useState(true);
 
@@ -40,6 +42,12 @@ export default function App() {
   // Get animations and sounds
   const { enterAnimation } = useMotions();
 
+  const { activeModal, closeModal, openModal } = useModal();
+  const { logout } = useAuth();
+
+  // Handler to open the auth modal
+  const useAuthModal = () => openModal('auth');
+
   // Destructure game handlers
   const {
     startGame,
@@ -53,9 +61,9 @@ export default function App() {
     openLatestUpdates,
     closeLatestUpdates,
     closeCategorySelection,
-    closeAuthModal,
     openLeaderboardModal,
     closeLeaderboardModal,
+    handleLogout,
   } = useNavigation({
     setIsLoading,
     setIsGameActive,
@@ -63,8 +71,9 @@ export default function App() {
     setShowLatestUpdates,
     setShowCategorySelection,
     setSelectedCategory,
-    setShowAuthModal,
+    setShowAuthModal: useAuthModal,
     setShowLeaderboardModal,
+    logout,
   });
 
   const handleStartGame = () => {
@@ -101,7 +110,7 @@ export default function App() {
             openInstructions={openInstructions}
             openLatestUpdates={openLatestUpdates}
             enterAnimation={enterAnimation}
-            openAuthModal={() => setShowAuthModal(true)}
+            openAuthModal={useAuthModal}
             openLeaderboardModal={openLeaderboardModal}
           />
         )}
@@ -120,7 +129,6 @@ export default function App() {
             </GameProvider>
           </ErrorBoundary>
         )}
-
         <GameInstructions show={showInstructions} onClose={closeInstructions} />
         <LatestUpdates show={showLatestUpdates} onClose={closeLatestUpdates} />
         <CategorySelection
@@ -132,8 +140,15 @@ export default function App() {
           show={showLeaderboardModal}
           onClose={closeLeaderboardModal}
         />
+        <ProfileModal
+          show={activeModal === 'profile'}
+          onClose={closeModal}
+          logout={handleLogout}
+        />
+        <AuthModal show={activeModal === 'auth'} onClose={closeModal} />
       </ErrorBoundary>
-      <AuthModal show={showAuthModal} onClose={closeAuthModal} />
     </Router>
   );
-}
+};
+
+export default App;

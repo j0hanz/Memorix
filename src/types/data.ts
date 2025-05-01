@@ -18,6 +18,6 @@ export interface ScoreboardProps {
 
 export interface ScoreRowProps {
   stars: number;
-  moves: number;
+  moves: number | React.ReactNode;
   time: string | React.ReactNode;
 }

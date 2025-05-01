@@ -102,15 +102,6 @@ export const STORAGE_KEYS = {
   MUTE_STATE: 'memorixMuted',
 };
 
-// Scoring thresholds
-export const SCORING = {
-  FIVE_STAR: { moves: 6, time: 15 },
-  FOUR_STAR: { moves: 7, time: 30 },
-  THREE_STAR: { moves: 8, time: 45 },
-  TWO_STAR: { moves: 9, time: 60 },
-  // One star is default
-};
-
 // Sound identifiers
 export const SOUNDS = {
   BUTTON: 'button',

@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext } from 'react';
 import type { ModalContextType } from '@/types/context';
 
 export const ModalContext = createContext<ModalContextType>({
@@ -11,5 +11,3 @@ export const ModalContext = createContext<ModalContextType>({
     throw new Error('closeModal not implemented');
   },
 });
-
-export const useModal = () => useContext(ModalContext);

@@ -2,10 +2,10 @@ import { ListGroup, Badge, Row, Col } from 'react-bootstrap';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import AllInclusiveOutlinedIcon from '@mui/icons-material/AllInclusiveOutlined';
-import type { ScoreRowProps } from '@/types/data';
 import StarRating from './StarRating';
+import type { ScoreRowProps } from '@/types/data';
+import { SCORING_THRESHOLDS } from '@/constants/scoring';
 
-// Component for each scoring criteria row
 function ScoreRow({ stars, moves, time }: ScoreRowProps) {
   return (
     <>
@@ -33,18 +33,22 @@ function ScoreRow({ stars, moves, time }: ScoreRowProps) {
 }
 
 export default function ScoringTab() {
-  // Scoring criteria data
-  const scoringCriteria: ScoreRowProps[] = [
-    { stars: 5, moves: 6, time: '15s' },
-    { stars: 4, moves: 7, time: '30s' },
-    { stars: 3, moves: 8, time: '45s' },
-    { stars: 2, moves: 9, time: '60s' },
-    {
-      stars: 1,
-      moves: 10,
-      time: <AllInclusiveOutlinedIcon fontSize="small" />,
-    },
-  ];
+  // Use centralized scoring thresholds
+  const scoringCriteria: ScoreRowProps[] = SCORING_THRESHOLDS.map((row) => ({
+    stars: row.stars,
+    moves:
+      row.moves === Infinity ? (
+        <AllInclusiveOutlinedIcon fontSize="small" />
+      ) : (
+        row.moves
+      ),
+    time:
+      row.time === Infinity ? (
+        <AllInclusiveOutlinedIcon fontSize="small" />
+      ) : (
+        `${row.time}s`
+      ),
+  }));
 
   return (
     <>

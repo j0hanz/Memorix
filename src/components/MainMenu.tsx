@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Switch from '@mui/material/Switch';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
@@ -8,46 +8,37 @@ import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import PersonIcon from '@mui/icons-material/Person';
-import { ProfileModal, AuthModal } from '@/components/ModalComponents';
 import Button from '@/components/Button';
 import type { MainMenuProps } from '@/types/components';
 import { useLinks } from '@/hooks/useLinks';
 import { useAuth } from '@/hooks/useAuth';
+import { useModal } from '@/hooks/useModal';
 import styles from '@/App.module.css';
 
-// Main menu component
-export default function MainMenu({
+const MainMenu = ({
   startGame,
   openInstructions,
   openLatestUpdates,
   enterAnimation,
+  openAuthModal: _openAuthModal,
   openLeaderboardModal,
-}: MainMenuProps) {
+}: MainMenuProps) => {
   const { isMuted, toggleMute } = useLinks();
-  const { isAuthenticated, logout, user, profile, getProfile } = useAuth();
-  const [showProfileModal, setShowProfileModal] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const handleProfileModalClose = () => setShowProfileModal(false);
+  const { isAuthenticated, user, profile, getProfile } = useAuth();
+  const { openModal } = useModal();
 
   useEffect(() => {
-    // Fetch the profile if authenticated
     if (isAuthenticated && user && !profile) {
       getProfile();
     }
   }, [isAuthenticated, user, profile, getProfile]);
 
   const handleAccountClick = () => {
-    // Open profile modal if authenticated, otherwise open auth modal
     if (isAuthenticated) {
-      setShowProfileModal(true);
+      openModal('profile');
     } else {
-      setShowAuthModal(true);
+      openModal('auth');
     }
-  };
-
-  const handleSignOut = () => {
-    logout();
-    setShowProfileModal(false);
   };
 
   return (
@@ -59,7 +50,7 @@ export default function MainMenu({
               src={profile.profile_picture_url}
               alt="Profile"
               className={styles.menuProfileImage}
-              onClick={() => setShowProfileModal(true)}
+              onClick={() => openModal('profile')}
             />
           )}
         </div>
@@ -128,12 +119,8 @@ export default function MainMenu({
           }}
         />
       </div>
-      <ProfileModal
-        show={showProfileModal}
-        onClose={handleProfileModalClose}
-        logout={handleSignOut}
-      />
-      <AuthModal show={showAuthModal} onClose={() => setShowAuthModal(false)} />
     </div>
   );
-}
+};
+
+export default MainMenu;

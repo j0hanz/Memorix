@@ -11,9 +11,11 @@ export const useNavigation = ({
   setSelectedCategory,
   setShowAuthModal,
   setShowLeaderboardModal,
+  logout,
 }: GameHandlerOptions & {
   setShowAuthModal: (value: boolean) => void;
   setShowLeaderboardModal: (value: boolean) => void;
+  logout: () => void;
 }) => {
   const { playSound } = useSoundEffects();
 
@@ -34,6 +36,14 @@ export const useNavigation = ({
       setIsGameActive(true);
       callback?.();
     }, GAME_CONFIG.LOADING_DELAY);
+  };
+
+  // Logout and redirect to MainMenu
+  const handleLogout = () => {
+    logout();
+    setIsGameActive(false);
+    setShowAuthModal(false);
+    setShowLeaderboardModal(false);
   };
 
   // Navigation actions
@@ -102,5 +112,6 @@ export const useNavigation = ({
     closeCategorySelection,
     openLeaderboardModal,
     closeLeaderboardModal,
+    handleLogout,
   };
 };
