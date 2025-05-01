@@ -5,6 +5,7 @@ import CategoryData from './Category';
 import AuthData from './auth/AuthData';
 import ProfileData from './auth/ProfileData';
 import Leaderboard from './Leaderboard';
+import ScoreboardData from './ScoreboardData';
 import Button from './Button';
 import type {
   GameInstructionsProps,
@@ -13,8 +14,47 @@ import type {
   AuthModalProps,
   ProfileModalProps,
   LeaderboardModalProps,
+  ScoreboardModalProps,
 } from '@/types/components';
 import styles from './styles/Modal.module.css';
+
+// Scoreboard modal component
+export function ScoreboardModal({
+  show,
+  onClose,
+  onReset,
+  onExit,
+  title = 'Game completed!',
+  children,
+  moves,
+  completedTime,
+  categoryCode,
+}: ScoreboardModalProps) {
+  return (
+    <Modal
+      show={show}
+      onHide={onClose}
+      centered
+      className={styles.modal}
+      backdrop="static"
+    >
+      <Modal.Header className="border-0 d-flex justify-content-center">
+        <Modal.Title>{title}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="p-0">
+        <ScoreboardData
+          onReset={onReset}
+          onExit={onExit}
+          moves={moves}
+          completedTime={completedTime}
+          categoryCode={categoryCode}
+        >
+          {children}
+        </ScoreboardData>
+      </Modal.Body>
+    </Modal>
+  );
+}
 
 // Leaderboard modal component
 export function LeaderboardModal({ show, onClose }: LeaderboardModalProps) {
@@ -50,7 +90,6 @@ export function AuthModal({ show, onClose }: AuthModalProps) {
       <Modal.Body className="p-0">
         <AuthData onClose={onClose} />
       </Modal.Body>
-      <Modal.Footer className="border-0" />
     </Modal>
   );
 }
@@ -67,7 +106,6 @@ export function ProfileModal({ show, onClose, logout }: ProfileModalProps) {
       <Modal.Body className="p-0">
         <ProfileData onClose={onClose} logout={logout} />
       </Modal.Body>
-      <Modal.Footer className="border-0" />
     </Modal>
   );
 }
@@ -125,7 +163,6 @@ export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
       <Modal.Body className="p-0">
         <CommitStatus onClose={onClose} />
       </Modal.Body>
-      <Modal.Footer className="border-0" />
     </Modal>
   );
 }

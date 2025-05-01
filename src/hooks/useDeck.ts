@@ -1,29 +1,24 @@
 import { useState } from 'react';
-import type { PairedCard } from '@/data/cardData';
 import { generateCards } from '@/data/cardData';
 import { shuffleCards } from '@/utils/deckUtils';
 import { CATEGORIES } from '@/constants/constants';
+import type { PairedCard } from '@/types/card';
 
-export function useShuffledDeck(category = CATEGORIES.ANIMALS) {
-  // Generate and shuffle deck initially with the selected category
+export function useDeck(category = CATEGORIES.ANIMALS) {
   const [deck, setDeck] = useState<PairedCard[]>(() => {
-    // Try to generate and shuffle cards
     try {
       const cards = generateCards(category);
       return shuffleCards(cards);
     } catch (error) {
-      console.error(
-        'Error generating or shuffling cards on initialization:',
-        error,
-      );
+      console.error('Error generating or shuffling cards:', error);
       return [];
     }
   });
 
-  function refreshDeck() {
-    // Refresh the deck with a new shuffled set of cards
+  function refreshDeck(newCategory?: string) {
     try {
-      const newDeck = shuffleCards(generateCards(category));
+      const cat = newCategory || category;
+      const newDeck = shuffleCards(generateCards(cat));
       setDeck(newDeck);
     } catch (error) {
       console.error('Error refreshing deck:', error);

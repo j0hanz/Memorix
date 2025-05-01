@@ -2,9 +2,9 @@ import { CARD_STATUS } from '@/constants/constants';
 import type { PairedCard } from '@/types/card';
 import type { GameState } from '@/types/context';
 import {
-  updateCardStatus,
-  updateMultipleCardStatus,
-  updateAllCardsStatus,
+  setCardStatus,
+  setMultipleCardStatus,
+  setAllCardsStatus,
 } from '@/utils/cardUtils';
 
 export type GameAction =
@@ -53,7 +53,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       return {
         ...state,
         isProcessingMatch: true,
-        cards: updateAllCardsStatus(state.cards, CARD_STATUS.ACTIVE),
+        cards: setAllCardsStatus(state.cards, CARD_STATUS.ACTIVE),
       };
 
     case 'HIDE_ALL_CARDS':
@@ -75,7 +75,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       const { index } = action.payload;
       return {
         ...state,
-        cards: updateCardStatus(state.cards, index, CARD_STATUS.ACTIVE),
+        cards: setCardStatus(state.cards, index, CARD_STATUS.ACTIVE),
         selectedCardIndex:
           state.selectedCardIndex === null ? index : state.selectedCardIndex,
       };
@@ -88,7 +88,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       const newStatus = isMatch ? CARD_STATUS.MATCHED : CARD_STATUS.DEFAULT;
       return {
         ...state,
-        cards: updateMultipleCardStatus(
+        cards: setMultipleCardStatus(
           state.cards,
           [index, prevIndex],
           newStatus,

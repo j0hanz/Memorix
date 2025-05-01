@@ -1,6 +1,6 @@
 import { useReducer, useEffect, useCallback, useRef } from 'react';
 import { gameReducer, initialGameState } from '@/reducers/gameReducer';
-import { useShuffledDeck } from '@/hooks/useShuffledDeck';
+import { useDeck } from '@/hooks/useDeck';
 import {
   DELAYS,
   FEEDBACK,
@@ -16,7 +16,7 @@ export function useGameReducer(
   selectedCategory = CATEGORIES.ANIMALS,
 ) {
   const [state, dispatch] = useReducer(gameReducer, initialGameState);
-  const { deck, refreshDeck } = useShuffledDeck(selectedCategory);
+  const { deck, refreshDeck } = useDeck(selectedCategory);
   const { playSound } = useSoundEffects();
 
   // Store previous card index for matching logic

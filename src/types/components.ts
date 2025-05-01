@@ -206,6 +206,15 @@ export interface AuthModalProps {
   onClose: () => void;
 }
 
+export interface ScoreboardDataProps {
+  onReset: () => void;
+  onExit: () => void;
+  moves: number;
+  completedTime: number;
+  categoryCode: string;
+  children?: React.ReactNode;
+}
+
 export interface LatestUpdatesProps {
   show: boolean;
   onClose: () => void;

@@ -1,6 +1,6 @@
 import { useGameState } from '@/hooks/useGameState';
 import Cards from './Cards';
-import { ScoreboardModal } from './ScoreboardModal';
+import { ScoreboardModal } from './ModalComponents';
 import type { GameProps } from '@/types/components';
 
 export default function Game({ onRestart }: GameProps) {
