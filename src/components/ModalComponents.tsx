@@ -6,6 +6,7 @@ import AuthData from './auth/AuthData';
 import ProfileData from './auth/ProfileData';
 import { useLinks } from '@/hooks/useLinks';
 import Leaderboard from './Leaderboard';
+import { ModalFooterButtons } from './ModalFooterButtons';
 import Button from './Button';
 import type {
   GameInstructionsProps,
@@ -84,7 +85,7 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
     >
       <InstructionsData />
       <Modal.Footer className="border-0 mt-2">
-        <Button className={styles.btnClose} onClick={onClose} text="Close" />
+        <ModalFooterButtons rightText="Close" onRightClick={onClose} />
       </Modal.Footer>
     </Modal>
   );
@@ -105,7 +106,7 @@ export function CategorySelection({
         <CategoryData onSelectCategory={onSelectCategory} />
       </Modal.Body>
       <Modal.Footer className="border-0 mt-3">
-        <Button className={styles.btnClose} onClick={onClose} text="Close" />
+        <ModalFooterButtons rightText="Close" onRightClick={onClose} />
       </Modal.Footer>
     </Modal>
   );
@@ -129,15 +130,11 @@ export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
         <CommitStatus />
       </Modal.Body>
       <Modal.Footer className="border-0">
-        <Button
-          className={`${styles.btnLeft} ${styles.modalButton}`}
-          onClick={handleGitHubClick}
-          text="Github"
-        />
-        <Button
-          className={`${styles.btnRight} ${styles.modalButton}`}
-          onClick={onClose}
-          text="Close"
+        <ModalFooterButtons
+          leftText="Github"
+          rightText="Close"
+          onLeftClick={handleGitHubClick}
+          onRightClick={onClose}
         />
       </Modal.Footer>
     </Modal>

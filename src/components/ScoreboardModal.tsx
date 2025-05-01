@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import { ModalFooterButtons } from './ModalFooterButtons';
 import { useAuth } from '@/hooks/useAuth';
 import { useScore } from '@/hooks/useScore';
 import { useSaveScore } from '@/hooks/useSaveScore';
-import Button from './Button';
 import Scoreboard from '@/components/scoreData';
 import type { ScoreboardModalProps } from '@/types/components';
 import styles from './styles/Modal.module.css';
@@ -64,19 +64,13 @@ export function ScoreboardModal({
         )}
       </Modal.Body>
       <Modal.Footer className="border-0 mt-2">
-        <Button
-          className={`${styles.btnLeft} ${styles.modalButton}`}
-          onClick={onReset}
-          icon={<ReplayCircleFilledOutlinedIcon />}
-          text="Restart"
-          color="primary"
-        />
-        <Button
-          className={`${styles.btnRight} ${styles.modalButton}`}
-          onClick={onExit}
-          icon={<ExitToAppOutlinedIcon />}
-          text="Exit"
-          color="secondary"
+        <ModalFooterButtons
+          leftText="Restart"
+          rightText="Exit"
+          onLeftClick={onReset}
+          onRightClick={onExit}
+          leftIcon={<ReplayCircleFilledOutlinedIcon />}
+          rightIcon={<ExitToAppOutlinedIcon />}
         />
       </Modal.Footer>
     </Modal>

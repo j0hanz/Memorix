@@ -1,9 +1,9 @@
 import { Form } from 'react-bootstrap';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LockResetIcon from '@mui/icons-material/LockReset';
-import Button from '@/components/Button';
 import type { ProfileChangePasswordProps } from '@/types/components';
 import { LoadingSpinner } from '@/components/Spinner';
+import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import styles from '@/components/styles/Modal.module.css';
 
 const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
@@ -80,25 +80,16 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
       {success && (
         <div className="text-success mb-3 text-center">{success}</div>
       )}
-      <div className={`d-flex ${styles.modalButtons}`}>
-        <Button
-          className={`${styles.btnLeft} ${styles.modalButton}`}
-          type="submit"
-          disabled={loading || !allFilled}
-          text={loading ? <LoadingSpinner /> : 'Change Password'}
-          icon={loading ? undefined : <LockResetIcon fontSize="small" />}
-          color="primary"
-        />
-        <Button
-          className={`${styles.modalButton} ${styles.btnRight}`}
-          onClick={onBack}
-          type="button"
-          disabled={loading}
-          icon={<ArrowBackIcon fontSize="small" />}
-          text="Back"
-          color="secondary"
-        />
-      </div>
+      <ModalFooterButtons
+        leftText={loading ? <LoadingSpinner /> : 'Change Password'}
+        rightText="Back"
+        onLeftClick={undefined}
+        onRightClick={onBack}
+        leftIcon={loading ? undefined : <LockResetIcon fontSize="small" />}
+        rightIcon={<ArrowBackIcon fontSize="small" />}
+        leftDisabled={loading || !allFilled}
+        rightDisabled={loading}
+      />
     </>
   );
 };

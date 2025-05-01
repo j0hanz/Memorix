@@ -36,7 +36,7 @@ export default function AuthData({ onClose }: { onClose: () => void }) {
 
       {activeKey === 'login' && <Login onClose={onClose} />}
       {activeKey === 'register' && (
-        <Register onSuccess={() => setActiveKey('login')} />
+        <Register onSuccess={() => setActiveKey('login')} onClose={onClose} />
       )}
     </>
   );

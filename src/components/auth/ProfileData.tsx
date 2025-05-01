@@ -10,6 +10,7 @@ import ProfileOverview from './ProfileOverview';
 import ProfileGameHistory from './ProfileGameHistory';
 import ProfileChangePassword from './ProfileChangePassword';
 import type { TabItem } from '@/types/components';
+import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
 
@@ -119,31 +120,23 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
     }
 
     return (
-      <div className={`d-flex ${styles.modalButtons}`}>
-        <Button
-          className={`${styles.btnLeft} ${styles.modalButton}`}
-          type="submit"
-          disabled={loading || !profileImage}
-          text={loading ? <LoadingSpinner /> : 'Update Profile'}
-          icon={
-            loading ? undefined : <DriveFolderUploadIcon fontSize="small" />
-          }
-          onClick={() => {
-            handleUpdateProfile({
-              preventDefault: () => {
-                /* no-op for linter */
-              },
-            } as React.FormEvent<HTMLFormElement>);
-          }}
-          color="primary"
-        />
-        <Button
-          className={`${styles.btnRight} ${styles.modalButton}`}
-          onClick={onClose}
-          text="Close"
-          color="secondary"
-        />
-      </div>
+      <ModalFooterButtons
+        leftText={loading ? <LoadingSpinner /> : 'Update Profile'}
+        rightText="Close"
+        onLeftClick={() => {
+          handleUpdateProfile({
+            preventDefault: () => {
+              /* no-op for linter */
+            },
+          } as React.FormEvent<HTMLFormElement>);
+        }}
+        onRightClick={onClose}
+        leftIcon={
+          loading ? undefined : <DriveFolderUploadIcon fontSize="small" />
+        }
+        leftDisabled={loading || !profileImage}
+        rightDisabled={false}
+      />
     );
   };
 

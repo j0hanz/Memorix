@@ -36,6 +36,7 @@ export interface LoginProps {
 
 export interface RegisterProps {
   onSuccess: () => void;
+  onClose: () => void;
 }
 
 export interface RegisterData {

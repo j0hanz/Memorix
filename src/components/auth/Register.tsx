@@ -1,14 +1,14 @@
 import { Form, Alert } from 'react-bootstrap';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import Button from '@/components/Button';
 import FormField from '@/components/FormField';
 import { useRegister } from '@/hooks/useRegister';
 import { LoadingSpinner } from '@/components/Spinner';
 import type { RegisterProps } from '@/types/auth';
+import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import styles from '@/components/styles/Modal.module.css';
 
-const Register = ({ onSuccess }: RegisterProps) => {
+const Register = ({ onSuccess, onClose }: RegisterProps) => {
   const {
     values,
     errors,
@@ -64,25 +64,16 @@ const Register = ({ onSuccess }: RegisterProps) => {
           showError={!!(touched.password2 || formSubmitted)}
           className={styles.input}
         />
-        <div className={`d-flex ${styles.modalButtons}`}>
-          <Button
-            className={`${styles.btnLeft} ${styles.modalButton}`}
-            disabled={loading}
-            type="submit"
-            text={loading ? <LoadingSpinner /> : 'Sign Up'}
-            icon={loading ? null : <PersonAddIcon fontSize="small" />}
-            color="primary"
-          />
-          <Button
-            className={`${styles.btnRight} ${styles.modalButton}`}
-            onClick={onSuccess}
-            type="button"
-            disabled={loading}
-            icon={<ExitToAppOutlinedIcon fontSize="small" />}
-            text="Back"
-            color="secondary"
-          />
-        </div>
+        <ModalFooterButtons
+          leftText={loading ? <LoadingSpinner /> : 'Sign Up'}
+          rightText="Close"
+          onLeftClick={undefined}
+          onRightClick={onClose}
+          leftIcon={loading ? null : <PersonAddIcon fontSize="small" />}
+          rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
+          leftDisabled={loading}
+          rightDisabled={loading}
+        />
       </Form>
     </>
   );
