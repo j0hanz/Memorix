@@ -73,6 +73,7 @@ const Register = ({ onSuccess, onClose }: RegisterProps) => {
           rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
           leftDisabled={loading}
           rightDisabled={loading}
+          leftType="submit"
         />
       </Form>
     </>

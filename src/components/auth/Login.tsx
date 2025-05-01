@@ -53,6 +53,7 @@ const Login = ({ onClose }: LoginProps) => {
         <ModalFooterButtons
           leftText={loading ? <LoadingSpinner /> : 'Sign In'}
           rightText="Close"
+          onLeftClick={undefined}
           onRightClick={() => onClose?.()}
           leftIcon={
             !loading ? (
@@ -67,6 +68,7 @@ const Login = ({ onClose }: LoginProps) => {
           }
           leftDisabled={loading}
           rightDisabled={loading}
+          leftType="submit"
         />
       </Form>
     </>

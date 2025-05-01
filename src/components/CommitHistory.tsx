@@ -1,6 +1,10 @@
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import type { Commit } from '@/types/api';
 import { useCommit } from '@/hooks/useCommitHistory';
+import { useLinks } from '@/hooks/useLinks';
+import { ModalFooterButtons } from './ModalFooterButtons';
 import styles from './styles/Modal.module.css';
 
 // Component that displays the commit list
@@ -41,8 +45,9 @@ const CommitList = ({ commits }: { commits: Commit[] }) => {
 };
 
 // Main component
-export default function CommitStatus() {
+export default function CommitStatus({ onClose }: { onClose?: () => void }) {
   const { commits, loading, error } = useCommit();
+  const { handleGitHubClick } = useLinks();
 
   if (loading) {
     return <>Loading commit data...</>;
@@ -52,5 +57,19 @@ export default function CommitStatus() {
     return <>Failed to load commit data.</>;
   }
 
-  return <CommitList commits={commits} />;
+  return (
+    <>
+      <CommitList commits={commits} />
+      <div className="mt-3">
+        <ModalFooterButtons
+          leftText="Github"
+          rightText="Close"
+          rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
+          leftIcon={<GitHubIcon fontSize="small" />}
+          onLeftClick={handleGitHubClick}
+          onRightClick={() => onClose?.()}
+        />
+      </div>
+    </>
+  );
 }

@@ -4,9 +4,7 @@ import CommitStatus from './CommitHistory';
 import CategoryData from './Category';
 import AuthData from './auth/AuthData';
 import ProfileData from './auth/ProfileData';
-import { useLinks } from '@/hooks/useLinks';
 import Leaderboard from './Leaderboard';
-import { ModalFooterButtons } from './ModalFooterButtons';
 import Button from './Button';
 import type {
   GameInstructionsProps,
@@ -85,7 +83,7 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
     >
       <InstructionsData />
       <Modal.Footer className="border-0 mt-2">
-        <ModalFooterButtons rightText="Close" onRightClick={onClose} />
+        <Button className={styles.btnClose} onClick={onClose} text="Close" />
       </Modal.Footer>
     </Modal>
   );
@@ -106,7 +104,7 @@ export function CategorySelection({
         <CategoryData onSelectCategory={onSelectCategory} />
       </Modal.Body>
       <Modal.Footer className="border-0 mt-3">
-        <ModalFooterButtons rightText="Close" onRightClick={onClose} />
+        <Button className={styles.btnClose} onClick={onClose} text="Close" />
       </Modal.Footer>
     </Modal>
   );
@@ -114,8 +112,6 @@ export function CategorySelection({
 
 // Latest updates modal
 export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
-  const { handleGitHubClick } = useLinks();
-
   return (
     <Modal
       show={show}
@@ -127,16 +123,9 @@ export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
         <Modal.Title>Latest Changes</Modal.Title>
       </Modal.Header>
       <Modal.Body className="p-0">
-        <CommitStatus />
+        <CommitStatus onClose={onClose} />
       </Modal.Body>
-      <Modal.Footer className="border-0">
-        <ModalFooterButtons
-          leftText="Github"
-          rightText="Close"
-          onLeftClick={handleGitHubClick}
-          onRightClick={onClose}
-        />
-      </Modal.Footer>
+      <Modal.Footer className="border-0" />
     </Modal>
   );
 }
