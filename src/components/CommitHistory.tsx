@@ -7,67 +7,78 @@ import { useLinks } from '@/hooks/useLinks';
 import { ModalFooterButtons } from './ModalFooterButtons';
 import styles from './styles/Modal.module.css';
 
-// Component that displays the commit list
-const CommitList = ({ commits }: { commits: Commit[] }) => {
-  // Handle empty commit list
+// Commit list
+function CommitList({ commits }: { commits: Commit[] }) {
   if (!commits.length) {
-    return <>No commit history available.</>;
+    return (
+      <div className={styles.commitStatus}>No commit history available.</div>
+    );
   }
 
   return (
     <div className={styles.commitStatus}>
       <ul className={styles.commitList}>
-        {commits.map((commit, index) => (
-          <li key={commit.sha || index} className={styles.commitItem}>
-            <div className={styles.commitDate}>
-              <CalendarTodayOutlinedIcon
-                fontSize="small"
-                className={styles.commitIcon}
-              />
-              <span>{new Date(commit.date).toLocaleDateString()}</span>
-            </div>
-
-            <div className={styles.commitMessage}>
-              <a
-                href={commit.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.commitLink}
-              >
-                {commit.message}
-              </a>
-            </div>
-          </li>
+        {commits.map((commit) => (
+          <CommitListItem key={commit.sha} commit={commit} />
         ))}
       </ul>
     </div>
   );
-};
+}
+
+// Commit list item
+function CommitListItem({ commit }: { commit: Commit }) {
+  return (
+    <li className={styles.commitItem}>
+      <div className={styles.commitDate}>
+        <CalendarTodayOutlinedIcon
+          fontSize="small"
+          className={styles.commitIcon}
+        />
+        <span>{new Date(commit.date).toLocaleDateString()}</span>
+      </div>
+      <div className={styles.commitMessage}>
+        <a
+          href={commit.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.commitLink}
+        >
+          {commit.message}
+        </a>
+      </div>
+    </li>
+  );
+}
 
 // Main component
-export default function CommitStatus({ onClose }: { onClose?: () => void }) {
+export function CommitStatus({ onClose }: { onClose?: () => void }) {
   const { commits, loading, error } = useCommit();
   const { handleGitHubClick } = useLinks();
 
   if (loading) {
-    return <>Loading commit data...</>;
+    return <div className={styles.commitStatus}>Loading commit data...</div>;
   }
 
   if (error) {
-    return <>Failed to load commit data.</>;
+    return (
+      <div className={styles.commitStatus}>Failed to load commit data.</div>
+    );
   }
 
   return (
     <>
       <CommitList commits={commits} />
-        <ModalFooterButtons
-          leftText="Github"
-          rightText="Close"
-          rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
-          leftIcon={<GitHubIcon fontSize="small" />}
-          onLeftClick={handleGitHubClick}
-          onRightClick={() => onClose?.()}
-        />
+      <ModalFooterButtons
+        leftText="Github"
+        rightText="Close"
+        rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
+        leftIcon={<GitHubIcon fontSize="small" />}
+        onLeftClick={handleGitHubClick}
+        onRightClick={() => onClose?.()}
+      />
     </>
   );
 }
+
+export default CommitStatus;
