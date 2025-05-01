@@ -60,7 +60,6 @@ export default function CommitStatus({ onClose }: { onClose?: () => void }) {
   return (
     <>
       <CommitList commits={commits} />
-      <div className="mt-3">
         <ModalFooterButtons
           leftText="Github"
           rightText="Close"
@@ -69,7 +68,6 @@ export default function CommitStatus({ onClose }: { onClose?: () => void }) {
           onLeftClick={handleGitHubClick}
           onRightClick={() => onClose?.()}
         />
-      </div>
     </>
   );
 }
