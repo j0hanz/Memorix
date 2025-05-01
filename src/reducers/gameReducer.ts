@@ -64,7 +64,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         isInitialReveal: false,
         cards: state.cards.map((card) => ({
           ...card,
-          status: card.status.includes('matched')
+          status: card.status.includes(CARD_STATUS.MATCHED)
             ? card.status
             : CARD_STATUS.DEFAULT,
         })),
