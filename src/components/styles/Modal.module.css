@@ -1,23 +1,22 @@
-.modal :global(.modal-content) {
-  background: var(--bg-modal-content);
-  color: var(--text-color);
-  border: none;
-  border-radius: 10px;
-}
-
-.modal :global(.modal-header) {
-  font-family: 'Fredoka';
-  color: var(--text-color);
-  letter-spacing: 1px;
-}
-
-.modal :global(.modal-footer) {
-  color: var(--text-color);
-  --bs-modal-footer-gap: 0;
-}
-
-.modal :global(.h4) {
-  font-size: 1.5rem;
+.modal {
+  :global(.modal-content) {
+    background: var(--bg-modal-content);
+    color: var(--text-color);
+    border: none;
+    border-radius: 10px;
+  }
+  :global(.modal-header) {
+    font-family: 'Fredoka';
+    color: var(--text-color);
+    letter-spacing: 1px;
+  }
+  :global(.modal-footer) {
+    color: var(--text-color);
+    --bs-modal-footer-gap: 0;
+  }
+  :global(.h4) {
+    font-size: 1.5rem;
+  }
 }
 
 .leaderboardAvatar {
@@ -46,8 +45,10 @@
   border-radius: 50%;
 }
 
-.instructionsModal :global(.modal-content) {
-  min-height: 50vh;
+.instructionsModal {
+  :global(.modal-content) {
+    min-height: 50vh;
+  }
 }
 
 .commitStatus {
@@ -78,18 +79,20 @@
   color: var(--text-count-color);
 }
 
-.commitMessage a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: var(--text-color);
-  opacity: 0.6;
-  padding: 0.3rem 0;
-  transition: all 0.2s ease;
-}
+.commitMessage {
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color);
+    opacity: 0.6;
+    padding: 0.3rem 0;
+    transition: all 0.2s ease;
 
-.commitMessage a:hover {
-  opacity: 1;
+    &:hover {
+      opacity: 1;
+    }
+  }
 }
 
 .commitIcon {
@@ -160,28 +163,20 @@
 
 .btnRight {
   border-radius: 0 0 10px 0;
-  border-left: 1px solid var(--bg-modal-content);
+
+  &:hover,
+  &:active {
+    border: none !important;
+  }
 }
 
 .btnLeft {
   border-radius: 0 0 0 10px;
-  border-right: 1px solid var(--bg-modal-content);
-}
 
-.btnRight:hover {
-  border-left: 1px solid var(--bg-modal-content);
-}
-
-.btnLeft:hover {
-  border-right: 1px solid var(--bg-modal-content);
-}
-
-.btnRight:active {
-  border-left: 1px solid var(--bg-modal-content) !important;
-}
-
-.btnLeft:active {
-  border-right: 1px solid var(--bg-modal-content) !important;
+  &:hover,
+  &:active {
+    border: none !important;
+  }
 }
 
 /* Category */
@@ -194,11 +189,11 @@
   border: var(--btn-catagory-border);
   height: 3rem;
   border-radius: 0;
-}
 
-.btnCategorySelect:hover,
-.btnCategorySelect:active {
-  border: var(--btn-catagory-border) !important;
+  &:hover,
+  &:active {
+    border: var(--btn-catagory-border) !important;
+  }
 }
 
 /* Navigation */
@@ -217,6 +212,14 @@
   border: none;
   background-color: var(--btn-secondary);
   transition: all 0.3s ease;
+
+  &:hover {
+    background: var(--btn-secondary-hover);
+  }
+
+  &.active {
+    background: var(--modal-header-active);
+  }
 }
 
 .navItemLeft {
@@ -234,19 +237,6 @@
   border-left: 1px solid var(--shadow-row);
 }
 
-/* Nav item states */
-.navItemLeft:hover,
-.navItemCenter:hover,
-.navItemRight:hover {
-  background: var(--btn-secondary-hover);
-}
-
-.navItemLeft.active,
-.navItemCenter.active,
-.navItemRight.active {
-  background: var(--modal-header-active);
-}
-
 /* Forms */
 .input,
 .formSelect {
@@ -256,11 +246,11 @@
 
 .input {
   margin: 2rem 0;
-}
 
-.input::placeholder {
-  color: var(--text-color);
-  opacity: 0.6;
+  &::placeholder {
+    color: var(--text-color);
+    opacity: 0.6;
+  }
 }
 
 /* Profile */
@@ -352,8 +342,10 @@
 
 /* Responsive */
 @media (max-width: 425px) {
-  .instructionsModal :global(.modal-content) {
-    height: 100%;
+  .instructionsModal {
+    :global(.modal-content) {
+      height: 100%;
+    }
   }
   .navLink {
     font-size: 0.9em;
