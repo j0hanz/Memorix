@@ -10,7 +10,7 @@ import { LatestUpdates } from '@/components/LatestUpdates';
 import { LeaderboardModal } from '@/components/LeaderboardModal';
 import { CategorySelection } from '@/components/CategorySelection';
 import { AuthModal } from '@/components/AuthModal';
-import { ProfileModal } from '@/components/ProfileModal';
+import { ProfileModal } from '@/components/auth/ProfileModal';
 import { GameProvider } from '@/components/GameProvider';
 import MainMenu from '@/components/MainMenu';
 import ErrorBoundary from '@/components/ErrorBoundary';
