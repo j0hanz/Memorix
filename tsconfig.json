@@ -4,7 +4,7 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "strict": true,
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -14,8 +14,9 @@
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@utils/*": ["src/utils/*"]
-    }
+    },
+    "allowJs": false
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "dist", "build"],
   "include": ["src"]
 }

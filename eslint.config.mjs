@@ -8,7 +8,7 @@ import eslintConfigPrettier from 'eslint-config-prettier';
 import react from 'eslint-plugin-react';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'node_modules'] },
   {
     extends: [
       js.configs.recommended,
@@ -44,11 +44,8 @@ export default tseslint.config(
       linkComponents: [{ name: 'Link', linkAttribute: 'to' }],
     },
     rules: {
-      // React JSX Runtime config
       ...react.configs['jsx-runtime'].rules,
-      // React Hooks rules
       ...reactHooks.configs.recommended.rules,
-      // TypeScript specific rules
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unnecessary-type-constraint': 'error',
@@ -73,7 +70,6 @@ export default tseslint.config(
           minimumDescriptionLength: 5,
         },
       ],
-      // React specific rules
       'react/jsx-key': ['error', { checkFragmentShorthand: true }],
       'react/jsx-no-comment-textnodes': 'error',
       'react/jsx-no-duplicate-props': 'error',
@@ -111,12 +107,10 @@ export default tseslint.config(
           unnamedComponents: 'arrow-function',
         },
       ],
-      // React Refresh plugin
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
-      // React Compiler plugin
       'react-compiler/react-compiler': 'error',
     },
   },
