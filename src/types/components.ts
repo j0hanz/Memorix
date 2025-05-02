@@ -112,6 +112,14 @@ export interface FormFieldProps {
   className?: string;
 }
 
+export interface TooltipProps {
+  children: ReactNode;
+  content: ReactNode;
+  placement?: 'top' | 'bottom' | 'left' | 'right';
+  delay?: number;
+  className?: string;
+}
+
 export interface ProtectedRouteProps {
   children: ReactNode;
   onAuthRequired: () => void;

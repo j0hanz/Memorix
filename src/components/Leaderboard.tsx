@@ -3,6 +3,7 @@ import { Row, Col, Form } from 'react-bootstrap';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { useLeaderboard } from '@/hooks/useLeaderboard';
+import { Tooltip } from './Tooltip';
 import type { LeaderboardProps } from '@/types/components';
 import { CATEGORY_OPTIONS } from '@/utils/categoryUtils';
 import StarRating from './StarRating';
@@ -51,11 +52,13 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
                 <span className={styles.rank}>{index + 1}</span>
                 <div className={styles.playerInfo}>
                   {entry.profile_picture_url && (
-                    <img
-                      src={entry.profile_picture_url}
-                      alt={entry.username}
-                      className={styles.leaderboardAvatar}
-                    />
+                    <Tooltip content={entry.username}>
+                      <img
+                        src={entry.profile_picture_url}
+                        alt={entry.username}
+                        className={styles.leaderboardAvatar}
+                      />
+                    </Tooltip>
                   )}
                 </div>
               </Col>
