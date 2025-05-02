@@ -7,6 +7,7 @@ import { useScore } from '@/hooks/useScore';
 import { useSaveScore } from '@/hooks/useSaveScore';
 import Scoreboard from '@/components/scoreData';
 import type { ScoreboardDataProps } from '@/types/components';
+import { ScoreFeedback } from './ScoreFeedback';
 
 export default function ScoreboardData({
   onReset,
@@ -38,16 +39,11 @@ export default function ScoreboardData({
       <div className="p-3">
         {children}
         <Scoreboard moves={moves} completedTime={completedTime.toString()} />
-        {isAuthenticated && scoreSaved && (
-          <div className="text-success text-center mt-3">
-            <small>Score saved successfully!</small>
-          </div>
-        )}
-        {saveError && (
-          <div className="text-danger text-center mt-3">
-            <small>{saveError}</small>
-          </div>
-        )}
+        <ScoreFeedback
+          isAuthenticated={isAuthenticated}
+          scoreSaved={scoreSaved}
+          saveError={saveError}
+        />
       </div>
       <ModalFooterButtons
         leftText="Restart"

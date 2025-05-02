@@ -1,14 +1,11 @@
 import { Row, Col, Container } from 'react-bootstrap';
 import { motion } from 'framer-motion';
-import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import GameCard from './GameCard';
 import { useMotions } from '@/hooks/useMotions';
-import { Timer, Moves } from './GameStats';
-import Feedback from './Feedback';
 import type { CardsProps } from '@/types/components';
 import { useCards } from '@/hooks/useCards';
 import styles from './styles/Cards.module.css';
+import { StatsBar } from './StatsBar';
 
 // Component to display the game cards
 export default function Cards({
@@ -28,22 +25,13 @@ export default function Cards({
     <Container>
       <Row className={styles.row}>
         <Col xs={12} className={getStatsTopClass(styles, feedback)}>
-          <div className={styles.statsLeft}>
-            <Moves moves={moves} />
-            <Timer timerActive={timerActive} />
-          </div>
-          <div className={styles.feedback}>
-            <Feedback message={feedback} />
-          </div>
-          <div className={styles.statsRight}>
-            <div className={styles.btnExitRestart} onClick={onReset}>
-              <ReplayCircleFilledOutlinedIcon />
-            </div>
-
-            <div className={styles.btnExitRestart} onClick={onExit}>
-              <ExitToAppOutlinedIcon />
-            </div>
-          </div>
+          <StatsBar
+            moves={moves}
+            timerActive={timerActive}
+            feedback={feedback}
+            onReset={onReset}
+            onExit={onExit}
+          />
         </Col>
         {cards.map((card, index) => (
           <Col xs={4} sm={4} md={3} lg={3} xl={3} key={index}>

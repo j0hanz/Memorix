@@ -5,14 +5,12 @@ import { useMotions } from '@/hooks/useMotions';
 import { useNavigation } from '@/hooks/useNavigation';
 import Game from '@/components/Game';
 import { LoadingCardSpinner } from '@/components/Spinner';
-import {
-  GameInstructions,
-  LatestUpdates,
-  LeaderboardModal,
-  CategorySelection,
-  AuthModal,
-  ProfileModal,
-} from '@/components/ModalComponents';
+import { GameInstructions } from '@/components/GameInstructions';
+import { LatestUpdates } from '@/components/LatestUpdates';
+import { LeaderboardModal } from '@/components/LeaderboardModal';
+import { CategorySelection } from '@/components/CategorySelection';
+import { AuthModal } from '@/components/AuthModal';
+import { ProfileModal } from '@/components/ProfileModal';
 import { GameProvider } from '@/components/GameProvider';
 import MainMenu from '@/components/MainMenu';
 import ErrorBoundary from '@/components/ErrorBoundary';

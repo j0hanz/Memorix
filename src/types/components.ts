@@ -3,6 +3,39 @@ import type { ButtonProps } from 'react-bootstrap';
 import type { TargetAndTransition, Transition } from 'framer-motion';
 import type { PairedCard } from './card';
 
+export interface MenuButtonProps {
+  onClick: () => void;
+  icon: React.ReactNode;
+  text: string;
+  className?: string;
+  color?: 'primary' | 'secondary';
+  variant?: 'menu' | 'centered';
+}
+
+export interface ProfileAvatarProps {
+  profilePictureUrl?: string;
+  onClick: () => void;
+}
+
+export interface ScoreFeedbackProps {
+  isAuthenticated: boolean;
+  scoreSaved: boolean;
+  saveError: string | null;
+}
+
+export interface SoundToggleProps {
+  isMuted: boolean;
+  onToggle: () => void;
+}
+
+export interface StatsBarProps {
+  moves: number;
+  timerActive: boolean;
+  feedback: string;
+  onReset: () => void;
+  onExit: () => void;
+}
+
 export interface ProfileChangePasswordProps {
   onBack: () => void;
   loading: boolean;
