@@ -17,6 +17,15 @@ export interface ProfileAvatarProps {
   onClick: () => void;
 }
 
+export interface ToastProps {
+  message: string;
+  show: boolean;
+  duration?: number;
+  placement?: 'top' | 'bottom';
+  className?: string;
+  onClose?: () => void;
+}
+
 export interface ScoreFeedbackProps {
   isAuthenticated: boolean;
   scoreSaved: boolean;

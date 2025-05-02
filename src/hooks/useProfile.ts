@@ -122,6 +122,8 @@ export function useProfile() {
     loading,
     error,
     success,
+    setError,
+    setSuccess,
     profileImage,
     previewImage,
     handleImageChange,

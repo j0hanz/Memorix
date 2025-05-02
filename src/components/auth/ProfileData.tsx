@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import PersonIcon from '@mui/icons-material/Person';
 import HistoryIcon from '@mui/icons-material/History';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
@@ -10,6 +10,7 @@ import ProfileOverview from './ProfileOverview';
 import ProfileGameHistory from './ProfileGameHistory';
 import ProfileChangePassword from './ProfileChangePassword';
 import type { TabItem } from '@/types/components';
+import Toast from '@/components/Toast';
 import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
@@ -27,6 +28,8 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
     loading,
     error,
     success,
+    setError,
+    setSuccess,
     profileImage,
     previewImage,
     handleImageChange,
@@ -142,16 +145,18 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
 
   return (
     <>
-      {error && !showPasswordTab && (
-        <Alert variant="danger" className="mb-0 rounded-0">
-          {error}
-        </Alert>
-      )}
-      {success && !showPasswordTab && (
-        <Alert variant="success" className="mb-0 rounded-0">
-          {success}
-        </Alert>
-      )}
+      <Toast
+        message={error || ''}
+        show={!!error && !showPasswordTab}
+        placement="top"
+        onClose={() => setError(null)}
+      />
+      <Toast
+        message={success || ''}
+        show={!!success && !showPasswordTab}
+        placement="top"
+        onClose={() => setSuccess(null)}
+      />
       <TabNavigation
         activeKey={activeTab}
         tabs={tabs}
