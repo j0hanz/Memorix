@@ -3,7 +3,6 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-
   &:active .icon,
   &:active .text {
     transform: scale(0.9);
@@ -30,16 +29,14 @@
 
 /* Color classes */
 .primaryColor {
-  background: color-mix(in srgb, var(--btn-primary) 90%, white 10%);
-
+  background: var(--btn-primary);
   &:is(:hover, :active) {
     background: var(--btn-primary-hover) !important;
   }
 }
 
 .secondaryColor {
-  background: var(--btn-secondary);
-
+  background: var(--btn-secondary) !important;
   &:is(:hover, :active) {
     background: var(--btn-secondary-hover) !important;
   }

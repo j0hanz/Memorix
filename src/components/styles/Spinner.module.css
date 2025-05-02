@@ -70,16 +70,16 @@
 }
 
 .loadership_JWZDT {
-  display: flex;
+  display: inline-flex;
   position: relative;
   width: 53px;
   height: 8px;
   & div {
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 0.5em;
+    height: 0.5em;
     border-radius: 50%;
-    background: #ffffff;
+    background: currentColor;
     top: 0px;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
   }
