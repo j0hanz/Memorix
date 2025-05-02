@@ -25,6 +25,26 @@
   margin-block-end: 0.25rem;
 }
 
+.menuButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-block: 1rem;
+  width: 100%;
+}
+
+.modalButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+.modalButton {
+  flex: 1;
+  gap: 0.2rem;
+}
+
 .btnCategoryContainer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -41,10 +61,6 @@
 
 .btnClose {
   border-radius: 0 0 10px 10px;
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .btnLeft {
@@ -164,30 +180,6 @@
   height: 30px;
   border-radius: 50%;
   object-fit: cover;
-}
-
-.menuButtons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  margin-block: 1rem;
-  width: 100%;
-}
-
-.modalButtons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1px;
-}
-
-.modalButton {
-  flex: 1;
-  gap: 0.3rem;
-}
-
-.modalIcon {
-  font-size: 1em !important;
 }
 
 .navItemCenter {

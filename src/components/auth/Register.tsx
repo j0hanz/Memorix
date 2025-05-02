@@ -69,10 +69,8 @@ const Register = ({ onSuccess, onClose }: RegisterProps) => {
           rightText="Close"
           onLeftClick={undefined}
           onRightClick={onClose}
-          leftIcon={
-            loading ? null : <PersonAddIcon className={styles.modalIcon} />
-          }
-          rightIcon={<ExitToAppOutlinedIcon className={styles.modalIcon} />}
+          leftIcon={loading ? null : <PersonAddIcon fontSize="small" />}
+          rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
           leftDisabled={loading}
           rightDisabled={loading}
           leftType="submit"

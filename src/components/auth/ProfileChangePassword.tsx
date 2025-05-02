@@ -85,10 +85,8 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
         rightText="Back"
         onLeftClick={undefined}
         onRightClick={onBack}
-        leftIcon={
-          loading ? undefined : <LockResetIcon className={styles.modalIcon} />
-        }
-        rightIcon={<ArrowBackIcon className={styles.modalIcon} />}
+        leftIcon={loading ? undefined : <LockResetIcon fontSize="small" />}
+        rightIcon={<ArrowBackIcon fontSize="small" />}
         leftDisabled={loading || !allFilled}
         rightDisabled={loading}
       />

@@ -2,6 +2,7 @@ import { Modal } from 'react-bootstrap';
 import CategoryData from '@/components/Category';
 import Button from '@/components/Button';
 import type { CategoryProps } from '@/types/components';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import styles from './styles/Modal.module.css';
 
 export function CategorySelection({
@@ -18,7 +19,12 @@ export function CategorySelection({
         <CategoryData onSelectCategory={onSelectCategory} />
       </Modal.Body>
       <Modal.Footer className="border-0 mt-3">
-        <Button className={styles.btnClose} onClick={onClose} text="Close" />
+        <Button
+          className={styles.modalButton}
+          icon={<CloseOutlinedIcon fontSize="small" />}
+          onClick={onClose}
+          text="Close"
+        />
       </Modal.Footer>
     </Modal>
   );

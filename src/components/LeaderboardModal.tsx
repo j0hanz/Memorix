@@ -2,6 +2,7 @@ import { Modal } from 'react-bootstrap';
 import Leaderboard from '@/components/Leaderboard';
 import Button from '@/components/Button';
 import type { LeaderboardModalProps } from '@/types/components';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import styles from './styles/Modal.module.css';
 
 export function LeaderboardModal({ show, onClose }: LeaderboardModalProps) {
@@ -19,7 +20,12 @@ export function LeaderboardModal({ show, onClose }: LeaderboardModalProps) {
         <Leaderboard />
       </Modal.Body>
       <Modal.Footer className="border-0">
-        <Button className={styles.btnClose} onClick={onClose} text="Close" />
+        <Button
+          className={styles.modalButton}
+          icon={<CloseOutlinedIcon fontSize="small" />}
+          onClick={onClose}
+          text="Close"
+        />
       </Modal.Footer>
     </Modal>
   );

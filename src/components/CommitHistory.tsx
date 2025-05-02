@@ -1,5 +1,5 @@
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import type { Commit } from '@/types/api';
 import { useCommit } from '@/hooks/useCommitHistory';
@@ -31,9 +31,7 @@ function CommitListItem({ commit }: { commit: Commit }) {
   return (
     <li className={styles.commitItem}>
       <div className={styles.commitDate}>
-        <CalendarTodayOutlinedIcon
-          className={`${styles.modalIcon} ${styles.commitIcon}`}
-        />
+        <CalendarTodayOutlinedIcon fontSize="small" />
         <span>{new Date(commit.date).toLocaleDateString()}</span>
       </div>
       <div className={styles.commitMessage}>
@@ -71,8 +69,8 @@ export function CommitStatus({ onClose }: { onClose?: () => void }) {
       <ModalFooterButtons
         leftText="Github"
         rightText="Close"
-        rightIcon={<ExitToAppOutlinedIcon className={styles.modalIcon} />}
-        leftIcon={<GitHubIcon className={styles.modalIcon} />}
+        rightIcon={<CloseOutlinedIcon fontSize="small" />}
+        leftIcon={<GitHubIcon fontSize="small" />}
         onLeftClick={handleGitHubClick}
         onRightClick={() => onClose?.()}
       />

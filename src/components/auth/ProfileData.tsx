@@ -135,9 +135,7 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
         }}
         onRightClick={onClose}
         leftIcon={
-          loading ? undefined : (
-            <DriveFolderUploadIcon className={styles.modalIcon} />
-          )
+          loading ? undefined : <DriveFolderUploadIcon fontSize="small" />
         }
         leftDisabled={loading || !profileImage}
         rightDisabled={false}
