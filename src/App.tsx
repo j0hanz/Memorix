@@ -16,16 +16,12 @@ import MainMenu from '@/components/MainMenu';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { useModal } from '@/hooks/useModal';
 import { useAuth } from '@/hooks/useAuth';
-import Toast from '@/components/Toast';
 
 const App = () => {
   const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
   const [showInitialLoading, setShowInitialLoading] = useState(true);
 
-  // Toast state for auth status
   const { logout, isAuthenticated } = useAuth();
-  const [showAuthToast, setShowAuthToast] = useState(false);
-  const [authMessage, setAuthMessage] = useState('');
 
   // Get app state and handlers
   const {
@@ -79,17 +75,6 @@ const App = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Handle authentication status changes
-  useEffect(() => {
-    if (isAuthenticated) {
-      setAuthMessage('Logged in');
-      setShowAuthToast(true);
-      const timer = setTimeout(() => setShowAuthToast(false), 2000);
-      return () => clearTimeout(timer);
-    }
-    setShowAuthToast(false);
-  }, [isAuthenticated]);
-
   return (
     <Router>
       <ErrorBoundary
@@ -105,12 +90,6 @@ const App = () => {
         <LoadingCardSpinner
           isLoading={!showInitialLoading && isLoading}
           message={isLoading ? 'Starting...' : undefined}
-        />
-        <Toast
-          message={authMessage}
-          show={showAuthToast}
-          placement="top"
-          onClose={() => setShowAuthToast(false)}
         />
         {!showInitialLoading && !isLoading && !isGameActive && (
           <MainMenu

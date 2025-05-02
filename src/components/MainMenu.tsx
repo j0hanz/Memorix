@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -13,6 +13,7 @@ import { useModal } from '@/hooks/useModal';
 import { ProfileAvatar } from './ProfileAvatar';
 import { MenuButton } from './MenuButton';
 import { SoundToggle } from './SoundToggle';
+import Toast from '@/components/Toast';
 
 const MainMenu = ({
   startGame,
@@ -26,11 +27,26 @@ const MainMenu = ({
   const { isAuthenticated, user, profile, getProfile } = useAuth();
   const { openModal } = useModal();
 
+  // Auth toast state
+  const [showAuthToast, setShowAuthToast] = useState(false);
+  const [authMessage, setAuthMessage] = useState('');
+
   useEffect(() => {
     if (isAuthenticated && user && !profile) {
       getProfile();
     }
   }, [isAuthenticated, user, profile, getProfile]);
+
+  // Handle user authentication state
+  useEffect(() => {
+    if (isAuthenticated) {
+      setAuthMessage('Logged in');
+      setShowAuthToast(true);
+      const timer = setTimeout(() => setShowAuthToast(false), 2000);
+      return () => clearTimeout(timer);
+    }
+    setShowAuthToast(false);
+  }, [isAuthenticated]);
 
   return (
     <div className={styles.menu}>
@@ -81,6 +97,12 @@ const MainMenu = ({
       <div className={styles.bottomMenu}>
         <SoundToggle isMuted={isMuted} onToggle={toggleMute} />
       </div>
+      <Toast
+        message={authMessage}
+        show={showAuthToast}
+        placement="top"
+        onClose={() => setShowAuthToast(false)}
+      />
     </div>
   );
 };
