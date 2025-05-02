@@ -50,7 +50,7 @@
   border-radius: 50%;
   z-index: 100;
   &:has(img:active) {
-    box-shadow: 0 0 0 2px var(--btn-primary);
+    box-shadow: 0 0 0 2px var(--btn-secondary);
   }
 }
 
