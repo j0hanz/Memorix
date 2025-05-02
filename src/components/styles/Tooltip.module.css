@@ -11,28 +11,24 @@
   padding: 0.5rem;
   border-radius: 10px;
   font-size: 0.8rem;
-}
-
-.top {
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-8px);
-}
-
-.bottom {
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-}
-
-.left {
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%) translateX(-8px);
-}
-
-.right {
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%) translateX(8px);
+  &.top {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-8px);
+  }
+  &.bottom {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(8px);
+  }
+  &.left {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-8px);
+  }
+  &.right {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%) translateX(8px);
+  }
 }

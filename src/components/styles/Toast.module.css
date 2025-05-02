@@ -14,12 +14,10 @@
   text-align: center;
   opacity: 0.98;
   pointer-events: none;
-}
-
-.top {
-  top: 2rem;
-}
-
-.bottom {
-  bottom: 2rem;
+  &.top {
+    top: 2rem;
+  }
+  &.bottom {
+    bottom: 2rem;
+  }
 }

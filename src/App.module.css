@@ -22,14 +22,12 @@
 .btnMain {
   height: 3rem;
   border: 1px solid var(--bg-primary);
-}
-
-.btnMain:hover {
-  border: 1px solid var(--bg-primary) !important;
-}
-
-.btnMain:active {
-  border: 1px solid var(--bg-primary) !important;
+  &:hover {
+    border: 1px solid var(--bg-primary) !important;
+  }
+  &:active {
+    border: 1px solid var(--bg-primary) !important;
+  }
 }
 
 .btnStart {
@@ -59,14 +57,13 @@
   object-fit: cover;
   cursor: pointer;
   transition: transform 0.2s ease;
-}
+  &:hover {
+    transform: scale(1.05);
+  }
 
-.menuProfileImage:hover {
-  transform: scale(1.05);
-}
-
-.menuProfileImage:active {
-  transform: scale(0.95);
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 @media (max-width: 768px) {

@@ -3,6 +3,11 @@
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+
+  &:active .icon,
+  &:active .text {
+    transform: scale(0.9);
+  }
 }
 
 .icon {
@@ -20,32 +25,25 @@
   flex: 1;
 }
 
-.customButton:active .icon,
-.customButton:active .text {
-  transform: scale(0.9);
-}
-
 /* Color classes */
 .primaryColor {
   background: var(--btn-primary);
-}
 
-.primaryColor:hover {
-  background: var(--btn-primary-hover) !important;
-}
-
-.primaryColor:active {
-  background: var(--btn-primary-hover) !important;
+  &:hover {
+    background: var(--btn-primary-hover) !important;
+  }
+  &:active {
+    background: var(--btn-primary-hover) !important;
+  }
 }
 
 .secondaryColor {
   background: var(--btn-secondary);
-}
 
-.secondaryColor:hover {
-  background: var(--btn-secondary-hover) !important;
-}
-
-.secondaryColor:active {
-  background: var(--btn-secondary-active) !important;
+  &:hover {
+    background: var(--btn-secondary-hover) !important;
+  }
+  &:active {
+    background: var(--btn-secondary-active) !important;
+  }
 }

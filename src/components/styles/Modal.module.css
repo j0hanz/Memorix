@@ -34,10 +34,10 @@
   border: var(--btn-catagory-border);
   height: 3rem;
   border-radius: 0;
-}
-.btnCategorySelect:hover,
-.btnCategorySelect:active {
-  border: var(--btn-catagory-border) !important;
+  &:hover,
+  &:active {
+    border: var(--btn-catagory-border) !important;
+  }
 }
 
 .btnClose {
@@ -50,10 +50,10 @@
 
 .btnLeft {
   border-radius: 0 0 0 10px;
-}
-.btnLeft:hover,
-.btnLeft:active {
-  border: none !important;
+  &:hover,
+  &:active {
+    border: none !important;
+  }
 }
 
 .btnLogout {
@@ -75,10 +75,10 @@
 
 .btnRight {
   border-radius: 0 0 10px 0;
-}
-.btnRight:hover,
-.btnRight:active {
-  border: none !important;
+  &:hover,
+  &:active {
+    border: none !important;
+  }
 }
 
 .btnRounded {
@@ -135,9 +135,9 @@
   opacity: 0.6;
   padding: 0.3rem 0;
   transition: all 0.2s ease;
-}
-.commitMessage a:hover {
-  opacity: 1;
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .commitStatus {
@@ -213,16 +213,12 @@
   border: none;
   background-color: var(--btn-secondary);
   transition: all 0.3s ease;
-}
-.navItemLeft:hover,
-.navItemCenter:hover,
-.navItemRight:hover {
-  background: var(--btn-secondary-hover);
-}
-.navItemLeft.active,
-.navItemCenter.active,
-.navItemRight.active {
-  background: var(--modal-header-active);
+  &:hover {
+    background: var(--btn-secondary-hover);
+  }
+  &.active {
+    background: var(--modal-header-active);
+  }
 }
 
 .navLink {
@@ -230,7 +226,6 @@
   justify-content: center;
   align-items: center;
   gap: 0.15rem;
-  font-size: 1em;
 }
 
 .profileImage {
@@ -319,10 +314,10 @@
 
 .input {
   margin: 2rem 0;
-}
-.input::placeholder {
-  color: var(--text-color);
-  opacity: 0.6;
+  &::placeholder {
+    color: var(--text-color);
+    opacity: 0.6;
+  }
 }
 
 @media (max-width: 425px) {

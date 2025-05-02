@@ -14,25 +14,22 @@ body {
 .btn {
   --bs-btn-disabled-bg: var(--btn-secondary);
   --bs-btn-disabled-border-color: transparent;
+  &:hover {
+    background-color: var(--btn-secondary);
+    border-color: var(--btn-secondary);
+  }
 }
 
-.btn:hover {
-  background-color: var(--btn-secondary);
-  border-color: var(--btn-secondary);
-}
-
-.form-select {
-  background-color: var(--bg-secondary);
-  border: none;
-}
-
+.form-select,
 select {
   background-color: var(--bg-secondary);
   border: none;
 }
 
-select:focus {
-  box-shadow: none !important;
+select {
+  &:focus {
+    box-shadow: none !important;
+  }
 }
 
 option {
