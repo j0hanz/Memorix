@@ -19,134 +19,25 @@
   }
 }
 
-.leaderboardAvatar {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  object-fit: cover;
+.accountInfo {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-bottom: 0.25rem;
 }
 
-.rank {
-  font-weight: bold;
-  font-size: 1rem;
+.btnCategoryContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
 }
 
-.navItemMiddle {
-  border-radius: 0;
-  border-block: 1px solid var(--btn-secondary);
-}
-
-/* Button */
-.btnRounded {
-  cursor: pointer;
-  color: var(--moves);
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-}
-
-.instructionsModal {
-  :global(.modal-content) {
-    min-height: 50vh;
-  }
-}
-
-.commitStatus {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.commitList {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.commitItem {
-  padding: 0.8rem;
-  border-bottom: 1px solid var(--input-border-color);
+.btnCategorySelect {
+  border: var(--btn-catagory-border);
+  height: 3rem;
   border-radius: 0;
 }
-
-.commitDate {
-  display: flex;
-  align-items: center;
-  opacity: 0.8;
-  font-size: 0.9em;
-  color: var(--text-count-color);
-}
-
-.commitMessage {
-  a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: var(--text-color);
-    opacity: 0.6;
-    padding: 0.3rem 0;
-    transition: all 0.2s ease;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-}
-
-.commitIcon {
-  margin-right: 0.5rem;
-}
-
-.underBorder {
-  border-bottom: 1px solid var(--input-border-color);
-}
-
-/* Scoreboard */
-.scoreboard {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.3rem;
-  color: var(--text-color);
-}
-
-.scoreItem {
-  display: flex;
-  align-items: center;
-}
-
-.scoreTab {
-  display: flex;
-  align-items: center;
-  gap: 0.1rem;
-}
-
-/* Icons */
-.wrongPick {
-  color: var(--feedback-wrong);
-}
-
-.success {
-  color: var(--feedback-correct);
-}
-
-.starIcon {
-  color: var(--color-star-icon);
-}
-
-.grayedOut {
-  color: var(--color-star-icon-gray);
-}
-
-/* Buttons */
-.modalButton {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+.btnCategorySelect:hover,
+.btnCategorySelect:active {
+  border: var(--btn-catagory-border) !important;
 }
 
 .btnClose {
@@ -157,74 +48,143 @@
   align-items: center;
 }
 
-.modalButtons {
-  gap: 1px;
+.btnLeft {
+  border-radius: 0 0 0 10px;
+}
+.btnLeft:hover,
+.btnLeft:active {
+  border: none !important;
+}
+
+.btnLogout {
+  border-radius: 6px 6px 0 0;
+}
+
+.btnMain {
+  width: 100%;
+  height: 2rem;
+}
+
+.btnMenu {
+  border-radius: 0;
+}
+
+.btnPassword {
+  border-radius: 0 0 6px 6px;
 }
 
 .btnRight {
   border-radius: 0 0 10px 0;
-
-  &:hover,
-  &:active {
-    border: none !important;
-  }
+}
+.btnRight:hover,
+.btnRight:active {
+  border: none !important;
 }
 
-.btnLeft {
-  border-radius: 0 0 0 10px;
-
-  &:hover,
-  &:active {
-    border: none !important;
-  }
+.btnRounded {
+  cursor: pointer;
+  color: var(--moves);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
 }
 
-/* Category */
-.btnCategoryContainer {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+.btnUpload {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  border-radius: 0 0 10px 10px;
 }
 
-.btnCategorySelect {
-  border: var(--btn-catagory-border);
-  height: 3rem;
+.clickableLabel {
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.commitDate {
+  display: flex;
+  align-items: center;
+  opacity: 0.8;
+  font-size: 0.9em;
+  color: var(--text-count-color);
+}
+
+.commitIcon {
+  margin-right: 0.5rem;
+}
+
+.commitItem {
+  padding: 0.8rem;
+  border-bottom: 1px solid var(--input-border-color);
   border-radius: 0;
+}
 
-  &:hover,
-  &:active {
-    border: var(--btn-catagory-border) !important;
+.commitList {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.commitMessage a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-color);
+  opacity: 0.6;
+  padding: 0.3rem 0;
+  transition: all 0.2s ease;
+}
+.commitMessage a:hover {
+  opacity: 1;
+}
+
+.commitStatus {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.fileInputHidden {
+  display: none;
+}
+
+.grayedOut {
+  color: var(--color-star-icon-gray);
+}
+
+.instructionsModal {
+  :global(.modal-content) {
+    min-height: 50vh;
   }
 }
 
-/* Navigation */
-.navLink {
+.leaderboardAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.menuButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin: 1rem 0;
+  width: 100%;
+}
+
+.modalButton {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.15rem;
-  font-size: 1em;
+  gap: 0.5rem;
 }
 
-/* Nav items */
-.navItemLeft,
-.navItemCenter,
-.navItemRight {
-  border: none;
-  background-color: var(--btn-secondary);
-  transition: all 0.3s ease;
-
-  &:hover {
-    background: var(--btn-secondary-hover);
-  }
-
-  &.active {
-    background: var(--modal-header-active);
-  }
-}
-
-.navItemLeft {
-  border-radius: 10px 0 0 0;
-  border-right: 1px solid var(--shadow-row);
+.modalButtons {
+  gap: 1px;
 }
 
 .navItemCenter {
@@ -232,36 +192,45 @@
   border-inline: 1px solid var(--shadow-row);
 }
 
+.navItemLeft {
+  border-radius: 10px 0 0 0;
+  border-right: 1px solid var(--shadow-row);
+}
+
+.navItemMiddle {
+  border-radius: 0;
+  border-block: 1px solid var(--btn-secondary);
+}
+
 .navItemRight {
   border-radius: 0 10px 0 0;
   border-left: 1px solid var(--shadow-row);
 }
 
-/* Forms */
-.input,
-.formSelect {
-  border-bottom: 1px solid var(--input-border-color);
-  border-radius: 0;
+.navItemLeft,
+.navItemCenter,
+.navItemRight {
+  border: none;
+  background-color: var(--btn-secondary);
+  transition: all 0.3s ease;
+}
+.navItemLeft:hover,
+.navItemCenter:hover,
+.navItemRight:hover {
+  background: var(--btn-secondary-hover);
+}
+.navItemLeft.active,
+.navItemCenter.active,
+.navItemRight.active {
+  background: var(--modal-header-active);
 }
 
-.input {
-  margin: 2rem 0;
-
-  &::placeholder {
-    color: var(--text-color);
-    opacity: 0.6;
-  }
-}
-
-/* Profile */
-.profileImageContainer {
+.navLink {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0 1rem;
-  width: 9rem;
-  height: 100%;
+  gap: 0.15rem;
+  font-size: 1em;
 }
 
 .profileImage {
@@ -273,21 +242,14 @@
   object-fit: cover;
 }
 
-/* Profile upload button */
-.btnUpload {
+.profileImageContainer {
   display: flex;
-  gap: 0.5rem;
-  width: 100%;
-  border-radius: 0 0 10px 10px;
-}
-
-.fileInputHidden {
-  display: none;
-}
-
-.clickableLabel {
-  font-size: 0.9rem;
-  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  width: 9rem;
+  height: 100%;
 }
 
 .profileUsername {
@@ -296,14 +258,18 @@
   font-weight: 500;
 }
 
-.accountInfo {
-  font-size: 0.9rem;
-  color: #6c757d;
-  margin-bottom: 0.25rem;
+.rank {
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .scoreIconStar {
   font-size: 0.9rem !important;
+}
+
+.scoreItem {
+  display: flex;
+  align-items: center;
 }
 
 .scoreRow {
@@ -315,37 +281,53 @@
   align-items: center;
 }
 
-.menuButtons {
+.scoreTab {
   display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  margin: 1rem 0;
-  width: 100%;
+  align-items: center;
+  gap: 0.1rem;
 }
 
-.btnMain {
-  width: 100%;
-  height: 2rem;
+.scoreboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  color: var(--text-color);
 }
 
-.btnLogout {
-  border-radius: 6px 6px 0 0;
+.starIcon {
+  color: var(--color-star-icon);
 }
 
-.btnPassword {
-  border-radius: 0 0 6px 6px;
+.success {
+  color: var(--feedback-correct);
 }
 
-.btnMenu {
+.underBorder {
+  border-bottom: 1px solid var(--input-border-color);
+}
+
+.wrongPick {
+  color: var(--feedback-wrong);
+}
+
+.input,
+.formSelect {
+  border-bottom: 1px solid var(--input-border-color);
   border-radius: 0;
 }
 
-/* Responsive */
+.input {
+  margin: 2rem 0;
+}
+.input::placeholder {
+  color: var(--text-color);
+  opacity: 0.6;
+}
+
 @media (max-width: 425px) {
-  .instructionsModal {
-    :global(.modal-content) {
-      height: 100%;
-    }
+  .instructionsModal :global(.modal-content) {
+    height: 100%;
   }
   .navLink {
     font-size: 0.9em;
