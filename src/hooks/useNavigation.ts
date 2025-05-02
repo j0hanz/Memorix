@@ -1,6 +1,7 @@
 import { GAME_CONFIG, SOUNDS } from '@/constants/constants';
 import type { GameHandlerOptions } from '@/types/hooks';
 import { useSoundEffects } from './useSound';
+import type { ModalType, ModalData } from '@/types/context';
 
 export const useNavigation = ({
   setIsLoading,
@@ -12,10 +13,14 @@ export const useNavigation = ({
   setShowAuthModal,
   setShowLeaderboardModal,
   logout,
+  isAuthenticated,
+  openModal,
 }: GameHandlerOptions & {
   setShowAuthModal: (value: boolean) => void;
   setShowLeaderboardModal: (value: boolean) => void;
   logout: () => void;
+  isAuthenticated: boolean;
+  openModal: (type: ModalType, data?: ModalData) => void;
 }) => {
   const { playSound } = useSoundEffects();
 
@@ -38,8 +43,19 @@ export const useNavigation = ({
     }, GAME_CONFIG.LOADING_DELAY);
   };
 
+  // Handle account/profile modal open
+  const handleAccountClick = () => {
+    playSound(SOUNDS.BUTTON);
+    if (isAuthenticated) {
+      openModal('profile');
+    } else {
+      openModal('auth');
+    }
+  };
+
   // Logout and redirect to MainMenu
   const handleLogout = () => {
+    playSound(SOUNDS.BUTTON);
     logout();
     setIsGameActive(false);
     setShowAuthModal(false);
@@ -113,5 +129,6 @@ export const useNavigation = ({
     openLeaderboardModal,
     closeLeaderboardModal,
     handleLogout,
+    handleAccountClick,
   };
 };
