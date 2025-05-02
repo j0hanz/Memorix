@@ -14,8 +14,8 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
 }) => {
   return (
     <>
-      <Form onSubmit={handleSubmit} className="mb-3">
-        <Form.Group controlId="oldPassword" className="mb-2">
+      <Form onSubmit={handleSubmit} className="mb-1">
+        <Form.Group controlId="oldPassword" className="mb-1">
           <Form.Label className="d-none">Current Password</Form.Label>
           <Form.Control
             type="password"
@@ -32,7 +32,7 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
             {errors.oldPassword}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="newPassword1" className="mb-2">
+        <Form.Group controlId="newPassword1" className="mb-1">
           <Form.Label className="d-none">New Password</Form.Label>
           <Form.Control
             type="password"
@@ -49,7 +49,7 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
             {errors.newPassword1}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="newPassword2" className="mb-3">
+        <Form.Group controlId="newPassword2" className="mb-1">
           <Form.Label className="d-none">Confirm New Password</Form.Label>
           <Form.Control
             type="password"
@@ -67,9 +67,9 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
           </Form.Control.Feedback>
         </Form.Group>
       </Form>
-      {error && <div className="text-danger mb-3 text-center">{error}</div>}
+      {error && <div className="text-danger mb-1 text-center">{error}</div>}
       {success && (
-        <div className="text-success mb-3 text-center">{success}</div>
+        <div className="text-success mb-1 text-center">{success}</div>
       )}
     </>
   );

@@ -18,7 +18,7 @@ const ProfileOverview: React.FC<
   extraButton,
 }) => (
   <>
-    <Col className="my-4">
+    <Col ClassName="d-flex flex-column justify-content-center p-3">
       <div className={styles.profileImageContainer}>
         <img
           src={previewImage || profile?.profile_picture_url}
@@ -47,7 +47,7 @@ const ProfileOverview: React.FC<
         </Button>
       </div>
     </Col>
-    <Col className="d-flex flex-column my-4">
+    <Col className="d-flex flex-column p-3">
       <div className={styles.profileUsername}>{user.username}</div>
       {profile ? (
         <>
