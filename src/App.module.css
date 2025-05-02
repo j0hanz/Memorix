@@ -3,13 +3,17 @@
   flex-direction: column;
   align-items: center;
   width: 15rem;
+  container-type: inline-size;
 }
 
 .gameTitle {
   font-family: 'Fredoka', sans-serif;
   font-weight: 500;
   font-size: 4.5rem;
-  color: var(--text-color-highlight);
+  color: color-mix(in srgb, var(--text-color-highlight) 90%, white 10%);
+  &:focus-visible {
+    outline: 2px solid var(--btn-primary);
+  }
 }
 
 .menuButtons {
@@ -22,10 +26,7 @@
 .btnMain {
   height: 3rem;
   border: 1px solid var(--bg-primary);
-  &:hover {
-    border: 1px solid var(--bg-primary) !important;
-  }
-  &:active {
+  &:is(:hover, :active) {
     border: 1px solid var(--bg-primary) !important;
   }
 }
@@ -48,6 +49,9 @@
   right: 15px;
   border-radius: 50%;
   z-index: 100;
+  &:has(img:active) {
+    box-shadow: 0 0 0 2px var(--btn-primary);
+  }
 }
 
 .menuProfileImage {
@@ -57,12 +61,17 @@
   object-fit: cover;
   cursor: pointer;
   transition: transform 0.2s ease;
-  &:hover {
+  &:where(:hover, :focus-visible) {
     transform: scale(1.05);
   }
-
   &:active {
     transform: scale(0.95);
+  }
+}
+
+@container (max-width: 400px) {
+  .menu {
+    width: 10rem;
   }
 }
 

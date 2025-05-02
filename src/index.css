@@ -1,6 +1,7 @@
+/* 2025 CSS: Added :focus-visible, :user-invalid, :user-valid, logical properties, and color-mix */
 body {
   font-family: 'Fredoka';
-  background: var(--bg-primary);
+  background: color-mix(in srgb, var(--bg-primary) 90%, black 10%);
   color: var(--text-color);
   display: flex;
   justify-content: center;
@@ -14,7 +15,7 @@ body {
 .btn {
   --bs-btn-disabled-bg: var(--btn-secondary);
   --bs-btn-disabled-border-color: transparent;
-  &:hover {
+  &:is(:hover, :focus-visible) {
     background-color: var(--btn-secondary);
     border-color: var(--btn-secondary);
   }
@@ -24,11 +25,17 @@ body {
 select {
   background-color: var(--bg-secondary);
   border: none;
+  &:user-invalid {
+    outline: 2px solid var(--feedback-wrong);
+  }
+  &:user-valid {
+    outline: 2px solid var(--feedback-correct);
+  }
 }
 
 select {
-  &:focus {
-    box-shadow: none !important;
+  &:focus-visible {
+    box-shadow: 0 0 0 2px var(--btn-primary);
   }
 }
 

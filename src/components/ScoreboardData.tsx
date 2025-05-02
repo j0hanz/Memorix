@@ -8,6 +8,7 @@ import { useSaveScore } from '@/hooks/useSaveScore';
 import Scoreboard from '@/components/scoreData';
 import type { ScoreboardDataProps } from '@/types/components';
 import { ScoreFeedback } from './ScoreFeedback';
+import styles from './styles/Modal.module.css';
 
 export default function ScoreboardData({
   onReset,
@@ -50,8 +51,10 @@ export default function ScoreboardData({
         rightText="Exit"
         onLeftClick={onReset}
         onRightClick={onExit}
-        leftIcon={<ReplayCircleFilledOutlinedIcon fontSize="small" />}
-        rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
+        leftIcon={
+          <ReplayCircleFilledOutlinedIcon className={styles.modalIcon} />
+        }
+        rightIcon={<ExitToAppOutlinedIcon className={styles.modalIcon} />}
       />
     </>
   );

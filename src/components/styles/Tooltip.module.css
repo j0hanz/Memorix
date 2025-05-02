@@ -2,12 +2,15 @@
   position: relative;
   display: inline-block;
   cursor: pointer;
+  &:focus-visible {
+    outline: 2px solid var(--btn-primary);
+  }
 }
 
 .tooltip {
   position: absolute;
   z-index: 9999;
-  background-color: var(--tooltip-bg);
+  background-color: color-mix(in srgb, var(--tooltip-bg) 90%, #fff 10%);
   padding: 0.5rem;
   border-radius: 10px;
   font-size: 0.8rem;
@@ -30,5 +33,12 @@
     left: 100%;
     top: 50%;
     transform: translateY(-50%) translateX(8px);
+  }
+}
+
+@container (max-width: 400px) {
+  .tooltip {
+    font-size: 0.7rem;
+    padding: 0.3rem;
   }
 }

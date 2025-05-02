@@ -32,8 +32,7 @@ function CommitListItem({ commit }: { commit: Commit }) {
     <li className={styles.commitItem}>
       <div className={styles.commitDate}>
         <CalendarTodayOutlinedIcon
-          fontSize="small"
-          className={styles.commitIcon}
+          className={`${styles.modalIcon} ${styles.commitIcon}`}
         />
         <span>{new Date(commit.date).toLocaleDateString()}</span>
       </div>
@@ -72,8 +71,8 @@ export function CommitStatus({ onClose }: { onClose?: () => void }) {
       <ModalFooterButtons
         leftText="Github"
         rightText="Close"
-        rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
-        leftIcon={<GitHubIcon fontSize="small" />}
+        rightIcon={<ExitToAppOutlinedIcon className={styles.modalIcon} />}
+        leftIcon={<GitHubIcon className={styles.modalIcon} />}
         onLeftClick={handleGitHubClick}
         onRightClick={() => onClose?.()}
       />

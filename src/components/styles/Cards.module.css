@@ -5,6 +5,7 @@
   align-items: start;
   height: 100dvh;
   width: min(60vw, 800px);
+  container-type: inline-size;
 
   @media (max-width: 990px) {
     width: min(75vw, 800px);
@@ -62,4 +63,22 @@
 .btnExitRestart {
   padding: 0.5rem;
   border-radius: 50%;
+  &:focus-visible {
+    outline: 2px solid var(--btn-primary);
+  }
+}
+
+@container (max-width: 600px) {
+  .row {
+    width: min(100vw, 800px);
+  }
+  .statsTop {
+    width: calc(min(98vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));
+  }
+}
+
+@media (max-width: 425px) {
+  .statsTop {
+    font-size: 0.9em;
+  }
 }

@@ -56,16 +56,9 @@ const Login = ({ onClose }: LoginProps) => {
           onLeftClick={undefined}
           onRightClick={() => onClose?.()}
           leftIcon={
-            !loading ? (
-              <LoginIcon fontSize="small" className={styles.btnIcon} />
-            ) : null
+            !loading ? <LoginIcon className={styles.modalIcon} /> : null
           }
-          rightIcon={
-            <ExitToAppOutlinedIcon
-              fontSize="small"
-              className={styles.btnIcon}
-            />
-          }
+          rightIcon={<ExitToAppOutlinedIcon className={styles.modalIcon} />}
           leftDisabled={loading}
           rightDisabled={loading}
           leftType="submit"

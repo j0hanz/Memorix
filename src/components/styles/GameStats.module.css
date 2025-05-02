@@ -5,6 +5,7 @@
   line-height: 0;
   width: 0;
   color: var(--text-count-color);
+  container-type: inline-size;
 }
 
 .count {
@@ -12,7 +13,7 @@
 }
 
 .scoreIcon {
-  color: var(--color-star-icon);
+  color: color-mix(in srgb, var(--color-star-icon) 80%, #fff 20%);
 }
 
 .grayedOut {
@@ -25,4 +26,13 @@
 
 .error {
   color: var(--feedback-wrong);
+}
+
+@container (max-width: 300px) {
+  .stats {
+    gap: 0.1rem;
+  }
+  .count {
+    font-size: 0.8rem;
+  }
 }

@@ -1,4 +1,4 @@
-/* Bootstrap overrides */
+/* 2025 CSS: Added color-mix, logical properties, and :where for selector simplification */
 :root {
   --bs-body-font-weigh: none;
   --bs-primary-rgb: none;
@@ -12,11 +12,10 @@
   --bs-body-bg: none;
 }
 
-/* Color variables */
 :root {
   --text-color: #f4f4f9;
   --text-count-color: #c77dff;
-  --text-color-highlight: #ff2e79;
+  --text-color-highlight: color-mix(in srgb, #ff2e79 90%, #fff 10%);
   --bg-primary: #101729;
   --btn-upload: #18233a;
   --btn-upload-hover: #1f2e4d;
@@ -40,11 +39,15 @@
   --shadow-row: #0a0a0a;
 }
 
-/* Style variables */
 :root {
   --outline-card-matched: 2px solid #22c55e;
   --outline-card-wrong: 1px solid #ff4d4d;
   --outline-card-active: 2px solid #ff2e79;
   --text-spacing: 0.05rem;
   --btn-catagory-border: 1px solid #18233a;
+}
+
+:where(input, select, textarea) {
+  padding-block: 0.5em;
+  padding-inline: 1em;
 }

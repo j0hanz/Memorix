@@ -81,12 +81,14 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
         <div className="text-success mb-3 text-center">{success}</div>
       )}
       <ModalFooterButtons
-        leftText={loading ? <LoadingSpinner /> : 'Change Password'}
+        leftText={loading ? <LoadingSpinner /> : 'Save Changes'}
         rightText="Back"
         onLeftClick={undefined}
         onRightClick={onBack}
-        leftIcon={loading ? undefined : <LockResetIcon fontSize="small" />}
-        rightIcon={<ArrowBackIcon fontSize="small" />}
+        leftIcon={
+          loading ? undefined : <LockResetIcon className={styles.modalIcon} />
+        }
+        rightIcon={<ArrowBackIcon className={styles.modalIcon} />}
         leftDisabled={loading || !allFilled}
         rightDisabled={loading}
       />

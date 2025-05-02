@@ -124,7 +124,7 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
 
     return (
       <ModalFooterButtons
-        leftText={loading ? <LoadingSpinner /> : 'Update Profile'}
+        leftText={loading ? <LoadingSpinner /> : 'Save Changes'}
         rightText="Close"
         onLeftClick={() => {
           handleUpdateProfile({
@@ -135,7 +135,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
         }}
         onRightClick={onClose}
         leftIcon={
-          loading ? undefined : <DriveFolderUploadIcon fontSize="small" />
+          loading ? undefined : (
+            <DriveFolderUploadIcon className={styles.modalIcon} />
+          )
         }
         leftDisabled={loading || !profileImage}
         rightDisabled={false}
