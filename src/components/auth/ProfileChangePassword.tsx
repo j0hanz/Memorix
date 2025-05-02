@@ -1,14 +1,8 @@
 import { Form } from 'react-bootstrap';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import LockResetIcon from '@mui/icons-material/LockReset';
 import type { ProfileChangePasswordProps } from '@/types/components';
-import { LoadingSpinner } from '@/components/Spinner';
-import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import styles from '@/components/styles/Modal.module.css';
 
 const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
-  onBack,
-  loading,
   error,
   success,
   values,
@@ -18,9 +12,6 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
   handleBlur,
   handleSubmit,
 }) => {
-  const allFilled =
-    values.oldPassword && values.newPassword1 && values.newPassword2;
-
   return (
     <>
       <Form onSubmit={handleSubmit} className="mb-3">
@@ -80,16 +71,6 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
       {success && (
         <div className="text-success mb-3 text-center">{success}</div>
       )}
-      <ModalFooterButtons
-        leftText={loading ? <LoadingSpinner /> : 'Save Changes'}
-        rightText="Back"
-        onLeftClick={undefined}
-        onRightClick={onBack}
-        leftIcon={loading ? undefined : <LockResetIcon fontSize="small" />}
-        rightIcon={<ArrowBackIcon fontSize="small" />}
-        leftDisabled={loading || !allFilled}
-        rightDisabled={loading}
-      />
     </>
   );
 };

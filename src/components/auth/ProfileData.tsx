@@ -3,12 +3,15 @@ import { Row } from 'react-bootstrap';
 import PersonIcon from '@mui/icons-material/Person';
 import HistoryIcon from '@mui/icons-material/History';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Button from '@/components/Button';
 import TabNavigation from '@/components/TabNavigation';
 import { useProfile } from '@/hooks/useProfile';
 import ProfileOverview from './ProfileOverview';
 import ProfileGameHistory from './ProfileGameHistory';
 import ProfileChangePassword from './ProfileChangePassword';
+import { ProfileDeleteAccount } from './ProfileDeleteAccount';
 import type { TabItem } from '@/types/components';
 import Toast from '@/components/Toast';
 import { ModalFooterButtons } from '@/components/ModalFooterButtons';
@@ -21,6 +24,7 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [showPasswordTab, setShowPasswordTab] = useState(false);
+  const [showDeleteTab, setShowDeleteTab] = useState(false);
 
   const {
     user,
@@ -37,6 +41,7 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
     scores,
     loadingScores,
     passwordForm,
+    handleDeleteAccount,
   } = useProfile();
 
   if (!user) {
@@ -60,42 +65,53 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
     },
   ];
 
-  // Render content based on active tab
-  const renderContent = () => {
-    if (activeTab === 'overview' && showPasswordTab) {
-      return (
-        <ProfileChangePassword
-          onBack={() => setShowPasswordTab(false)}
-          loading={loading}
-          error={error}
-          success={success}
-          values={passwordForm.values}
-          errors={passwordForm.errors}
-          touched={passwordForm.touched}
-          handleChange={passwordForm.handleChange}
-          handleBlur={passwordForm.handleBlur}
-          handleSubmit={(e) => {
-            if (e) {
-              passwordForm.handleSubmit(e as React.FormEvent<HTMLFormElement>);
-            } else {
-              passwordForm.handleSubmit({
-                preventDefault: () => {
-                  /* no-op for linter */
-                },
-              } as React.FormEvent<HTMLFormElement>);
-            }
-          }}
-        />
-      );
-    } else if (activeTab === 'overview') {
-      return (
-        <ProfileOverview
-          user={user}
-          profile={profile}
-          previewImage={previewImage}
-          handleImageChange={handleImageChange}
-          logout={logout}
-          extraButton={
+  // Render content based on state
+  let content;
+  if (activeTab === 'overview' && showPasswordTab) {
+    content = (
+      <ProfileChangePassword
+        onBack={() => setShowPasswordTab(false)}
+        loading={loading}
+        error={error}
+        success={success}
+        values={passwordForm.values}
+        errors={passwordForm.errors}
+        touched={passwordForm.touched}
+        handleChange={passwordForm.handleChange}
+        handleBlur={passwordForm.handleBlur}
+        handleSubmit={(
+          e?:
+            | React.FormEvent<HTMLFormElement>
+            | React.MouseEvent<Element, MouseEvent>,
+        ) => {
+          if (e) {
+            passwordForm.handleSubmit(e as React.FormEvent<HTMLFormElement>);
+          } else {
+            passwordForm.handleSubmit();
+          }
+        }}
+      />
+    );
+  } else if (activeTab === 'overview' && showDeleteTab) {
+    content = (
+      <ProfileDeleteAccount
+        loading={loading}
+        error={error}
+        success={success}
+        onDelete={handleDeleteAccount}
+        onBack={() => setShowDeleteTab(false)}
+      />
+    );
+  } else if (activeTab === 'overview') {
+    content = (
+      <ProfileOverview
+        user={user}
+        profile={profile}
+        previewImage={previewImage}
+        handleImageChange={handleImageChange}
+        logout={logout}
+        extraButton={
+          <>
             <Button
               className={`${styles.btnMain} ${styles.btnPassword}`}
               variant="menu"
@@ -104,40 +120,78 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
               type="button"
               color="secondary"
             />
-          }
-        />
-      );
-    } else if (activeTab === 'history') {
-      return (
-        <ProfileGameHistory scores={scores} loadingScores={loadingScores} />
-      );
-    }
+            <Button
+              className={`${styles.btnMain} ${styles.btnDelete}`}
+              variant="menu"
+              text="Delete Account"
+              onClick={() => setShowDeleteTab(true)}
+              type="button"
+              color="secondary"
+            />
+          </>
+        }
+      />
+    );
+  } else if (activeTab === 'history') {
+    content = (
+      <ProfileGameHistory scores={scores} loadingScores={loadingScores} />
+    );
+  }
 
-    return null;
-  };
-
-  // Render footer buttons based on active tab
+  // Determine which footer buttons to show based on current state
   const renderFooterButtons = () => {
     if (activeTab === 'overview' && showPasswordTab) {
-      return null;
+      const allFilled =
+        passwordForm.values.oldPassword &&
+        passwordForm.values.newPassword1 &&
+        passwordForm.values.newPassword2;
+
+      return (
+        <ModalFooterButtons
+          leftText={loading ? <LoadingSpinner /> : 'Save Changes'}
+          rightText="Back"
+          onLeftClick={() => passwordForm.handleSubmit()}
+          onRightClick={() => setShowPasswordTab(false)}
+          leftIcon={
+            loading ? undefined : <DriveFolderUploadIcon fontSize="small" />
+          }
+          rightIcon={<ArrowBackIcon fontSize="small" />}
+          leftDisabled={loading || !allFilled}
+          rightDisabled={loading}
+          leftType="submit"
+        />
+      );
     }
 
+    if (activeTab === 'overview' && showDeleteTab) {
+      return (
+        <ModalFooterButtons
+          leftText={loading ? <LoadingSpinner /> : 'Delete'}
+          rightText="Back"
+          onLeftClick={handleDeleteAccount}
+          onRightClick={() => setShowDeleteTab(false)}
+          leftIcon={
+            loading ? undefined : <DeleteForeverIcon fontSize="small" />
+          }
+          rightIcon={<ArrowBackIcon fontSize="small" />}
+          leftDisabled={loading}
+          rightDisabled={loading}
+          leftType="button"
+        />
+      );
+    }
+
+    // Default footer buttons for the overview tab
     return (
       <ModalFooterButtons
         leftText={loading ? <LoadingSpinner /> : 'Save Changes'}
         rightText="Close"
-        onLeftClick={() => {
-          handleUpdateProfile({
-            preventDefault: () => {
-              /* no-op for linter */
-            },
-          } as React.FormEvent<HTMLFormElement>);
-        }}
+        onLeftClick={() => handleUpdateProfile()}
         onRightClick={onClose}
         leftIcon={
           loading ? undefined : <DriveFolderUploadIcon fontSize="small" />
         }
-        leftDisabled={loading || !profileImage}
+        leftDisabled={loading || !profileImage || activeTab !== 'overview'}
         rightDisabled={false}
       />
     );
@@ -147,13 +201,13 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
     <>
       <Toast
         message={error || ''}
-        show={!!error && !showPasswordTab}
+        show={!!error && !showPasswordTab && !showDeleteTab}
         placement="top"
         onClose={() => setError(null)}
       />
       <Toast
         message={success || ''}
-        show={!!success && !showPasswordTab}
+        show={!!success && !showPasswordTab && !showDeleteTab}
         placement="top"
         onClose={() => setSuccess(null)}
       />
@@ -163,9 +217,10 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
         onSelect={(key) => {
           setActiveTab(key);
           setShowPasswordTab(false);
+          setShowDeleteTab(false);
         }}
       />
-      <Row>{renderContent()}</Row>
+      <Row>{content}</Row>
       {renderFooterButtons()}
     </>
   );

@@ -61,8 +61,10 @@ export function useForm<T extends Record<string, string>>(
     return isValid;
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: FormEvent<HTMLFormElement>) => {
+    if (e) {
+      e.preventDefault();
+    }
     setFormSubmitted(true);
 
     // Set all fields as touched for validation

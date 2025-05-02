@@ -8,7 +8,7 @@ import { profilePasswordValidationRules } from '@/utils/validation';
 import { formatErrorMessage } from '@/utils/errorUtils';
 
 export function useProfile() {
-  const { profile, getProfile, user, isAuthenticated } = useAuth();
+  const { profile, getProfile, user, isAuthenticated, logout } = useAuth();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -56,9 +56,11 @@ export function useProfile() {
   };
 
   const handleUpdateProfile = async (
-    e: React.FormEvent<HTMLFormElement>,
+    e?: React.FormEvent<HTMLFormElement>,
   ): Promise<void> => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     if (!profileImage) {
       setError('Please select an image first');
       return;
@@ -91,7 +93,7 @@ export function useProfile() {
     }
   };
 
-  // Example: useForm for password change (if you want to standardize this as well)
+  // Password change form
   const passwordForm = useForm(
     { oldPassword: '', newPassword1: '', newPassword2: '' },
     profilePasswordValidationRules,
@@ -116,6 +118,27 @@ export function useProfile() {
     },
   );
 
+  // Delete account handler
+  const handleDeleteAccount = async (): Promise<void> => {
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
+    try {
+      await axiosReq.delete('/api/delete-account/');
+      setSuccess('Account deleted successfully.');
+      setTimeout(() => {
+        logout();
+      }, 1200);
+    } catch (err) {
+      setError(
+        formatErrorMessage(err as ApiError) ||
+          'Failed to delete account. Please try again.',
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     user,
     profile,
@@ -131,5 +154,6 @@ export function useProfile() {
     scores,
     loadingScores,
     passwordForm,
+    handleDeleteAccount,
   };
 }
