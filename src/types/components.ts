@@ -233,6 +233,7 @@ export interface MainMenuProps {
   enterAnimation: EnterAnimation;
   openAuthModal: () => void;
   openLeaderboardModal: () => void;
+  handleAccountClick: () => void;
 }
 
 export interface GameProps {

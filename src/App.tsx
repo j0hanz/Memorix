@@ -43,9 +43,8 @@ const App = () => {
   const { enterAnimation } = useMotions();
 
   const { activeModal, closeModal, openModal } = useModal();
-  const { logout } = useAuth();
+  const { logout, isAuthenticated } = useAuth();
 
-  // Handler to open the auth modal
   const useAuthModal = () => openModal('auth');
 
   // Destructure game handlers
@@ -64,6 +63,7 @@ const App = () => {
     openLeaderboardModal,
     closeLeaderboardModal,
     handleLogout,
+    handleAccountClick,
   } = useNavigation({
     setIsLoading,
     setIsGameActive,
@@ -74,6 +74,8 @@ const App = () => {
     setShowAuthModal: useAuthModal,
     setShowLeaderboardModal,
     logout,
+    isAuthenticated,
+    openModal,
   });
 
   const handleStartGame = () => {
@@ -112,6 +114,7 @@ const App = () => {
             enterAnimation={enterAnimation}
             openAuthModal={useAuthModal}
             openLeaderboardModal={openLeaderboardModal}
+            handleAccountClick={handleAccountClick}
           />
         )}
         {isGameActive && !showInitialLoading && (

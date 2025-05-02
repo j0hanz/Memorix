@@ -9,7 +9,6 @@ import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import PersonIcon from '@mui/icons-material/Person';
 import Button from '@/components/Button';
-import { useNavigation } from '@/hooks/useNavigation';
 import type { MainMenuProps } from '@/types/components';
 import { useLinks } from '@/hooks/useLinks';
 import { useAuth } from '@/hooks/useAuth';
@@ -23,25 +22,11 @@ const MainMenu = ({
   enterAnimation,
   openAuthModal: _openAuthModal,
   openLeaderboardModal,
+  handleAccountClick,
 }: MainMenuProps) => {
   const { isMuted, toggleMute } = useLinks();
   const { isAuthenticated, user, profile, getProfile } = useAuth();
   const { openModal } = useModal();
-
-  // Function to open the authentication modal
-  const { handleAccountClick } = useNavigation({
-    setIsLoading: () => {},
-    setIsGameActive: () => {},
-    setShowInstructions: () => {},
-    setShowLatestUpdates: () => {},
-    setShowCategorySelection: () => {},
-    setSelectedCategory: () => {},
-    setShowAuthModal: () => {},
-    setShowLeaderboardModal: () => {},
-    logout: () => {},
-    isAuthenticated,
-    openModal,
-  });
 
   useEffect(() => {
     if (isAuthenticated && user && !profile) {
