@@ -25,27 +25,19 @@ const App = () => {
   const {
     isGameActive,
     isLoading,
-    showInstructions,
-    showLatestUpdates,
-    showCategorySelection,
     selectedCategory,
     setIsLoading,
     setIsGameActive,
-    setShowInstructions,
-    setShowLatestUpdates,
-    setShowCategorySelection,
     setSelectedCategory,
   } = useAppState();
 
   // Get animations and sounds
   const { enterAnimation } = useMotions();
-
   const { activeModal, closeModal, openModal } = useModal();
   const { logout, isAuthenticated } = useAuth();
 
   const useAuthModal = () => openModal('auth');
 
-  // Destructure game handlers
   const {
     startGame,
     handleRestart,
@@ -65,15 +57,10 @@ const App = () => {
   } = useNavigation({
     setIsLoading,
     setIsGameActive,
-    setShowInstructions,
-    setShowLatestUpdates,
-    setShowCategorySelection,
     setSelectedCategory,
-    setShowAuthModal: useAuthModal,
     setShowLeaderboardModal,
     logout,
     isAuthenticated,
-    openModal,
   });
 
   const handleStartGame = () => {
@@ -130,10 +117,16 @@ const App = () => {
             </GameProvider>
           </ErrorBoundary>
         )}
-        <GameInstructions show={showInstructions} onClose={closeInstructions} />
-        <LatestUpdates show={showLatestUpdates} onClose={closeLatestUpdates} />
+        <GameInstructions
+          show={activeModal === 'instructions'}
+          onClose={closeInstructions}
+        />
+        <LatestUpdates
+          show={activeModal === 'latestUpdates'}
+          onClose={closeLatestUpdates}
+        />
         <CategorySelection
-          show={showCategorySelection}
+          show={activeModal === 'categorySelection'}
           onClose={closeCategorySelection}
           onSelectCategory={handleSelectCategory}
         />

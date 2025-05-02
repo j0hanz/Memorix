@@ -3,9 +3,6 @@ import type { Variants, TargetAndTransition, Transition } from 'framer-motion';
 export interface AppState {
   isGameActive: boolean;
   isLoading: boolean;
-  showInstructions: boolean;
-  showLatestUpdates: boolean;
-  showCategorySelection: boolean;
   selectedCategory: string;
 }
 
@@ -24,11 +21,9 @@ export interface UseSaveScoreProps {
 export interface GameHandlerOptions {
   setIsLoading: (value: boolean) => void;
   setIsGameActive: (value: boolean) => void;
-  setShowInstructions: (value: boolean) => void;
-  setShowLatestUpdates: (value: boolean) => void;
-  setShowCategorySelection: (value: boolean) => void;
   setSelectedCategory: (value: string) => void;
   setShowLeaderboardModal?: (value: boolean) => void;
+  logout: () => void;
 }
 
 export type ValidationRules = Record<
