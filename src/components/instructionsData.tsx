@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import OverviewTab from './OverviewTab';
 import IconsTab from './IconsTab';
@@ -6,16 +5,12 @@ import ScoringTab from './ScoringTab';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-import TabNavigation from './TabNavigation';
-import type { TabItem } from '@/types/components';
+import { ModalTabs } from '@/components/ModalTabs';
+import type { TabItem, TabContent } from '@/types/components';
 import styles from './styles/Modal.module.css';
 
 export default function InstructionsData() {
-  // State to manage the active tab
-  const [activeKey, setActiveKey] = useState<string>('overview');
-
   const tabs: TabItem[] = [
-    // Array of tab objects to define the tabs in the modal
     {
       key: 'overview',
       title: 'Guide',
@@ -36,17 +31,19 @@ export default function InstructionsData() {
     },
   ];
 
+  const tabContents: TabContent[] = [
+    { key: 'overview', content: <OverviewTab /> },
+    { key: 'symbols', content: <IconsTab /> },
+    { key: 'stars', content: <ScoringTab /> },
+  ];
+
   return (
     <Modal.Body className="p-0">
-      <TabNavigation
-        activeKey={activeKey}
+      <ModalTabs
         tabs={tabs}
-        onSelect={setActiveKey}
+        tabContents={tabContents}
+        defaultActiveKey="overview"
       />
-
-      {activeKey === 'overview' && <OverviewTab />}
-      {activeKey === 'symbols' && <IconsTab />}
-      {activeKey === 'stars' && <ScoringTab />}
     </Modal.Body>
   );
 }

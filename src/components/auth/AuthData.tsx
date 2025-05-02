@@ -1,16 +1,12 @@
-import { useState } from 'react';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import styles from '@/components/styles/Modal.module.css';
 import Login from './Login';
 import Register from './Register';
-import TabNavigation from '../TabNavigation';
-import type { TabItem } from '@/types/components';
+import { ModalTabs } from '@/components/ModalTabs';
+import type { TabItem, TabContent } from '@/types/components';
 
-// Auth data component for the modal content
-export default function AuthData({ onClose }: { onClose: () => void }) {
-  const [activeKey, setActiveKey] = useState<string>('login');
-
+export const AuthData = ({ onClose }: { onClose: () => void }) => {
   const tabs: TabItem[] = [
     {
       key: 'login',
@@ -26,18 +22,20 @@ export default function AuthData({ onClose }: { onClose: () => void }) {
     },
   ];
 
-  return (
-    <>
-      <TabNavigation
-        activeKey={activeKey}
-        tabs={tabs}
-        onSelect={setActiveKey}
-      />
+  const tabContents: TabContent[] = [
+    {
+      key: 'login',
+      content: <Login onClose={onClose} />,
+    },
+    {
+      key: 'register',
+      content: <Register onSuccess={onClose} onClose={onClose} />,
+    },
+  ];
 
-      {activeKey === 'login' && <Login onClose={onClose} />}
-      {activeKey === 'register' && (
-        <Register onSuccess={() => setActiveKey('login')} onClose={onClose} />
-      )}
-    </>
+  return (
+    <ModalTabs tabs={tabs} tabContents={tabContents} defaultActiveKey="login" />
   );
-}
+};
+
+export default AuthData;

@@ -306,3 +306,14 @@ export interface MovesProps {
 export interface TimerProps {
   timerActive: boolean;
 }
+
+export interface ModalTabsProps {
+  tabs: TabItem[];
+  tabContents: TabContent[];
+  defaultActiveKey?: string;
+}
+
+export interface TabContent {
+  key: string;
+  content: ReactNode;
+}
