@@ -20,9 +20,8 @@
 }
 
 .accountInfo {
-  font-size: 0.9rem;
-  color: #6c757d;
-  margin-block-end: 0.25rem;
+  font-size: 0.8rem;
+  opacity: 0.6;
 }
 
 .menuButtons {
@@ -249,7 +248,7 @@
 }
 
 .profileUsername {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: var(--text-color);
   font-weight: 500;
 }
