@@ -12,13 +12,13 @@ export const AuthData = ({ onClose }: { onClose: () => void }) => {
       key: 'login',
       title: 'Login',
       className: styles.navItemLeft,
-      icon: <LoginIcon fontSize="small" className="me-1" />,
+      icon: <LoginIcon fontSize="small" />,
     },
     {
       key: 'register',
       title: 'Register',
       className: styles.navItemRight,
-      icon: <PersonAddIcon fontSize="small" className="me-1" />,
+      icon: <PersonAddIcon fontSize="small" />,
     },
   ];
 

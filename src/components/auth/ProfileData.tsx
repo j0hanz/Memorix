@@ -55,13 +55,13 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
       key: 'overview',
       title: 'Overview',
       className: styles.navItemLeft,
-      icon: <PersonIcon fontSize="small" className="me-1" />,
+      icon: <PersonIcon fontSize="small" />,
     },
     {
       key: 'history',
       title: 'Game History',
       className: styles.navItemRight,
-      icon: <HistoryIcon fontSize="small" className="me-1" />,
+      icon: <HistoryIcon fontSize="small" />,
     },
   ];
 
