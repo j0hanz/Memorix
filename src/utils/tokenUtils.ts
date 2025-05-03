@@ -53,10 +53,11 @@ export const clearTokens = (): void => {
 export const parseTokensFromResponse = (
   response: Partial<AuthResponse>,
 ): { accessToken: string | null; refreshToken: string | null } => {
+  // Remove unnecessary optional chaining, as response is always defined
   const accessToken =
-    response?.access || response?.token || response?.access_token || null;
+    response.access || response.token || response.access_token || null;
 
-  const refreshToken = response?.refresh || response?.refresh_token || null;
+  const refreshToken = response.refresh || response.refresh_token || null;
 
   return { accessToken, refreshToken };
 };

@@ -2,12 +2,12 @@ import type { GameResultData, LeaderboardEntry, UserScore } from '@/types/api';
 
 import { axiosReq } from './axios';
 
-const gameService = {
+export const gameService = {
   // Save a completed game score
-  saveGameResult: async (gameData: GameResultData) => {
+  saveGameResult: async (gameData: GameResultData): Promise<unknown> => {
     try {
       const response = await axiosReq.post('/api/memorix/results/', gameData);
-      return response.data;
+      return response.data as unknown;
     } catch (error) {
       console.error('Error saving game result:', error);
       throw error;
@@ -15,10 +15,11 @@ const gameService = {
   },
 
   // Get leaderboard entries
-  getLeaderboard: async (categoryId?: number) => {
-    const url = categoryId
-      ? `/api/memorix/results/leaderboard/?category=${categoryId}`
-      : '/api/memorix/results/leaderboard/';
+  getLeaderboard: async (categoryId?: number): Promise<LeaderboardEntry[]> => {
+    const url =
+      categoryId !== undefined
+        ? `/api/memorix/results/leaderboard/?category=${String(categoryId)}`
+        : '/api/memorix/results/leaderboard/';
 
     try {
       const response = await axiosReq.get<LeaderboardEntry[]>(url);
@@ -30,17 +31,18 @@ const gameService = {
   },
 
   // Get categories
-  getCategories: async () => {
+  getCategories: async (): Promise<unknown> => {
     try {
       const response = await axiosReq.get('/api/memorix/categories/');
-      return response.data;
+      return response.data as unknown;
     } catch (error) {
       console.error('Error fetching categories:', error);
       throw error;
     }
   },
+
   // Get user scores
-  getUserScores: async () => {
+  getUserScores: async (): Promise<UserScore[]> => {
     try {
       const response = await axiosReq.get<UserScore[]>('/api/memorix/results/');
       return response.data;
@@ -50,5 +52,3 @@ const gameService = {
     }
   },
 };
-
-export default gameService;

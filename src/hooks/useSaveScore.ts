@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import gameService from '@/services/gameService';
+import { gameService } from '@/services/gameService';
 import type { UseSaveScoreProps } from '@/types/hooks';
 
 export function useSaveScore({

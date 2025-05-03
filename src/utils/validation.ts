@@ -9,7 +9,7 @@ export const minLength =
   (length: number, fieldName = 'Field') =>
   (value: string): string | null =>
     value && value.length < length
-      ? `${fieldName} must be at least ${length} characters`
+      ? `${fieldName} must be at least ${String(length)} characters`
       : null;
 
 export const matches =

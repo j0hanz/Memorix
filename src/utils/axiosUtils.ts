@@ -27,8 +27,8 @@ export const refreshAccessToken = async (): Promise<string | null> => {
     const response = await axiosReq.post('/dj-rest-auth/token/refresh/', {
       refresh,
     });
-    // Extract access token from the response
-    const { accessToken } = await parseTokensFromResponse(
+    // Parse the new access token from the response
+    const { accessToken } = parseTokensFromResponse(
       response.data as Partial<AuthResponse>,
     );
 
@@ -61,39 +61,41 @@ async function handleExpiredToken(
     try {
       const newToken = await refreshAccessToken();
       setIsRefreshing(false);
+      // Check if the new token is valid
       if (newToken) {
         onRefreshed(newToken);
         config.headers = config.headers || {};
         config.headers.Authorization = `Bearer ${newToken}`;
         return config;
-      } else {
-        window.dispatchEvent(
-          new CustomEvent('auth:logout', {
-            detail: { reason: 'token-refresh-failed' },
-          }),
-        );
-        return Promise.reject(
-          new Error('Authentication expired. Please log in again.'),
-        );
       }
+      window.dispatchEvent(
+        new CustomEvent('auth:logout', {
+          detail: { reason: 'token-refresh-failed' },
+        }),
+      );
+      // Handle the case when the refresh token is invalid or expired
+      return await Promise.reject(
+        new Error('Authentication expired. Please log in again.'),
+      );
     } catch (error) {
       setIsRefreshing(false);
       window.dispatchEvent(
         new CustomEvent('auth:logout', { detail: { reason: 'refresh-error' } }),
       );
-      return Promise.reject(
+      // Handle the error appropriately
+      return await Promise.reject(
         error instanceof Error ? error : new Error('Token refresh error'),
       );
     }
-  } else {
-    return await new Promise<InternalAxiosRequestConfig>((resolve) => {
-      subscribeTokenRefresh((newToken: string) => {
-        config.headers = config.headers || {};
-        config.headers.Authorization = `Bearer ${newToken}`;
-        resolve(config);
-      });
-    });
   }
+  // Wait for the token to be refreshed by another request
+  return await new Promise<InternalAxiosRequestConfig>((resolve) => {
+    subscribeTokenRefresh((newToken: string) => {
+      config.headers = config.headers || {};
+      config.headers.Authorization = `Bearer ${newToken}`;
+      resolve(config);
+    });
+  });
 }
 
 const setupAxiosInterceptors = (): void => {

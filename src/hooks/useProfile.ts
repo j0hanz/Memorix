@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useForm } from '@/hooks/useForm';
 import { axiosReq } from '@/services/axios';
-import gameService from '@/services/gameService';
+import { gameService } from '@/services/gameService';
 import type { ApiError, UserScore } from '@/types/api';
 import { formatErrorMessage } from '@/utils/errorUtils';
 import { profilePasswordValidationRules } from '@/utils/validation';
