@@ -23,7 +23,7 @@ export function useProfile() {
       await getProfile();
     };
     if (user && !profile) {
-      fetchProfileData();
+      void fetchProfileData();
     }
   }, [user, profile, getProfile]);
 
@@ -43,7 +43,7 @@ export function useProfile() {
       }
     };
 
-    fetchScores();
+    void fetchScores();
   }, [user, isAuthenticated]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -80,7 +80,7 @@ export function useProfile() {
     try {
       const formData = new FormData();
       formData.append('profile_picture', profileImage);
-      await axiosReq.patch(`/api/profiles/${profile.id}/`, formData, {
+      await axiosReq.patch(`/api/profiles/${String(profile.id)}/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       await getProfile();

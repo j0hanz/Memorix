@@ -87,9 +87,11 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
           e?: React.FormEvent<HTMLFormElement> | React.MouseEvent,
         ) => {
           if (e) {
-            passwordForm.handleSubmit(e as React.FormEvent<HTMLFormElement>);
+            void passwordForm.handleSubmit(
+              e as React.FormEvent<HTMLFormElement>,
+            );
           } else {
-            passwordForm.handleSubmit();
+            void passwordForm.handleSubmit();
           }
         }}
       />
@@ -100,7 +102,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
         loading={loading}
         error={error}
         success={success}
-        onDelete={handleDeleteAccount}
+        onDelete={() => {
+          void handleDeleteAccount();
+        }}
         onBack={() => {
           setShowDeleteTab(false);
         }}
@@ -158,7 +162,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
         <ModalFooterButtons
           leftText={loading ? <LoadingSpinner /> : 'Save Changes'}
           rightText="Back"
-          onLeftClick={() => passwordForm.handleSubmit()}
+          onLeftClick={() => {
+            void passwordForm.handleSubmit();
+          }}
           onRightClick={() => {
             setShowPasswordTab(false);
           }}
@@ -178,7 +184,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
         <ModalFooterButtons
           leftText={loading ? <LoadingSpinner /> : 'Delete'}
           rightText="Back"
-          onLeftClick={handleDeleteAccount}
+          onLeftClick={() => {
+            void handleDeleteAccount();
+          }}
           onRightClick={() => {
             setShowDeleteTab(false);
           }}
@@ -198,7 +206,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
       <ModalFooterButtons
         leftText={loading ? <LoadingSpinner /> : 'Save Changes'}
         rightText="Close"
-        onLeftClick={() => handleUpdateProfile()}
+        onLeftClick={() => {
+          void handleUpdateProfile();
+        }}
         onRightClick={onClose}
         leftIcon={
           loading ? undefined : <DriveFolderUploadIcon fontSize="small" />

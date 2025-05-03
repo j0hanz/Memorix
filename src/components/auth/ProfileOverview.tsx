@@ -19,7 +19,7 @@ const ProfileOverview: React.FC<
   extraButton,
 }) => (
   <>
-    <Col ClassName="d-flex flex-column justify-content-center p-3">
+    <Col className="d-flex flex-column justify-content-center p-3">
       <div className={styles.profileImageContainer}>
         <img
           src={previewImage || profile?.profile_picture_url}

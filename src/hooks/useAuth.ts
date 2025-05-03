@@ -43,35 +43,41 @@ export function useAuthProvider(): AuthContextType {
   const setAuthTokens = useCallback((access: string, refresh?: string) => {
     if (access) {
       setTokenState(access);
-      setToken(access); // Use the enhanced utility
+      setToken(access);
     }
-
     if (refresh) {
       setRefreshTokenState(refresh);
-      setRefreshToken(refresh); // Use the enhanced utility
+      setRefreshToken(refresh);
     }
   }, []);
 
   // Fetch the user's profile with better error handling
   const fetchProfile = useCallback(async (): Promise<Profile | null> => {
-    if (!token || !user?.profile_id) return null;
+    if (!token || !user || user.profile_id == null) return null;
 
     setLoading(true);
     setError(null);
 
     try {
-      const response = await axiosReq.get(`/api/profiles/${user.profile_id}/`);
+      const response = await axiosReq.get<Profile>(
+        `/api/profiles/${String(user.profile_id)}/`,
+      );
       setProfile(response.data);
       return response.data;
     } catch (err: unknown) {
       console.error('Failed to fetch profile:', err);
       const errorObj = err as ApiError;
-      setError(errorObj.response?.data?.detail || 'Failed to load profile');
+      setError(
+        errorObj.response?.data?.detail &&
+          typeof errorObj.response.data.detail === 'string'
+          ? errorObj.response.data.detail
+          : 'Failed to load profile',
+      );
       return null;
     } finally {
       setLoading(false);
     }
-  }, [token, user?.profile_id]);
+  }, [token, user]);
 
   // Initialize user from stored token with improved token validation
   useEffect(() => {
@@ -92,13 +98,16 @@ export function useAuthProvider(): AuthContextType {
           }
         }
 
-        const userResponse = await axiosReq.get('/dj-rest-auth/user/');
-        setUser(userResponse.data as User);
+        const userResponse = await axiosReq.get<User>('/dj-rest-auth/user/');
+        setUser(userResponse.data);
       } catch (err: unknown) {
         console.error('Error during token initialization:', err);
         const errorObj = err as ApiError;
         const errorMessage =
-          errorObj.response?.data?.detail || 'Authentication error';
+          errorObj.response?.data?.detail &&
+          typeof errorObj.response.data.detail === 'string'
+            ? errorObj.response.data.detail
+            : 'Authentication error';
         setError(errorMessage);
         logout();
       } finally {
@@ -106,22 +115,27 @@ export function useAuthProvider(): AuthContextType {
       }
     };
 
-    initializeUser();
+    void initializeUser();
   }, [token, logout, setAuthTokens]);
 
   // Fetch profile when user changes
   useEffect(() => {
-    if (user?.id) {
-      fetchProfile();
+    if (user && user.id) {
+      void fetchProfile();
     }
   }, [user, fetchProfile]);
 
   // Listen for global logout events with enhanced event data
   useEffect(() => {
     const handleLogout = (event: Event) => {
-      const customEvent = event as CustomEvent;
-      if (customEvent.detail?.reason) {
-        console.log(`Logout triggered: ${customEvent.detail.reason}`);
+      const customEvent = event as CustomEvent<{ reason?: unknown }>;
+      if (
+        customEvent.detail &&
+        typeof customEvent.detail === 'object' &&
+        customEvent.detail !== null &&
+        'reason' in customEvent.detail
+      ) {
+        console.log(`Logout triggered: ${String(customEvent.detail.reason)}`);
       }
       logout();
     };
