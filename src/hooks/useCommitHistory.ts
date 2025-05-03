@@ -29,7 +29,7 @@ export function useCommit() {
       }
     };
 
-    loadCommits();
+    void loadCommits();
 
     return () => {
       isMounted = false;

@@ -37,7 +37,7 @@ export function useSaveScore({
       }
     };
 
-    saveScore();
+    void saveScore(); // Explicitly mark the promise as ignored
   }, [
     show,
     isAuthenticated,

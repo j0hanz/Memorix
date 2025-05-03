@@ -49,18 +49,17 @@ export function useSoundEffects() {
     // Check if sounds are muted
     const currentMuteState =
       localStorage.getItem(STORAGE_KEYS.MUTE_STATE) === 'true';
-    if (currentMuteState) return;
-
-    const sound = soundsRef.current[soundName];
-    // Check if sound exists
-    if (!sound) {
-      console.warn(`No sound found for key: "${soundName}"`);
-      return;
-    }
-    try {
-      sound.play();
-    } catch (error) {
-      console.error('Error playing sound:', error);
+    if (!currentMuteState) {
+      const sound = soundsRef.current[soundName];
+      if (!sound) {
+        console.warn(`No sound found for key: "${soundName}"`);
+        return;
+      }
+      try {
+        sound.play();
+      } catch (error) {
+        console.error('Error playing sound:', error);
+      }
     }
   }
 

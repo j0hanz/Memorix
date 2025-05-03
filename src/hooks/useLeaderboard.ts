@@ -23,7 +23,7 @@ export function useLeaderboard(categoryId?: number) {
       }
     };
 
-    fetchLeaderboard();
+    void fetchLeaderboard();
   }, [categoryId]);
 
   return { leaderboard, loading, error };

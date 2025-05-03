@@ -35,11 +35,11 @@ export function useForm<T extends Record<string, string>>(
   };
 
   const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name } = e.target;
+    const { name, value } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
 
     if (validationRules && validationRules[name]) {
-      const error = validationRules[name](values[name], values);
+      const error = validationRules[name](value, values);
       setErrors((prev) => ({ ...prev, [name]: error || '' }));
     }
   };
