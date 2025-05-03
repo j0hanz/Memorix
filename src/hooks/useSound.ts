@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
 import { Howl } from 'howler';
+import { useEffect, useRef, useState } from 'react';
+
+import buttonSound from '/sounds/button.mp3';
+import clickSound from '/sounds/click.mp3';
+import completeSound from '/sounds/complete.mp3';
 import correctSound from '/sounds/correct.mp3';
 import wrongSound from '/sounds/wrong.mp3';
-import clickSound from '/sounds/click.mp3';
-import buttonSound from '/sounds/button.mp3';
-import completeSound from '/sounds/complete.mp3';
 import { SOUNDS, STORAGE_KEYS } from '@/constants/constants';
 
 export function useSoundEffects() {

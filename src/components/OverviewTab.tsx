@@ -1,5 +1,6 @@
-import { ListGroup } from 'react-bootstrap';
 import LabelImportantOutlinedIcon from '@mui/icons-material/LabelImportantOutlined';
+import { ListGroup } from 'react-bootstrap';
+
 import styles from './styles/Modal.module.css';
 
 export default function OverviewTab() {

@@ -1,6 +1,7 @@
-import Switch from '@mui/material/Switch';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
+import Switch from '@mui/material/Switch';
+
 import type { SoundToggleProps } from '@/types/components';
 
 export const SoundToggle = ({ isMuted, onToggle }: SoundToggleProps) => (

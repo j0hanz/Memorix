@@ -1,6 +1,7 @@
+import type { TargetAndTransition, Transition } from 'framer-motion';
 import type { ReactNode } from 'react';
 import type { ButtonProps } from 'react-bootstrap';
-import type { TargetAndTransition, Transition } from 'framer-motion';
+
 import type { PairedCard } from './card';
 
 // Button and Menu
@@ -51,10 +52,7 @@ export interface ProfileChangePasswordProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
   handleSubmit?: (
-    e?:
-      | React.FormEvent<HTMLFormElement>
-      | React.MouseEvent<Element, MouseEvent>
-      | undefined,
+    e?: React.FormEvent<HTMLFormElement> | React.MouseEvent,
   ) => void | Promise<void>;
 }
 
@@ -207,7 +205,7 @@ export interface ImageProps {
   style?: React.CSSProperties;
   onClick?: () => void;
   onLoad?: () => void;
-  onError?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
+  onError?: (e: React.SyntheticEvent<HTMLImageElement>) => void;
   loading?: 'lazy' | 'eager';
   fallbackSrc?: string;
 }

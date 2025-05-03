@@ -1,6 +1,6 @@
 import { GAME_CONFIG, SOUNDS } from '@/constants/constants';
-import { useSoundEffects } from '@/hooks/useSound';
 import { useModal } from '@/hooks/useModal';
+import { useSoundEffects } from '@/hooks/useSound';
 import type { GameHandlerOptions } from '@/types/hooks';
 
 interface NavigationOptions extends GameHandlerOptions {
@@ -55,13 +55,27 @@ export function useNavigation({
     if (setShowLeaderboardModal) setShowLeaderboardModal(false);
   }
 
-  const closeAuthModal = createSoundAction(() => closeModal());
-  const startGame = createSoundAction(() => openModal('categorySelection'));
-  const openInstructions = createSoundAction(() => openModal('instructions'));
-  const closeInstructions = createSoundAction(() => closeModal());
-  const openLatestUpdates = createSoundAction(() => openModal('latestUpdates'));
-  const closeLatestUpdates = createSoundAction(() => closeModal());
-  const closeCategorySelection = createSoundAction(() => closeModal());
+  const closeAuthModal = createSoundAction(() => {
+    closeModal();
+  });
+  const startGame = createSoundAction(() => {
+    openModal('categorySelection');
+  });
+  const openInstructions = createSoundAction(() => {
+    openModal('instructions');
+  });
+  const closeInstructions = createSoundAction(() => {
+    closeModal();
+  });
+  const openLatestUpdates = createSoundAction(() => {
+    openModal('latestUpdates');
+  });
+  const closeLatestUpdates = createSoundAction(() => {
+    closeModal();
+  });
+  const closeCategorySelection = createSoundAction(() => {
+    closeModal();
+  });
 
   const openLeaderboardModal = createSoundAction(() => {
     if (setShowLeaderboardModal) setShowLeaderboardModal(true);
@@ -77,10 +91,14 @@ export function useNavigation({
 
   const handleRestart = createSoundAction(() => {
     setIsGameActive(false);
-    setTimeout(() => setIsGameActive(true), 300);
+    setTimeout(() => {
+      setIsGameActive(true);
+    }, 300);
   });
 
-  const handleExit = createSoundAction(() => setIsGameActive(false));
+  const handleExit = createSoundAction(() => {
+    setIsGameActive(false);
+  });
   const handleAppReset = createSoundAction(() => {
     setIsGameActive(false);
     setIsLoading(false);

@@ -1,6 +1,7 @@
-import { useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
+import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
+
 import type { ValidationRules } from '@/types/hooks';
 
 // This hook is used to manage form state and validation.
@@ -68,12 +69,12 @@ export function useForm<T extends Record<string, string>>(
     setFormSubmitted(true);
 
     // Set all fields as touched for validation
-    const allTouched = Object.keys(values).reduce(
+    const allTouched = Object.keys(values).reduce<Record<string, boolean>>(
       (acc, key) => {
         acc[key] = true;
         return acc;
       },
-      {} as Record<string, boolean>,
+      {},
     );
     setTouched(allTouched);
 

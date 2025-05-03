@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import type { ImageProps } from '@/types/components';
 
 // Enhanced Image component with error handling and loading management
@@ -24,9 +25,7 @@ const Image: React.FC<ImageProps> = ({
   };
 
   // Handle image error with fallback
-  const handleError = (
-    event: React.SyntheticEvent<HTMLImageElement, Event>,
-  ) => {
+  const handleError = (event: React.SyntheticEvent<HTMLImageElement>) => {
     if (!hasError && fallbackSrc) {
       setImgSrc(fallbackSrc);
       setHasError(true);

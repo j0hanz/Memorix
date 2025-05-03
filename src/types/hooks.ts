@@ -1,4 +1,4 @@
-import type { Variants, TargetAndTransition, Transition } from 'framer-motion';
+import type { TargetAndTransition, Transition, Variants } from 'framer-motion';
 
 export interface AppState {
   isGameActive: boolean;

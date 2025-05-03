@@ -1,9 +1,11 @@
-import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import { Timer, Moves } from './GameStats';
-import Feedback from './Feedback';
-import styles from './styles/Cards.module.css';
+import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
+
 import type { StatsBarProps } from '@/types/components';
+
+import Feedback from './Feedback';
+import { Moves, Timer } from './GameStats';
+import styles from './styles/Cards.module.css';
 
 export const StatsBar = ({
   moves,

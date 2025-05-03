@@ -1,6 +1,8 @@
 import { Modal } from 'react-bootstrap';
+
 import AuthData from '@/components/auth/AuthData';
 import type { AuthModalProps } from '@/types/components';
+
 import styles from './styles/Modal.module.css';
 
 export function AuthModal({ show, onClose }: AuthModalProps) {

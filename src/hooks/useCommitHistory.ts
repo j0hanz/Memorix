@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { fetchLatestCommits } from '@/services/github';
 import type { Commit } from '@/types/api';
 

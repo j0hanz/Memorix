@@ -1,5 +1,5 @@
-import { useSoundEffects } from '@/hooks/useSound';
 import { SOUNDS } from '@/constants/constants';
+import { useSoundEffects } from '@/hooks/useSound';
 
 // This hook manages the links
 export function useLinks() {

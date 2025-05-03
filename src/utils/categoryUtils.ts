@@ -1,9 +1,9 @@
-import React from 'react';
-import type { ReactElement } from 'react';
 import PetsIcon from '@mui/icons-material/Pets';
 import PublicIcon from '@mui/icons-material/Public';
-import PatternIcon from '@mui/icons-material/Wallpaper';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import PatternIcon from '@mui/icons-material/Wallpaper';
+import type { ReactElement } from 'react';
+import React from 'react';
 
 export const CATEGORY_ICONS: Record<string, () => ReactElement> = {
   Animals: () => React.createElement(PetsIcon, { fontSize: 'small' }),

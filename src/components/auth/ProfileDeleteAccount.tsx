@@ -1,4 +1,5 @@
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+
 import type { ProfileDeleteAccountProps } from '@/types/components';
 
 export const ProfileDeleteAccount: React.FC<ProfileDeleteAccountProps> = ({

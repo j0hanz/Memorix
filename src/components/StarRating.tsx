@@ -1,5 +1,7 @@
 import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
+
 import type { StarRatingProps } from '@/types/components';
+
 import styles from './styles/Modal.module.css';
 
 const StarRating: React.FC<StarRatingProps> = ({

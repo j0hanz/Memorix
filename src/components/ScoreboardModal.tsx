@@ -1,6 +1,8 @@
 import { Modal } from 'react-bootstrap';
+
 import ScoreboardData from '@/components/ScoreboardData';
 import type { ScoreboardModalProps } from '@/types/components';
+
 import styles from './styles/Modal.module.css';
 
 export function ScoreboardModal({

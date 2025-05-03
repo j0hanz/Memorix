@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+
 import type { ModalContextType } from '@/types/context';
 
 export const ModalContext = createContext<ModalContextType>({

@@ -1,10 +1,12 @@
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import styles from './styles/GameStats.module.css';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useMotions } from '@/hooks/useMotions';
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { FEEDBACK } from '@/constants/constants';
+import { useMotions } from '@/hooks/useMotions';
 import type { FeedbackProps } from '@/types/components';
+
+import styles from './styles/GameStats.module.css';
 
 // Display feedback messages based on the message prop
 const Feedback = ({ message }: FeedbackProps) => {

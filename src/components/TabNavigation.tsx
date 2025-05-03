@@ -1,7 +1,9 @@
 import { Nav } from 'react-bootstrap';
-import { useSoundEffects } from '@/hooks/useSound';
+
 import { SOUNDS } from '@/constants/constants';
+import { useSoundEffects } from '@/hooks/useSound';
 import type { TabNavigationProps } from '@/types/components';
+
 import styles from './styles/Modal.module.css';
 
 // NavItem component for tab rendering
@@ -26,7 +28,9 @@ export const NavItem = ({
     >
       <Nav.Link
         eventKey={eventKey}
-        onClick={() => playSound(SOUNDS.BUTTON)}
+        onClick={() => {
+          playSound(SOUNDS.BUTTON);
+        }}
         className={styles.navLink}
       >
         {icon}
@@ -45,7 +49,9 @@ export default function TabNavigation({
     <Nav
       variant="tabs"
       activeKey={activeKey}
-      onSelect={(selectedKey) => onSelect(selectedKey || '')}
+      onSelect={(selectedKey) => {
+        onSelect(selectedKey || '');
+      }}
       justify
     >
       {tabs.map((tab) => (

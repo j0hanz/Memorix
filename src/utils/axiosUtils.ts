@@ -1,16 +1,17 @@
-import type { InternalAxiosRequestConfig, AxiosError } from 'axios';
+import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
+
 import { axiosReq } from '@/services/axios';
 import {
-  getToken,
-  getRefreshToken,
-  setToken,
-  isTokenExpired,
   clearTokens,
-  onRefreshed,
-  subscribeTokenRefresh,
   getIsRefreshing,
-  setIsRefreshing,
+  getRefreshToken,
+  getToken,
+  isTokenExpired,
+  onRefreshed,
   parseTokensFromResponse,
+  setIsRefreshing,
+  setToken,
+  subscribeTokenRefresh,
 } from '@/utils/tokenUtils';
 
 // Function to refresh the access token using the refresh token.

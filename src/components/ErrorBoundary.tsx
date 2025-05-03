@@ -1,7 +1,9 @@
 import type { FallbackProps } from 'react-error-boundary';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
-import Button from './Button';
+
 import type { ErrorBoundaryProps } from '@/types/components';
+
+import Button from './Button';
 
 const ErrorFallback: React.FC<FallbackProps> = ({
   error,

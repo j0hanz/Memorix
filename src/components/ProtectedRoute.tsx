@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+
 import { LoadingCardSpinner } from '@/components/Spinner';
+import { useAuth } from '@/hooks/useAuth';
 import type { ProtectedRouteProps } from '@/types/components';
 
 const ProtectedRoute = ({ children, onAuthRequired }: ProtectedRouteProps) => {

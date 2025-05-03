@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import type { ToastProps } from '@/types/components';
+
 import styles from './styles/Toast.module.css';
 
 export function Toast({
@@ -19,7 +21,9 @@ export function Toast({
         setVisible(false);
         onClose?.();
       }, duration);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(timer);
+      };
     }
   }, [show, duration, onClose]);
 

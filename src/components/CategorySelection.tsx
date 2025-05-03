@@ -1,8 +1,10 @@
-import { Modal } from 'react-bootstrap';
-import CategoryData from '@/components/Category';
-import Button from '@/components/Button';
-import type { CategoryProps } from '@/types/components';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { Modal } from 'react-bootstrap';
+
+import Button from '@/components/Button';
+import CategoryData from '@/components/Category';
+import type { CategoryProps } from '@/types/components';
+
 import styles from './styles/Modal.module.css';
 
 export function CategorySelection({

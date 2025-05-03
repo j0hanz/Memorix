@@ -1,21 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { useAppState } from '@/hooks/useAppState';
-import { useMotions } from '@/hooks/useMotions';
-import { useNavigation } from '@/hooks/useNavigation';
+
+import { ProfileModal } from '@/components/auth/ProfileModal';
+import { AuthModal } from '@/components/AuthModal';
+import { CategorySelection } from '@/components/CategorySelection';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import Game from '@/components/Game';
-import { LoadingCardSpinner } from '@/components/Spinner';
 import { GameInstructions } from '@/components/GameInstructions';
+import { GameProvider } from '@/components/GameProvider';
 import { LatestUpdates } from '@/components/LatestUpdates';
 import { LeaderboardModal } from '@/components/LeaderboardModal';
-import { CategorySelection } from '@/components/CategorySelection';
-import { AuthModal } from '@/components/AuthModal';
-import { ProfileModal } from '@/components/auth/ProfileModal';
-import { GameProvider } from '@/components/GameProvider';
 import MainMenu from '@/components/MainMenu';
-import ErrorBoundary from '@/components/ErrorBoundary';
-import { useModal } from '@/hooks/useModal';
+import { LoadingCardSpinner } from '@/components/Spinner';
+import { useAppState } from '@/hooks/useAppState';
 import { useAuth } from '@/hooks/useAuth';
+import { useModal } from '@/hooks/useModal';
+import { useMotions } from '@/hooks/useMotions';
+import { useNavigation } from '@/hooks/useNavigation';
 
 const App = () => {
   const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
@@ -37,7 +38,9 @@ const App = () => {
   const { enterAnimation } = useMotions();
   const { activeModal, closeModal, openModal } = useModal();
 
-  const useAuthModal = () => openModal('auth');
+  const useAuthModal = () => {
+    openModal('auth');
+  };
 
   const {
     startGame,
@@ -72,7 +75,9 @@ const App = () => {
     const timer = setTimeout(() => {
       setShowInitialLoading(false);
     }, 1500);
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   return (

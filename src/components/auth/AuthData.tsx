@@ -1,10 +1,12 @@
 import LoginIcon from '@mui/icons-material/Login';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+
+import { ModalTabs } from '@/components/ModalTabs';
 import styles from '@/components/styles/Modal.module.css';
+import type { TabContent, TabItem } from '@/types/components';
+
 import Login from './Login';
 import Register from './Register';
-import { ModalTabs } from '@/components/ModalTabs';
-import type { TabItem, TabContent } from '@/types/components';
 
 export const AuthData = ({ onClose }: { onClose: () => void }) => {
   const tabs: TabItem[] = [

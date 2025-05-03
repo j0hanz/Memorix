@@ -1,7 +1,7 @@
-import { GameContext } from '@/contexts/GameContext';
-import type { GameProviderProps } from '@/types/context';
-import { useGameReducer } from '@/hooks/useGameReducer';
 import { CATEGORIES } from '@/constants/constants';
+import { GameContext } from '@/contexts/GameContext';
+import { useGameReducer } from '@/hooks/useGameReducer';
+import type { GameProviderProps } from '@/types/context';
 
 export const GameProvider = ({
   children,

@@ -1,12 +1,14 @@
-import { useState } from 'react';
-import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import { ModalFooterButtons } from './ModalFooterButtons';
-import { useAuth } from '@/hooks/useAuth';
-import { useScore } from '@/hooks/useScore';
-import { useSaveScore } from '@/hooks/useSaveScore';
+import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
+import { useState } from 'react';
+
 import Scoreboard from '@/components/scoreData';
+import { useAuth } from '@/hooks/useAuth';
+import { useSaveScore } from '@/hooks/useSaveScore';
+import { useScore } from '@/hooks/useScore';
 import type { ScoreboardDataProps } from '@/types/components';
+
+import { ModalFooterButtons } from './ModalFooterButtons';
 import { ScoreFeedback } from './ScoreFeedback';
 
 export default function ScoreboardData({

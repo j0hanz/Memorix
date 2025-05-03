@@ -1,6 +1,8 @@
 import { Modal } from 'react-bootstrap';
+
 import CommitStatus from '@/components/CommitHistory';
 import type { LatestUpdatesProps } from '@/types/components';
+
 import styles from './styles/Modal.module.css';
 
 export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {

@@ -2,9 +2,9 @@ import { CARD_STATUS } from '@/constants/constants';
 import type { PairedCard } from '@/types/card';
 import type { GameState } from '@/types/context';
 import {
+  setAllCardsStatus,
   setCardStatus,
   setMultipleCardStatus,
-  setAllCardsStatus,
 } from '@/utils/cardUtils';
 
 export type GameAction =

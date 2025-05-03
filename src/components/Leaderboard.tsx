@@ -1,13 +1,15 @@
-import { useState } from 'react';
-import { Row, Col, Form } from 'react-bootstrap';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import { useState } from 'react';
+import { Col, Form, Row } from 'react-bootstrap';
+
 import { useLeaderboard } from '@/hooks/useLeaderboard';
-import { Tooltip } from './Tooltip';
 import type { LeaderboardProps } from '@/types/components';
 import { CATEGORY_OPTIONS } from '@/utils/categoryUtils';
+
 import StarRating from './StarRating';
 import styles from './styles/Modal.module.css';
+import { Tooltip } from './Tooltip';
 
 const Leaderboard: React.FC<LeaderboardProps> = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(

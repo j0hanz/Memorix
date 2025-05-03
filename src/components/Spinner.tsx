@@ -1,4 +1,5 @@
 import type { LoadingCardSpinnerProps } from '@/types/components';
+
 import styles from './styles/Spinner.module.css';
 
 const LoadingCardSpinner = ({

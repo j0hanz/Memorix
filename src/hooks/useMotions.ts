@@ -1,4 +1,5 @@
 import type { Variants } from 'framer-motion';
+
 import { MOTIONS } from '@/constants/constants';
 import type { MotionOptions } from '@/types/hooks';
 

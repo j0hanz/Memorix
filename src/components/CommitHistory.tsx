@@ -1,9 +1,11 @@
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import type { Commit } from '@/types/api';
+
 import { useCommit } from '@/hooks/useCommitHistory';
 import { useLinks } from '@/hooks/useLinks';
+import type { Commit } from '@/types/api';
+
 import { ModalFooterButtons } from './ModalFooterButtons';
 import styles from './styles/Modal.module.css';
 

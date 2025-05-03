@@ -1,12 +1,14 @@
-import { Modal } from 'react-bootstrap';
-import OverviewTab from './OverviewTab';
-import IconsTab from './IconsTab';
-import ScoringTab from './ScoringTab';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import { Modal } from 'react-bootstrap';
+
 import { ModalTabs } from '@/components/ModalTabs';
-import type { TabItem, TabContent } from '@/types/components';
+import type { TabContent, TabItem } from '@/types/components';
+
+import IconsTab from './IconsTab';
+import OverviewTab from './OverviewTab';
+import ScoringTab from './ScoringTab';
 import styles from './styles/Modal.module.css';
 
 export default function InstructionsData() {

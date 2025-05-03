@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { axiosReq } from '@/services/axios';
+
 import { useForm } from '@/hooks/useForm';
-import type { RegisterData } from '@/types/auth';
+import { axiosReq } from '@/services/axios';
 import type { ApiError } from '@/types/api';
-import { registerValidationRules } from '@/utils/validation';
+import type { RegisterData } from '@/types/auth';
 import { formatErrorMessage } from '@/utils/errorUtils';
+import { registerValidationRules } from '@/utils/validation';
 
 export function useRegister(onSuccess: () => void) {
   const [loading, setLoading] = useState(false);

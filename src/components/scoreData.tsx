@@ -1,7 +1,9 @@
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+
 import Score from '@/components/GameStats';
 import type { ScoreboardProps } from '@/types/data';
+
 import styles from './styles/Modal.module.css';
 
 // Displays the game statistics

@@ -1,8 +1,9 @@
-import { Col } from 'react-bootstrap';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import { Col } from 'react-bootstrap';
+
 import Button from '@/components/Button';
-import type { ProfileOverviewProps } from '@/types/components';
 import styles from '@/components/styles/Modal.module.css';
+import type { ProfileOverviewProps } from '@/types/components';
 
 const formatDate = (date?: string) =>
   date ? new Date(date).toLocaleDateString() : 'N/A';
@@ -24,7 +25,9 @@ const ProfileOverview: React.FC<
           src={previewImage || profile?.profile_picture_url}
           alt="Profile"
           className={styles.profileImage}
-          onError={(e) => console.error('Image load error:', e)}
+          onError={(e) => {
+            console.error('Image load error:', e);
+          }}
         />
         <Button
           className={styles.btnUpload}

@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react';
-import type { PairedCard } from './card';
 import type { Dispatch } from 'react';
+
 import type { GameAction } from '@/reducers/gameReducer';
+
+import type { PairedCard } from './card';
 
 export type ModalType =
   | 'auth'

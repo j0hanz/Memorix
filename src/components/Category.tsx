@@ -1,6 +1,7 @@
 import { CATEGORY_INFO } from '@/constants/constants';
-import Button from './Button';
 import type { CategoryDataProps } from '@/types/components';
+
+import Button from './Button';
 import styles from './styles/Modal.module.css';
 
 // Pure data component for category selection
@@ -15,7 +16,9 @@ export default function CategoryData({ onSelectCategory }: CategoryDataProps) {
         <Button
           key={category}
           className={styles.btnCategorySelect}
-          onClick={() => onSelectCategory(category)}
+          onClick={() => {
+            onSelectCategory(category);
+          }}
           aria-label={`Select ${info.name} category`}
           text={info.name}
           color="secondary"

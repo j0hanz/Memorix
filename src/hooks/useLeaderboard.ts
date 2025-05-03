@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import gameService from '@/services/gameService';
 import type { LeaderboardEntry } from '@/types/api';
 

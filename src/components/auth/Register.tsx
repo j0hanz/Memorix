@@ -1,12 +1,13 @@
-import { Form, Alert } from 'react-bootstrap';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { Alert, Form } from 'react-bootstrap';
+
 import FormField from '@/components/FormField';
-import { useRegister } from '@/hooks/useRegister';
-import { LoadingSpinner } from '@/components/Spinner';
-import type { RegisterProps } from '@/types/auth';
 import { ModalFooterButtons } from '@/components/ModalFooterButtons';
+import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
+import { useRegister } from '@/hooks/useRegister';
+import type { RegisterProps } from '@/types/auth';
 
 const Register = ({ onSuccess, onClose }: RegisterProps) => {
   const {
@@ -33,7 +34,9 @@ const Register = ({ onSuccess, onClose }: RegisterProps) => {
           placeholder="Choose a username"
           value={values.username}
           onChange={handleChange}
-          onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
+          onBlur={(e) => {
+            handleBlur(e);
+          }}
           error={errors.username}
           showError={!!(touched.username || formSubmitted)}
           className={styles.input}
@@ -46,7 +49,9 @@ const Register = ({ onSuccess, onClose }: RegisterProps) => {
           placeholder="Choose a password"
           value={values.password1}
           onChange={handleChange}
-          onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
+          onBlur={(e) => {
+            handleBlur(e);
+          }}
           error={errors.password1}
           showError={!!(touched.password1 || formSubmitted)}
           className={styles.input}
@@ -59,7 +64,9 @@ const Register = ({ onSuccess, onClose }: RegisterProps) => {
           placeholder="Confirm your password"
           value={values.password2}
           onChange={handleChange}
-          onBlur={(e) => handleBlur(e as React.FocusEvent<HTMLInputElement>)}
+          onBlur={(e) => {
+            handleBlur(e);
+          }}
           error={errors.password2}
           showError={!!(touched.password2 || formSubmitted)}
           className={styles.input}

@@ -1,8 +1,10 @@
-import { Modal } from 'react-bootstrap';
-import InstructionsData from '@/components/instructionsData';
-import Button from '@/components/Button';
-import type { GameInstructionsProps } from '@/types/components';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { Modal } from 'react-bootstrap';
+
+import Button from '@/components/Button';
+import InstructionsData from '@/components/instructionsData';
+import type { GameInstructionsProps } from '@/types/components';
+
 import styles from './styles/Modal.module.css';
 
 export function GameInstructions({ show, onClose }: GameInstructionsProps) {

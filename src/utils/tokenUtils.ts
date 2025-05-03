@@ -1,4 +1,5 @@
 import { jwtDecode } from 'jwt-decode';
+
 import type { AuthResponse } from '@/types/auth';
 
 // State for token refresh process
@@ -67,7 +68,9 @@ export const subscribeTokenRefresh = (
 };
 
 export const onRefreshed = (token: string): void => {
-  refreshSubscribers.forEach((callback) => callback(token));
+  refreshSubscribers.forEach((callback) => {
+    callback(token);
+  });
   refreshSubscribers = [];
 };
 

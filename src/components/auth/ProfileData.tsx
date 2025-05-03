@@ -1,22 +1,24 @@
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import HistoryIcon from '@mui/icons-material/History';
+import PersonIcon from '@mui/icons-material/Person';
 import { useState } from 'react';
 import { Row } from 'react-bootstrap';
-import PersonIcon from '@mui/icons-material/Person';
-import HistoryIcon from '@mui/icons-material/History';
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 import Button from '@/components/Button';
-import TabNavigation from '@/components/TabNavigation';
-import { useProfile } from '@/hooks/useProfile';
-import ProfileOverview from './ProfileOverview';
-import ProfileGameHistory from './ProfileGameHistory';
-import ProfileChangePassword from './ProfileChangePassword';
-import { ProfileDeleteAccount } from './ProfileDeleteAccount';
-import type { TabItem } from '@/types/components';
-import Toast from '@/components/Toast';
 import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
+import TabNavigation from '@/components/TabNavigation';
+import Toast from '@/components/Toast';
+import { useProfile } from '@/hooks/useProfile';
+import type { TabItem } from '@/types/components';
+
+import ProfileChangePassword from './ProfileChangePassword';
+import { ProfileDeleteAccount } from './ProfileDeleteAccount';
+import ProfileGameHistory from './ProfileGameHistory';
+import ProfileOverview from './ProfileOverview';
 
 const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
   onClose,
@@ -70,7 +72,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
   if (activeTab === 'overview' && showPasswordTab) {
     content = (
       <ProfileChangePassword
-        onBack={() => setShowPasswordTab(false)}
+        onBack={() => {
+          setShowPasswordTab(false);
+        }}
         loading={loading}
         error={error}
         success={success}
@@ -80,9 +84,7 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
         handleChange={passwordForm.handleChange}
         handleBlur={passwordForm.handleBlur}
         handleSubmit={(
-          e?:
-            | React.FormEvent<HTMLFormElement>
-            | React.MouseEvent<Element, MouseEvent>,
+          e?: React.FormEvent<HTMLFormElement> | React.MouseEvent,
         ) => {
           if (e) {
             passwordForm.handleSubmit(e as React.FormEvent<HTMLFormElement>);
@@ -99,7 +101,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
         error={error}
         success={success}
         onDelete={handleDeleteAccount}
-        onBack={() => setShowDeleteTab(false)}
+        onBack={() => {
+          setShowDeleteTab(false);
+        }}
       />
     );
   } else if (activeTab === 'overview') {
@@ -116,7 +120,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
               className={`${styles.btnMain} ${styles.btnPassword}`}
               variant="menu"
               text="Change Password"
-              onClick={() => setShowPasswordTab(true)}
+              onClick={() => {
+                setShowPasswordTab(true);
+              }}
               type="button"
               color="secondary"
             />
@@ -124,7 +130,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
               className={`${styles.btnMain} ${styles.btnDelete}`}
               variant="menu"
               text="Delete Account"
-              onClick={() => setShowDeleteTab(true)}
+              onClick={() => {
+                setShowDeleteTab(true);
+              }}
               type="button"
               color="secondary"
             />
@@ -151,7 +159,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
           leftText={loading ? <LoadingSpinner /> : 'Save Changes'}
           rightText="Back"
           onLeftClick={() => passwordForm.handleSubmit()}
-          onRightClick={() => setShowPasswordTab(false)}
+          onRightClick={() => {
+            setShowPasswordTab(false);
+          }}
           leftIcon={
             loading ? undefined : <DriveFolderUploadIcon fontSize="small" />
           }
@@ -169,7 +179,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
           leftText={loading ? <LoadingSpinner /> : 'Delete'}
           rightText="Back"
           onLeftClick={handleDeleteAccount}
-          onRightClick={() => setShowDeleteTab(false)}
+          onRightClick={() => {
+            setShowDeleteTab(false);
+          }}
           leftIcon={
             loading ? undefined : <DeleteForeverIcon fontSize="small" />
           }
@@ -203,13 +215,17 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
         message={error || ''}
         show={!!error && !showPasswordTab && !showDeleteTab}
         placement="top"
-        onClose={() => setError(null)}
+        onClose={() => {
+          setError(null);
+        }}
       />
       <Toast
         message={success || ''}
         show={!!success && !showPasswordTab && !showDeleteTab}
         placement="top"
-        onClose={() => setSuccess(null)}
+        onClose={() => {
+          setSuccess(null);
+        }}
       />
       <TabNavigation
         activeKey={activeTab}

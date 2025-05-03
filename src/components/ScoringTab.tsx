@@ -1,10 +1,12 @@
-import { ListGroup, Badge, Row, Col } from 'react-bootstrap';
+import AllInclusiveOutlinedIcon from '@mui/icons-material/AllInclusiveOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
-import AllInclusiveOutlinedIcon from '@mui/icons-material/AllInclusiveOutlined';
-import StarRating from './StarRating';
-import type { ScoreRowProps } from '@/types/data';
+import { Badge, Col, ListGroup, Row } from 'react-bootstrap';
+
 import { SCORING_THRESHOLDS } from '@/constants/scoring';
+import type { ScoreRowProps } from '@/types/data';
+
+import StarRating from './StarRating';
 
 function ScoreRow({ stars, moves, time }: ScoreRowProps) {
   return (

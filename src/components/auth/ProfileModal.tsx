@@ -1,7 +1,8 @@
 import { Modal } from 'react-bootstrap';
+
 import ProfileData from '@/components/auth/ProfileData';
-import type { ProfileModalProps } from '@/types/components';
 import styles from '@/components/styles/Modal.module.css';
+import type { ProfileModalProps } from '@/types/components';
 
 export function ProfileModal({ show, onClose, logout }: ProfileModalProps) {
   return (

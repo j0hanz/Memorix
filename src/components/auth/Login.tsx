@@ -1,12 +1,13 @@
-import { Form, Alert } from 'react-bootstrap';
-import LoginIcon from '@mui/icons-material/Login';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
+import LoginIcon from '@mui/icons-material/Login';
+import { Alert, Form } from 'react-bootstrap';
+
 import FormField from '@/components/FormField';
-import { useLogin } from '@/hooks/useLogin';
-import { LoadingSpinner } from '@/components/Spinner';
-import type { LoginProps } from '@/types/auth';
 import { ModalFooterButtons } from '@/components/ModalFooterButtons';
+import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
+import { useLogin } from '@/hooks/useLogin';
+import type { LoginProps } from '@/types/auth';
 
 const Login = ({ onClose }: LoginProps) => {
   const {

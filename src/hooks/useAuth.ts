@@ -1,16 +1,17 @@
-import { useState, useEffect, useCallback, useContext } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
+
 import { AuthContext } from '@/contexts/AuthContext';
 import { axiosReq } from '@/services/axios';
-import {
-  getToken,
-  setToken,
-  setRefreshToken,
-  isTokenExpired,
-  clearTokens,
-} from '@/utils/tokenUtils';
-import { refreshAccessToken } from '@/utils/axiosUtils';
-import type { User, Profile, AuthContextType } from '@/types/auth';
 import type { ApiError } from '@/types/api';
+import type { AuthContextType, Profile, User } from '@/types/auth';
+import { refreshAccessToken } from '@/utils/axiosUtils';
+import {
+  clearTokens,
+  getToken,
+  isTokenExpired,
+  setRefreshToken,
+  setToken,
+} from '@/utils/tokenUtils';
 
 // Hook to use auth context in components
 export function useAuth() {
@@ -126,7 +127,9 @@ export function useAuthProvider(): AuthContextType {
     };
 
     window.addEventListener('auth:logout', handleLogout);
-    return () => window.removeEventListener('auth:logout', handleLogout);
+    return () => {
+      window.removeEventListener('auth:logout', handleLogout);
+    };
   }, [logout]);
 
   const isAuthenticated = Boolean(user && token);

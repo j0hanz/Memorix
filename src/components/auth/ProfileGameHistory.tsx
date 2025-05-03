@@ -1,14 +1,16 @@
-import { useState } from 'react';
-import { Row, Col, Form } from 'react-bootstrap';
-import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import { useState } from 'react';
+import { Col, Form, Row } from 'react-bootstrap';
+
 import Button from '@/components/Button';
-import StarRating from '../StarRating';
-import { CATEGORY_OPTIONS, getCategoryIcon } from '@/utils/categoryUtils';
-import type { ProfileGameHistoryProps } from '@/types/components';
 import styles from '@/components/styles/Modal.module.css';
+import type { ProfileGameHistoryProps } from '@/types/components';
+import { CATEGORY_OPTIONS, getCategoryIcon } from '@/utils/categoryUtils';
+
+import StarRating from '../StarRating';
 
 const ITEMS_PER_PAGE = 5;
 
@@ -31,8 +33,12 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
     page * ITEMS_PER_PAGE,
   );
 
-  const handlePrev = () => setPage((p) => Math.max(1, p - 1));
-  const handleNext = () => setPage((p) => Math.min(totalPages, p + 1));
+  const handlePrev = () => {
+    setPage((p) => Math.max(1, p - 1));
+  };
+  const handleNext = () => {
+    setPage((p) => Math.min(totalPages, p + 1));
+  };
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCategory(e.target.value);

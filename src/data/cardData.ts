@@ -1,4 +1,4 @@
-import { GAME_CONFIG, CATEGORIES } from '@/constants/constants';
+import { CATEGORIES, GAME_CONFIG } from '@/constants/constants';
 import type { CardDef, PairedCard } from '@/types/card';
 
 const IMAGE_PATHS = {

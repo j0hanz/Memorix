@@ -1,19 +1,21 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import PersonIcon from '@mui/icons-material/Person';
+import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
+import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+
 import styles from '@/App.module.css';
-import type { MainMenuProps } from '@/types/components';
-import { useLinks } from '@/hooks/useLinks';
-import { useAuth } from '@/hooks/useAuth';
-import { useModal } from '@/hooks/useModal';
-import { ProfileAvatar } from './ProfileAvatar';
-import { MenuButton } from './MenuButton';
-import { SoundToggle } from './SoundToggle';
 import Toast from '@/components/Toast';
+import { useAuth } from '@/hooks/useAuth';
+import { useLinks } from '@/hooks/useLinks';
+import { useModal } from '@/hooks/useModal';
+import type { MainMenuProps } from '@/types/components';
+
+import { MenuButton } from './MenuButton';
+import { ProfileAvatar } from './ProfileAvatar';
+import { SoundToggle } from './SoundToggle';
 
 const MainMenu = ({
   startGame,
@@ -42,8 +44,12 @@ const MainMenu = ({
     if (isAuthenticated) {
       setAuthMessage('Logged in');
       setShowAuthToast(true);
-      const timer = setTimeout(() => setShowAuthToast(false), 2000);
-      return () => clearTimeout(timer);
+      const timer = setTimeout(() => {
+        setShowAuthToast(false);
+      }, 2000);
+      return () => {
+        clearTimeout(timer);
+      };
     }
     setShowAuthToast(false);
   }, [isAuthenticated]);
@@ -52,7 +58,9 @@ const MainMenu = ({
     <div className={styles.menu}>
       <ProfileAvatar
         profilePictureUrl={profile?.profile_picture_url}
-        onClick={() => openModal('profile')}
+        onClick={() => {
+          openModal('profile');
+        }}
       />
       <motion.div
         initial={enterAnimation.initial}
@@ -101,7 +109,9 @@ const MainMenu = ({
         message={authMessage}
         show={showAuthToast}
         placement="top"
-        onClose={() => setShowAuthToast(false)}
+        onClose={() => {
+          setShowAuthToast(false);
+        }}
       />
     </div>
   );

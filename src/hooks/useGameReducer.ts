@@ -1,15 +1,16 @@
-import { useReducer, useEffect, useCallback, useRef } from 'react';
-import { gameReducer, initialGameState } from '@/reducers/gameReducer';
-import { useDeck } from '@/hooks/useDeck';
+import { useCallback, useEffect, useReducer, useRef } from 'react';
+
 import {
+  CATEGORIES,
   DELAYS,
   FEEDBACK,
-  SOUNDS,
   GAME_CONFIG,
+  SOUNDS,
   TIMER,
-  CATEGORIES,
 } from '@/constants/constants';
+import { useDeck } from '@/hooks/useDeck';
 import { useSoundEffects } from '@/hooks/useSound';
+import { gameReducer, initialGameState } from '@/reducers/gameReducer';
 
 export function useGameReducer(
   onExit: () => void,
@@ -35,10 +36,14 @@ export function useGameReducer(
         dispatch({ type: 'START_TIMER' });
       }, DELAYS.INITIAL_REVEAL_TIME);
 
-      return () => clearTimeout(hideTimer);
+      return () => {
+        clearTimeout(hideTimer);
+      };
     }, DELAYS.INITIAL_REVEAL);
 
-    return () => clearTimeout(revealTimer);
+    return () => {
+      clearTimeout(revealTimer);
+    };
   }, [deck]);
 
   // Check for game completion

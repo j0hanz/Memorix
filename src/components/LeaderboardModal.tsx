@@ -1,8 +1,10 @@
-import { Modal } from 'react-bootstrap';
-import Leaderboard from '@/components/Leaderboard';
-import Button from '@/components/Button';
-import type { LeaderboardModalProps } from '@/types/components';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { Modal } from 'react-bootstrap';
+
+import Button from '@/components/Button';
+import Leaderboard from '@/components/Leaderboard';
+import type { LeaderboardModalProps } from '@/types/components';
+
 import styles from './styles/Modal.module.css';
 
 export function LeaderboardModal({ show, onClose }: LeaderboardModalProps) {

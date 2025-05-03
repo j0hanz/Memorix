@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { useAuth } from '@/hooks/useAuth';
+import { useForm } from '@/hooks/useForm';
 import { axiosReq } from '@/services/axios';
 import gameService from '@/services/gameService';
 import type { ApiError, UserScore } from '@/types/api';
-import { useForm } from '@/hooks/useForm';
-import { profilePasswordValidationRules } from '@/utils/validation';
 import { formatErrorMessage } from '@/utils/errorUtils';
+import { profilePasswordValidationRules } from '@/utils/validation';
 
 export function useProfile() {
   const { profile, getProfile, user, isAuthenticated, logout } = useAuth();
@@ -50,7 +51,9 @@ export function useProfile() {
     if (file) {
       setProfileImage(file);
       const reader = new FileReader();
-      reader.onloadend = () => setPreviewImage(reader.result as string);
+      reader.onloadend = () => {
+        setPreviewImage(reader.result as string);
+      };
       reader.readAsDataURL(file);
     }
   };

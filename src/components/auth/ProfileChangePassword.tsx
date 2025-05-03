@@ -1,6 +1,7 @@
 import { Form } from 'react-bootstrap';
-import type { ProfileChangePasswordProps } from '@/types/components';
+
 import styles from '@/components/styles/Modal.module.css';
+import type { ProfileChangePasswordProps } from '@/types/components';
 
 const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
   error,

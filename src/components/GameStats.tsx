@@ -1,8 +1,10 @@
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
-import { useTimer } from '@/hooks/useTimer';
+
 import { useScore } from '@/hooks/useScore';
-import type { MovesProps, TimerProps, ScoreProps } from '@/types/components';
+import { useTimer } from '@/hooks/useTimer';
+import type { MovesProps, ScoreProps, TimerProps } from '@/types/components';
+
 import StarRating from './StarRating';
 import styles from './styles/GameStats.module.css';
 

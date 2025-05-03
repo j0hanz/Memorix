@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+
 import Button from './Button';
 import styles from './styles/Modal.module.css';
 

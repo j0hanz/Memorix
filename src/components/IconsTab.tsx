@@ -1,12 +1,14 @@
-import { ListGroup } from 'react-bootstrap';
-import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
+import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import { ListGroup } from 'react-bootstrap';
+
 import type { IconExplanationProps } from '@/types/data';
+
 import styles from './styles/Modal.module.css';
 
 // Component for each icon explanation row

@@ -1,5 +1,6 @@
 import { useReducer } from 'react';
-import { GAME_CONFIG, CATEGORIES } from '@/constants/constants';
+
+import { CATEGORIES, GAME_CONFIG } from '@/constants/constants';
 import type { AppState } from '@/types/hooks';
 
 type AppAction =
@@ -31,10 +32,14 @@ export function useAppState() {
 
   return {
     ...state,
-    setIsLoading: (value: boolean) => dispatch({ type: 'SET_LOADING', value }),
-    setIsGameActive: (value: boolean) =>
-      dispatch({ type: 'SET_GAME_ACTIVE', value }),
-    setSelectedCategory: (value: string) =>
-      dispatch({ type: 'SET_SELECTED_CATEGORY', value }),
+    setIsLoading: (value: boolean) => {
+      dispatch({ type: 'SET_LOADING', value });
+    },
+    setIsGameActive: (value: boolean) => {
+      dispatch({ type: 'SET_GAME_ACTIVE', value });
+    },
+    setSelectedCategory: (value: string) => {
+      dispatch({ type: 'SET_SELECTED_CATEGORY', value });
+    },
   };
 }

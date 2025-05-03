@@ -1,5 +1,6 @@
+import type { GameResultData, LeaderboardEntry, UserScore } from '@/types/api';
+
 import { axiosReq } from './axios';
-import type { UserScore, GameResultData, LeaderboardEntry } from '@/types/api';
 
 const gameService = {
   // Save a completed game score
