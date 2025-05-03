@@ -35,7 +35,7 @@ const MainMenu = ({
 
   useEffect(() => {
     if (isAuthenticated && user && !profile) {
-      getProfile();
+      void getProfile();
     }
   }, [isAuthenticated, user, profile, getProfile]);
 
