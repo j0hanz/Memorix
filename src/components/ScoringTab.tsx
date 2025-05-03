@@ -48,7 +48,7 @@ export default function ScoringTab() {
       row.time === Infinity ? (
         <AllInclusiveOutlinedIcon fontSize="small" />
       ) : (
-        `${row.time}s`
+        `${String(row.time)}s`
       ),
   }));
 

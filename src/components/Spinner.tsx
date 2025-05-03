@@ -18,7 +18,7 @@ const LoadingCardSpinner = ({
 
 const LoadingSpinner = () => (
   <div className={styles.loadership_JWZDT} role="status" aria-label="Loading">
-    {[...Array(5)].map((_, i) => (
+    {Array.from({ length: 5 }).map((_, i) => (
       <div key={i} />
     ))}
   </div>

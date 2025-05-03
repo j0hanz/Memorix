@@ -24,7 +24,11 @@ const Login = ({ onClose }: LoginProps) => {
   return (
     <>
       {authError && <Alert variant="danger">{authError}</Alert>}
-      <Form onSubmit={handleSubmit}>
+      <Form
+        onSubmit={(e) => {
+          void handleSubmit(e);
+        }}
+      >
         <FormField
           controlId="formUsername"
           name="username"
