@@ -11,7 +11,9 @@ const ErrorFallback: React.FC<FallbackProps> = ({
 }) => (
   <div role="alert">
     <h2>Something went wrong.</h2>
-    <pre style={{ color: 'red' }}>{error.message as string}</pre>
+    <pre style={{ color: 'red' }}>
+      {error instanceof Error ? error.message : String(error)}
+    </pre>
     <Button
       onClick={resetErrorBoundary}
       text="Restart Game"

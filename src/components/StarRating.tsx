@@ -10,7 +10,7 @@ const StarRating: React.FC<StarRatingProps> = ({
   className,
 }) => (
   <>
-    {[...Array(max)].map((_, i) => (
+    {Array.from({ length: max }).map((_, i) => (
       <StarOutlinedIcon
         key={i}
         className={`${styles.scoreIconStar} ${i < count ? styles.starIcon : styles.grayedOut} ${className || ''}`}

@@ -133,7 +133,7 @@ export function useAuthProvider(): AuthContextType {
         customEvent.detail &&
         typeof customEvent.detail === 'object' &&
         customEvent.detail !== null &&
-        'reason' in customEvent.detail
+        Object.prototype.hasOwnProperty.call(customEvent.detail, 'reason')
       ) {
         console.log(`Logout triggered: ${String(customEvent.detail.reason)}`);
       }

@@ -15,7 +15,12 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
 }) => {
   return (
     <>
-      <Form onSubmit={handleSubmit} className="mb-1">
+      <Form
+        onSubmit={(e) => {
+          void (handleSubmit && handleSubmit(e));
+        }}
+        className="mb-1"
+      >
         <Form.Group controlId="oldPassword" className="mb-1">
           <Form.Label className="d-none">Current Password</Form.Label>
           <Form.Control

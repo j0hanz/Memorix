@@ -28,7 +28,7 @@ export function useForm<T extends Record<string, string>>(
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
 
-    if (touched[name] && validationRules && validationRules[name]) {
+    if (validationRules && validationRules[name]) {
       const error = validationRules[name](value, values);
       setErrors((prev) => ({ ...prev, [name]: error || '' }));
     }

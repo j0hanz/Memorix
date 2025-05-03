@@ -33,7 +33,7 @@ export function useLogin(onSuccess?: () => void) {
         return false;
       }
 
-      setAuthTokens(accessToken, refreshToken || undefined);
+      setAuthTokens(accessToken, refreshToken);
 
       if (response.data.user) {
         setUser(response.data.user);

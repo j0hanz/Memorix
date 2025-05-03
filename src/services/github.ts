@@ -33,7 +33,7 @@ export const fetchLatestCommits = async (): Promise<Commit[]> => {
         },
       },
     );
-    const commits = response.data;
+    const commits: GitHubCommitResponse[] = response.data;
     return commits.map((commit) => ({
       sha: commit.sha,
       message: commit.commit.message,
