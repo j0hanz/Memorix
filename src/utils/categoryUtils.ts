@@ -21,6 +21,8 @@ export const CATEGORY_OPTIONS = [
 
 // Get icon by category name
 export function getCategoryIcon(categoryName: string) {
-  const Icon = CATEGORY_ICONS[categoryName];
-  return Icon ? Icon() : React.createElement('span', null, categoryName);
+  if (categoryName in CATEGORY_ICONS) {
+    return CATEGORY_ICONS[categoryName]();
+  }
+  return React.createElement('span', null, categoryName);
 }
