@@ -2,8 +2,8 @@ import { Howl, Howler } from 'howler';
 import { useEffect, useRef, useState } from 'react';
 
 import { STORAGE_KEYS } from '@/constants/constants';
-import { SOUND_FILES } from '@/constants/sounds';
 import type { SoundKey } from '@/constants/sounds';
+import { SOUND_FILES } from '@/constants/sounds';
 
 export function useSoundEffects() {
   // Read mute state from localStorage on first render
@@ -26,28 +26,33 @@ export function useSoundEffects() {
     const newSounds: Record<SoundKey, Howl> = {
       button: new Howl({
         src: SOUND_FILES.button,
-        onloaderror: (id, error) =>
-          console.error(`Error loading sound button:`, error),
+        onloaderror: (_id, error) => {
+          console.error(`Error loading sound button:`, error);
+        },
       }),
       click: new Howl({
         src: SOUND_FILES.click,
-        onloaderror: (id, error) =>
-          console.error(`Error loading sound click:`, error),
+        onloaderror: (_id, error) => {
+          console.error(`Error loading sound click:`, error);
+        },
       }),
       complete: new Howl({
         src: SOUND_FILES.complete,
-        onloaderror: (id, error) =>
-          console.error(`Error loading sound complete:`, error),
+        onloaderror: (_id, error) => {
+          console.error(`Error loading sound complete:`, error);
+        },
       }),
       correct: new Howl({
         src: SOUND_FILES.correct,
-        onloaderror: (id, error) =>
-          console.error(`Error loading sound correct:`, error),
+        onloaderror: (_id, error) => {
+          console.error(`Error loading sound correct:`, error);
+        },
       }),
       wrong: new Howl({
         src: SOUND_FILES.wrong,
-        onloaderror: (id, error) =>
-          console.error(`Error loading sound wrong:`, error),
+        onloaderror: (_id, error) => {
+          console.error(`Error loading sound wrong:`, error);
+        },
       }),
     };
     soundsRef.current = newSounds;

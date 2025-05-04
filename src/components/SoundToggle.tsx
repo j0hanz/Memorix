@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
 import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
 import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import Switch from '@mui/material/Switch';
+import { useEffect, useState } from 'react';
 
 import type { SoundToggleProps } from '@/types/components';
 
@@ -18,8 +18,12 @@ export const SoundToggle = ({ isMuted, onToggle }: SoundToggleProps) => {
   // Reset animation state
   useEffect(() => {
     if (isChanging) {
-      const timer = setTimeout(() => setIsChanging(false), 300);
-      return () => clearTimeout(timer);
+      const timer = setTimeout(() => {
+        setIsChanging(false);
+      }, 300);
+      return () => {
+        clearTimeout(timer);
+      };
     }
   }, [isChanging]);
 
