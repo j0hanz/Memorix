@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import TabNavigation from '@/components/TabNavigation';
+import { TabNavigation } from '@/components/TabNavigation';
 import type { ModalTabsProps } from '@/types/components';
 
 export function ModalTabs({

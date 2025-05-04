@@ -10,7 +10,7 @@ import Button from '@/components/Button';
 import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
-import TabNavigation from '@/components/TabNavigation';
+import { TabNavigation } from '@/components/TabNavigation';
 import Toast from '@/components/Toast';
 import { useProfile } from '@/hooks/useProfile';
 import type { TabItem } from '@/types/components';

@@ -1,6 +1,5 @@
 import { Nav } from 'react-bootstrap';
 
-import { SOUNDS } from '@/constants/constants';
 import { useSoundEffects } from '@/hooks/useSound';
 import type { TabNavigationProps } from '@/types/components';
 
@@ -29,7 +28,7 @@ export const NavItem = ({
       <Nav.Link
         eventKey={eventKey}
         onClick={() => {
-          playSound(SOUNDS.BUTTON);
+          playSound('button');
         }}
         className={styles.navLink}
       >
@@ -40,7 +39,7 @@ export const NavItem = ({
   );
 };
 
-export default function TabNavigation({
+export function TabNavigation({
   activeKey,
   tabs,
   onSelect,

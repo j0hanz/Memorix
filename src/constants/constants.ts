@@ -102,15 +102,6 @@ export const STORAGE_KEYS = {
   MUTE_STATE: 'memorixMuted',
 };
 
-// Sound identifiers
-export const SOUNDS = {
-  BUTTON: 'button',
-  CLICK: 'click',
-  COMPLETE: 'complete',
-  CORRECT: 'correct',
-  WRONG: 'wrong',
-};
-
 // Timer constants
 export const TIMER = {
   INTERVAL: 1000,

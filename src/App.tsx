@@ -34,7 +34,7 @@ const App = () => {
     setSelectedCategory,
   } = useAppState();
 
-  // Get animations and sounds
+  // Get modal state and handlers
   const { enterAnimation } = useMotions();
   const { activeModal, closeModal, openModal } = useModal();
 

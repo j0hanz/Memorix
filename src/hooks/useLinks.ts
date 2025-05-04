@@ -1,13 +1,12 @@
-import { SOUNDS } from '@/constants/constants';
 import { useSoundEffects } from '@/hooks/useSound';
 
-// This hook manages the links
+// This hook manages external links with sound feedback
 export function useLinks() {
   const { isMuted, toggleMute, playSound } = useSoundEffects();
 
-  // Function to toggle mute state
+  // Open GitHub repo with sound feedback
   const handleGitHubClick = () => {
-    playSound(SOUNDS.BUTTON);
+    playSound('button');
     window.open('https://github.com/j0hanz/Memorix', '_blank');
   };
 

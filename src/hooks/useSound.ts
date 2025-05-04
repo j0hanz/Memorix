@@ -1,39 +1,61 @@
-import { Howl } from 'howler';
+import { Howl, Howler } from 'howler';
 import { useEffect, useRef, useState } from 'react';
 
-import buttonSound from '/sounds/button.mp3';
-import clickSound from '/sounds/click.mp3';
-import completeSound from '/sounds/complete.mp3';
-import correctSound from '/sounds/correct.mp3';
-import wrongSound from '/sounds/wrong.mp3';
-import { SOUNDS, STORAGE_KEYS } from '@/constants/constants';
+import { STORAGE_KEYS } from '@/constants/constants';
+import { SOUND_FILES } from '@/constants/sounds';
+import type { SoundKey } from '@/constants/sounds';
 
 export function useSoundEffects() {
-  // Safely read initial mute state from localStorage
-  const initialMuteState = (() => {
+  // Read mute state from localStorage on first render
+  const [isMuted, setIsMuted] = useState<boolean>(() => {
     try {
       return localStorage.getItem(STORAGE_KEYS.MUTE_STATE) === 'true';
     } catch (error) {
       console.error('Error accessing localStorage for mute state:', error);
       return false;
     }
-  })();
+  });
 
-  // State to manage sound effects
-  const soundsRef = useRef<Record<string, Howl>>({});
-  // State to manage mute status
-  const [isMuted, setIsMuted] = useState<boolean>(initialMuteState);
+  // Store Howl instances
+  const soundsRef = useRef<Record<SoundKey, Howl>>(
+    {} as Record<SoundKey, Howl>,
+  );
 
-  // Initialize sounds on mount
+  // Load sound files and set up Howl instances
   useEffect(() => {
-    soundsRef.current = {
-      [SOUNDS.CORRECT]: new Howl({ src: [correctSound] }),
-      [SOUNDS.WRONG]: new Howl({ src: [wrongSound] }),
-      [SOUNDS.CLICK]: new Howl({ src: [clickSound] }),
-      [SOUNDS.BUTTON]: new Howl({ src: [buttonSound] }),
-      [SOUNDS.COMPLETE]: new Howl({ src: [completeSound] }),
+    const newSounds: Record<SoundKey, Howl> = {
+      button: new Howl({
+        src: SOUND_FILES.button,
+        onloaderror: (id, error) =>
+          console.error(`Error loading sound button:`, error),
+      }),
+      click: new Howl({
+        src: SOUND_FILES.click,
+        onloaderror: (id, error) =>
+          console.error(`Error loading sound click:`, error),
+      }),
+      complete: new Howl({
+        src: SOUND_FILES.complete,
+        onloaderror: (id, error) =>
+          console.error(`Error loading sound complete:`, error),
+      }),
+      correct: new Howl({
+        src: SOUND_FILES.correct,
+        onloaderror: (id, error) =>
+          console.error(`Error loading sound correct:`, error),
+      }),
+      wrong: new Howl({
+        src: SOUND_FILES.wrong,
+        onloaderror: (id, error) =>
+          console.error(`Error loading sound wrong:`, error),
+      }),
     };
-    // Cleanup sounds when component unmounts
+    soundsRef.current = newSounds;
+
+    // Sync mute state with Howler
+    Howler.mute(isMuted);
+
+    // Cleanup on unmount
     return () => {
       Object.values(soundsRef.current).forEach((sound) => {
         try {
@@ -43,16 +65,14 @@ export function useSoundEffects() {
         }
       });
     };
-  }, []);
+  }, [isMuted]);
 
-  function playSound(soundName: string): void {
-    // Check if sounds are muted
-    if (isMuted) {
-      return;
-    }
-    const sound = soundsRef.current[soundName];
+  // Play a sound by key, if not muted
+  function playSound(soundKey: SoundKey): void {
+    if (isMuted) return;
+    const sound = soundsRef.current[soundKey];
     if (!sound) {
-      console.warn(`No sound found for key: "${soundName}"`);
+      console.warn(`No sound found for key: "${soundKey}"`);
       return;
     }
     try {
@@ -62,25 +82,15 @@ export function useSoundEffects() {
     }
   }
 
-  // Toggle mute state
+  // Toggle mute state and sync with localStorage and Howler
   function toggleMute(): void {
-    const newMuteState = !isMuted;
-    setIsMuted(newMuteState);
-    try {
-      localStorage.setItem(STORAGE_KEYS.MUTE_STATE, newMuteState.toString());
-    } catch (error) {
-      console.error('Error updating mute state in localStorage:', error);
-    }
+    setMuteState(!isMuted);
   }
 
-  // Get current mute state
-  function getMuteState(): boolean {
-    return isMuted;
-  }
-
-  // Set specific mute state
+  // Set mute state and sync with localStorage and Howler
   function setMuteState(muted: boolean): void {
     setIsMuted(muted);
+    Howler.mute(muted);
     try {
       localStorage.setItem(STORAGE_KEYS.MUTE_STATE, muted.toString());
     } catch (error) {
@@ -89,10 +99,9 @@ export function useSoundEffects() {
   }
 
   return {
+    isMuted,
     playSound,
     toggleMute,
-    getMuteState,
     setMuteState,
-    isMuted,
   };
 }

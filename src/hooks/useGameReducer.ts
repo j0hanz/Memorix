@@ -1,11 +1,10 @@
-import { useCallback, useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 
 import {
   CATEGORIES,
   DELAYS,
   FEEDBACK,
   GAME_CONFIG,
-  SOUNDS,
   TIMER,
 } from '@/constants/constants';
 import { useDeck } from '@/hooks/useDeck';
@@ -61,82 +60,72 @@ export function useGameReducer(
         payload: { completedTime: timeElapsed },
       });
       dispatch({ type: 'TOGGLE_MODAL', payload: { show: true } });
-      playSound(SOUNDS.COMPLETE);
+      playSound('complete');
     }
   }, [state.matchedPairs, state.startTime, playSound]);
 
   // Card selection handler
-  const handleCardSelection = useCallback(
-    (index: number) => {
-      if (
-        state.isInitialReveal ||
-        state.isProcessingMatch ||
-        state.cards[index].status.includes('matched') ||
-        index === state.selectedCardIndex
-      ) {
-        return;
-      }
+  function handleCardSelection(index: number) {
+    if (
+      state.isInitialReveal ||
+      state.isProcessingMatch ||
+      state.cards[index].status.includes('matched') ||
+      index === state.selectedCardIndex
+    ) {
+      return;
+    }
 
-      // First card selection
-      if (state.selectedCardIndex === null) {
-        dispatch({ type: 'SELECT_CARD', payload: { index } });
-        previousIndex.current = index;
-        playSound(SOUNDS.CLICK);
-        return;
-      }
-
-      // Second card selection
-      dispatch({
-        type: 'SET_PROCESSING_MATCH',
-        payload: { isProcessing: true },
-      });
+    // First card selection
+    if (state.selectedCardIndex === null) {
       dispatch({ type: 'SELECT_CARD', payload: { index } });
+      previousIndex.current = index;
+      playSound('click');
+      return;
+    }
 
-      // Check for match
-      const currentCard = state.cards[index];
-      const selectedCard = state.cards[state.selectedCardIndex];
-      const isMatch = currentCard.pairId === selectedCard.pairId;
+    // Second card selection
+    dispatch({
+      type: 'SET_PROCESSING_MATCH',
+      payload: { isProcessing: true },
+    });
+    dispatch({ type: 'SELECT_CARD', payload: { index } });
 
-      // Set feedback and increment moves
+    // Check for match
+    const currentCard = state.cards[index];
+    const selectedCard = state.cards[state.selectedCardIndex];
+    const isMatch = currentCard.pairId === selectedCard.pairId;
+
+    // Set feedback and increment moves
+    dispatch({
+      type: 'SET_FEEDBACK',
+      payload: { feedback: isMatch ? FEEDBACK.SUCCESS : FEEDBACK.ERROR },
+    });
+    dispatch({ type: 'INCREMENT_MOVES' });
+
+    // Play sound based on match result
+    playSound(isMatch ? 'correct' : 'wrong');
+
+    // Process match after delay
+    setTimeout(() => {
       dispatch({
-        type: 'SET_FEEDBACK',
-        payload: { feedback: isMatch ? FEEDBACK.SUCCESS : FEEDBACK.ERROR },
+        type: 'PROCESS_MATCH',
+        payload: { index, isMatch },
       });
-      dispatch({ type: 'INCREMENT_MOVES' });
-
-      // Play sound based on match result
-      playSound(isMatch ? SOUNDS.CORRECT : SOUNDS.WRONG);
-
-      // Process match after delay
-      setTimeout(() => {
-        dispatch({
-          type: 'PROCESS_MATCH',
-          payload: { index, isMatch },
-        });
-        previousIndex.current = null;
-      }, DELAYS.MATCH_PROCESSING);
-    },
-    [
-      state.cards,
-      state.selectedCardIndex,
-      state.isInitialReveal,
-      state.isProcessingMatch,
-      playSound,
-      dispatch,
-    ],
-  );
+      previousIndex.current = null;
+    }, DELAYS.MATCH_PROCESSING);
+  }
 
   // Reset game state
-  const resetGameState = useCallback(() => {
+  function resetGameState() {
     refreshDeck();
     dispatch({ type: 'RESET_GAME', payload: { cards: deck } });
-  }, [refreshDeck, deck]);
+  }
 
   // Exit to main menu
-  const exitToMainMenu = useCallback(() => {
-    playSound(SOUNDS.BUTTON);
+  function exitToMainMenu() {
+    playSound('button');
     onExit();
-  }, [onExit, playSound]);
+  }
 
   return {
     state,

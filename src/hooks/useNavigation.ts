@@ -1,4 +1,4 @@
-import { GAME_CONFIG, SOUNDS } from '@/constants/constants';
+import { GAME_CONFIG } from '@/constants/constants';
 import { useModal } from '@/hooks/useModal';
 import { useSoundEffects } from '@/hooks/useSound';
 import type { GameHandlerOptions } from '@/types/hooks';
@@ -22,13 +22,13 @@ export function useNavigation({
     action: (...args: T) => void,
   ) {
     return (...args: T) => {
-      playSound(SOUNDS.BUTTON);
+      playSound('button');
       action(...args);
     };
   }
 
   function showLoadingAndStartGame(callback?: () => void) {
-    playSound(SOUNDS.BUTTON);
+    playSound('button');
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
@@ -39,7 +39,7 @@ export function useNavigation({
 
   // Open profile or auth modal based on authentication state
   function handleAccountClick() {
-    playSound(SOUNDS.BUTTON);
+    playSound('button');
     if (isAuthenticated) {
       openModal('profile');
     } else {
@@ -48,7 +48,7 @@ export function useNavigation({
   }
 
   function handleLogout() {
-    playSound(SOUNDS.BUTTON);
+    playSound('button');
     logout();
     setIsGameActive(false);
     closeModal();
