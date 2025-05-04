@@ -4,8 +4,10 @@ import { GITHUB_API } from '@/constants/constants';
 import type { Commit, GitHubCommitResponse } from '@/types/api';
 
 const GITHUB_API_URL: string = GITHUB_API.API_URL;
-// GitHub personal access token (requires public repo access only)
-const GITHUB_TOKEN: string | undefined = import.meta.env.VITE_GITHUB_TOKEN;
+// GitHub token for authentication
+const GITHUB_TOKEN: string | undefined = import.meta.env.VITE_GITHUB_TOKEN as
+  | string
+  | undefined;
 
 // GitHub API base URL
 const githubAxios = axios.create({

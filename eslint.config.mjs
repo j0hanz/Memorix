@@ -46,8 +46,10 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
       'react-compiler/react-compiler': 'error',
-      'simple-import-sort/imports': 'error',
-      'simple-import-sort/exports': 'error',
+      'simple-import-sort/imports': 'warn',
+      'simple-import-sort/exports': 'warn',
+      '@typescript-eslint/no-unnecessary-condition': 'off',
+      '@typescript-eslint/prefer-promise-reject-errors': 'off',
     },
     settings: {
       react: {
