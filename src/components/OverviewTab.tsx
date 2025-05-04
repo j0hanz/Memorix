@@ -16,7 +16,7 @@ export default function OverviewTab() {
         </ListGroup.Item>
       </ListGroup>
       <hr className="my-2" />
-      <ListGroup horizontal>
+      <ListGroup horizontal={true}>
         <ListGroup.Item>
           <LabelImportantOutlinedIcon className={styles.listIcon} />
         </ListGroup.Item>

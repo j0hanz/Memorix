@@ -26,7 +26,7 @@ const Register = ({ onSuccess, onClose }: RegisterProps) => {
     <>
       {authError && <Alert variant="danger">{authError}</Alert>}
       <Form
-        noValidate
+        noValidate={true}
         onSubmit={(e) => {
           void handleSubmit(e);
         }}

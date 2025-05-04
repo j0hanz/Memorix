@@ -31,7 +31,7 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
   if (fallback) {
     return (
       <ReactErrorBoundary
-        fallback={<>{fallback}</>}
+        fallback={fallback}
         onReset={onReset}
         onError={onError}
       >

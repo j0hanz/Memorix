@@ -14,7 +14,7 @@ import styles from './styles/Modal.module.css';
 // Component for each icon explanation row
 function IconExplanation({ icon, description }: IconExplanationProps) {
   return (
-    <ListGroup horizontal>
+    <ListGroup horizontal={true}>
       <ListGroup.Item>{icon}</ListGroup.Item>
       <ListGroup.Item>{description}</ListGroup.Item>
     </ListGroup>

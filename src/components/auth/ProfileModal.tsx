@@ -9,7 +9,7 @@ export function ProfileModal({ show, onClose, logout }: ProfileModalProps) {
     <Modal
       show={show}
       onHide={onClose}
-      centered
+      centered={true}
       className={`${styles.modal} ${styles.profileModal}`}
     >
       <Modal.Body className="p-0">

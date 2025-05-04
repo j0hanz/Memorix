@@ -13,7 +13,12 @@ export function CategorySelection({
   onSelectCategory,
 }: CategoryProps) {
   return (
-    <Modal show={show} onHide={onClose} centered className={styles.modal}>
+    <Modal
+      show={show}
+      onHide={onClose}
+      centered={true}
+      className={styles.modal}
+    >
       <Modal.Header className="border-0 d-flex justify-content-center">
         <Modal.Title>Select Category</Modal.Title>
       </Modal.Header>

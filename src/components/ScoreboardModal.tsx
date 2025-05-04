@@ -20,7 +20,7 @@ export function ScoreboardModal({
     <Modal
       show={show}
       onHide={onClose}
-      centered
+      centered={true}
       className={styles.modal}
       backdrop="static"
     >

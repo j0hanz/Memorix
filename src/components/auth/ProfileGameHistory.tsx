@@ -48,8 +48,12 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
   return (
     <>
       <Form.Group>
-        <Form.Label className="d-none">Filter by Category</Form.Label>
+        <Form.Label className="d-none" htmlFor="category-select">
+          Filter by Category
+        </Form.Label>
         <Form.Select
+          id="category-select"
+          name="category"
           onChange={handleCategoryChange}
           value={selectedCategory}
           className={styles.formSelect}

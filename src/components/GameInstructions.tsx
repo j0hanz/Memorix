@@ -12,7 +12,7 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
     <Modal
       show={show}
       onHide={onClose}
-      centered
+      centered={true}
       className={`${styles.modal} ${styles.instructionsModal}`}
     >
       <InstructionsData />

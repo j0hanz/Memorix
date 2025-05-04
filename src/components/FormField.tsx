@@ -30,7 +30,7 @@ const FormField = ({
         {...(isControlled ? { value, onChange, onBlur } : { defaultValue })}
         placeholder={placeholder}
         isInvalid={showError && !!error}
-        required
+        required={true}
         className={className}
       />
       <Form.Control.Feedback type="invalid">

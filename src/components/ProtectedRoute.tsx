@@ -13,9 +13,9 @@ const ProtectedRoute = ({ children, onAuthRequired }: ProtectedRouteProps) => {
     }
   }, [loading, isAuthenticated, onAuthRequired]);
 
-  if (loading) return <LoadingCardSpinner isLoading />;
+  if (loading) return <LoadingCardSpinner isLoading={true} />;
 
-  return isAuthenticated ? <>{children}</> : null;
+  return isAuthenticated ? { children } : null;
 };
 
 export default ProtectedRoute;

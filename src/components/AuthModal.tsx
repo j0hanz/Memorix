@@ -10,7 +10,7 @@ export function AuthModal({ show, onClose }: AuthModalProps) {
     <Modal
       show={show}
       onHide={onClose}
-      centered
+      centered={true}
       className={`${styles.modal} ${styles.authModal}`}
     >
       <Modal.Body className="p-0">

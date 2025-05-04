@@ -10,7 +10,7 @@ export function LatestUpdates({ show, onClose }: LatestUpdatesProps) {
     <Modal
       show={show}
       onHide={onClose}
-      centered
+      centered={true}
       className={`${styles.modal} ${styles.latestUpdatesModal}`}
     >
       <Modal.Header className="border-0 d-flex justify-content-center">

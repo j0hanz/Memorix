@@ -12,7 +12,7 @@ export function LeaderboardModal({ show, onClose }: LeaderboardModalProps) {
     <Modal
       show={show}
       onHide={onClose}
-      centered
+      centered={true}
       className={`${styles.modal} ${styles.leaderboardModal}`}
     >
       <Modal.Header className="border-0 d-flex justify-content-center">

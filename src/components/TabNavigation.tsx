@@ -52,7 +52,7 @@ export default function TabNavigation({
       onSelect={(selectedKey) => {
         onSelect(selectedKey || '');
       }}
-      justify
+      justify={true}
     >
       {tabs.map((tab) => (
         <NavItem
