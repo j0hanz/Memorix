@@ -308,9 +308,14 @@
   color: var(--feedback-wrong);
 }
 
-.input,
+.input {
+  border-bottom: 1px solid var(--input-border-color);
+  border-radius: 0;
+}
+
 .formSelect {
   border-bottom: 1px solid var(--input-border-color);
+  background-color: var(--bg-primary);
   border-radius: 0;
 }
 

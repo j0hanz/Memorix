@@ -13,7 +13,6 @@ export const gameService = {
       throw error;
     }
   },
-
   // Get leaderboard entries
   getLeaderboard: async (categoryId?: number): Promise<LeaderboardEntry[]> => {
     const url =
@@ -29,7 +28,6 @@ export const gameService = {
       throw error;
     }
   },
-
   // Get categories
   getCategories: async (): Promise<unknown> => {
     try {
@@ -40,7 +38,6 @@ export const gameService = {
       throw error;
     }
   },
-
   // Get user scores
   getUserScores: async (): Promise<UserScore[]> => {
     try {
@@ -48,6 +45,18 @@ export const gameService = {
       return response.data;
     } catch (error) {
       console.error('Error fetching user scores:', error);
+      throw error;
+    }
+  },
+  // Get user best scores
+  getUserBestScores: async (): Promise<UserScore[]> => {
+    try {
+      const response = await axiosReq.get<UserScore[]>(
+        '/api/memorix/results/best/',
+      );
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching best scores:', error);
       throw error;
     }
   },
