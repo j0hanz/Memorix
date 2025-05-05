@@ -50,7 +50,10 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
       ) : leaderboard.length > 0 ? (
         <div className="my-3">
           {leaderboard.slice(0, 5).map((entry, index) => (
-            <Row key={entry.id} className={styles.scoreRow}>
+            <Row
+              key={entry.id}
+              className={`d-flex justify-content-between align-items-center ${styles.scoreRow}`}
+            >
               <Col
                 xs={1}
                 className="d-flex justify-content-start align-items-center gap-3"
@@ -68,14 +71,11 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
                   />
                 )}
               </Col>
-              <Col
-                xs={1}
-                className="d-flex justify-content-center align-items-center"
-              >
+              <Col xs={2} className="d-flex align-items-center">
                 <StarRating count={entry.stars} />
               </Col>
               <Col
-                xs={1}
+                xs={2}
                 className="d-flex justify-content-end align-items-center"
               >
                 {entry.moves}
