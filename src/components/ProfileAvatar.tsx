@@ -14,5 +14,6 @@ export const ProfileAvatar = ({
       img={profilePictureUrl}
       imgAlt="Profile"
       imgClassName={styles.menuProfileImage}
+      color="transparent"
     />
   ) : null;
