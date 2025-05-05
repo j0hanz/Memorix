@@ -7,9 +7,9 @@ import { useLeaderboard } from '@/hooks/useLeaderboard';
 import type { LeaderboardProps } from '@/types/components';
 import { CATEGORY_OPTIONS } from '@/utils/categoryUtils';
 
+import Button from './Button';
 import StarRating from './StarRating';
 import styles from './styles/Modal.module.css';
-import { Tooltip } from './Tooltip';
 
 const Leaderboard: React.FC<LeaderboardProps> = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
@@ -56,17 +56,17 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
                 className="d-flex justify-content-start align-items-center gap-3"
               >
                 <span className={styles.rank}>{index + 1}</span>
-                <div className={styles.playerInfo}>
-                  {entry.profile_picture_url && (
-                    <Tooltip content={entry.username}>
-                      <img
-                        src={entry.profile_picture_url}
-                        alt={entry.username}
-                        className={styles.leaderboardAvatar}
-                      />
-                    </Tooltip>
-                  )}
-                </div>
+                {entry.profile_picture_url && (
+                  <Button
+                    img={entry.profile_picture_url}
+                    imgAlt={entry.username}
+                    imgClassName={styles.leaderboardAvatar}
+                    aria-label={`View profile of ${entry.username}`}
+                    variant="menu"
+                    color="transparent"
+                    tooltip={entry.username}
+                  />
+                )}
               </Col>
               <Col
                 xs={1}

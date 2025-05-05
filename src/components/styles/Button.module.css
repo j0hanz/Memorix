@@ -42,6 +42,10 @@
   }
 }
 
+.transparent {
+  background: none !important;
+}
+
 @container (max-width: 400px) {
   .customButton {
     font-size: 0.9em;

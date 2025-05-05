@@ -18,7 +18,10 @@ export interface CustomButtonProps extends ButtonProps {
   icon?: ReactNode;
   text?: React.ReactNode;
   className?: string;
-  color?: 'primary' | 'secondary';
+  color?: 'primary' | 'secondary' | 'transparent';
+  img?: string;
+  imgAlt?: string;
+  imgClassName?: string;
 }
 
 // Profile

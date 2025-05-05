@@ -1,4 +1,5 @@
 import styles from '@/App.module.css';
+import Button from '@/components/Button';
 import type { ProfileAvatarProps } from '@/types/components';
 
 export const ProfileAvatar = ({
@@ -6,12 +7,12 @@ export const ProfileAvatar = ({
   onClick,
 }: ProfileAvatarProps) =>
   profilePictureUrl ? (
-    <div className={styles.userInfoTopRight}>
-      <img
-        src={profilePictureUrl}
-        alt="Profile"
-        className={styles.menuProfileImage}
-        onClick={onClick}
-      />
-    </div>
+    <Button
+      onClick={onClick}
+      className={styles.userInfoTopRight}
+      aria-label="Open Profile"
+      img={profilePictureUrl}
+      imgAlt="Profile"
+      imgClassName={styles.menuProfileImage}
+    />
   ) : null;

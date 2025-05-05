@@ -53,6 +53,7 @@
 
 .userInfoTopRight {
   position: fixed;
+  padding: 0;
   top: 15px;
   right: 15px;
   border-radius: 50%;
