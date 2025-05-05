@@ -28,6 +28,9 @@ export function Tooltip({
         setVisible(false);
       }}
       tabIndex={0}
+      role="button"
+      aria-haspopup="true"
+      aria-expanded={visible}
     >
       {children}
       {visible && content && (

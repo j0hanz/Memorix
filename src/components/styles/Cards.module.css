@@ -59,15 +59,6 @@
   gap: 1rem;
 }
 
-/* Button */
-.btnExitRestart {
-  padding: 0.5rem;
-  border-radius: 50%;
-  &:focus-visible {
-    outline: 2px solid var(--btn-primary);
-  }
-}
-
 @container (max-width: 600px) {
   .row {
     width: min(100vw, 800px);

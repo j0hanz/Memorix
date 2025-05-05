@@ -5,6 +5,7 @@ import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 
+import appStyles from '@/App.module.css';
 import Button from '@/components/Button';
 import styles from '@/components/styles/Modal.module.css';
 import type { ProfileGameHistoryProps } from '@/types/components';
@@ -109,7 +110,7 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
           {totalPages > 1 && (
             <div className="d-flex justify-content-center align-items-center mt-4 gap-5">
               <Button
-                className={styles.btnRounded}
+                className={appStyles.btnRounded}
                 onClick={handlePrev}
                 disabled={page === 1}
                 aria-label="Previous Page"
@@ -118,7 +119,7 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
               />
               {page} of {totalPages}
               <Button
-                className={styles.btnRounded}
+                className={appStyles.btnRounded}
                 onClick={handleNext}
                 disabled={page === totalPages}
                 aria-label="Next Page"

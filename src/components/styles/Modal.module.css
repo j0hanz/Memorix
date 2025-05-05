@@ -103,14 +103,6 @@
   }
 }
 
-.btnRounded {
-  cursor: pointer;
-  color: var(--moves);
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-}
-
 .btnUpload {
   display: flex;
   gap: 0.5rem;

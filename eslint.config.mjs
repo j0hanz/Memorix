@@ -7,6 +7,7 @@ import tseslint from 'typescript-eslint';
 import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
 import reactPlugin from 'eslint-plugin-react';
 import prettierConfig from 'eslint-config-prettier';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
 
 export default tseslint.config(
   { ignores: ['dist'] },
@@ -38,8 +39,10 @@ export default tseslint.config(
       'react-compiler': reactCompiler,
       'simple-import-sort': simpleImportSortPlugin,
       react: reactPlugin,
+      'jsx-a11y': jsxA11y,
     },
     rules: {
+      ...jsxA11y.flatConfigs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
       // Warn if components are not exported properly
       'react-refresh/only-export-components': [
