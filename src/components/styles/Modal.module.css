@@ -45,6 +45,10 @@
   gap: 0.3rem;
 }
 
+.closeButtonSolo {
+  border-radius: 0 0 10px 10px;
+}
+
 .btnCategoryContainer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

@@ -27,7 +27,7 @@ export function CategorySelection({
       </Modal.Body>
       <Modal.Footer className="border-0 mt-3">
         <Button
-          className={styles.modalButton}
+          className={`${styles.closeButtonSolo} ${styles.modalButton}`}
           icon={<CloseOutlinedIcon fontSize="small" />}
           onClick={onClose}
           text="Close"

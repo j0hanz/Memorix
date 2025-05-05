@@ -18,7 +18,7 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
       <InstructionsData />
       <Modal.Footer className="border-0 mt-2">
         <Button
-          className={styles.modalButton}
+          className={`${styles.closeButtonSolo} ${styles.modalButton}`}
           icon={<CloseOutlinedIcon fontSize="small" />}
           onClick={onClose}
           text="Close"

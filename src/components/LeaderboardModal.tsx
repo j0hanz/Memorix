@@ -23,7 +23,7 @@ export function LeaderboardModal({ show, onClose }: LeaderboardModalProps) {
       </Modal.Body>
       <Modal.Footer className="border-0">
         <Button
-          className={styles.modalButton}
+          className={`${styles.closeButtonSolo} ${styles.modalButton}`}
           icon={<CloseOutlinedIcon fontSize="small" />}
           onClick={onClose}
           text="Close"
