@@ -72,7 +72,10 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
       ) : filteredScores.length > 0 ? (
         <div className="my-3">
           {paginatedScores.map((score) => (
-            <Row key={score.id} className={styles.scoreRow}>
+            <Row
+              key={score.id}
+              className={`d-flex justify-content-between align-items-center ${styles.scoreRow}`}
+            >
               <Col
                 xs={1}
                 className="d-flex justify-content-start align-items-center"
@@ -80,14 +83,14 @@ const ProfileGameHistory: React.FC<ProfileGameHistoryProps> = ({
                 {getCategoryIcon(score.category_name)}
               </Col>
               <Col
-                xs={1}
+                xs={2}
                 className="d-flex justify-content-center align-items-center"
               >
                 <StarRating count={score.stars} />
               </Col>
               <Col
-                xs={1}
-                className="d-flex justify-content-end align-items-center"
+                xs={2}
+                className="d-flex justify-content-start align-items-center"
               >
                 {score.moves}
                 <FlipOutlinedIcon fontSize="small" />
