@@ -18,6 +18,11 @@ const Card: React.FC<CardProps> = ({
     <div
       className={className}
       onClick={disabled ? undefined : onClick}
+      onKeyDown={(e) => {
+        if (!disabled && onClick && (e.key === 'Enter' || e.key === ' ')) {
+          onClick();
+        }
+      }}
       role={role}
       aria-label={ariaLabel}
       aria-selected={ariaSelected}

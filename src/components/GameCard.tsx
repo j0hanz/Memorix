@@ -21,7 +21,6 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
     getCardStyleClasses,
     isImageLoaded,
     isImageError,
-    ariaSelected,
   } = useCards(card, index, clickHandler);
 
   const baseStyles = getCardStyleClasses(styles);
@@ -38,7 +37,6 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
         onClick={handleClick}
         role="button"
         ariaLabel={`Card ${card.name}`}
-        aria-selected={ariaSelected}
         disabled={!isClickable}
         className={baseStyles}
       >
