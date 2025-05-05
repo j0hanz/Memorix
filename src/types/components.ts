@@ -22,6 +22,7 @@ export interface CustomButtonProps extends ButtonProps {
   img?: string;
   imgAlt?: string;
   imgClassName?: string;
+  category?: string;
 }
 
 // Profile

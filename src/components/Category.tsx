@@ -16,6 +16,7 @@ export default function CategoryData({ onSelectCategory }: CategoryDataProps) {
         <Button
           key={category}
           className={styles.btnCategorySelect}
+          category={category}
           onClick={() => {
             onSelectCategory(category);
           }}

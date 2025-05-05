@@ -15,6 +15,7 @@ const Button: FC<
     imgAlt?: string;
     imgClassName?: string;
     tooltip?: string;
+    category?: string;
   }
 > = ({
   icon,
@@ -44,8 +45,14 @@ const Button: FC<
   const textClassName =
     `${styles.text} ${variant === 'menu' ? styles.menuText : ''}`.trim();
 
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (onClick) {
+      onClick(e);
+    }
+  };
+
   const buttonContent = (
-    <CustomButton {...props} onClick={onClick} className={buttonClassName}>
+    <CustomButton {...props} onClick={handleClick} className={buttonClassName}>
       {img && <img src={img} alt={imgAlt} className={imgClassName} />}
       {icon && <div className={styles.icon}>{icon}</div>}
       {text && <div className={textClassName}>{text}</div>}
