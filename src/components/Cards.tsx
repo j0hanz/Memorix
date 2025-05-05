@@ -5,7 +5,7 @@ import { useCards } from '@/hooks/useCards';
 import { useMotions } from '@/hooks/useMotions';
 import type { CardsProps } from '@/types/components';
 
-import GameCard from './GameCard';
+import { GameCard } from './GameCard';
 import { StatsBar } from './StatsBar';
 import styles from './styles/Cards.module.css';
 

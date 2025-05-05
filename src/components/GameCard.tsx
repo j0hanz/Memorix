@@ -1,16 +1,17 @@
 import { motion } from 'framer-motion';
+import React from 'react';
 
+import Card from '@/components/Card';
+import Image from '@/components/Image';
+import { LoadingCardSpinner } from '@/components/Spinner';
 import { useCards } from '@/hooks/useCards';
 import { useMotions } from '@/hooks/useMotions';
 import type { GameCardProps } from '@/types/card';
 
-import Card from './Card';
-import Image from './Image';
 import styles from './styles/GameCard.module.css';
 
-function GameCard({ card, index, clickHandler }: GameCardProps) {
+export function GameCard({ card, index, clickHandler }: GameCardProps) {
   const { flipAnimation, cardContentAnimation } = useMotions();
-
   const {
     isClickable,
     handleClick,
@@ -21,36 +22,39 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
     getCardStyleClasses,
     isImageLoaded,
     isImageError,
+    ariaSelected,
   } = useCards(card, index, clickHandler);
 
-  const baseStyles = getCardStyleClasses(styles);
+  const cardClasses = getCardStyleClasses(styles);
+  const animationState = getCardAnimation();
+  const frontAnimation = getCardFrontAnimation();
 
   return (
     <motion.div
       initial="initial"
-      animate={getCardAnimation()}
+      animate={animationState}
       variants={flipAnimation}
       whileHover={isClickable ? 'hover' : undefined}
       className={styles.cardWrapper}
     >
       <Card
         onClick={handleClick}
-        role="button"
-        ariaLabel={`Card ${card.name}`}
         disabled={!isClickable}
-        className={baseStyles}
+        ariaLabel={`Card ${card.name}`}
+        ariaSelected={ariaSelected}
+        className={cardClasses}
       >
         <motion.div
           className={styles.back}
           variants={cardContentAnimation.backFace}
           initial="initial"
-          animate={card.status ? 'flipped' : 'initial'}
+          animate={card?.status ? 'flipped' : 'initial'}
         />
         <motion.div
           className={styles.front}
           variants={cardContentAnimation.frontFace}
           initial="initial"
-          animate={getCardFrontAnimation()}
+          animate={frontAnimation}
         >
           <Image
             src={card.img}
@@ -61,10 +65,10 @@ function GameCard({ card, index, clickHandler }: GameCardProps) {
             loading="lazy"
           />
         </motion.div>
-        {!isImageLoaded && !isImageError && <div className={styles.loader} />}
+        {!isImageLoaded && !isImageError && (
+          <LoadingCardSpinner isLoading={true} />
+        )}
       </Card>
     </motion.div>
   );
 }
-
-export default GameCard;
