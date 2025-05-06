@@ -2,24 +2,9 @@ import type { FC } from 'react';
 
 import type { SelectOption } from '@/components/Select';
 import Select from '@/components/Select';
+import type { GameCategoryProps } from '@/types/components';
 
 import styles from './styles/Modal.module.css';
-
-export interface GameOptions {
-  value: string;
-  label: string;
-}
-
-export interface GameCategoryProps {
-  id: string;
-  label?: string;
-  options: GameOptions[];
-  value: string;
-  onChange: (v: string) => void;
-  loading?: boolean;
-  showAllOption?: boolean;
-  hideLabel?: boolean;
-}
 
 export const GameCategory: FC<GameCategoryProps> = ({
   id,

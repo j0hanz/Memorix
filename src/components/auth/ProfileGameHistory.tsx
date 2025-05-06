@@ -1,20 +1,14 @@
 import { useEffect, useState } from 'react';
 
-import type { GameOptions } from '@/components/GameCatagory';
 import { GameCategory } from '@/components/GameCatagory';
 import { Pagination } from '@/components/Pagination';
 import { ScoreRow } from '@/components/ScoreRow';
 import { useBestScores } from '@/hooks/useBestScores';
 import { usePaginated } from '@/hooks/usePaginated';
-import type { UserScore } from '@/types/api';
+import type { GameOptions, ProfileGameHistoryProps } from '@/types/components';
 import { CATEGORY_OPTIONS } from '@/utils/categoryUtils';
 
 const ITEMS_PER_PAGE = 5;
-
-export interface ProfileGameHistoryProps {
-  scores: UserScore[];
-  loadingScores: boolean;
-}
 
 export function ProfileGameHistory({
   scores = [],

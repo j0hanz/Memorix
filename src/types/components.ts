@@ -2,6 +2,8 @@ import type { TargetAndTransition, Transition } from 'framer-motion';
 import type { ReactNode } from 'react';
 import type { ButtonProps } from 'react-bootstrap';
 
+import type { UserScore } from '@/types/api';
+
 import type { PairedCard } from './card';
 
 // Button and Menu
@@ -82,11 +84,6 @@ export interface ProfileDeleteAccountProps {
   onBack?: () => void;
 }
 
-export interface ProfileGameHistoryProps {
-  scores: Score[];
-  loadingScores: boolean;
-}
-
 // Toast, Feedback, Sound
 export interface ToastProps {
   message: string;
@@ -159,6 +156,43 @@ export interface TooltipProps {
   placement?: 'top' | 'bottom' | 'left' | 'right';
   delay?: number;
   className?: string;
+}
+
+// Pagination
+export interface PaginationProps {
+  page: number;
+  totalPages: number;
+  onPrev: () => void;
+  onNext: () => void;
+}
+
+// GameCategory
+export interface GameOptions {
+  value: string;
+  label: string;
+}
+
+export interface GameCategoryProps {
+  id: string;
+  label?: string;
+  options: GameOptions[];
+  value: string;
+  onChange: (v: string) => void;
+  loading?: boolean;
+  showAllOption?: boolean;
+  hideLabel?: boolean;
+}
+
+// ScoreRow
+export interface ScoreRowProps {
+  score: UserScore;
+  highlight?: boolean;
+}
+
+// ProfileGameHistory
+export interface ProfileGameHistoryProps {
+  scores: UserScore[];
+  loadingScores: boolean;
 }
 
 // Protected Route

@@ -4,15 +4,10 @@ import type { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
 import StarRating from '@/components/StarRating';
-import type { UserScore } from '@/types/api';
+import type { ScoreRowProps } from '@/types/components';
 import { getCategoryIcon } from '@/utils/categoryUtils';
 
 import styles from './styles/Modal.module.css';
-
-export interface ScoreRowProps {
-  score: UserScore;
-  highlight?: boolean;
-}
 
 export const ScoreRow: FC<ScoreRowProps> = ({ score }) => (
   <div>

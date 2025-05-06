@@ -3,13 +3,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import type { FC } from 'react';
 
 import Button from '@/components/Button';
-
-export interface PaginationProps {
-  page: number;
-  totalPages: number;
-  onPrev: () => void;
-  onNext: () => void;
-}
+import type { PaginationProps } from '@/types/components';
 
 export const Pagination: FC<PaginationProps> = ({
   page,
