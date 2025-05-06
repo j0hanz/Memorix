@@ -2,8 +2,31 @@ import type { TargetAndTransition, Transition, Variants } from 'framer-motion';
 
 export interface AppState {
   isGameActive: boolean;
-  isLoading: boolean;
+  loading: {
+    isLoading: boolean;
+    message?: string;
+    type?: string;
+  };
   selectedCategory: string;
+}
+
+export type LoadingState = {
+  isLoading: boolean;
+  message?: string;
+  type?: 'initial' | 'start' | 'restart' | 'exit' | undefined;
+};
+
+export interface NavigationOptions {
+  setLoading: (loadingState: {
+    isLoading: boolean;
+    message?: string;
+    type?: string;
+  }) => void;
+  setIsGameActive: (value: boolean) => void;
+  setSelectedCategory: (value: string) => void;
+  setShowLeaderboardModal?: (value: boolean) => void;
+  logout: () => void;
+  isAuthenticated: boolean;
 }
 
 export interface UseSaveScoreProps {

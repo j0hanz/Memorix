@@ -4,15 +4,14 @@ import { CATEGORIES, GAME_CONFIG } from '@/constants/constants';
 import type { AppState } from '@/types/hooks';
 
 type AppAction =
-  | { type: 'SET_LOADING'; value: boolean }
+  | { type: 'SET_LOADING'; value: Partial<AppState['loading']> }
   | { type: 'SET_GAME_ACTIVE'; value: boolean }
   | { type: 'SET_SELECTED_CATEGORY'; value: string };
 
 function appReducer(state: AppState, action: AppAction): AppState {
-  // Update app state based on action type
   switch (action.type) {
     case 'SET_LOADING':
-      return { ...state, isLoading: action.value };
+      return { ...state, loading: { ...state.loading, ...action.value } };
     case 'SET_GAME_ACTIVE':
       return { ...state, isGameActive: action.value };
     case 'SET_SELECTED_CATEGORY':
@@ -23,17 +22,23 @@ function appReducer(state: AppState, action: AppAction): AppState {
 }
 
 export function useAppState() {
-  // Initialize app state
+  // Initialize app state with enhanced loading state
   const [state, dispatch] = useReducer(appReducer, {
     isGameActive: GAME_CONFIG.INITIAL_STATE.GAME_ACTIVE,
-    isLoading: GAME_CONFIG.INITIAL_STATE.LOADING,
+    loading: {
+      isLoading: GAME_CONFIG.INITIAL_STATE.LOADING,
+      message: '',
+      type: 'initial',
+    },
     selectedCategory: CATEGORIES.ANIMALS,
   });
 
   return {
-    ...state,
-    setIsLoading: (value: boolean) => {
-      dispatch({ type: 'SET_LOADING', value });
+    isGameActive: state.isGameActive,
+    loading: state.loading,
+    selectedCategory: state.selectedCategory,
+    setLoading: (loadingState: Partial<AppState['loading']>) => {
+      dispatch({ type: 'SET_LOADING', value: loadingState });
     },
     setIsGameActive: (value: boolean) => {
       dispatch({ type: 'SET_GAME_ACTIVE', value });

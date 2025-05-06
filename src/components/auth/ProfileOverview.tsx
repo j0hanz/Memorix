@@ -33,21 +33,21 @@ const ProfileOverview: React.FC<
           className={styles.btnUpload}
           icon={<DriveFolderUploadIcon fontSize="small" />}
           color="secondary"
-        >
-          <input
-            type="file"
-            id="profilePictureInput"
-            accept="image/*"
-            onChange={handleImageChange}
-            className={styles.fileInputHidden}
-          />
-          <label
-            htmlFor="profilePictureInput"
-            className={styles.clickableLabel}
-          >
-            Upload
-          </label>
-        </Button>
+          text="Upload"
+          variant="menu"
+          onClick={() => {
+            document.getElementById('profilePictureInput')?.click();
+          }}
+          aria-controls="profilePictureInput"
+        />
+        <input
+          type="file"
+          id="profilePictureInput"
+          accept="image/*"
+          onChange={handleImageChange}
+          className={styles.fileInputHidden}
+          aria-label="Upload"
+        />
       </div>
     </Col>
     <Col className="d-flex flex-column p-3">

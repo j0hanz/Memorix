@@ -27,9 +27,9 @@ const App = () => {
   // Get app state and handlers
   const {
     isGameActive,
-    isLoading,
+    loading,
+    setLoading,
     selectedCategory,
-    setIsLoading,
     setIsGameActive,
     setSelectedCategory,
   } = useAppState();
@@ -58,7 +58,7 @@ const App = () => {
     handleLogout,
     handleAccountClick,
   } = useNavigation({
-    setIsLoading,
+    setLoading,
     setIsGameActive,
     setSelectedCategory,
     setShowLeaderboardModal,
@@ -80,6 +80,9 @@ const App = () => {
     };
   }, []);
 
+  // Check if any loading state is active
+  const isLoading = showInitialLoading || loading.isLoading;
+
   return (
     <Router>
       <ErrorBoundary
@@ -88,63 +91,68 @@ const App = () => {
           console.error('Application error:', error);
         }}
       >
-        <LoadingCardSpinner
-          isLoading={showInitialLoading}
-          message="Loading..."
-        />
-        <LoadingCardSpinner
-          isLoading={!showInitialLoading && isLoading}
-          message={isLoading ? 'Starting...' : undefined}
-        />
-        {!showInitialLoading && !isLoading && !isGameActive && (
-          <MainMenu
-            startGame={handleStartGame}
-            openInstructions={openInstructions}
-            openLatestUpdates={openLatestUpdates}
-            enterAnimation={enterAnimation}
-            openAuthModal={useAuthModal}
-            openLeaderboardModal={openLeaderboardModal}
-            handleAccountClick={handleAccountClick}
+        {isLoading && (
+          <LoadingCardSpinner
+            isLoading={true}
+            message={showInitialLoading ? 'Loading...' : loading.message}
           />
         )}
-        {isGameActive && !showInitialLoading && (
-          <ErrorBoundary
-            onReset={handleAppReset}
-            onError={(error) => {
-              console.error('Game error:', error);
-            }}
-          >
-            <GameProvider
-              onExit={handleExit}
-              selectedCategory={selectedCategory}
-            >
-              <Game onRestart={handleRestart} />
-            </GameProvider>
-          </ErrorBoundary>
+        {!isLoading && (
+          <>
+            {!isGameActive && (
+              <MainMenu
+                startGame={handleStartGame}
+                openInstructions={openInstructions}
+                openLatestUpdates={openLatestUpdates}
+                enterAnimation={enterAnimation}
+                openAuthModal={useAuthModal}
+                openLeaderboardModal={openLeaderboardModal}
+                handleAccountClick={handleAccountClick}
+              />
+            )}
+
+            {isGameActive && (
+              <ErrorBoundary
+                onReset={handleAppReset}
+                onError={(error) => {
+                  console.error('Game error:', error);
+                }}
+              >
+                <GameProvider
+                  onExit={handleExit}
+                  selectedCategory={selectedCategory}
+                >
+                  <Game onRestart={handleRestart} />
+                </GameProvider>
+              </ErrorBoundary>
+            )}
+
+            {/* Modals */}
+            <GameInstructions
+              show={activeModal === 'instructions'}
+              onClose={closeInstructions}
+            />
+            <LatestUpdates
+              show={activeModal === 'latestUpdates'}
+              onClose={closeLatestUpdates}
+            />
+            <CategorySelection
+              show={activeModal === 'categorySelection'}
+              onClose={closeCategorySelection}
+              onSelectCategory={handleSelectCategory}
+            />
+            <LeaderboardModal
+              show={showLeaderboardModal}
+              onClose={closeLeaderboardModal}
+            />
+            <ProfileModal
+              show={activeModal === 'profile'}
+              onClose={closeModal}
+              logout={handleLogout}
+            />
+            <AuthModal show={activeModal === 'auth'} onClose={closeModal} />
+          </>
         )}
-        <GameInstructions
-          show={activeModal === 'instructions'}
-          onClose={closeInstructions}
-        />
-        <LatestUpdates
-          show={activeModal === 'latestUpdates'}
-          onClose={closeLatestUpdates}
-        />
-        <CategorySelection
-          show={activeModal === 'categorySelection'}
-          onClose={closeCategorySelection}
-          onSelectCategory={handleSelectCategory}
-        />
-        <LeaderboardModal
-          show={showLeaderboardModal}
-          onClose={closeLeaderboardModal}
-        />
-        <ProfileModal
-          show={activeModal === 'profile'}
-          onClose={closeModal}
-          logout={handleLogout}
-        />
-        <AuthModal show={activeModal === 'auth'} onClose={closeModal} />
       </ErrorBoundary>
     </Router>
   );

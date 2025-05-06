@@ -11,7 +11,11 @@ const LoadingCardSpinner = ({
   return (
     <div className={styles.spinnerContainer} role="status" aria-live="polite">
       <div className={styles.loader} />
-      {message && <span className={styles.spinnerMessage}>{message}</span>}
+      {message && (
+        <span className={styles.spinnerMessage} aria-label={message}>
+          {message}
+        </span>
+      )}
     </div>
   );
 };

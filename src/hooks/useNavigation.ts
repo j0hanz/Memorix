@@ -1,14 +1,10 @@
 import { GAME_CONFIG } from '@/constants/constants';
 import { useModal } from '@/hooks/useModal';
 import { useSoundEffects } from '@/hooks/useSound';
-import type { GameHandlerOptions } from '@/types/hooks';
-
-interface NavigationOptions extends GameHandlerOptions {
-  isAuthenticated: boolean;
-}
+import type { NavigationOptions } from '@/types/hooks';
 
 export function useNavigation({
-  setIsLoading,
+  setLoading,
   setIsGameActive,
   setSelectedCategory,
   setShowLeaderboardModal,
@@ -18,6 +14,7 @@ export function useNavigation({
   const { playSound } = useSoundEffects();
   const { openModal, closeModal } = useModal();
 
+  // Creates a wrapper function that plays a sound before executing an action
   function createSoundAction<T extends unknown[]>(
     action: (...args: T) => void,
   ) {
@@ -27,17 +24,75 @@ export function useNavigation({
     };
   }
 
-  function showLoadingAndStartGame(callback?: () => void) {
+  // Shows loading state with message and executes callback after delay
+  function showLoadingWithMessage(
+    message: string,
+    type: string,
+    callback?: () => void,
+  ) {
     playSound('button');
-    setIsLoading(true);
+    setLoading({ isLoading: true, message, type });
     setTimeout(() => {
-      setIsLoading(false);
-      setIsGameActive(true);
+      setLoading({ isLoading: false, message: '', type: '' });
       if (callback) callback();
     }, GAME_CONFIG.LOADING_DELAY);
   }
 
-  // Open profile or auth modal based on authentication state
+  // Shows loading state and starts the game
+  function showLoadingAndStartGame(callback?: () => void) {
+    showLoadingWithMessage('Starting...', 'start', () => {
+      setIsGameActive(true);
+      if (callback) callback();
+    });
+  }
+
+  // Handles category selection and starts game
+  function handleSelectCategory(category: string) {
+    setSelectedCategory(category);
+    startGameWithCategory();
+  }
+
+  // Starts game with selected category
+  function startGameWithCategory() {
+    closeModal();
+    showLoadingAndStartGame();
+  }
+
+  // Handles game restart with loading animation
+  function handleRestart() {
+    playSound('button');
+    setLoading({ isLoading: true, message: 'Restarting...', type: 'restart' });
+    setTimeout(() => {
+      setIsGameActive(false);
+      setTimeout(() => {
+        setIsGameActive(true);
+        setTimeout(() => {
+          setLoading({ isLoading: false, message: '', type: '' });
+        }, 100);
+      }, 50);
+    }, GAME_CONFIG.LOADING_DELAY);
+  }
+
+  // Handles exiting the game with loading animation
+  function handleExit() {
+    playSound('button');
+    showLoadingWithMessage('Exiting...', 'exit', () => {
+      setIsGameActive(false);
+    });
+  }
+
+  // Resets app state to initial values
+  const handleAppReset = createSoundAction(() => {
+    setIsGameActive(false);
+    setLoading({ isLoading: false, message: '', type: '' });
+  });
+
+  // Opens category selection modal to start game
+  const startGame = createSoundAction(() => {
+    openModal('categorySelection');
+  });
+
+  // Handles account icon click based on authentication status
   function handleAccountClick() {
     playSound('button');
     if (isAuthenticated) {
@@ -47,6 +102,7 @@ export function useNavigation({
     }
   }
 
+  // Handles user logout and resets game state
   function handleLogout() {
     playSound('button');
     logout();
@@ -55,66 +111,55 @@ export function useNavigation({
     if (setShowLeaderboardModal) setShowLeaderboardModal(false);
   }
 
-  const closeAuthModal = createSoundAction(() => {
-    closeModal();
-  });
-  const startGame = createSoundAction(() => {
-    openModal('categorySelection');
-  });
+  // Opens game instructions modal
   const openInstructions = createSoundAction(() => {
     openModal('instructions');
   });
+
+  // Closes game instructions modal
   const closeInstructions = createSoundAction(() => {
     closeModal();
   });
+
+  // Opens latest updates modal
   const openLatestUpdates = createSoundAction(() => {
     openModal('latestUpdates');
   });
+
+  // Closes latest updates modal
   const closeLatestUpdates = createSoundAction(() => {
     closeModal();
   });
+
+  // Closes category selection modal
   const closeCategorySelection = createSoundAction(() => {
     closeModal();
   });
 
+  // Closes authentication modal
+  const closeAuthModal = createSoundAction(() => {
+    closeModal();
+  });
+
+  // Opens leaderboard modal
   const openLeaderboardModal = createSoundAction(() => {
     if (setShowLeaderboardModal) setShowLeaderboardModal(true);
   });
+
+  // Closes leaderboard modal
   const closeLeaderboardModal = createSoundAction(() => {
     if (setShowLeaderboardModal) setShowLeaderboardModal(false);
   });
 
-  function startGameWithCategory() {
-    closeModal();
-    showLoadingAndStartGame();
-  }
-
-  const handleRestart = createSoundAction(() => {
-    setIsGameActive(false);
-    setTimeout(() => {
-      setIsGameActive(true);
-    }, 300);
-  });
-
-  const handleExit = createSoundAction(() => {
-    setIsGameActive(false);
-  });
-  const handleAppReset = createSoundAction(() => {
-    setIsGameActive(false);
-    setIsLoading(false);
-  });
-
-  function handleSelectCategory(category: string) {
-    setSelectedCategory(category);
-    startGameWithCategory();
-  }
-
   return {
     startGame,
+    handleSelectCategory,
     handleRestart,
     handleExit,
     handleAppReset,
-    handleSelectCategory,
+    handleAccountClick,
+    handleLogout,
+    closeAuthModal,
     openInstructions,
     closeInstructions,
     openLatestUpdates,
@@ -122,8 +167,5 @@ export function useNavigation({
     closeCategorySelection,
     openLeaderboardModal,
     closeLeaderboardModal,
-    handleLogout,
-    handleAccountClick,
-    closeAuthModal,
   };
 }
