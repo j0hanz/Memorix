@@ -93,7 +93,7 @@ export const GAME_CONFIG = {
 
 // GitHub API config
 export const GITHUB_API = {
-  API_URL: 'https://api.github.com/repos/j0hanz/Memorix/commits',
+  API_URL: import.meta.env.VITE_GITHUB_API_URL as string,
   COMMITS_PER_PAGE: 3,
 };
 
@@ -109,7 +109,7 @@ export const TIMER = {
 
 // Axios configuration
 export const AXIOS_CONFIG = {
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: import.meta.env.VITE_API_BASE_URL as string,
   headersPost: {
     'Content-Type': 'application/json',
   },
