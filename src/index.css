@@ -1,4 +1,3 @@
-/* 2025 CSS: Added :focus-visible, :user-invalid, :user-valid, logical properties, and color-mix */
 body {
   font-family: 'Fredoka';
   background: color-mix(in srgb, var(--bg-primary) 90%, black 10%);
