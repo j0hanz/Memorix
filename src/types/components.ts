@@ -247,6 +247,7 @@ export interface Score {
   moves: number;
   time_seconds: number;
   completed_at: string;
+  username: string;
 }
 
 export interface LeaderboardProps {
