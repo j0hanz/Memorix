@@ -47,8 +47,3 @@
   --text-spacing: 0.05rem;
   --btn-catagory-border: 1px solid #18233a;
 }
-
-:where(input, select, textarea) {
-  padding-block: 0.5em;
-  padding-inline: 1em;
-}
