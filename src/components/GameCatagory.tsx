@@ -1,5 +1,7 @@
 import type { FC } from 'react';
-import { Form } from 'react-bootstrap';
+
+import type { SelectOption } from '@/components/Select';
+import Select from '@/components/Select';
 
 import styles from './styles/Modal.module.css';
 
@@ -15,6 +17,8 @@ export interface GameCategoryProps {
   value: string;
   onChange: (v: string) => void;
   loading?: boolean;
+  showAllOption?: boolean;
+  hideLabel?: boolean;
 }
 
 export const GameCategory: FC<GameCategoryProps> = ({
@@ -24,28 +28,26 @@ export const GameCategory: FC<GameCategoryProps> = ({
   value,
   onChange,
   loading = false,
-}) => (
-  <Form.Group className="mb-3">
-    {label && (
-      <Form.Label htmlFor={id} className="m-2">
-        {label}
-      </Form.Label>
-    )}
-    <Form.Select
-      id={id}
-      value={value}
-      onChange={(e) => {
-        onChange(e.target.value);
-      }}
-      disabled={loading}
-      className={styles.formSelect}
-    >
-      <option value="">All Categories</option>
-      {options.map((opt) => (
-        <option key={opt.value} value={opt.value}>
-          {opt.label}
-        </option>
-      ))}
-    </Form.Select>
-  </Form.Group>
-);
+  showAllOption = true,
+  hideLabel = false,
+}) => {
+  const selectOptions: SelectOption[] = showAllOption ? options : [...options];
+
+  return (
+    <div className="mb-2">
+      <Select
+        id={id}
+        value={value}
+        onChange={onChange}
+        options={selectOptions}
+        placeholder={showAllOption ? 'All Categories' : undefined}
+        disabled={loading}
+        className={styles.formSelect}
+        label={!hideLabel ? label : undefined}
+        hideLabel={hideLabel}
+      />
+    </div>
+  );
+};
+
+export default GameCategory;

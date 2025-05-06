@@ -1,13 +1,14 @@
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { useState } from 'react';
-import { Col, Form, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 
 import { useLeaderboard } from '@/hooks/useLeaderboard';
 import type { LeaderboardProps } from '@/types/components';
 import { CATEGORY_OPTIONS } from '@/utils/categoryUtils';
 
 import Button from './Button';
+import Select from './Select';
 import StarRating from './StarRating';
 import styles from './styles/Modal.module.css';
 
@@ -17,32 +18,30 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
   );
   const { leaderboard, loading, error } = useLeaderboard(selectedCategory);
 
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
+  const handleCategoryChange = (value: string) => {
     setSelectedCategory(value ? parseInt(value, 10) : undefined);
   };
 
+  const categoryOptions = CATEGORY_OPTIONS.map((cat) => ({
+    value: cat.id.toString(),
+    label: cat.label,
+  }));
+
   return (
     <>
-      <Form.Group>
-        <Form.Label className="d-none" htmlFor="category-select">
-          Filter by Category
-        </Form.Label>
-        <Form.Select
+      <div className="mb-3">
+        <Select
           id="category-select"
           name="category"
+          value={selectedCategory?.toString() || ''}
           onChange={handleCategoryChange}
-          value={selectedCategory || ''}
+          options={categoryOptions}
+          placeholder="All Categories"
+          label="Filter by Category"
+          hideLabel={true}
           className={styles.formSelect}
-        >
-          <option value="">All Categories</option>
-          {CATEGORY_OPTIONS.map((cat) => (
-            <option key={cat.id} value={cat.id}>
-              {cat.label}
-            </option>
-          ))}
-        </Form.Select>
-      </Form.Group>
+        />
+      </div>
       {loading ? (
         <div className="text-center p-4">Loading leaderboard...</div>
       ) : error ? (

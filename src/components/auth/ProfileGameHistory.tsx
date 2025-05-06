@@ -40,6 +40,19 @@ export function ProfileGameHistory({
     );
   }, []);
 
+  // Only show categories the user has played for best scores
+  const playedCategories: GameOptions[] = bestCats.map((c) => ({
+    value: c,
+    label: c,
+  }));
+
+  // Auto-select if only one played category
+  useEffect(() => {
+    if (playedCategories.length === 1) {
+      setBestCategory(playedCategories[0].value);
+    }
+  }, [playedCategories]);
+
   const { filtered, totalPages, validPageScores } = usePaginated(
     scores,
     filterCategory,
@@ -54,13 +67,14 @@ export function ProfileGameHistory({
       <GameCategory
         id="best-score-category"
         label="Best Scores"
-        options={bestCats.map((c) => ({ value: c, label: c }))}
+        options={playedCategories}
         value={bestCategory}
         onChange={(v) => {
           setBestCategory(v);
           setPage(1);
         }}
         loading={loadingBest}
+        showAllOption={false}
       />
       {selectedBest && (
         <ScoreRow key={selectedBest.id} score={selectedBest} highlight={true} />
@@ -69,12 +83,14 @@ export function ProfileGameHistory({
       <GameCategory
         id="filter-category"
         label="Filter by Category"
+        hideLabel={true}
         options={allCats}
         value={filterCategory}
         onChange={(v) => {
           setFilterCategory(v);
           setPage(1);
         }}
+        showAllOption={true}
       />
 
       {loadingScores ? (

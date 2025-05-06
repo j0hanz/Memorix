@@ -21,21 +21,31 @@ body {
   }
 }
 
+label {
+  padding: 0.5rem 1rem;
+}
+
 .form-select,
 select {
   background-color: var(--bg-secondary);
   border: none;
-  &:user-invalid {
-    outline: 2px solid var(--feedback-wrong);
-  }
-  &:user-valid {
-    outline: 2px solid var(--feedback-correct);
-  }
-}
+  outline: none;
+  appearance: none;
+  color: var(--text-color);
+  border-bottom: 1px solid var(--input-border-color);
+  border-radius: 0;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  width: 100%;
+  transition: border-color 0.2s ease;
 
-select {
-  &:focus-visible {
-    box-shadow: 0 0 0 2px var(--btn-primary);
+  &:hover {
+    border-color: var(--input-border-color-hover);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 }
 
