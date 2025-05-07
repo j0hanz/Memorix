@@ -61,7 +61,9 @@ export function CommitStatus({ onClose }: { onClose?: () => void }) {
 
   if (error) {
     return (
-      <div className={styles.commitStatus}>Failed to load commit data.</div>
+      <div className={styles.commitStatus} role="alert">
+        {typeof error === 'string' ? error : error.message}
+      </div>
     );
   }
 

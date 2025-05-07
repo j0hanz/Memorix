@@ -9,21 +9,31 @@ export function useLeaderboard(categoryId?: number) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const controller = new AbortController();
+    setLoading(true);
     const fetchLeaderboard = async () => {
       try {
-        setLoading(true);
         const data = await gameService.getLeaderboard(categoryId);
-        setLeaderboard(data);
-        setError(null);
+        if (!controller.signal.aborted) {
+          setLeaderboard(data);
+          setError(null);
+        }
       } catch (err) {
-        console.error('Failed to fetch leaderboard:', err);
-        setError('Failed to load leaderboard data');
+        if (!controller.signal.aborted) {
+          console.error('Failed to fetch leaderboard:', err);
+          setError('Failed to load leaderboard data');
+        }
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
     };
 
     void fetchLeaderboard();
+    return () => {
+      controller.abort();
+    };
   }, [categoryId]);
 
   return { leaderboard, loading, error };

@@ -2,6 +2,7 @@ import type { ChangeEvent, FormEvent } from 'react';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
+import { useValidate } from '@/hooks/useValidate';
 import type { ValidationRules } from '@/types/hooks';
 
 // This hook is used to manage form state and validation.
@@ -20,46 +21,19 @@ export function useForm<T extends Record<string, string>>(
   onSubmit?: (values: T) => Promise<boolean>,
 ) {
   const [values, setValues] = useState<T>(initialValues);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  // Derive validation errors using useValidate
+  const errors = useValidate(values, validationRules);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues((prev) => ({ ...prev, [name]: value }));
-
-    if (validationRules && validationRules[name]) {
-      const error = validationRules[name](value, values);
-      setErrors((prev) => ({ ...prev, [name]: error || '' }));
-    }
   };
 
   const handleBlur = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
-
-    if (validationRules && validationRules[name]) {
-      const error = validationRules[name](value, values);
-      setErrors((prev) => ({ ...prev, [name]: error || '' }));
-    }
-  };
-
-  const validateForm = (): boolean => {
-    if (!validationRules) return true;
-
-    const newErrors: Record<string, string> = {};
-    let isValid = true;
-
-    Object.keys(validationRules).forEach((field) => {
-      const error = validationRules[field](values[field as keyof T], values);
-      if (error) {
-        newErrors[field] = error;
-        isValid = false;
-      }
-    });
-
-    setErrors(newErrors);
-    return isValid;
   };
 
   const handleSubmit = async (e?: FormEvent<HTMLFormElement>) => {
@@ -68,7 +42,7 @@ export function useForm<T extends Record<string, string>>(
     }
     setFormSubmitted(true);
 
-    // Set all fields as touched for validation
+    // Mark all fields as touched
     const allTouched = Object.keys(values).reduce<Record<string, boolean>>(
       (acc, key) => {
         acc[key] = true;
@@ -78,7 +52,7 @@ export function useForm<T extends Record<string, string>>(
     );
     setTouched(allTouched);
 
-    const isValid = validateForm();
+    const isValid = !validationRules || Object.keys(errors).length === 0;
     if (!isValid || !onSubmit) return false;
 
     try {
@@ -106,7 +80,6 @@ export function useForm<T extends Record<string, string>>(
     handleBlur,
     handleSubmit,
     setValues,
-    setErrors,
     createFormAction,
   };
 }

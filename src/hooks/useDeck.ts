@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { CATEGORIES } from '@/constants/constants';
 import { generateCards } from '@/data/cardData';
@@ -6,29 +6,38 @@ import type { PairedCard } from '@/types/card';
 import { shuffleCards } from '@/utils/deckUtils';
 
 export function useDeck(category = CATEGORIES.ANIMALS) {
-  const [deck, setDeck] = useState<PairedCard[]>(() => {
+  const [deck, setDeck] = useState<PairedCard[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  // Generate and shuffle deck when category changes
+  useEffect(() => {
     try {
       const cards = generateCards(category);
-      return shuffleCards(cards);
-    } catch (error) {
-      console.error('Error generating or shuffling cards:', error);
-      return [];
+      setDeck(shuffleCards(cards));
+      setError(null);
+    } catch (err: unknown) {
+      console.error('Error generating or shuffling cards:', err);
+      setError(err instanceof Error ? err.message : String(err));
+      setDeck([]);
     }
-  });
+  }, [category]);
 
   function refreshDeck(newCategory?: string) {
     try {
       const cat = newCategory || category;
-      const newDeck = shuffleCards(generateCards(cat));
-      setDeck(newDeck);
-    } catch (error) {
-      console.error('Error refreshing deck:', error);
+      const cards = generateCards(cat);
+      setDeck(shuffleCards(cards));
+      setError(null);
+    } catch (err: unknown) {
+      console.error('Error refreshing deck:', err);
+      setError(err instanceof Error ? err.message : String(err));
+      setDeck([]);
     }
   }
 
   return {
     deck,
-    setDeck,
+    error,
     refreshDeck,
   };
 }

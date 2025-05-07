@@ -79,15 +79,17 @@ export function useAuthProvider(): AuthContextType {
     }
   }, [token, user]);
 
-  // Initialize user from stored token with improved token validation
+  // Initialize authentication state and fetch user data
   useEffect(() => {
-    const initializeUser = async () => {
+    const controller = new AbortController();
+    const initializeAuth = async () => {
       if (!token) return;
 
       setLoading(true);
       setError(null);
 
       try {
+        // Refresh token if expired
         if (isTokenExpired(token)) {
           const newToken = await refreshAccessToken();
           if (newToken) {
@@ -98,32 +100,47 @@ export function useAuthProvider(): AuthContextType {
           }
         }
 
-        const userResponse = await axiosReq.get<User>('/dj-rest-auth/user/');
+        // Fetch user
+        const userResponse = await axiosReq.get<User>('/dj-rest-auth/user/', {
+          signal: controller.signal,
+        });
+        if (controller.signal.aborted) return;
         setUser(userResponse.data);
+
+        // Fetch profile if available
+        if (userResponse.data.profile_id != null) {
+          const profileResp = await axiosReq.get<Profile>(
+            `/api/profiles/${String(userResponse.data.profile_id)}/`,
+            { signal: controller.signal },
+          );
+          if (!controller.signal.aborted) {
+            setProfile(profileResp.data);
+          }
+        }
       } catch (err: unknown) {
-        console.error('Error during token initialization:', err);
-        const errorObj = err as ApiError;
-        const errorMessage =
-          errorObj.response?.data?.detail &&
-          typeof errorObj.response.data.detail === 'string'
-            ? errorObj.response.data.detail
-            : 'Authentication error';
-        setError(errorMessage);
-        logout();
+        if (!controller.signal.aborted) {
+          console.error('Error during auth initialization:', err);
+          const errorObj = err as ApiError;
+          const errorMessage =
+            errorObj.response?.data?.detail &&
+            typeof errorObj.response.data.detail === 'string'
+              ? errorObj.response.data.detail
+              : 'Authentication error';
+          setError(errorMessage);
+          logout();
+        }
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
       }
     };
 
-    void initializeUser();
+    void initializeAuth();
+    return () => {
+      controller.abort();
+    };
   }, [token, logout, setAuthTokens]);
-
-  // Fetch profile when user changes
-  useEffect(() => {
-    if (user && user.id) {
-      void fetchProfile();
-    }
-  }, [user, fetchProfile]);
 
   // Listen for global logout events with enhanced event data
   useEffect(() => {

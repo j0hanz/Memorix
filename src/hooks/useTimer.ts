@@ -6,30 +6,29 @@ export function useTimer(timerActive: boolean): number {
   const startTimeRef = useRef<number | null>(null);
 
   useEffect(() => {
-    // Cleanup function to cancel the animation frame
     let animationFrameId: number;
-
     if (timerActive) {
-      // Initialize start time if not already set
-      startTimeRef.current = startTimeRef.current || Date.now();
-      const updateTimer = () => {
-        // Calculate elapsed time
-        const currentTime = Math.floor(
-          (Date.now() - (startTimeRef.current || 0)) / 1000,
+      // Initialize start time once
+      if (startTimeRef.current === null) {
+        startTimeRef.current = Date.now();
+      }
+      const update = () => {
+        setElapsedTime(() =>
+          Math.floor((Date.now() - (startTimeRef.current || 0)) / 1000),
         );
-        if (currentTime !== elapsedTime) {
-          setElapsedTime(currentTime);
-        }
-        animationFrameId = requestAnimationFrame(updateTimer);
+        animationFrameId = requestAnimationFrame(update);
       };
-      animationFrameId = requestAnimationFrame(updateTimer);
+      animationFrameId = requestAnimationFrame(update);
+    } else {
+      // Reset timer when inactive
+      if (startTimeRef.current !== null) {
+        startTimeRef.current = null;
+        setElapsedTime(0);
+      }
     }
     return () => {
       cancelAnimationFrame(animationFrameId);
-      if (!timerActive) {
-        startTimeRef.current = null;
-      }
     };
-  }, [timerActive, elapsedTime]);
+  }, [timerActive]);
   return elapsedTime;
 }

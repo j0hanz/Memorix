@@ -9,21 +9,21 @@ export function useCommit() {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    let isMounted = true;
+    const controller = new AbortController();
 
     const loadCommits = async () => {
       try {
         const data = await fetchLatestCommits();
-        if (isMounted) {
+        if (!controller.signal.aborted) {
           setCommits(data);
         }
       } catch (err) {
-        if (isMounted) {
+        if (!controller.signal.aborted) {
           setError(err as Error);
           console.error('Failed to fetch commits:', err);
         }
       } finally {
-        if (isMounted) {
+        if (!controller.signal.aborted) {
           setLoading(false);
         }
       }
@@ -32,7 +32,7 @@ export function useCommit() {
     void loadCommits();
 
     return () => {
-      isMounted = false;
+      controller.abort();
     };
   }, []);
 
