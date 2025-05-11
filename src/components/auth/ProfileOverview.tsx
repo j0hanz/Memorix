@@ -1,4 +1,5 @@
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Col } from 'react-bootstrap';
 
 import Button from '@/components/Button';
@@ -18,9 +19,9 @@ const ProfileOverview: React.FC<
   logout,
   extraButton,
 }) => (
-  <>
+  <div className="d-flex flex-row align-items-center p-3">
     <div className={styles.profileImageContainer}>
-      <Col className="d-flex flex-column justify-content-center p-1">
+      <Col className="d-flex flex-column justify-content-center">
         <div>
           <img
             src={previewImage || profile?.profile_picture_url}
@@ -52,7 +53,7 @@ const ProfileOverview: React.FC<
         </div>
       </Col>
     </div>
-    <Col className="d-flex flex-column p-3">
+    <Col className="d-flex flex-column">
       <div className={styles.profileUsername}>{user.username}</div>
       {profile ? (
         <>
@@ -68,6 +69,7 @@ const ProfileOverview: React.FC<
               className={`${styles.btnMain} ${styles.btnLogout}`}
               variant="menu"
               text="Sign Out"
+              icon={<LogoutIcon fontSize="small" />}
               color="secondary"
             />
             {extraButton}
@@ -77,7 +79,7 @@ const ProfileOverview: React.FC<
         <span className={styles.accountInfo} />
       )}
     </Col>
-  </>
+  </div>
 );
 
 export default ProfileOverview;

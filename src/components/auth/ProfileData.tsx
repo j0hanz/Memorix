@@ -1,7 +1,9 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import HistoryIcon from '@mui/icons-material/History';
+import LockResetIcon from '@mui/icons-material/LockReset';
 import PersonIcon from '@mui/icons-material/Person';
 import { useState } from 'react';
 import { Row } from 'react-bootstrap';
@@ -129,6 +131,7 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
               }}
               type="button"
               color="secondary"
+              icon={<LockResetIcon fontSize="small" />}
             />
             <Button
               className={`${styles.btnMain} ${styles.btnDelete}`}
@@ -138,6 +141,7 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
                 setShowDeleteTab(true);
               }}
               type="button"
+              icon={<DeleteOutlineIcon fontSize="small" />}
               color="secondary"
             />
           </>
