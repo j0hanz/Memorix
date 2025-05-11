@@ -19,67 +19,62 @@ const ProfileOverview: React.FC<
   logout,
   extraButton,
 }) => (
-  <div className="d-flex flex-row align-items-center p-3">
+  <Col className="d-flex justify-content-around align-items-center my-3">
     <div className={styles.profileImageContainer}>
-      <Col className="d-flex flex-column justify-content-center">
-        <div>
-          <img
-            src={previewImage || profile?.profile_picture_url}
-            alt="Profile"
-            className={styles.profileImage}
-            onError={(e) => {
-              console.error('Image load error:', e);
-            }}
-          />
-          <Button
-            className={styles.btnUpload}
-            icon={<DriveFolderUploadIcon fontSize="small" />}
-            color="secondary"
-            text="Upload"
-            variant="menu"
-            onClick={() => {
-              document.getElementById('profilePictureInput')?.click();
-            }}
-            aria-controls="profilePictureInput"
-          />
-          <input
-            type="file"
-            id="profilePictureInput"
-            accept="image/*"
-            onChange={handleImageChange}
-            className={styles.fileInputHidden}
-            aria-label="Upload"
-          />
-        </div>
-      </Col>
+      <img
+        src={previewImage || profile?.profile_picture_url}
+        alt="Profile"
+        className={styles.profileImage}
+        onError={(e) => {
+          console.error('Image load error:', e);
+        }}
+      />
+      <Button
+        className={`${styles.btnUpload} ${styles.btnMain}`}
+        icon={<DriveFolderUploadIcon fontSize="small" />}
+        color="secondary"
+        text="Upload"
+        variant="menu"
+        onClick={() => {
+          document.getElementById('profilePictureInput')?.click();
+        }}
+        aria-controls="profilePictureInput"
+      />
+      <input
+        type="file"
+        id="profilePictureInput"
+        accept="image/*"
+        onChange={handleImageChange}
+        className={styles.fileInputHidden}
+        aria-label="Upload"
+      />
     </div>
-    <Col className="d-flex flex-column">
-      <div className={styles.profileUsername}>{user.username}</div>
-      {profile ? (
-        <>
-          <span className={styles.accountInfo}>
-            Created: {formatDate(profile.created_at)}
-          </span>
-          <span className={styles.accountInfo}>
-            Updated: {formatDate(profile.updated_at)}
-          </span>
-          <div className={styles.menuButtons}>
-            <Button
-              onClick={logout}
-              className={`${styles.btnMain} ${styles.btnLogout}`}
-              variant="menu"
-              text="Sign Out"
-              icon={<LogoutIcon fontSize="small" />}
-              color="secondary"
-            />
-            {extraButton}
-          </div>
-        </>
-      ) : (
-        <span className={styles.accountInfo} />
-      )}
-    </Col>
-  </div>
+
+    {profile ? (
+      <>
+        <span className={styles.accountInfo}>
+          Created: {formatDate(profile.created_at)}
+        </span>
+        <span className={styles.accountInfo}>
+          Updated: {formatDate(profile.updated_at)}
+        </span>
+        <div className={styles.menuButtons}>
+          {user.username}
+          <Button
+            onClick={logout}
+            className={`${styles.btnMain} ${styles.btnLogout}`}
+            variant="menu"
+            text="Sign Out"
+            icon={<LogoutIcon fontSize="small" />}
+            color="secondary"
+          />
+          {extraButton}
+        </div>
+      </>
+    ) : (
+      <span className={styles.accountInfo} />
+    )}
+  </Col>
 );
 
 export default ProfileOverview;
