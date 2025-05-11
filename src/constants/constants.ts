@@ -43,8 +43,8 @@ export const CARD_STATUS = {
 // Categories and descriptions
 export const CATEGORIES = {
   ANIMALS: 'animals',
-  ASTRONOMY: 'astronomy',
-  PATTERN: 'pattern',
+  NATURE: 'nature',
+  VEHICLES: 'vehicles',
   FOOD: 'food',
 };
 
@@ -52,11 +52,11 @@ export const CATEGORY_INFO = {
   [CATEGORIES.ANIMALS]: {
     name: 'Animals',
   },
-  [CATEGORIES.ASTRONOMY]: {
-    name: 'Astronomy',
+  [CATEGORIES.NATURE]: {
+    name: 'Nature',
   },
-  [CATEGORIES.PATTERN]: {
-    name: 'Patterns',
+  [CATEGORIES.VEHICLES]: {
+    name: 'Vehicles',
   },
   [CATEGORIES.FOOD]: {
     name: 'Food',

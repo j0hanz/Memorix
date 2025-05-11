@@ -4,19 +4,19 @@ import type { CardDef, PairedCard } from '@/types/card';
 const IMAGE_PATHS = {
   [CATEGORIES.ANIMALS]: Array.from(
     { length: 6 },
-    (_, i) => `/img/animals/${String(i + 1)}.gif`,
+    (_, i) => `/img/animals/${String(i + 1)}.png`,
   ),
-  [CATEGORIES.ASTRONOMY]: Array.from(
+  [CATEGORIES.NATURE]: Array.from(
     { length: 6 },
-    (_, i) => `/img/astronomy/${String(i + 1)}.gif`,
+    (_, i) => `/img/nature/${String(i + 1)}.png`,
   ),
-  [CATEGORIES.PATTERN]: Array.from(
+  [CATEGORIES.VEHICLES]: Array.from(
     { length: 6 },
-    (_, i) => `/img/pattern/${String(i + 1)}.gif`,
+    (_, i) => `/img/vehicles/${String(i + 1)}.png`,
   ),
   [CATEGORIES.FOOD]: Array.from(
     { length: 6 },
-    (_, i) => `/img/food/${String(i + 1)}.gif`,
+    (_, i) => `/img/food/${String(i + 1)}.png`,
   ),
 };
 

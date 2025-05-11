@@ -1,21 +1,24 @@
-import PetsIcon from '@mui/icons-material/Pets';
-import PublicIcon from '@mui/icons-material/Public';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
-import PatternIcon from '@mui/icons-material/Wallpaper';
+import CrueltyFreeOutlinedIcon from '@mui/icons-material/CrueltyFreeOutlined';
+import DirectionsCarOutlinedIcon from '@mui/icons-material/DirectionsCarOutlined';
+import ParkOutlinedIcon from '@mui/icons-material/ParkOutlined';
+import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
 import type { ReactElement } from 'react';
 import React from 'react';
 
 export const CATEGORY_ICONS: Record<string, () => ReactElement> = {
-  Animals: () => React.createElement(PetsIcon, { fontSize: 'small' }),
-  Astronomy: () => React.createElement(PublicIcon, { fontSize: 'small' }),
-  Patterns: () => React.createElement(PatternIcon, { fontSize: 'small' }),
-  Food: () => React.createElement(RestaurantIcon, { fontSize: 'small' }),
+  Animals: () =>
+    React.createElement(CrueltyFreeOutlinedIcon, { fontSize: 'small' }),
+  Nature: () => React.createElement(ParkOutlinedIcon, { fontSize: 'small' }),
+  Vehicles: () =>
+    React.createElement(DirectionsCarOutlinedIcon, { fontSize: 'small' }),
+  Food: () =>
+    React.createElement(RestaurantOutlinedIcon, { fontSize: 'small' }),
 };
 
 export const CATEGORY_OPTIONS = [
   { label: 'Animals', value: 'Animals', id: 1 },
-  { label: 'Astronomy', value: 'Astronomy', id: 2 },
-  { label: 'Patterns', value: 'Patterns', id: 3 },
+  { label: 'Nature', value: 'Nature', id: 2 },
+  { label: 'Vehicles', value: 'Vehicles', id: 3 },
   { label: 'Food', value: 'Food', id: 4 },
 ];
 
