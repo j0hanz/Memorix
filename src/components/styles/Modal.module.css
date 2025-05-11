@@ -55,11 +55,11 @@
 }
 
 .btnCategorySelect {
-  border: var(--btn-catagory-border);
-  height: 3rem;
+  border: 1px solid var(--bg-modal-content);
+  height: 3.5rem;
   border-radius: 0;
   &:is(:hover, :active) {
-    border: var(--btn-catagory-border) !important;
+    border: 1px solid var(--bg-modal-content) !important;
   }
 }
 

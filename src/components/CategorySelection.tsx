@@ -22,10 +22,10 @@ export function CategorySelection({
       <Modal.Header className="border-0 d-flex justify-content-center">
         <Modal.Title>Select Category</Modal.Title>
       </Modal.Header>
-      <Modal.Body className="px-0">
+      <Modal.Body className="p-0">
         <CategoryData onSelectCategory={onSelectCategory} />
       </Modal.Body>
-      <Modal.Footer className="border-0 mt-3">
+      <Modal.Footer className="border-0 mt-4">
         <Button
           className={`${styles.closeButtonSolo} ${styles.modalButton}`}
           icon={<CloseOutlinedIcon fontSize="small" />}

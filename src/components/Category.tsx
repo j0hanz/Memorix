@@ -1,5 +1,6 @@
 import { CATEGORY_INFO } from '@/constants/constants';
 import type { CategoryDataProps } from '@/types/components';
+import { getCategoryIcon } from '@/utils/categoryUtils';
 
 import Button from './Button';
 import styles from './styles/Modal.module.css';
@@ -22,7 +23,9 @@ export default function CategoryData({ onSelectCategory }: CategoryDataProps) {
           }}
           aria-label={`Select ${info.name} category`}
           text={info.name}
+          icon={getCategoryIcon(info.name)}
           color="secondary"
+          variant="menu"
         />
       ))}
     </div>
