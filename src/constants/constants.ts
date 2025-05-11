@@ -45,7 +45,7 @@ export const CATEGORIES = {
   ANIMALS: 'animals',
   ASTRONOMY: 'astronomy',
   PATTERN: 'pattern',
-  SUSHI: 'sushi',
+  FOOD: 'food',
 };
 
 export const CATEGORY_INFO = {
@@ -58,8 +58,8 @@ export const CATEGORY_INFO = {
   [CATEGORIES.PATTERN]: {
     name: 'Patterns',
   },
-  [CATEGORIES.SUSHI]: {
-    name: 'Sushi',
+  [CATEGORIES.FOOD]: {
+    name: 'Food',
   },
 };
 

@@ -14,9 +14,9 @@ const IMAGE_PATHS = {
     { length: 6 },
     (_, i) => `/img/pattern/${String(i + 1)}.gif`,
   ),
-  [CATEGORIES.SUSHI]: Array.from(
+  [CATEGORIES.FOOD]: Array.from(
     { length: 6 },
-    (_, i) => `/img/sushi/${String(i + 1)}.gif`,
+    (_, i) => `/img/food/${String(i + 1)}.gif`,
   ),
 };
 

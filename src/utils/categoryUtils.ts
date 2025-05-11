@@ -9,14 +9,14 @@ export const CATEGORY_ICONS: Record<string, () => ReactElement> = {
   Animals: () => React.createElement(PetsIcon, { fontSize: 'small' }),
   Astronomy: () => React.createElement(PublicIcon, { fontSize: 'small' }),
   Patterns: () => React.createElement(PatternIcon, { fontSize: 'small' }),
-  Sushi: () => React.createElement(RestaurantIcon, { fontSize: 'small' }),
+  Food: () => React.createElement(RestaurantIcon, { fontSize: 'small' }),
 };
 
 export const CATEGORY_OPTIONS = [
   { label: 'Animals', value: 'Animals', id: 1 },
   { label: 'Astronomy', value: 'Astronomy', id: 2 },
   { label: 'Patterns', value: 'Patterns', id: 3 },
-  { label: 'Sushi', value: 'Sushi', id: 4 },
+  { label: 'Food', value: 'Food', id: 4 },
 ];
 
 // Get icon by category name
