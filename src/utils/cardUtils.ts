@@ -1,16 +1,22 @@
 import { CARD_STATUS } from '@/constants/constants';
 import type { PairedCard } from '@/types/card';
 
-export enum CardState {
-  Default = '',
-  Active = 'active',
-  Matched = 'active matched',
-}
+export type CardState = '' | 'active' | 'active matched';
+
+export const CARD_STATE: {
+  Default: CardState;
+  Active: CardState;
+  Matched: CardState;
+} = {
+  Default: '',
+  Active: 'active',
+  Matched: 'active matched',
+};
 
 export function setCardStatus(
   cards: PairedCard[],
   index: number,
-  status: CardState | string,
+  status: string,
 ): PairedCard[] {
   if (index < 0 || index >= cards.length) return cards;
   const updated = [...cards];
@@ -21,7 +27,7 @@ export function setCardStatus(
 export function setMultipleCardStatus(
   cards: PairedCard[],
   indexes: number[],
-  status: CardState | string,
+  status: string,
 ): PairedCard[] {
   const updated = [...cards];
   indexes.forEach((i) => {
@@ -34,7 +40,7 @@ export function setMultipleCardStatus(
 
 export function setAllCardsStatus(
   cards: PairedCard[],
-  status: CardState | string,
+  status: string,
 ): PairedCard[] {
   return cards.map((card) => ({ ...card, status }));
 }

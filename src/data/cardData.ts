@@ -18,6 +18,14 @@ const IMAGE_PATHS = {
     { length: 6 },
     (_, i) => `/img/food/${String(i + 1)}.png`,
   ),
+  [CATEGORIES.SHAPES]: Array.from(
+    { length: 6 },
+    (_, i) => `/img/shapes/${String(i + 1)}.png`,
+  ),
+  [CATEGORIES.NUMBERS]: Array.from(
+    { length: 6 },
+    (_, i) => `/img/numbers/${String(i + 1)}.png`,
+  ),
 };
 
 export function generateCards(category = CATEGORIES.ANIMALS): PairedCard[] {

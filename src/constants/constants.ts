@@ -46,6 +46,8 @@ export const CATEGORIES = {
   NATURE: 'nature',
   VEHICLES: 'vehicles',
   FOOD: 'food',
+  SHAPES: 'shapes',
+  NUMBERS: 'numbers',
 };
 
 export const CATEGORY_INFO = {
@@ -60,6 +62,12 @@ export const CATEGORY_INFO = {
   },
   [CATEGORIES.FOOD]: {
     name: 'Food',
+  },
+  [CATEGORIES.SHAPES]: {
+    name: 'Shapes',
+  },
+  [CATEGORIES.NUMBERS]: {
+    name: 'Numbers',
   },
 };
 
