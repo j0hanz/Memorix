@@ -225,6 +225,13 @@
   }
 }
 
+.profileImageContainer {
+  display: flex;
+  flex-direction: column;
+  padding-inline: 1rem;
+  width: 9rem;
+}
+
 .profileImage {
   aspect-ratio: 1/1;
   width: 100%;
@@ -232,16 +239,6 @@
   border: 1px solid var(--btn-secondary);
   border-radius: 10px 10px 0 0;
   object-fit: cover;
-}
-
-.profileImageContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-inline: 1rem;
-  width: 9rem;
-  height: 100%;
 }
 
 .profileUsername {

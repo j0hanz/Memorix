@@ -19,37 +19,39 @@ const ProfileOverview: React.FC<
   extraButton,
 }) => (
   <>
-    <Col className="d-flex flex-column justify-content-center p-3">
-      <div className={styles.profileImageContainer}>
-        <img
-          src={previewImage || profile?.profile_picture_url}
-          alt="Profile"
-          className={styles.profileImage}
-          onError={(e) => {
-            console.error('Image load error:', e);
-          }}
-        />
-        <Button
-          className={styles.btnUpload}
-          icon={<DriveFolderUploadIcon fontSize="small" />}
-          color="secondary"
-          text="Upload"
-          variant="menu"
-          onClick={() => {
-            document.getElementById('profilePictureInput')?.click();
-          }}
-          aria-controls="profilePictureInput"
-        />
-        <input
-          type="file"
-          id="profilePictureInput"
-          accept="image/*"
-          onChange={handleImageChange}
-          className={styles.fileInputHidden}
-          aria-label="Upload"
-        />
-      </div>
-    </Col>
+    <div className={styles.profileImageContainer}>
+      <Col className="d-flex flex-column justify-content-center p-1">
+        <div>
+          <img
+            src={previewImage || profile?.profile_picture_url}
+            alt="Profile"
+            className={styles.profileImage}
+            onError={(e) => {
+              console.error('Image load error:', e);
+            }}
+          />
+          <Button
+            className={styles.btnUpload}
+            icon={<DriveFolderUploadIcon fontSize="small" />}
+            color="secondary"
+            text="Upload"
+            variant="menu"
+            onClick={() => {
+              document.getElementById('profilePictureInput')?.click();
+            }}
+            aria-controls="profilePictureInput"
+          />
+          <input
+            type="file"
+            id="profilePictureInput"
+            accept="image/*"
+            onChange={handleImageChange}
+            className={styles.fileInputHidden}
+            aria-label="Upload"
+          />
+        </div>
+      </Col>
+    </div>
     <Col className="d-flex flex-column p-3">
       <div className={styles.profileUsername}>{user.username}</div>
       {profile ? (
