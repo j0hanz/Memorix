@@ -52,10 +52,21 @@ export function ProfileGameHistory({
     }
   }, [playedCategories]);
 
-  // Filter scores by category if needed
+  // Auto-select if only one category in allCats
   const filteredScores = filterCategory
-    ? scores.filter((s) => s.category_name === filterCategory)
+    ? scores.filter((s) => {
+        console.log(
+          `Comparing score category "${s.category_name}" with filter "${filterCategory}"`,
+        );
+        return s.category_name.toLowerCase() === filterCategory.toLowerCase();
+      })
     : scores;
+
+  console.log('Filter category:', filterCategory);
+  console.log(
+    'Available categories:',
+    scores.map((s) => s.category_name),
+  );
 
   const totalPages = Math.ceil(
     (filterCategory ? filteredScores.length : scoresCount) / ITEMS_PER_PAGE,
@@ -68,7 +79,10 @@ export function ProfileGameHistory({
       )
     : scores;
 
-  const selectedBest = bestScores.find((s) => s.category_name === bestCategory);
+  // Make the best scores comparison case-insensitive too
+  const selectedBest = bestScores.find(
+    (s) => s.category_name.toLowerCase() === bestCategory.toLowerCase(),
+  );
 
   return (
     <>
