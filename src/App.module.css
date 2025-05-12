@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 15rem;
+  min-height: 30rem;
   container-type: inline-size;
 }
 
