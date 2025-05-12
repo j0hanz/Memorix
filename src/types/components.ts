@@ -195,6 +195,14 @@ export interface ProfileGameHistoryProps {
   loadingScores: boolean;
 }
 
+export interface UseGameHistoryProps {
+  scores: UserScore[];
+  loadingScores: boolean;
+  scoresCount: number;
+  scoresPage: number;
+  setScoresPage: (page: number) => void;
+}
+
 // Protected Route
 export interface ProtectedRouteProps {
   children: ReactNode;

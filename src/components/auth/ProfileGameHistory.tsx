@@ -1,13 +1,8 @@
-import { useEffect, useState } from 'react';
-
 import { GameCategory } from '@/components/GameCatagory';
 import { Pagination } from '@/components/Pagination';
 import { ScoreRow } from '@/components/ScoreRow';
-import { useBestScores } from '@/hooks/useBestScores';
-import type { GameOptions, ProfileGameHistoryProps } from '@/types/components';
-import { CATEGORY_OPTIONS } from '@/utils/categoryUtils';
-
-const ITEMS_PER_PAGE = 5;
+import { useGameHistory } from '@/hooks/useGameHistory';
+import type { ProfileGameHistoryProps } from '@/types/components';
 
 export function ProfileGameHistory({
   scores = [],
@@ -20,60 +15,27 @@ export function ProfileGameHistory({
   scoresPage: number;
   setScoresPage: (page: number) => void;
 }) {
-  const [filterCategory, setFilterCategory] = useState<string>('');
-  const [bestCategory, setBestCategory] = useState<string>('');
-  const [allCats, setAllCats] = useState<GameOptions[]>([]);
-
   const {
-    bestScores,
-    categories: bestCats,
-    loading: loadingBest,
-  } = useBestScores();
-
-  useEffect(() => {
-    setAllCats(
-      CATEGORY_OPTIONS.map((c) => ({
-        value: c.value,
-        label: c.label,
-      })),
-    );
-  }, []);
-
-  // Only show categories the user has played for best scores
-  const playedCategories: GameOptions[] = bestCats.map((c) => ({
-    value: c,
-    label: c,
-  }));
-
-  // Auto-select if only one played category
-  useEffect(() => {
-    if (playedCategories.length === 1) {
-      setBestCategory(playedCategories[0].value);
-    }
-  }, [playedCategories]);
-
-  // Filter scores by category if needed - case-insensitive comparison
-  const filteredScores = filterCategory
-    ? scores.filter(
-        (s) => s.category_name.toLowerCase() === filterCategory.toLowerCase(),
-      )
-    : scores;
-
-  const totalPages = Math.ceil(
-    (filterCategory ? filteredScores.length : scoresCount) / ITEMS_PER_PAGE,
-  );
-
-  const validPageScores = filterCategory
-    ? filteredScores.slice(
-        (scoresPage - 1) * ITEMS_PER_PAGE,
-        scoresPage * ITEMS_PER_PAGE,
-      )
-    : scores;
-
-  // Find best score with case-insensitive comparison
-  const selectedBest = bestScores.find(
-    (s) => s.category_name.toLowerCase() === bestCategory.toLowerCase(),
-  );
+    bestCategory,
+    playedCategories,
+    selectedBest,
+    filterCategory,
+    allCats,
+    filteredScores,
+    validPageScores,
+    totalPages,
+    loadingBest,
+    handleBestCategoryChange,
+    handleFilterCategoryChange,
+    handlePreviousPage,
+    handleNextPage,
+  } = useGameHistory({
+    scores,
+    loadingScores,
+    scoresCount,
+    scoresPage,
+    setScoresPage,
+  });
 
   return (
     <>
@@ -82,10 +44,7 @@ export function ProfileGameHistory({
         label="Best Scores"
         options={playedCategories}
         value={bestCategory}
-        onChange={(v) => {
-          setBestCategory(v);
-          setScoresPage(1);
-        }}
+        onChange={handleBestCategoryChange}
         loading={loadingBest}
         showAllOption={false}
       />
@@ -99,10 +58,7 @@ export function ProfileGameHistory({
         hideLabel={true}
         options={allCats}
         value={filterCategory}
-        onChange={(v) => {
-          setFilterCategory(v);
-          setScoresPage(1);
-        }}
+        onChange={handleFilterCategoryChange}
         showAllOption={true}
       />
 
@@ -117,12 +73,8 @@ export function ProfileGameHistory({
             <Pagination
               page={scoresPage}
               totalPages={totalPages}
-              onPrev={() => {
-                setScoresPage(Math.max(1, scoresPage - 1));
-              }}
-              onNext={() => {
-                setScoresPage(Math.min(totalPages, scoresPage + 1));
-              }}
+              onPrev={handlePreviousPage}
+              onNext={handleNextPage}
             />
           )}
         </>
