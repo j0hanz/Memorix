@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { DELAYS } from '@/constants/constants';
 import type { ToastProps } from '@/types/components';
 
 import styles from './styles/Toast.module.css';
@@ -7,7 +8,7 @@ import styles from './styles/Toast.module.css';
 export function Toast({
   message,
   show,
-  duration = 2500,
+  duration = DELAYS.TOAST_DURATION,
   placement = 'bottom',
   className = '',
   onClose,

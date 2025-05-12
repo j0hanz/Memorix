@@ -12,6 +12,7 @@ import { LatestUpdates } from '@/components/LatestUpdates';
 import { LeaderboardModal } from '@/components/LeaderboardModal';
 import MainMenu from '@/components/MainMenu';
 import { LoadingCardSpinner } from '@/components/Spinner';
+import { DELAYS } from '@/constants/constants';
 import { useAppState } from '@/hooks/useAppState';
 import { useAuth } from '@/hooks/useAuth';
 import { useModal } from '@/hooks/useModal';
@@ -74,7 +75,7 @@ const App = () => {
     setShowInitialLoading(true);
     const timer = setTimeout(() => {
       setShowInitialLoading(false);
-    }, 1500);
+    }, DELAYS.SPINNER_DURATION);
     return () => {
       clearTimeout(timer);
     };

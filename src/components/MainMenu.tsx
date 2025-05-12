@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 
 import styles from '@/App.module.css';
 import Toast from '@/components/Toast';
+import { DELAYS } from '@/constants/constants';
 import { useAuth } from '@/hooks/useAuth';
 import { useLinks } from '@/hooks/useLinks';
 import { useModal } from '@/hooks/useModal';
@@ -46,7 +47,7 @@ const MainMenu = ({
       setShowAuthToast(true);
       const timer = setTimeout(() => {
         setShowAuthToast(false);
-      }, 2000);
+      }, DELAYS.TOAST_DURATION);
       return () => {
         clearTimeout(timer);
       };
