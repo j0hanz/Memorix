@@ -20,7 +20,6 @@ export const StatsBar = ({
 }: StatsBarProps) => {
   const { loading } = useAppState();
   const isRestarting = loading.isLoading && loading.type === 'restart';
-  const isExiting = loading.isLoading && loading.type === 'exit';
 
   return (
     <>
@@ -49,14 +48,8 @@ export const StatsBar = ({
         <Button
           className={appStyles.btnRounded}
           onClick={onExit}
-          icon={
-            isExiting ? (
-              <LoadingSpinner />
-            ) : (
-              <ExitToAppOutlinedIcon fontSize="small" />
-            )
-          }
-          aria-label={isExiting ? 'Exiting...' : 'Exit Game'}
+          icon={<ExitToAppOutlinedIcon fontSize="small" />}
+          aria-label="Exit Game"
           color="secondary"
           disabled={loading.isLoading}
         />

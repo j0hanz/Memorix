@@ -76,9 +76,7 @@ export function useNavigation({
   // Handles exiting the game with loading animation
   function handleExit() {
     playSound('button');
-    showLoadingWithMessage('Exiting...', 'exit', () => {
-      setIsGameActive(false);
-    });
+    setIsGameActive(false);
   }
 
   // Resets app state to initial values
