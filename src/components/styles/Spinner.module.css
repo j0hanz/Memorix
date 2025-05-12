@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
   container-type: inline-size;
 }
 
@@ -64,7 +65,7 @@
 }
 
 .spinnerMessage {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   font-size: 0.8rem;
   opacity: 0.6;
 }
