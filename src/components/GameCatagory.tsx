@@ -22,8 +22,6 @@ export const GameCategory: FC<GameCategoryProps> = ({
     : [...options];
   // Sort options by label
   const handleChange = (selectedValue: string) => {
-    console.log(`Selected value in ${id}:`, selectedValue);
-    console.log('Available options:', options);
     onChange(selectedValue);
   };
 
