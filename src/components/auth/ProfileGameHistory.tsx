@@ -4,7 +4,6 @@ import { GameCategory } from '@/components/GameCatagory';
 import { Pagination } from '@/components/Pagination';
 import { ScoreRow } from '@/components/ScoreRow';
 import { useBestScores } from '@/hooks/useBestScores';
-import { usePaginated } from '@/hooks/usePaginated';
 import type { GameOptions, ProfileGameHistoryProps } from '@/types/components';
 import { CATEGORY_OPTIONS } from '@/utils/categoryUtils';
 
@@ -13,8 +12,14 @@ const ITEMS_PER_PAGE = 5;
 export function ProfileGameHistory({
   scores = [],
   loadingScores,
-}: ProfileGameHistoryProps) {
-  const [page, setPage] = useState(1);
+  scoresCount,
+  scoresPage,
+  setScoresPage,
+}: ProfileGameHistoryProps & {
+  scoresCount: number;
+  scoresPage: number;
+  setScoresPage: (page: number) => void;
+}) {
   const [filterCategory, setFilterCategory] = useState<string>('');
   const [bestCategory, setBestCategory] = useState<string>('');
   const [allCats, setAllCats] = useState<GameOptions[]>([]);
@@ -47,12 +52,21 @@ export function ProfileGameHistory({
     }
   }, [playedCategories]);
 
-  const { filtered, totalPages, validPageScores } = usePaginated(
-    scores,
-    filterCategory,
-    page,
-    ITEMS_PER_PAGE,
+  // Filter scores by category if needed
+  const filteredScores = filterCategory
+    ? scores.filter((s) => s.category_name === filterCategory)
+    : scores;
+
+  const totalPages = Math.ceil(
+    (filterCategory ? filteredScores.length : scoresCount) / ITEMS_PER_PAGE,
   );
+
+  const validPageScores = filterCategory
+    ? filteredScores.slice(
+        (scoresPage - 1) * ITEMS_PER_PAGE,
+        scoresPage * ITEMS_PER_PAGE,
+      )
+    : scores;
 
   const selectedBest = bestScores.find((s) => s.category_name === bestCategory);
 
@@ -65,7 +79,7 @@ export function ProfileGameHistory({
         value={bestCategory}
         onChange={(v) => {
           setBestCategory(v);
-          setPage(1);
+          setScoresPage(1);
         }}
         loading={loadingBest}
         showAllOption={false}
@@ -82,27 +96,27 @@ export function ProfileGameHistory({
         value={filterCategory}
         onChange={(v) => {
           setFilterCategory(v);
-          setPage(1);
+          setScoresPage(1);
         }}
         showAllOption={true}
       />
 
       {loadingScores ? (
         <div className="text-center p-4">Loading game history...</div>
-      ) : filtered.length > 0 ? (
+      ) : filteredScores.length > 0 ? (
         <>
           {validPageScores.map((s) => (
             <ScoreRow key={s.id} score={s} />
           ))}
           {totalPages > 1 && (
             <Pagination
-              page={page}
+              page={scoresPage}
               totalPages={totalPages}
               onPrev={() => {
-                setPage((p) => Math.max(1, p - 1));
+                setScoresPage(Math.max(1, scoresPage - 1));
               }}
               onNext={() => {
-                setPage((p) => Math.min(totalPages, p + 1));
+                setScoresPage(Math.min(totalPages, scoresPage + 1));
               }}
             />
           )}

@@ -16,6 +16,8 @@ export function useProfile() {
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [scores, setScores] = useState<UserScore[]>([]);
+  const [scoresCount, setScoresCount] = useState<number>(0);
+  const [scoresPage, setScoresPage] = useState<number>(1);
   const [loadingScores, setLoadingScores] = useState<boolean>(false);
 
   useEffect(() => {
@@ -27,14 +29,15 @@ export function useProfile() {
     }
   }, [user, profile, getProfile]);
 
-  // Fetch user scores
+  // Fetch user scores (paginated)
   useEffect(() => {
     const fetchScores = async () => {
       if (user && isAuthenticated) {
         setLoadingScores(true);
         try {
-          const data = await gameService.getUserScores();
-          setScores(data);
+          const data = await gameService.getUserScores(scoresPage);
+          setScores(data.results);
+          setScoresCount(data.count);
         } catch {
           // Ignore errors when fetching scores
         } finally {
@@ -44,7 +47,7 @@ export function useProfile() {
     };
 
     void fetchScores();
-  }, [user, isAuthenticated]);
+  }, [user, isAuthenticated, scoresPage]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const file = e.target.files?.[0];
@@ -155,6 +158,9 @@ export function useProfile() {
     handleImageChange,
     handleUpdateProfile,
     scores,
+    scoresCount,
+    scoresPage,
+    setScoresPage,
     loadingScores,
     passwordForm,
     handleDeleteAccount,

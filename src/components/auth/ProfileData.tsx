@@ -43,6 +43,9 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
     handleImageChange,
     handleUpdateProfile,
     scores,
+    scoresCount,
+    scoresPage,
+    setScoresPage,
     loadingScores,
     passwordForm,
     handleDeleteAccount,
@@ -150,7 +153,13 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
     );
   } else if (activeTab === 'history') {
     content = (
-      <ProfileGameHistory scores={scores} loadingScores={loadingScores} />
+      <ProfileGameHistory
+        scores={scores}
+        loadingScores={loadingScores}
+        scoresCount={scoresCount}
+        scoresPage={scoresPage}
+        setScoresPage={setScoresPage}
+      />
     );
   }
 

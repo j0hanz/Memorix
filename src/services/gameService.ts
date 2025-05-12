@@ -16,7 +16,7 @@ export const gameService = {
   // Get leaderboard entries
   getLeaderboard: async (categoryId?: number): Promise<LeaderboardEntry[]> => {
     const url =
-      categoryId !== undefined
+      typeof categoryId === 'number'
         ? `/api/memorix/results/leaderboard/?category=${String(categoryId)}`
         : '/api/memorix/results/leaderboard/';
 
@@ -39,9 +39,21 @@ export const gameService = {
     }
   },
   // Get user scores
-  getUserScores: async (): Promise<UserScore[]> => {
+  getUserScores: async (
+    page = 1,
+  ): Promise<{
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: UserScore[];
+  }> => {
     try {
-      const response = await axiosReq.get<UserScore[]>('/api/memorix/results/');
+      const response = await axiosReq.get<{
+        count: number;
+        next: string | null;
+        previous: string | null;
+        results: UserScore[];
+      }>(`/api/memorix/results/?page=${String(page)}`);
       return response.data;
     } catch (error) {
       console.error('Error fetching user scores:', error);
