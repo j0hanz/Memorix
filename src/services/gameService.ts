@@ -55,7 +55,22 @@ export const gameService = {
         results: UserScore[];
       }>(`/api/memorix/results/?page=${String(page)}`);
       return response.data;
-    } catch (error) {
+    } catch (error: unknown) {
+      if (
+        typeof error === 'object' &&
+        error !== null &&
+        'response' in error &&
+        typeof (error as { response?: { status?: number } }).response ===
+          'object' &&
+        (error as { response?: { status?: number } }).response?.status === 401
+      ) {
+        return {
+          count: 0,
+          next: null,
+          previous: null,
+          results: [],
+        };
+      }
       console.error('Error fetching user scores:', error);
       throw error;
     }
