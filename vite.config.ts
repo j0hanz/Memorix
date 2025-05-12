@@ -3,12 +3,16 @@ import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
+const ReactCompilerConfig = {
+  target: '19',
+};
+
 export default defineConfig({
   plugins: [
     tsconfigPaths(),
     react({
       babel: {
-        plugins: [['babel-plugin-react-compiler']],
+        plugins: [['babel-plugin-react-compiler', ReactCompilerConfig]],
       },
     }),
   ],
