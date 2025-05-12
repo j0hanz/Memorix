@@ -12,7 +12,6 @@ import { LatestUpdates } from '@/components/LatestUpdates';
 import { LeaderboardModal } from '@/components/LeaderboardModal';
 import MainMenu from '@/components/MainMenu';
 import { LoadingCardSpinner } from '@/components/Spinner';
-import { DELAYS } from '@/constants/constants';
 import { useAppState } from '@/hooks/useAppState';
 import { useAuth } from '@/hooks/useAuth';
 import { useModal } from '@/hooks/useModal';
@@ -21,7 +20,7 @@ import { useNavigation } from '@/hooks/useNavigation';
 
 const App = () => {
   const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
-  const [showInitialLoading, setShowInitialLoading] = useState(true);
+  const [showInitialLoading, setShowInitialLoading] = useState(false);
 
   const { logout, isAuthenticated } = useAuth();
 
@@ -72,13 +71,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    setShowInitialLoading(true);
-    const timer = setTimeout(() => {
-      setShowInitialLoading(false);
-    }, DELAYS.SPINNER_DURATION);
-    return () => {
-      clearTimeout(timer);
-    };
+    setShowInitialLoading(false);
   }, []);
 
   // Check if any loading state is active
@@ -92,7 +85,8 @@ const App = () => {
           console.error('Application error:', error);
         }}
       >
-        {isLoading && (
+        {/* Only show spinner when loading the game, not the start screen */}
+        {isLoading && isGameActive && (
           <LoadingCardSpinner
             isLoading={true}
             message={showInitialLoading ? 'Loading...' : loading.message}

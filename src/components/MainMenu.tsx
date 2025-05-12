@@ -4,9 +4,10 @@ import PersonIcon from '@mui/icons-material/Person';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
 import styles from '@/App.module.css';
+import { LoadingCardSpinner } from '@/components/Spinner';
 import Toast from '@/components/Toast';
 import { DELAYS } from '@/constants/constants';
 import { useAuth } from '@/hooks/useAuth';
@@ -33,6 +34,7 @@ const MainMenu = ({
   // Auth toast state
   const [showAuthToast, setShowAuthToast] = useState(false);
   const [authMessage, setAuthMessage] = useState('');
+  const [menuLoading, setMenuLoading] = useState(true);
 
   useEffect(() => {
     if (isAuthenticated && user && !profile) {
@@ -41,6 +43,14 @@ const MainMenu = ({
   }, [isAuthenticated, user, profile, getProfile]);
 
   // Handle user authentication state
+  useEffect(() => {
+    setMenuLoading(true);
+    const timer = setTimeout(() => {
+      setMenuLoading(false);
+    }, DELAYS.SPINNER_DURATION);
+    return () => { clearTimeout(timer); };
+  }, [isAuthenticated, user, profile]);
+
   useEffect(() => {
     if (isAuthenticated) {
       setAuthMessage('Logged in');
@@ -70,42 +80,51 @@ const MainMenu = ({
       >
         <div className={styles.gameTitle}>Memorix</div>
       </motion.div>
-      <div className={styles.menuButtons}>
-        <MenuButton
-          onClick={startGame}
-          className={`${styles.btnMain} ${styles.btnStart}`}
-          icon={<PlayCircleOutlineOutlinedIcon />}
-          text="Start Game"
-          color="primary"
-        />
-        <MenuButton
-          onClick={handleAccountClick}
-          className={`${styles.btnMain} ${styles.btnMenu}`}
-          icon={<PersonIcon />}
-          text={isAuthenticated ? 'Profile' : 'Account'}
-        />
-        <MenuButton
-          onClick={openLeaderboardModal}
-          className={`${styles.btnMain} ${styles.btnMenu}`}
-          icon={<EmojiEventsIcon />}
-          text="Leaderboard"
-        />
-        <MenuButton
-          onClick={openInstructions}
-          className={`${styles.btnMain} ${styles.btnMenu}`}
-          icon={<InfoOutlinedIcon />}
-          text="Guide"
-        />
-        <MenuButton
-          onClick={openLatestUpdates}
-          className={`${styles.btnMain} ${styles.btnEnd}`}
-          icon={<TrackChangesOutlinedIcon />}
-          text="Updates"
-        />
-      </div>
-      <div className={styles.bottomMenu}>
-        <SoundToggle isMuted={isMuted} onToggle={toggleMute} />
-      </div>
+      <Suspense
+        fallback={<LoadingCardSpinner isLoading={true} message="Loading..." />}
+      >
+        {menuLoading ? (
+          <LoadingCardSpinner isLoading={true} message="Loading..." />
+        ) : (
+          <div className={styles.menuButtons}>
+            <MenuButton
+              onClick={startGame}
+              className={`${styles.btnMain} ${styles.btnStart}`}
+              icon={<PlayCircleOutlineOutlinedIcon />}
+              text="Start Game"
+              color="primary"
+            />
+            <MenuButton
+              onClick={handleAccountClick}
+              className={`${styles.btnMain} ${styles.btnMenu}`}
+              icon={<PersonIcon />}
+              text={isAuthenticated ? 'Profile' : 'Account'}
+            />
+            <MenuButton
+              onClick={openLeaderboardModal}
+              className={`${styles.btnMain} ${styles.btnMenu}`}
+              icon={<EmojiEventsIcon />}
+              text="Leaderboard"
+            />
+            <MenuButton
+              onClick={openInstructions}
+              className={`${styles.btnMain} ${styles.btnMenu}`}
+              icon={<InfoOutlinedIcon />}
+              text="Guide"
+            />
+            <MenuButton
+              onClick={openLatestUpdates}
+              className={`${styles.btnMain} ${styles.btnEnd}`}
+              icon={<TrackChangesOutlinedIcon />}
+              text="Updates"
+            />
+            <div className={styles.bottomMenu}>
+              <SoundToggle isMuted={isMuted} onToggle={toggleMute} />
+            </div>
+          </div>
+        )}
+      </Suspense>
+
       <Toast
         message={authMessage}
         show={showAuthToast}
