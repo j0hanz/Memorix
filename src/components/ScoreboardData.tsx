@@ -1,11 +1,8 @@
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
-import { useState } from 'react';
 
 import Scoreboard from '@/components/scoreData';
-import { useAuth } from '@/hooks/useAuth';
-import { useSaveScore } from '@/hooks/useSaveScore';
-import { useScore } from '@/hooks/useScore';
+import { useScoreboard } from '@/hooks/useScoreboard';
 import type { ScoreboardDataProps } from '@/types/components';
 
 import { ModalFooterButtons } from './ModalFooterButtons';
@@ -19,21 +16,10 @@ export default function ScoreboardData({
   categoryCode,
   children,
 }: ScoreboardDataProps) {
-  const { isAuthenticated } = useAuth();
-  const { stars } = useScore(moves, completedTime);
-  const [scoreSaved, setScoreSaved] = useState(false);
-  const [saveError, setSaveError] = useState<string | null>(null);
-
-  useSaveScore({
-    show: true,
-    isAuthenticated,
-    scoreSaved,
-    setScoreSaved,
-    setSaveError,
-    categoryCode,
+  const { isAuthenticated, scoreSaved, saveError } = useScoreboard({
     moves,
     completedTime,
-    stars,
+    categoryCode,
   });
 
   return (

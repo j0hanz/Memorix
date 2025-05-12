@@ -10,6 +10,12 @@ export interface AppState {
   selectedCategory: string;
 }
 
+export interface UseScoreboardProps {
+  moves: number;
+  completedTime: number;
+  categoryCode: string;
+}
+
 export type LoadingState = {
   isLoading: boolean;
   message?: string;

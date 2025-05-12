@@ -1,31 +1,23 @@
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
-import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
-import { useLeaderboard } from '@/hooks/useLeaderboard';
-import type { LeaderboardProps } from '@/types/components';
-import { getCategoryOptions } from '@/utils/categoryUtils';
+import { useLeaderboardData } from '@/hooks/useLeaderboardData';
 
 import Button from './Button';
 import Select from './Select';
 import StarRating from './StarRating';
 import styles from './styles/Modal.module.css';
 
-const Leaderboard: React.FC<LeaderboardProps> = () => {
-  const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
-    undefined,
-  );
-  const { leaderboard, loading, error } = useLeaderboard(selectedCategory);
-
-  const handleCategoryChange = (value: string) => {
-    setSelectedCategory(value ? parseInt(value, 10) : undefined);
-  };
-
-  const categoryOptions = getCategoryOptions().map((cat) => ({
-    value: cat.id.toString(),
-    label: cat.label,
-  }));
+const Leaderboard = () => {
+  const {
+    selectedCategory,
+    leaderboard,
+    loading,
+    error,
+    categoryOptions,
+    handleCategoryChange,
+  } = useLeaderboardData();
 
   return (
     <>
