@@ -5,7 +5,7 @@ import { Col, Row } from 'react-bootstrap';
 
 import { useLeaderboard } from '@/hooks/useLeaderboard';
 import type { LeaderboardProps } from '@/types/components';
-import { CATEGORY_OPTIONS } from '@/utils/categoryUtils';
+import { getCategoryOptions } from '@/utils/categoryUtils';
 
 import Button from './Button';
 import Select from './Select';
@@ -22,7 +22,7 @@ const Leaderboard: React.FC<LeaderboardProps> = () => {
     setSelectedCategory(value ? parseInt(value, 10) : undefined);
   };
 
-  const categoryOptions = CATEGORY_OPTIONS.map((cat) => ({
+  const categoryOptions = getCategoryOptions().map((cat) => ({
     value: cat.id.toString(),
     label: cat.label,
   }));

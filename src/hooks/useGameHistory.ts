@@ -4,7 +4,7 @@ import { useBestScores } from '@/hooks/useBestScores';
 import type { UserScore } from '@/types/api';
 import type { GameOptions } from '@/types/components';
 import type { UseGameHistoryProps } from '@/types/components';
-import { CATEGORY_OPTIONS } from '@/utils/categoryUtils';
+import { getCategoryOptions } from '@/utils/categoryUtils';
 
 const ITEMS_PER_PAGE = 5;
 
@@ -26,9 +26,9 @@ export function useGameHistory({
 
   useEffect(() => {
     setAllCats(
-      CATEGORY_OPTIONS.map((c) => ({
-        value: c.value,
-        label: c.label,
+      getCategoryOptions().map(({ value, label }) => ({
+        value,
+        label,
       })),
     );
   }, []);
