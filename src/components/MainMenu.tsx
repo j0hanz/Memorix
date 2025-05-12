@@ -48,7 +48,9 @@ const MainMenu = ({
     const timer = setTimeout(() => {
       setMenuLoading(false);
     }, DELAYS.SPINNER_DURATION);
-    return () => { clearTimeout(timer); };
+    return () => {
+      clearTimeout(timer);
+    };
   }, [isAuthenticated, user, profile]);
 
   useEffect(() => {

@@ -85,8 +85,7 @@ const App = () => {
           console.error('Application error:', error);
         }}
       >
-        {/* Only show spinner when loading the game, not the start screen */}
-        {isLoading && isGameActive && (
+        {isLoading && (
           <LoadingCardSpinner
             isLoading={true}
             message={showInitialLoading ? 'Loading...' : loading.message}
