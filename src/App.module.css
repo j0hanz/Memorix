@@ -10,15 +10,11 @@
   font-family: 'Fredoka', sans-serif;
   font-weight: 500;
   font-size: 5rem;
-  color: color-mix(in srgb, var(--text-color-highlight) 90%, white 10%);
-  &:focus-visible {
-    outline: 2px solid var(--btn-primary);
-  }
+  color: var(--text-color-highlight);
 }
 
 .btnRounded {
   cursor: pointer;
-  color: var(--moves);
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
