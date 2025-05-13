@@ -34,7 +34,6 @@ export function useLogin(onSuccess?: () => void) {
 
       if (!accessToken) {
         setLoginError('Access token not found in response');
-        showToast('Access token not found in response');
         return false;
       }
 
