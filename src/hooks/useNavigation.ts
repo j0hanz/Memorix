@@ -1,6 +1,6 @@
 import { GAME_CONFIG } from '@/constants/constants';
 import { useModal } from '@/hooks/useModal';
-import { useSoundEffects } from '@/hooks/useSound';
+import { useSound } from '@/hooks/useProvider';
 import type { NavigationOptions } from '@/types/hooks';
 
 export function useNavigation({
@@ -11,7 +11,7 @@ export function useNavigation({
   logout,
   isAuthenticated,
 }: NavigationOptions) {
-  const { playSound } = useSoundEffects();
+  const { playSound } = useSound();
   const { openModal, closeModal } = useModal();
 
   // Creates a wrapper function that plays a sound before executing an action

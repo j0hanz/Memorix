@@ -1,8 +1,8 @@
-import { useSoundEffects } from '@/hooks/useSound';
+import { useSound } from '@/hooks/useProvider';
 
 // This hook manages external links with sound feedback
 export function useLinks() {
-  const { isMuted, toggleMute, playSound } = useSoundEffects();
+  const { isMuted, toggleMute, playSound } = useSound();
 
   // Open GitHub repo with sound feedback
   const handleGitHubClick = () => {

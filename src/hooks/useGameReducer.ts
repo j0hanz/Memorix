@@ -8,7 +8,7 @@ import {
   TIMER,
 } from '@/constants/constants';
 import { useDeck } from '@/hooks/useDeck';
-import { useSoundEffects } from '@/hooks/useSound';
+import { useSound } from '@/hooks/useProvider';
 import { gameReducer, initialGameState } from '@/reducers/gameReducer';
 
 export function useGameReducer(
@@ -17,7 +17,7 @@ export function useGameReducer(
 ) {
   const [state, dispatch] = useReducer(gameReducer, initialGameState);
   const { deck, refreshDeck } = useDeck(selectedCategory);
-  const { playSound } = useSoundEffects();
+  const { playSound } = useSound();
 
   // Store previous card index for matching logic
   const previousIndex = useRef<number | null>(null);

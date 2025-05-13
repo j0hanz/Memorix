@@ -1,11 +1,15 @@
 import { type ReactNode, useState } from 'react';
+import useSound from 'use-sound';
 
-import { DELAYS } from '@/constants/constants';
+import { DELAYS, STORAGE_KEYS } from '@/constants/constants';
 import { CATEGORIES } from '@/constants/constants';
+import type { SoundKey } from '@/constants/sounds';
+import { SOUND_FILES } from '@/constants/sounds';
 import { AuthContext } from '@/contexts/AuthContext';
 import ErrorContext from '@/contexts/ErrorContext';
 import { GameContext } from '@/contexts/GameContext';
 import { ModalContext } from '@/contexts/ModalContext';
+import { SoundContext } from '@/contexts/SoundContext';
 import { ToastContext } from '@/contexts/ToastContext';
 import { useAuthProvider } from '@/hooks/useAuth';
 import { useGameReducer } from '@/hooks/useGameReducer';
@@ -75,6 +79,102 @@ export function ModalProvider({ children }: { children: ReactNode }) {
     >
       {children}
     </ModalContext.Provider>
+  );
+}
+
+// SoundProvider
+interface SoundProviderProps {
+  children: ReactNode;
+}
+
+export function SoundProvider({ children }: SoundProviderProps) {
+  // Define the initial mute state based on localStorage
+  const [isMuted, setIsMuted] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem(STORAGE_KEYS.MUTE_STATE) === 'true';
+    } catch (error) {
+      console.error('Error accessing localStorage for mute state:', error);
+      return false;
+    }
+  });
+
+  // Initialize sound effects with use-sound
+  const [playButton] = useSound(SOUND_FILES.button, {
+    volume: 1.0,
+    soundEnabled: !isMuted,
+  });
+
+  const [playClick] = useSound(SOUND_FILES.click, {
+    volume: 1.0,
+    soundEnabled: !isMuted,
+  });
+
+  const [playComplete] = useSound(SOUND_FILES.complete, {
+    volume: 1.0,
+    soundEnabled: !isMuted,
+  });
+
+  const [playCorrect] = useSound(SOUND_FILES.correct, {
+    volume: 1.0,
+    soundEnabled: !isMuted,
+  });
+
+  const [playWrong] = useSound(SOUND_FILES.wrong, {
+    volume: 1.0,
+    soundEnabled: !isMuted,
+  });
+
+  // Map sound keys to their respective play functions
+  const soundMap = {
+    button: playButton,
+    click: playClick,
+    complete: playComplete,
+    correct: playCorrect,
+    wrong: playWrong,
+  };
+
+  // Function to play sound based on the key
+  function playSound(soundKey: SoundKey): void {
+    if (isMuted) return;
+
+    try {
+      const playFn = soundMap[soundKey];
+      if (playFn) {
+        playFn();
+      } else {
+        console.warn(`No sound found for key: "${soundKey}"`);
+      }
+    } catch (error) {
+      console.error('Error playing sound:', error);
+    }
+  }
+
+  // Function to toggle mute state
+  function toggleMute(): void {
+    setMuteState(!isMuted);
+  }
+
+  // Function to set mute state and update localStorage
+  function setMuteState(muted: boolean): void {
+    setIsMuted(muted);
+    try {
+      localStorage.setItem(STORAGE_KEYS.MUTE_STATE, muted.toString());
+    } catch (error) {
+      console.error('Error setting mute state in localStorage:', error);
+    }
+  }
+
+  return (
+    <SoundContext.Provider
+      value={{
+        isMuted,
+        playSound,
+        toggleMute,
+        setMuteState,
+      }}
+    >
+      {children}
+    </SoundContext.Provider>
   );
 }
 

@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { AuthContext } from '@/contexts/AuthContext';
 import ErrorContext from '@/contexts/ErrorContext';
 import { ModalContext } from '@/contexts/ModalContext';
+import { SoundContext } from '@/contexts/SoundContext';
 import { ToastContext } from '@/contexts/ToastContext';
 
 // Auth context hook
@@ -23,6 +24,11 @@ export function useError() {
 // Modal context hook
 export function useModal() {
   return useContext(ModalContext);
+}
+
+// Sound context hook
+export function useSound() {
+  return useContext(SoundContext);
 }
 
 // Toast context hook

@@ -1,6 +1,6 @@
 import { Nav } from 'react-bootstrap';
 
-import { useSoundEffects } from '@/hooks/useSound';
+import { useSound } from '@/hooks/useProvider';
 import type { TabNavigationProps } from '@/types/components';
 
 import styles from './styles/Modal.module.css';
@@ -19,7 +19,7 @@ export const NavItem = ({
   isActive: boolean;
   icon?: React.ReactNode;
 }) => {
-  const { playSound } = useSoundEffects();
+  const { playSound } = useSound();
 
   return (
     <Nav.Item

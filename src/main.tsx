@@ -12,6 +12,7 @@ import {
   AuthProvider,
   ErrorProvider,
   ModalProvider,
+  SoundProvider,
   ToastProvider,
 } from '@/components/Provider';
 
@@ -24,11 +25,13 @@ createRoot(rootElement).render(
   <StrictMode>
     <ErrorProvider>
       <ToastProvider>
-        <AuthProvider>
-          <ModalProvider>
-            <App />
-          </ModalProvider>
-        </AuthProvider>
+        <SoundProvider>
+          <AuthProvider>
+            <ModalProvider>
+              <App />
+            </ModalProvider>
+          </AuthProvider>
+        </SoundProvider>
       </ToastProvider>
     </ErrorProvider>
   </StrictMode>,
