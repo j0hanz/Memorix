@@ -1,22 +1,24 @@
 import { useState } from 'react';
 
 import { useAuth } from '@/hooks/useAuth';
+import { useError } from '@/hooks/useError';
 import { useForm } from '@/hooks/useForm';
 import { axiosReq } from '@/services/axios';
 import type { ApiError } from '@/types/api';
 import type { AuthResponse, LoginCredentials, User } from '@/types/auth';
-import { formatErrorMessage } from '@/utils/errorUtils';
+import { formatErrorMessage, logError } from '@/utils/errorUtils';
 import { parseTokensFromResponse } from '@/utils/tokenUtils';
 import { loginValidationRules } from '@/utils/validation';
 
 export function useLogin(onSuccess?: () => void) {
   const { setAuthTokens, setUser, fetchProfile } = useAuth();
+  const { setError } = useError();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setLoginError] = useState<string | null>(null);
 
   const handleLogin = async (values: LoginCredentials) => {
     setLoading(true);
-    setError(null);
+    setLoginError(null);
 
     try {
       const response = await axiosReq.post<AuthResponse>(
@@ -29,7 +31,7 @@ export function useLogin(onSuccess?: () => void) {
       );
 
       if (!accessToken) {
-        setError('Access token not found in response');
+        setLoginError('Access token not found in response');
         return false;
       }
 
@@ -50,7 +52,10 @@ export function useLogin(onSuccess?: () => void) {
 
       return true;
     } catch (err: unknown) {
-      setError(formatErrorMessage(err as ApiError));
+      const errorMessage = formatErrorMessage(err as ApiError);
+      setLoginError(errorMessage);
+      logError(err, 'Login', 'error');
+      setError(err, 'Login');
       return false;
     } finally {
       setLoading(false);

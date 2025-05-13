@@ -7,70 +7,96 @@ import type {
   PaginatedUserScores,
   UserScore,
 } from '@/types/api';
-
-function handleError(message: string, error: unknown): never {
-  console.error(message, error);
-  throw error;
-}
+import { handleAsyncOperation } from '@/utils/errorUtils';
 
 export const gameService = {
   async saveGameResult(data: GameResultData): Promise<unknown> {
-    try {
-      const response = await axiosReq.post('/api/memorix/results/', data);
-      return response.data;
-    } catch (error) {
-      return handleError('Error saving game result:', error);
+    const [result, error] = await handleAsyncOperation(
+      () => axiosReq.post('/api/memorix/results/', data),
+      {
+        context: 'GameService',
+        errorMessage: 'Failed to save game result',
+      },
+    );
+
+    if (error) {
+      throw new Error(error.message);
     }
+    return result?.data;
   },
 
   async getLeaderboard(categoryId?: number): Promise<LeaderboardEntry[]> {
-    try {
-      const response = await axiosReq.get<LeaderboardEntry[]>(
-        '/api/memorix/results/leaderboard/',
-        { params: categoryId != null ? { category: categoryId } : undefined },
-      );
-      return response.data;
-    } catch (error) {
-      return handleError('Error fetching leaderboard:', error);
+    const [result, error] = await handleAsyncOperation(
+      () =>
+        axiosReq.get<LeaderboardEntry[]>('/api/memorix/results/leaderboard/', {
+          params: categoryId != null ? { category: categoryId } : undefined,
+        }),
+      {
+        context: 'GameService',
+        errorMessage: 'Failed to fetch leaderboard',
+      },
+    );
+
+    if (error) {
+      throw new Error(error.message);
     }
+    return result?.data || [];
   },
 
   async getCategories(): Promise<string[]> {
-    try {
-      const response = await axiosReq.get<string[]>('/api/memorix/categories/');
-      return response.data;
-    } catch (error) {
-      return handleError('Error fetching categories:', error);
+    const [result, error] = await handleAsyncOperation(
+      () => axiosReq.get<string[]>('/api/memorix/categories/'),
+      {
+        context: 'GameService',
+        errorMessage: 'Failed to fetch categories',
+      },
+    );
+
+    if (error) {
+      throw new Error(error.message);
     }
+    return result?.data || [];
   },
 
   async getUserScores(
     page = 1,
     category?: string,
   ): Promise<PaginatedUserScores> {
-    try {
-      const response = await axiosReq.get<PaginatedUserScores>(
-        '/api/memorix/results/',
-        { params: { page, ...(category ? { category } : {}) } },
-      );
-      return response.data;
-    } catch (error: unknown) {
-      const axiosError = error as AxiosError;
+    const [result, error] = await handleAsyncOperation(
+      () =>
+        axiosReq.get<PaginatedUserScores>('/api/memorix/results/', {
+          params: { page, ...(category ? { category } : {}) },
+        }),
+      {
+        context: 'GameService',
+        errorMessage: 'Failed to fetch user scores',
+      },
+    );
+
+    if (error) {
+      const axiosError = error.details as AxiosError;
       if (axiosError.response?.status === 401) {
         return { count: 0, next: null, previous: null, results: [] };
       }
-      return handleError('Error fetching user scores:', error);
+      throw new Error(error.message);
     }
+    return (
+      result?.data || { count: 0, next: null, previous: null, results: [] }
+    );
   },
 
   async getUserBestScores(): Promise<UserScore[]> {
-    try {
-      const response = await axiosReq.get<UserScore[]>(
-        '/api/memorix/results/best/',
-      );
-      return response.data;
-    } catch (error) {
-      return handleError('Error fetching best scores:', error);
+    const [result, error] = await handleAsyncOperation(
+      () => axiosReq.get<UserScore[]>('/api/memorix/results/best/'),
+      {
+        context: 'GameService',
+        errorMessage: 'Failed to fetch best scores',
+      },
+    );
+
+    if (error) {
+      throw new Error(error.message);
     }
+    return result?.data || [];
   },
 };

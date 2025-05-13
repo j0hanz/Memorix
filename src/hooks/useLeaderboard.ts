@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react';
 
+import { useError } from '@/hooks/useError';
 import { gameService } from '@/services/gameService';
 import type { LeaderboardEntry } from '@/types/api';
+import { getUserFriendlyMessage, logError } from '@/utils/errorUtils';
 
 export function useLeaderboard(categoryId?: number) {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { setError: setGlobalError } = useError();
 
   useEffect(() => {
     const controller = new AbortController();
     setLoading(true);
+    setError(null);
+
     const fetchLeaderboard = async () => {
       try {
         const data = await gameService.getLeaderboard(categoryId);
@@ -20,8 +25,10 @@ export function useLeaderboard(categoryId?: number) {
         }
       } catch (err) {
         if (!controller.signal.aborted) {
-          console.error('Failed to fetch leaderboard:', err);
-          setError('Failed to load leaderboard data');
+          const friendlyMessage = getUserFriendlyMessage(err);
+          setError(friendlyMessage);
+          logError(err, 'Leaderboard', 'error');
+          setGlobalError(err, 'Leaderboard');
         }
       } finally {
         if (!controller.signal.aborted) {
@@ -31,10 +38,11 @@ export function useLeaderboard(categoryId?: number) {
     };
 
     void fetchLeaderboard();
+
     return () => {
       controller.abort();
     };
-  }, [categoryId]);
+  }, [categoryId, setGlobalError]);
 
   return { leaderboard, loading, error };
 }

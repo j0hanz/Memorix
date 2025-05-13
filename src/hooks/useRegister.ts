@@ -1,15 +1,17 @@
 import { useState } from 'react';
 
+import { useError } from '@/hooks/useError';
 import { useForm } from '@/hooks/useForm';
 import { axiosReq } from '@/services/axios';
 import type { ApiError } from '@/types/api';
 import type { RegisterData } from '@/types/auth';
-import { formatErrorMessage } from '@/utils/errorUtils';
+import { formatErrorMessage, logError } from '@/utils/errorUtils';
 import { registerValidationRules } from '@/utils/validation';
 
 export function useRegister(onSuccess: () => void) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { setError: setGlobalError } = useError();
 
   const handleRegister = async (values: RegisterData) => {
     setLoading(true);
@@ -20,7 +22,10 @@ export function useRegister(onSuccess: () => void) {
       onSuccess();
       return true;
     } catch (err: unknown) {
-      setError(formatErrorMessage(err as ApiError));
+      const errorMessage = formatErrorMessage(err as ApiError);
+      setError(errorMessage);
+      logError(err, 'Registration', 'error');
+      setGlobalError(err, 'Registration');
       return false;
     } finally {
       setLoading(false);
