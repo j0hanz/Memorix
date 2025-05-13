@@ -1,36 +1,44 @@
-import { useEffect } from 'react';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import { Modal } from 'react-bootstrap';
 import type { FallbackProps } from 'react-error-boundary';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 
+import Button from '@/components/Button';
+import ErrorData from '@/components/ErrorData';
 import type { ErrorBoundaryProps } from '@/types/components';
-import { getUserFriendlyMessage, logError } from '@/utils/errorUtils';
+import { logError } from '@/utils/errorUtils';
 
-import Button from './Button';
+import styles from './styles/Modal.module.css';
 
 const ErrorFallback: React.FC<FallbackProps> = ({
   error,
   resetErrorBoundary,
 }) => {
-  // Get a user-friendly message
-  const friendlyMessage = getUserFriendlyMessage(error);
-
-  // Log the error
-  useEffect(() => {
-    logError(error, 'ErrorBoundary', 'error');
-  }, [error]);
-
+  const errorObj = error instanceof Error ? error : new Error(String(error));
   return (
-    <div role="alert">
-      <h2>Something went wrong</h2>
-      {friendlyMessage}
-      {process.env.NODE_ENV === 'development' &&
-        (error instanceof Error ? error.message : String(error))}
-      <Button
-        onClick={resetErrorBoundary}
-        text="Restart Game"
-        color="secondary"
-      />
-    </div>
+    <Modal
+      show={true}
+      backdrop="static"
+      centered={true}
+      animation={false}
+      className={`${styles.modal} ${styles.errorModal}`}
+    >
+      <Modal.Header className="border-0 d-flex justify-content-center">
+        <Modal.Title>Application Error</Modal.Title>
+      </Modal.Header>
+      <Modal.Body className="p-0">
+        <ErrorData error={errorObj} />
+      </Modal.Body>
+      <Modal.Footer className="border-0">
+        <Button
+          onClick={resetErrorBoundary}
+          text="Restart Application"
+          color="secondary"
+          className={`${styles.closeButtonSolo} ${styles.modalButton}`}
+          icon={<RestartAltIcon fontSize="small" />}
+        />
+      </Modal.Footer>
+    </Modal>
   );
 };
 

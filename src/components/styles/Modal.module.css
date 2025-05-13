@@ -166,6 +166,33 @@
   color: var(--color-star-icon-gray);
 }
 
+.errorModal :global(.modal-content) {
+  min-height: 30vh;
+  @container (max-width: 400px) {
+    height: 100%;
+  }
+}
+
+.errorIcon {
+  font-size: 6rem !important;
+  opacity: 0.8;
+  color: var(--feedback-wrong);
+  margin-bottom: 0.5rem;
+}
+
+.errorArrowIcon {
+  color: var(--feedback-wrong);
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8em;
+  opacity: 0.8;
+  padding: 1rem 0.5rem;
+}
+
 .instructionsModal :global(.modal-content) {
   min-height: 40vh;
   @container (max-width: 400px) {
@@ -320,6 +347,11 @@
     color: var(--text-color);
     opacity: 0.6;
   }
+}
+
+.bottomBorder {
+  border-bottom: 1px solid var(--input-border-color);
+  border-radius: 0;
 }
 
 @media (max-width: 425px) {
