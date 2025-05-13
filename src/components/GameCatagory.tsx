@@ -20,7 +20,7 @@ export const GameCategory: FC<GameCategoryProps> = ({
   const selectOptions: SelectOption[] = showAllOption
     ? [{ value: '', label: 'All Categories' }, ...options]
     : [...options];
-  // Sort options by label
+
   const handleChange = (selectedValue: string) => {
     onChange(selectedValue);
   };

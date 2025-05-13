@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 
 import { useBestScores } from '@/hooks/useBestScores';
+import { gameService } from '@/services/gameService';
 import type { UserScore } from '@/types/api';
 import type { GameOptions } from '@/types/components';
 import type { UseGameHistoryProps } from '@/types/components';
 import { getCategoryOptions } from '@/utils/categoryUtils';
 
-const ITEMS_PER_PAGE = 5;
-
 export function useGameHistory({
   scores = [],
+  loadingScores,
   scoresCount,
   scoresPage,
   setScoresPage,
@@ -17,6 +17,10 @@ export function useGameHistory({
   const [filterCategory, setFilterCategory] = useState<string>('');
   const [bestCategory, setBestCategory] = useState<string>('');
   const [allCats, setAllCats] = useState<GameOptions[]>([]);
+  const [filteredScores, setFilteredScores] = useState<UserScore[]>(scores);
+  const [filteredCount, setFilteredCount] = useState<number>(scoresCount);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [pageSize, setPageSize] = useState<number>(5);
 
   const {
     bestScores,
@@ -44,40 +48,46 @@ export function useGameHistory({
     }
   }, [playedCategories]);
 
-  // Filter scores by category if filterCategory is set
-  const filteredScores: UserScore[] = filterCategory
-    ? scores.filter(
-        (s) => s.category_name.toLowerCase() === filterCategory.toLowerCase(),
-      )
-    : scores;
+  useEffect(() => {
+    const fetchScores = async () => {
+      setIsLoading(true);
+      try {
+        if (filterCategory) {
+          const response = await gameService.getUserScores(
+            scoresPage,
+            filterCategory,
+          );
+          setFilteredScores(response.results);
+          setFilteredCount(response.count);
+          if (response.results.length > 0) {
+            setPageSize(response.results.length);
+          }
+        } else {
+          setFilteredScores(scores);
+          setFilteredCount(scoresCount);
+        }
+      } catch (error) {
+        console.error('Error fetching filtered scores:', error);
+        setFilteredScores([]);
+        setFilteredCount(0);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  // Always at least 1 page
-  const totalPages: number = Math.max(
-    1,
-    Math.ceil(
-      (filterCategory ? filteredScores.length : scoresCount) / ITEMS_PER_PAGE,
-    ),
-  );
+    void fetchScores();
+  }, [filterCategory, scores, scoresCount, scoresPage]);
 
-  // Set scoresPage to 1 if it exceeds totalPages
-  const validPageScores: UserScore[] = filterCategory
-    ? filteredScores.slice(
-        (scoresPage - 1) * ITEMS_PER_PAGE,
-        scoresPage * ITEMS_PER_PAGE,
-      )
-    : scores.slice(
-        (scoresPage - 1) * ITEMS_PER_PAGE,
-        scoresPage * ITEMS_PER_PAGE,
-      );
+  const totalPages: number = Math.max(1, Math.ceil(filteredCount / pageSize));
 
-  // Set bestCategory to the first category in bestScores if it's empty
+  const validPageScores: UserScore[] = filteredScores;
+
   const selectedBest: UserScore | undefined = bestScores.find(
     (s) => s.category_name.toLowerCase() === bestCategory.toLowerCase(),
   );
 
   const handleBestCategoryChange = (value: string) => {
     setBestCategory(value);
-    setScoresPage(1);
   };
 
   const handleFilterCategoryChange = (value: string) => {
@@ -86,11 +96,15 @@ export function useGameHistory({
   };
 
   const handlePreviousPage = () => {
-    setScoresPage(Math.max(1, scoresPage - 1));
+    if (scoresPage > 1) {
+      setScoresPage(scoresPage - 1);
+    }
   };
 
   const handleNextPage = () => {
-    setScoresPage(Math.min(totalPages, scoresPage + 1));
+    if (scoresPage < totalPages) {
+      setScoresPage(scoresPage + 1);
+    }
   };
 
   return {
@@ -103,6 +117,7 @@ export function useGameHistory({
     validPageScores,
     totalPages,
     loadingBest,
+    loading: isLoading || loadingScores,
     handleBestCategoryChange,
     handleFilterCategoryChange,
     handlePreviousPage,

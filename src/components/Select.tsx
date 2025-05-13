@@ -28,7 +28,7 @@ export const Select: FC<SelectProps> = ({
   value,
   onChange,
   options,
-  placeholder = 'Select an option',
+  placeholder,
   disabled = false,
   className = '',
   required = false,
@@ -67,7 +67,7 @@ export const Select: FC<SelectProps> = ({
           aria-labelledby={label && labelId ? labelId : undefined}
         >
           {placeholder && (
-            <option value="" disabled={required}>
+            <option value="" disabled={required && !!value}>
               {placeholder}
             </option>
           )}

@@ -13,6 +13,7 @@ export const gameService = {
       throw error;
     }
   },
+
   // Get leaderboard entries
   getLeaderboard: async (categoryId?: number): Promise<LeaderboardEntry[]> => {
     const url =
@@ -28,6 +29,7 @@ export const gameService = {
       throw error;
     }
   },
+
   // Get categories
   getCategories: async (): Promise<unknown> => {
     try {
@@ -38,9 +40,11 @@ export const gameService = {
       throw error;
     }
   },
+
   // Get user scores
   getUserScores: async (
     page = 1,
+    category?: string,
   ): Promise<{
     count: number;
     next: string | null;
@@ -48,12 +52,18 @@ export const gameService = {
     results: UserScore[];
   }> => {
     try {
+      const url = '/api/memorix/results/';
+      const params = new URLSearchParams();
+      params.append('page', String(page));
+      if (category) {
+        params.append('category', category);
+      }
       const response = await axiosReq.get<{
         count: number;
         next: string | null;
         previous: string | null;
         results: UserScore[];
-      }>(`/api/memorix/results/?page=${String(page)}`);
+      }>(`${url}?${params.toString()}`);
       return response.data;
     } catch (error: unknown) {
       if (
@@ -75,6 +85,7 @@ export const gameService = {
       throw error;
     }
   },
+
   // Get user best scores
   getUserBestScores: async (): Promise<UserScore[]> => {
     try {
