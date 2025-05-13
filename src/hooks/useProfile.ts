@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useAuth } from '@/hooks/useAuth';
 import { useForm } from '@/hooks/useForm';
+import { useToast } from '@/hooks/useToast';
 import { axiosReq } from '@/services/axios';
 import { gameService } from '@/services/gameService';
 import type { ApiError, UserScore } from '@/types/api';
@@ -19,6 +20,7 @@ export function useProfile() {
   const [scoresCount, setScoresCount] = useState<number>(0);
   const [scoresPage, setScoresPage] = useState<number>(1);
   const [loadingScores, setLoadingScores] = useState<boolean>(false);
+  const { showToast } = useToast();
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -69,10 +71,12 @@ export function useProfile() {
     }
     if (!profileImage) {
       setError('Please select an image first');
+      showToast('Please select an image first');
       return;
     }
     if (!profile?.id) {
       setError('Could not update profile: Profile ID not found');
+      showToast('Could not update profile: Profile ID not found');
       return;
     }
 
@@ -88,12 +92,14 @@ export function useProfile() {
       });
       await getProfile();
       setSuccess('Profile updated successfully!');
+      showToast('Profile updated successfully!');
       setProfileImage(null);
       setPreviewImage(null);
     } catch (err) {
-      setError(
-        formatErrorMessage(err as ApiError) || 'Failed to update profile',
-      );
+      const msg =
+        formatErrorMessage(err as ApiError) || 'Failed to update profile';
+      setError(msg);
+      showToast(msg);
     } finally {
       setLoading(false);
     }
@@ -114,9 +120,12 @@ export function useProfile() {
           new_password2: values.newPassword2,
         });
         setSuccess('Password changed successfully!');
+        showToast('Password changed successfully!');
         return true;
       } catch (err) {
-        setError(formatErrorMessage(err as ApiError));
+        const msg = formatErrorMessage(err as ApiError);
+        setError(msg);
+        showToast(msg);
         return false;
       } finally {
         setLoading(false);
@@ -132,14 +141,16 @@ export function useProfile() {
     try {
       await axiosReq.delete('/api/delete-account/');
       setSuccess('Account deleted successfully.');
+      showToast('Account deleted successfully.');
       setTimeout(() => {
         logout();
       }, 1200);
     } catch (err) {
-      setError(
+      const msg =
         formatErrorMessage(err as ApiError) ||
-          'Failed to delete account. Please try again.',
-      );
+        'Failed to delete account. Please try again.';
+      setError(msg);
+      showToast(msg);
     } finally {
       setLoading(false);
     }

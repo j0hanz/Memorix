@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { useError } from '@/hooks/useError';
 import { useForm } from '@/hooks/useForm';
+import { useToast } from '@/hooks/useToast';
 import { axiosReq } from '@/services/axios';
 import type { ApiError } from '@/types/api';
 import type { RegisterData } from '@/types/auth';
@@ -12,6 +13,7 @@ export function useRegister(onSuccess: () => void) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { setError: setGlobalError } = useError();
+  const { showToast } = useToast();
 
   const handleRegister = async (values: RegisterData) => {
     setLoading(true);
@@ -19,11 +21,13 @@ export function useRegister(onSuccess: () => void) {
 
     try {
       await axiosReq.post('/dj-rest-auth/registration/', values);
+      showToast('Registration successful!');
       onSuccess();
       return true;
     } catch (err: unknown) {
       const errorMessage = formatErrorMessage(err as ApiError);
       setError(errorMessage);
+      showToast(errorMessage);
       logError(err, 'Registration', 'error');
       setGlobalError(err, 'Registration');
       return false;

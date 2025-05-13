@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useBestScores } from '@/hooks/useBestScores';
+import { useToast } from '@/hooks/useToast';
 import { gameService } from '@/services/gameService';
 import type { UserScore } from '@/types/api';
 import type { GameOptions } from '@/types/components';
@@ -27,6 +28,8 @@ export function useGameHistory({
     categories: bestCats,
     loading: loadingBest,
   } = useBestScores();
+
+  const { showToast } = useToast();
 
   useEffect(() => {
     setAllCats(
@@ -68,6 +71,7 @@ export function useGameHistory({
         }
       } catch (error) {
         console.error('Error fetching filtered scores:', error);
+        showToast('Failed to fetch filtered scores. Please try again.');
         setFilteredScores([]);
         setFilteredCount(0);
       } finally {
@@ -76,7 +80,7 @@ export function useGameHistory({
     };
 
     void fetchScores();
-  }, [filterCategory, scores, scoresCount, scoresPage]);
+  }, [filterCategory, scores, scoresCount, scoresPage, showToast]);
 
   const totalPages: number = Math.max(1, Math.ceil(filteredCount / pageSize));
 

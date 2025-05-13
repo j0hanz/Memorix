@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useError } from '@/hooks/useError';
+import { useToast } from '@/hooks/useToast';
 import { gameService } from '@/services/gameService';
 import type { UserScore } from '@/types/api';
 import { getUserFriendlyMessage, logError } from '@/utils/errorUtils';
@@ -10,6 +11,7 @@ export function useBestScores() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { setError: setGlobalError } = useError();
+  const { showToast } = useToast();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -26,6 +28,7 @@ export function useBestScores() {
         if (!controller.signal.aborted) {
           const friendlyMessage = getUserFriendlyMessage(e);
           setError(friendlyMessage);
+          showToast(friendlyMessage);
           logError(e, 'BestScores', 'error');
           setGlobalError(e, 'BestScores');
         }
@@ -42,7 +45,7 @@ export function useBestScores() {
     return () => {
       controller.abort();
     };
-  }, [setGlobalError]);
+  }, [setGlobalError, showToast]);
 
   const categories: string[] = Array.from(
     new Set(bestScores.map((s) => s.category_name)),
