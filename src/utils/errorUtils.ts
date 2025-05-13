@@ -84,8 +84,26 @@ export const formatErrorMessage = (error: ApiError): string => {
   if (!error.response?.data) return 'An unexpected error occurred';
 
   const data = error.response.data;
+
   if (typeof data === 'string') return data;
 
+  if (
+    Array.isArray(data.non_field_errors) &&
+    data.non_field_errors.length > 0
+  ) {
+    if (
+      data.non_field_errors[0] === 'Unable to log in with provided credentials.'
+    ) {
+      return 'Incorrect username or password.';
+    }
+    return data.non_field_errors.join(' ');
+  }
+  if (typeof data.detail === 'string') {
+    if (data.detail === 'Invalid token.') {
+      return 'Your session has expired. Please log in again.';
+    }
+    return data.detail;
+  }
   return Object.entries(data)
     .map(([key, value]) => {
       const message = Array.isArray(value) ? value.join(', ') : String(value);
