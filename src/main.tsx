@@ -8,10 +8,12 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import App from '@/App';
-import { AuthProvider } from '@/components/AuthProvider';
-import { ErrorProvider } from '@/components/ErrorProvider';
-import { ModalProvider } from '@/components/ModalProvider';
-import { ToastProvider } from '@/components/ToastProvider';
+import {
+  AuthProvider,
+  ErrorProvider,
+  ModalProvider,
+  ToastProvider,
+} from '@/components/Provider';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
