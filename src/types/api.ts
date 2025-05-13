@@ -33,6 +33,26 @@ export interface ApiError {
   [key: string]: unknown;
 }
 
+export type ErrorSeverity = 'info' | 'warning' | 'error' | 'critical';
+
+export interface AppError {
+  message: string;
+  code?: string;
+  severity: ErrorSeverity;
+  timestamp: Date;
+  details?: unknown;
+  handled?: boolean;
+}
+
+export type ErrorCategory =
+  | 'api'
+  | 'validation'
+  | 'authentication'
+  | 'authorization'
+  | 'network'
+  | 'ui'
+  | 'unknown';
+
 export interface GameResultData {
   category: string;
   moves: number;
@@ -48,6 +68,13 @@ export interface UserScore {
   time_seconds: number;
   stars: number;
   completed_at: string;
+}
+
+export interface PaginatedUserScores {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: UserScore[];
 }
 
 export interface LeaderboardEntry extends UserScore {

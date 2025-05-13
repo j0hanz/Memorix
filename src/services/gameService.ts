@@ -1,101 +1,76 @@
-import type { GameResultData, LeaderboardEntry, UserScore } from '@/types/api';
+import type { AxiosError } from 'axios';
 
-import { axiosReq } from './axios';
+import { axiosReq } from '@/services/axios';
+import type {
+  GameResultData,
+  LeaderboardEntry,
+  PaginatedUserScores,
+  UserScore,
+} from '@/types/api';
+
+function handleError(message: string, error: unknown): never {
+  console.error(message, error);
+  throw error;
+}
 
 export const gameService = {
-  // Save a completed game score
-  saveGameResult: async (gameData: GameResultData): Promise<unknown> => {
+  async saveGameResult(data: GameResultData): Promise<unknown> {
     try {
-      const response = await axiosReq.post('/api/memorix/results/', gameData);
-      return response.data as unknown;
-    } catch (error) {
-      console.error('Error saving game result:', error);
-      throw error;
-    }
-  },
-
-  // Get leaderboard entries
-  getLeaderboard: async (categoryId?: number): Promise<LeaderboardEntry[]> => {
-    const url =
-      typeof categoryId === 'number'
-        ? `/api/memorix/results/leaderboard/?category=${String(categoryId)}`
-        : '/api/memorix/results/leaderboard/';
-
-    try {
-      const response = await axiosReq.get<LeaderboardEntry[]>(url);
+      const response = await axiosReq.post('/api/memorix/results/', data);
       return response.data;
     } catch (error) {
-      console.error('Error fetching leaderboard:', error);
-      throw error;
+      return handleError('Error saving game result:', error);
     }
   },
 
-  // Get categories
-  getCategories: async (): Promise<unknown> => {
+  async getLeaderboard(categoryId?: number): Promise<LeaderboardEntry[]> {
     try {
-      const response = await axiosReq.get('/api/memorix/categories/');
-      return response.data as unknown;
+      const response = await axiosReq.get<LeaderboardEntry[]>(
+        '/api/memorix/results/leaderboard/',
+        { params: categoryId != null ? { category: categoryId } : undefined },
+      );
+      return response.data;
     } catch (error) {
-      console.error('Error fetching categories:', error);
-      throw error;
+      return handleError('Error fetching leaderboard:', error);
     }
   },
 
-  // Get user scores
-  getUserScores: async (
+  async getCategories(): Promise<string[]> {
+    try {
+      const response = await axiosReq.get<string[]>('/api/memorix/categories/');
+      return response.data;
+    } catch (error) {
+      return handleError('Error fetching categories:', error);
+    }
+  },
+
+  async getUserScores(
     page = 1,
     category?: string,
-  ): Promise<{
-    count: number;
-    next: string | null;
-    previous: string | null;
-    results: UserScore[];
-  }> => {
+  ): Promise<PaginatedUserScores> {
     try {
-      const url = '/api/memorix/results/';
-      const params = new URLSearchParams();
-      params.append('page', String(page));
-      if (category) {
-        params.append('category', category);
-      }
-      const response = await axiosReq.get<{
-        count: number;
-        next: string | null;
-        previous: string | null;
-        results: UserScore[];
-      }>(`${url}?${params.toString()}`);
+      const response = await axiosReq.get<PaginatedUserScores>(
+        '/api/memorix/results/',
+        { params: { page, ...(category ? { category } : {}) } },
+      );
       return response.data;
     } catch (error: unknown) {
-      if (
-        typeof error === 'object' &&
-        error !== null &&
-        'response' in error &&
-        typeof (error as { response?: { status?: number } }).response ===
-          'object' &&
-        (error as { response?: { status?: number } }).response?.status === 401
-      ) {
-        return {
-          count: 0,
-          next: null,
-          previous: null,
-          results: [],
-        };
+      const axiosError = error as AxiosError;
+      if (axiosError.response?.status === 401) {
+        return { count: 0, next: null, previous: null, results: [] };
       }
-      console.error('Error fetching user scores:', error);
-      throw error;
+      return handleError('Error fetching user scores:', error);
     }
   },
 
-  // Get user best scores
-  getUserBestScores: async (): Promise<UserScore[]> => {
+  async getUserBestScores(): Promise<UserScore[]> {
     try {
       const response = await axiosReq.get<UserScore[]>(
         '/api/memorix/results/best/',
       );
       return response.data;
     } catch (error) {
-      console.error('Error fetching best scores:', error);
-      throw error;
+      return handleError('Error fetching best scores:', error);
     }
   },
 };
