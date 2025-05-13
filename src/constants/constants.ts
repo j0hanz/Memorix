@@ -107,11 +107,6 @@ export const GITHUB_API = {
   COMMITS_PER_PAGE: 3,
 };
 
-// Local storage keys
-export const STORAGE_KEYS = {
-  MUTE_STATE: 'memorixMuted',
-};
-
 // Timer constants
 export const TIMER = {
   INTERVAL: 1000,

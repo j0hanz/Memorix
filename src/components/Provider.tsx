@@ -1,7 +1,7 @@
 import { type ReactNode, useState } from 'react';
 import useSound from 'use-sound';
 
-import { DELAYS, STORAGE_KEYS } from '@/constants/constants';
+import { DELAYS } from '@/constants/constants';
 import { CATEGORIES } from '@/constants/constants';
 import type { SoundKey } from '@/constants/sounds';
 import { SOUND_FILES } from '@/constants/sounds';
@@ -18,6 +18,11 @@ import type { AuthProviderProps } from '@/types/auth';
 import type { ModalData, ModalType } from '@/types/context';
 import type { GameProviderProps } from '@/types/context';
 import { createAppError, logError } from '@/utils/errorUtils';
+import {
+  playSoundEffect,
+  type SoundMapType,
+  useSoundState,
+} from '@/utils/soundUtils';
 
 import Toast from './Toast';
 
@@ -88,15 +93,7 @@ interface SoundProviderProps {
 }
 
 export function SoundProvider({ children }: SoundProviderProps) {
-  // Define the initial mute state based on localStorage
-  const [isMuted, setIsMuted] = useState<boolean>(() => {
-    try {
-      return localStorage.getItem(STORAGE_KEYS.MUTE_STATE) === 'true';
-    } catch (error) {
-      console.error('Error accessing localStorage for mute state:', error);
-      return false;
-    }
-  });
+  const { isMuted, toggleMute, setMuteState } = useSoundState();
 
   // Initialize sound effects with use-sound
   const [playButton] = useSound(SOUND_FILES.button, {
@@ -125,7 +122,7 @@ export function SoundProvider({ children }: SoundProviderProps) {
   });
 
   // Map sound keys to their respective play functions
-  const soundMap = {
+  const soundMap: SoundMapType = {
     button: playButton,
     click: playClick,
     complete: playComplete,
@@ -135,33 +132,7 @@ export function SoundProvider({ children }: SoundProviderProps) {
 
   // Function to play sound based on the key
   function playSound(soundKey: SoundKey): void {
-    if (isMuted) return;
-
-    try {
-      const playFn = soundMap[soundKey];
-      if (playFn) {
-        playFn();
-      } else {
-        console.warn(`No sound found for key: "${soundKey}"`);
-      }
-    } catch (error) {
-      console.error('Error playing sound:', error);
-    }
-  }
-
-  // Function to toggle mute state
-  function toggleMute(): void {
-    setMuteState(!isMuted);
-  }
-
-  // Function to set mute state and update localStorage
-  function setMuteState(muted: boolean): void {
-    setIsMuted(muted);
-    try {
-      localStorage.setItem(STORAGE_KEYS.MUTE_STATE, muted.toString());
-    } catch (error) {
-      console.error('Error setting mute state in localStorage:', error);
-    }
+    playSoundEffect(soundMap, soundKey, isMuted);
   }
 
   return (
