@@ -35,7 +35,12 @@ export function useLogin(onSuccess?: () => void) {
         return false;
       }
 
-      setAuthTokens(accessToken, refreshToken);
+      // Only pass refreshToken if it's not null
+      if (refreshToken) {
+        setAuthTokens(accessToken, refreshToken);
+      } else {
+        setAuthTokens(accessToken);
+      }
 
       if (response.data.user) {
         setUser(response.data.user);

@@ -14,7 +14,8 @@ export type ModalType =
   | 'profile'
   | 'scoreboard'
   | 'latestUpdates'
-  | 'categorySelection';
+  | 'categorySelection'
+  | null;
 
 export interface ModalData {
   categoryCode?: string;

@@ -11,19 +11,23 @@ import App from '@/App';
 import { AuthProvider } from '@/components/AuthProvider';
 import { ErrorProvider } from '@/components/ErrorProvider';
 import { ModalProvider } from '@/components/ModalProvider';
+import { ToastProvider } from '@/components/ToastProvider';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
   throw new Error('Root element not found');
 }
+
 createRoot(rootElement).render(
   <StrictMode>
     <ErrorProvider>
-      <AuthProvider>
-        <ModalProvider>
-          <App />
-        </ModalProvider>
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <ModalProvider>
+            <App />
+          </ModalProvider>
+        </AuthProvider>
+      </ToastProvider>
     </ErrorProvider>
   </StrictMode>,
 );
