@@ -14,6 +14,8 @@ export default tseslint.config(
   {
     extends: [
       js.configs.recommended,
+      reactCompiler.configs.recommended,
+      reactHooks.configs['recommended-latest'],
       ...tseslint.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked,
       ...tseslint.configs.strict,
@@ -34,16 +36,13 @@ export default tseslint.config(
       },
     },
     plugins: {
-      'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      'react-compiler': reactCompiler,
       'simple-import-sort': simpleImportSortPlugin,
       react: reactPlugin,
       'jsx-a11y': jsxA11y,
     },
     rules: {
       ...jsxA11y.flatConfigs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
       // Warn if components are not exported properly
       'react-refresh/only-export-components': [
         'warn',
