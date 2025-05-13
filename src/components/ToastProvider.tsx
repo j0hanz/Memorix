@@ -40,7 +40,6 @@ export function ToastProvider({ children }: ToastProviderProps) {
         show={toast.show}
         duration={toast.duration}
         onClose={hideToast}
-        placement="bottom"
       />
     </ToastContext.Provider>
   );

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useError } from '@/hooks/useError';
 import { useForm } from '@/hooks/useForm';
+import { useToast } from '@/hooks/useToast';
 import { axiosReq } from '@/services/axios';
 import type { ApiError } from '@/types/api';
 import type { AuthResponse, LoginCredentials, User } from '@/types/auth';
@@ -13,8 +14,9 @@ import { loginValidationRules } from '@/utils/validation';
 export function useLogin(onSuccess?: () => void) {
   const { setAuthTokens, setUser, fetchProfile } = useAuth();
   const { setError } = useError();
+  const { showToast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [error, setLoginError] = useState<string | null>(null);
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   const handleLogin = async (values: LoginCredentials) => {
     setLoading(true);
@@ -32,10 +34,10 @@ export function useLogin(onSuccess?: () => void) {
 
       if (!accessToken) {
         setLoginError('Access token not found in response');
+        showToast('Access token not found in response');
         return false;
       }
 
-      // Only pass refreshToken if it's not null
       if (refreshToken) {
         setAuthTokens(accessToken, refreshToken);
       } else {
@@ -59,6 +61,7 @@ export function useLogin(onSuccess?: () => void) {
     } catch (err: unknown) {
       const errorMessage = formatErrorMessage(err as ApiError);
       setLoginError(errorMessage);
+      showToast(errorMessage);
       logError(err, 'Login', 'error');
       setError(err, 'Login');
       return false;
@@ -76,6 +79,6 @@ export function useLogin(onSuccess?: () => void) {
   return {
     ...formMethods,
     loading,
-    authError: error,
+    loginError,
   };
 }

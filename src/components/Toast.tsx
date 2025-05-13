@@ -9,7 +9,7 @@ export function Toast({
   message,
   show,
   duration = DELAYS.TOAST_DURATION,
-  placement = 'bottom',
+  placement = 'top',
   className = '',
   onClose,
 }: ToastProps) {
