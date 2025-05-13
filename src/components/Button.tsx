@@ -2,6 +2,7 @@ import type { FC } from 'react';
 import { Button as CustomButton } from 'react-bootstrap';
 
 import { Tooltip } from '@/components/Tooltip';
+import { useSound } from '@/hooks/useProvider';
 import type { CustomButtonProps } from '@/types/components';
 
 import styles from './styles/Button.module.css';
@@ -41,12 +42,14 @@ const Button: FC<
     .filter(Boolean)
     .join(' ')
     .trim();
+  const { playSound } = useSound();
 
   const textClassName =
     `${styles.text} ${variant === 'menu' ? styles.menuText : ''}`.trim();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (onClick) {
+      playSound('button');
       onClick(e);
     }
   };

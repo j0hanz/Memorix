@@ -1,6 +1,5 @@
 import { GAME_CONFIG } from '@/constants/constants';
 import { useModal } from '@/hooks/useModal';
-import { useSound } from '@/hooks/useProvider';
 import type { NavigationOptions } from '@/types/hooks';
 
 export function useNavigation({
@@ -11,7 +10,6 @@ export function useNavigation({
   logout,
   isAuthenticated,
 }: NavigationOptions) {
-  const { playSound } = useSound();
   const { openModal, closeModal } = useModal();
 
   // Creates a wrapper function that plays a sound before executing an action
@@ -19,7 +17,6 @@ export function useNavigation({
     action: (...args: T) => void,
   ) {
     return (...args: T) => {
-      playSound('button');
       action(...args);
     };
   }
@@ -30,7 +27,6 @@ export function useNavigation({
     type: string,
     callback?: () => void,
   ) {
-    playSound('button');
     setLoading({ isLoading: true, message, type });
     setTimeout(() => {
       setLoading({ isLoading: false, message: '', type: '' });
@@ -60,7 +56,6 @@ export function useNavigation({
 
   // Handles game restart with loading animation
   function handleRestart() {
-    playSound('button');
     setLoading({ isLoading: true, message: 'Restarting...', type: 'restart' });
     setTimeout(() => {
       setIsGameActive(false);
@@ -75,7 +70,6 @@ export function useNavigation({
 
   // Handles exiting the game with loading animation
   function handleExit() {
-    playSound('button');
     setIsGameActive(false);
   }
 
@@ -92,7 +86,6 @@ export function useNavigation({
 
   // Handles account icon click based on authentication status
   function handleAccountClick() {
-    playSound('button');
     if (isAuthenticated) {
       openModal('profile');
     } else {
@@ -102,7 +95,6 @@ export function useNavigation({
 
   // Handles user logout and resets game state
   function handleLogout() {
-    playSound('button');
     logout();
     setIsGameActive(false);
     closeModal();
