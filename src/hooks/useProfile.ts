@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useForm } from '@/hooks/useForm';
-import { useAuth } from '@/hooks/useProvider';
-import { useToast } from '@/hooks/useToast';
+import { useAuth, useToast } from '@/hooks/useProvider';
 import { axiosReq } from '@/services/axios';
 import { gameService } from '@/services/gameService';
 import type { ApiError, UserScore } from '@/types/api';

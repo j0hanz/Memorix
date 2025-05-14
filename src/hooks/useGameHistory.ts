@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { useBestScores } from '@/hooks/useBestScores';
-import { useToast } from '@/hooks/useToast';
+import { useToast } from '@/hooks/useProvider';
 import { gameService } from '@/services/gameService';
 import type { UserScore } from '@/types/api';
 import type { GameOptions } from '@/types/components';

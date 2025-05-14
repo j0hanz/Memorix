@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useToast } from '@/hooks/useToast';
+import { useToast } from '@/hooks/useProvider';
 import { fetchLatestCommits } from '@/services/github';
 import type { Commit } from '@/types/api';
 

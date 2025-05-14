@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { useError } from '@/hooks/useError';
 import { useForm } from '@/hooks/useForm';
-import { useToast } from '@/hooks/useToast';
+import { useToast } from '@/hooks/useProvider';
 import { axiosReq } from '@/services/axios';
 import type { ApiError } from '@/types/api';
 import type { RegisterData } from '@/types/auth';
