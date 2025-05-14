@@ -1,14 +1,14 @@
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 
-import Scoreboard from '@/components/scoreData';
+import { Scoreboard } from '@/components/scoreData';
 import { useScoreboard } from '@/hooks/useScoreboard';
 import type { ScoreboardDataProps } from '@/types/components';
 
 import { ModalFooterButtons } from './ModalFooterButtons';
 import { ScoreFeedback } from './ScoreFeedback';
 
-export default function ScoreboardData({
+export function ScoreboardData({
   onReset,
   onExit,
   moves,

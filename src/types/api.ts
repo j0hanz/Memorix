@@ -6,6 +6,19 @@ export interface Commit {
   author: string;
 }
 
+// CommitHistory types
+export interface CommitListProps {
+  commits: Commit[];
+}
+
+export interface CommitListItemProps {
+  commit: Commit;
+}
+
+export interface CommitStatusProps {
+  onClose?: () => void;
+}
+
 export interface GitHubCommitResponse {
   sha: string;
   commit: {

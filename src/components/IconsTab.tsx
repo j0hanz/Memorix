@@ -21,7 +21,7 @@ function IconExplanation({ icon, description }: IconExplanationProps) {
   );
 }
 
-export default function IconsTab() {
+export function IconsTab() {
   // Game icons with their descriptions
   const icons = [
     {

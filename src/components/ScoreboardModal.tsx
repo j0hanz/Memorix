@@ -1,5 +1,5 @@
 import { Modal } from '@/components/Modal';
-import ScoreboardData from '@/components/ScoreboardData';
+import { ScoreboardData } from '@/components/ScoreboardData';
 import type { ScoreboardModalProps } from '@/types/components';
 
 export function ScoreboardModal({

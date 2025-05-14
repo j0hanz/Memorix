@@ -3,7 +3,7 @@ import { ListGroup } from 'react-bootstrap';
 
 import styles from './styles/Modal.module.css';
 
-export default function OverviewTab() {
+export function OverviewTab() {
   return (
     <>
       <ListGroup variant="flush">

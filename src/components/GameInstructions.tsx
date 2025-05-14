@@ -1,4 +1,4 @@
-import InstructionsData from '@/components/instructionsData';
+import { InstructionsData } from '@/components/instructionsData';
 import { Modal } from '@/components/Modal';
 import { MODAL_CONFIGS } from '@/contexts/ModalContext';
 import type { GameInstructionsProps } from '@/types/components';

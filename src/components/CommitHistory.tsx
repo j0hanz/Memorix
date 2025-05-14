@@ -4,13 +4,17 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 import { useCommit } from '@/hooks/useCommitHistory';
 import { useLinks } from '@/hooks/useLinks';
-import type { Commit } from '@/types/api';
+import type {
+  CommitListItemProps,
+  CommitListProps,
+  CommitStatusProps,
+} from '@/types/api';
 
 import { ModalFooterButtons } from './ModalFooterButtons';
 import styles from './styles/Modal.module.css';
 
 // Commit list
-function CommitList({ commits }: { commits: Commit[] }) {
+const CommitList = ({ commits }: CommitListProps) => {
   if (!commits.length) {
     return (
       <div className={styles.commitStatus}>No commit history available.</div>
@@ -26,32 +30,30 @@ function CommitList({ commits }: { commits: Commit[] }) {
       </ul>
     </div>
   );
-}
+};
 
 // Commit list item
-function CommitListItem({ commit }: { commit: Commit }) {
-  return (
-    <li className={styles.commitItem}>
-      <div className={styles.commitDate}>
-        <CalendarTodayOutlinedIcon fontSize="small" />
-        <span>{new Date(commit.date).toLocaleDateString()}</span>
-      </div>
-      <div className={styles.commitMessage}>
-        <a
-          href={commit.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.commitLink}
-        >
-          {commit.message}
-        </a>
-      </div>
-    </li>
-  );
-}
+const CommitListItem = ({ commit }: CommitListItemProps) => (
+  <li className={styles.commitItem}>
+    <div className={styles.commitDate}>
+      <CalendarTodayOutlinedIcon fontSize="small" />
+      <span>{new Date(commit.date).toLocaleDateString()}</span>
+    </div>
+    <div className={styles.commitMessage}>
+      <a
+        href={commit.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.commitLink}
+      >
+        {commit.message}
+      </a>
+    </div>
+  </li>
+);
 
 // Main component
-export function CommitStatus({ onClose }: { onClose?: () => void }) {
+export const CommitStatus = ({ onClose }: CommitStatusProps) => {
   const { commits, loading, error } = useCommit();
   const { handleGitHubClick } = useLinks();
 
@@ -78,10 +80,8 @@ export function CommitStatus({ onClose }: { onClose?: () => void }) {
         rightIcon={<CloseOutlinedIcon fontSize="small" />}
         leftIcon={<GitHubIcon fontSize="small" />}
         onLeftClick={handleGitHubClick}
-        onRightClick={() => onClose?.()}
+        onRightClick={onClose ?? (() => {})}
       />
     </>
   );
-}
-
-export default CommitStatus;
+};

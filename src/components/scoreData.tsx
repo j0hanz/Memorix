@@ -7,7 +7,7 @@ import type { ScoreboardProps } from '@/types/data';
 import styles from './styles/Modal.module.css';
 
 // Displays the game statistics
-export default function Scoreboard({ moves, completedTime }: ScoreboardProps) {
+export function Scoreboard({ moves, completedTime }: ScoreboardProps) {
   return (
     <div className={styles.scoreboard}>
       <div className={styles.scoreItem}>

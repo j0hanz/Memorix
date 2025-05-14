@@ -34,7 +34,7 @@ function ScoreRow({ stars, moves, time }: ScoreRowProps) {
   );
 }
 
-export default function ScoringTab() {
+export function ScoringTab() {
   // Use centralized scoring thresholds
   const scoringCriteria: ScoreRowProps[] = SCORING_THRESHOLDS.map((row) => ({
     stars: row.stars,

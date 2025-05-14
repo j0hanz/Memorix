@@ -1,17 +1,17 @@
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-import { Modal } from 'react-bootstrap';
 
+import { Modal } from '@/components/Modal';
 import { ModalTabs } from '@/components/ModalTabs';
 import type { TabContent, TabItem } from '@/types/components';
 
-import IconsTab from './IconsTab';
-import OverviewTab from './OverviewTab';
-import ScoringTab from './ScoringTab';
+import { IconsTab } from './IconsTab';
+import { OverviewTab } from './OverviewTab';
+import { ScoringTab } from './ScoringTab';
 import styles from './styles/Modal.module.css';
 
-export default function InstructionsData() {
+export function InstructionsData() {
   const tabs: TabItem[] = [
     {
       key: 'overview',
@@ -40,12 +40,18 @@ export default function InstructionsData() {
   ];
 
   return (
-    <Modal.Body className="p-0">
+    <Modal
+      show={true}
+      onClose={() => {}}
+      title="Instructions"
+      className="instructionsModal"
+      showCloseButton={false}
+    >
       <ModalTabs
         tabs={tabs}
         tabContents={tabContents}
         defaultActiveKey="overview"
       />
-    </Modal.Body>
+    </Modal>
   );
 }
