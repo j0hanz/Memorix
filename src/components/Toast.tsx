@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-
 import { DELAYS } from '@/constants/constants';
+import { useToast } from '@/hooks/useToast';
 import type { ToastProps } from '@/types/components';
 
 import styles from './styles/Toast.module.css';
@@ -13,20 +12,11 @@ export function Toast({
   className = '',
   onClose,
 }: ToastProps) {
-  const [visible, setVisible] = useState(show);
-
-  useEffect(() => {
-    setVisible(show);
-    if (show && duration > 0) {
-      const timer = setTimeout(() => {
-        setVisible(false);
-        onClose?.();
-      }, duration);
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [show, duration, onClose]);
+  const { visible } = useToast({
+    show,
+    duration,
+    onClose,
+  });
 
   if (!visible) return null;
 
@@ -40,5 +30,3 @@ export function Toast({
     </div>
   );
 }
-
-export default Toast;

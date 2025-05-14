@@ -3,6 +3,8 @@ import { Modal } from '@/components/Modal';
 import { MODAL_CONFIGS } from '@/contexts/ModalContext';
 import type { GameInstructionsProps } from '@/types/components';
 
+import styles from './styles/Modal.module.css';
+
 export function GameInstructions({ show, onClose }: GameInstructionsProps) {
   const config = MODAL_CONFIGS.instructions;
 
@@ -10,7 +12,7 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
     <Modal
       show={show}
       onClose={onClose}
-      className="instructionsModal"
+      className={styles.instructionsModal}
       backdrop={config.backdrop}
     >
       <InstructionsData />

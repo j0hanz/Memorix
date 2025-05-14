@@ -84,5 +84,3 @@ export function ProfileGameHistory({
     </>
   );
 }
-
-export default ProfileGameHistory;

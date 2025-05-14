@@ -2,7 +2,6 @@ import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBullet
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 
-import { Modal } from '@/components/Modal';
 import { ModalTabs } from '@/components/ModalTabs';
 import type { TabContent, TabItem } from '@/types/components';
 
@@ -40,18 +39,10 @@ export function InstructionsData() {
   ];
 
   return (
-    <Modal
-      show={true}
-      onClose={() => {}}
-      title="Instructions"
-      className="instructionsModal"
-      showCloseButton={false}
-    >
-      <ModalTabs
-        tabs={tabs}
-        tabContents={tabContents}
-        defaultActiveKey="overview"
-      />
-    </Modal>
+    <ModalTabs
+      tabs={tabs}
+      tabContents={tabContents}
+      defaultActiveKey="overview"
+    />
   );
 }

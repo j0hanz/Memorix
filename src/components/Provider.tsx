@@ -26,7 +26,7 @@ import {
   useSoundState,
 } from '@/utils/soundUtils';
 
-import Toast from './Toast';
+import { Toast } from './Toast';
 
 // AuthProvider
 export const AuthProvider = ({ children }: AuthProviderProps) => {

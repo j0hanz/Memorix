@@ -3,7 +3,7 @@ import { Form } from 'react-bootstrap';
 import styles from '@/components/styles/Modal.module.css';
 import type { ProfileChangePasswordProps } from '@/types/components';
 
-const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
+export const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
   error,
   success,
   values,
@@ -80,5 +80,3 @@ const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
     </>
   );
 };
-
-export default ProfileChangePassword;

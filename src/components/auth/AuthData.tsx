@@ -39,5 +39,3 @@ export const AuthData = ({ onClose }: { onClose: () => void }) => {
     <ModalTabs tabs={tabs} tabContents={tabContents} defaultActiveKey="login" />
   );
 };
-
-export default AuthData;

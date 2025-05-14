@@ -4,7 +4,7 @@ import type { StarRatingProps } from '@/types/components';
 
 import styles from './styles/Modal.module.css';
 
-const StarRating: React.FC<StarRatingProps> = ({
+export const StarRating: React.FC<StarRatingProps> = ({
   count,
   max = 5,
   className,
@@ -18,5 +18,3 @@ const StarRating: React.FC<StarRatingProps> = ({
     ))}
   </>
 );
-
-export default StarRating;

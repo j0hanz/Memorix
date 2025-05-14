@@ -2,7 +2,7 @@ import { Form } from 'react-bootstrap';
 
 import type { FormFieldProps } from '@/types/components';
 
-const FormField = ({
+export const FormField = ({
   controlId,
   name,
   type,
@@ -39,5 +39,3 @@ const FormField = ({
     </Form.Group>
   );
 };
-
-export default FormField;

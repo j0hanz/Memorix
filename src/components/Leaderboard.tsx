@@ -6,7 +6,7 @@ import { useLeaderboardData } from '@/hooks/useLeaderboardData';
 
 import Button from './Button';
 import Select from './Select';
-import StarRating from './StarRating';
+import { StarRating } from './StarRating';
 import styles from './styles/Modal.module.css';
 
 const Leaderboard = () => {

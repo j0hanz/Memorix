@@ -2,7 +2,7 @@ import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Form } from 'react-bootstrap';
 
-import FormField from '@/components/FormField';
+import { FormField } from '@/components/FormField';
 import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';

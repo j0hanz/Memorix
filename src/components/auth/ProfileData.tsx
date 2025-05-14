@@ -13,14 +13,14 @@ import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
 import { TabNavigation } from '@/components/TabNavigation';
-import Toast from '@/components/Toast';
+import { Toast } from '@/components/Toast';
 import { useProfile } from '@/hooks/useProfile';
 import type { TabItem } from '@/types/components';
 
-import ProfileChangePassword from './ProfileChangePassword';
+import { ProfileChangePassword } from './ProfileChangePassword';
 import { ProfileDeleteAccount } from './ProfileDeleteAccount';
-import ProfileGameHistory from './ProfileGameHistory';
-import ProfileOverview from './ProfileOverview';
+import { ProfileGameHistory } from './ProfileGameHistory';
+import { ProfileOverview } from './ProfileOverview';
 
 const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
   onClose,

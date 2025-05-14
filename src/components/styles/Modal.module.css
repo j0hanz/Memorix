@@ -205,7 +205,7 @@
 }
 
 .instructionsModal :global(.modal-content) {
-  min-height: 40vh;
+  min-height: 50vh;
   @container (max-width: 400px) {
     height: 100%;
   }

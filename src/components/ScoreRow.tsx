@@ -3,7 +3,7 @@ import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import type { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
-import StarRating from '@/components/StarRating';
+import { StarRating } from '@/components/StarRating';
 import type { ScoreRowProps } from '@/types/components';
 import { getCategoryIcon } from '@/utils/categoryUtils';
 

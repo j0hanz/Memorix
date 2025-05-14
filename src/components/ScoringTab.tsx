@@ -6,7 +6,7 @@ import { Badge, Col, ListGroup, Row } from 'react-bootstrap';
 import { SCORING_THRESHOLDS } from '@/constants/scoring';
 import type { ScoreRowProps } from '@/types/data';
 
-import StarRating from './StarRating';
+import { StarRating } from './StarRating';
 
 function ScoreRow({ stars, moves, time }: ScoreRowProps) {
   return (

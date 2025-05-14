@@ -9,7 +9,7 @@ import type { ProfileOverviewProps } from '@/types/components';
 const formatDate = (date?: string) =>
   date ? new Date(date).toLocaleDateString() : 'N/A';
 
-const ProfileOverview: React.FC<
+export const ProfileOverview: React.FC<
   ProfileOverviewProps & { logout: () => void; extraButton?: React.ReactNode }
 > = ({
   user,
@@ -76,5 +76,3 @@ const ProfileOverview: React.FC<
     )}
   </Col>
 );
-
-export default ProfileOverview;

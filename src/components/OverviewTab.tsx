@@ -1,4 +1,4 @@
-import LabelImportantOutlinedIcon from '@mui/icons-material/LabelImportantOutlined';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { ListGroup } from 'react-bootstrap';
 
 import styles from './styles/Modal.module.css';
@@ -15,10 +15,9 @@ export function OverviewTab() {
           total).
         </ListGroup.Item>
       </ListGroup>
-      <hr className="my-2" />
       <ListGroup horizontal={true}>
         <ListGroup.Item>
-          <LabelImportantOutlinedIcon className={styles.listIcon} />
+          <PlayArrowIcon fontSize="small" className={styles.errorArrowIcon} />
         </ListGroup.Item>
         <ListGroup.Item>
           The game rates your performance based on the number of moves and time

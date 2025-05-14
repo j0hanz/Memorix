@@ -8,7 +8,7 @@ import { Suspense, useEffect, useState } from 'react';
 
 import styles from '@/App.module.css';
 import { LoadingCardSpinner } from '@/components/Spinner';
-import Toast from '@/components/Toast';
+import { Toast } from '@/components/Toast';
 import { DELAYS } from '@/constants/constants';
 import { useLinks } from '@/hooks/useLinks';
 import { useAuth, useModal } from '@/hooks/useProvider';

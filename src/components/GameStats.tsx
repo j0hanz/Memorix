@@ -5,7 +5,7 @@ import { useScore } from '@/hooks/useScore';
 import { useTimer } from '@/hooks/useTimer';
 import type { MovesProps, ScoreProps, TimerProps } from '@/types/components';
 
-import StarRating from './StarRating';
+import { StarRating } from './StarRating';
 import styles from './styles/GameStats.module.css';
 
 // Moves component
