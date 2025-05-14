@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useError } from '@/hooks/useError';
-import { useToast } from '@/hooks/useProvider';
+import { useToast, useError } from '@/hooks/useProvider';
 import { gameService } from '@/services/gameService';
 import type { UserScore } from '@/types/api';
 import { getUserFriendlyMessage, logError } from '@/utils/errorUtils';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useError } from '@/hooks/useError';
+import { useError } from '@/hooks/useProvider';
 import { gameService } from '@/services/gameService';
 import type { LeaderboardEntry } from '@/types/api';
 import { getUserFriendlyMessage, logError } from '@/utils/errorUtils';
