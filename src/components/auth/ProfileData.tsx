@@ -259,7 +259,7 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
           setShowDeleteTab(false);
         }}
       />
-      <Row>{content}</Row>
+      <Row className={styles.modalRow}>{content}</Row>
       {renderFooterButtons()}
     </>
   );

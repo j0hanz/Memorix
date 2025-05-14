@@ -28,7 +28,7 @@ export const ModalFooterButtons = ({
   leftType = 'button',
   rightType = 'button',
 }: ModalFooterButtonsProps) => (
-  <div className={`d-flex ${styles.modalButtons}`}>
+  <div className={styles.modalButtons}>
     {leftText && (
       <Button
         className={`${styles.btnLeft} ${styles.modalButton}`}

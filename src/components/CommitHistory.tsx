@@ -69,7 +69,9 @@ export function CommitStatus({ onClose }: { onClose?: () => void }) {
 
   return (
     <>
-      <CommitList commits={commits} />
+      <div className={styles.latestUpdatesModal}>
+        <CommitList commits={commits} />
+      </div>
       <ModalFooterButtons
         leftText="Github"
         rightText="Close"
