@@ -11,7 +11,6 @@ export function ProfileModal({ show, onClose, logout }: ProfileModalProps) {
       show={show}
       onClose={onClose}
       className="profileModal"
-      size={config.size}
       backdrop={config.backdrop}
       showCloseButton={false}
     >

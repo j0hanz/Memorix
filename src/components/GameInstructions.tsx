@@ -11,7 +11,6 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
       show={show}
       onClose={onClose}
       className="instructionsModal"
-      size={config.size}
       backdrop={config.backdrop}
     >
       <InstructionsData />

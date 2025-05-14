@@ -11,7 +11,6 @@ export function AuthModal({ show, onClose }: AuthModalProps) {
       show={show}
       onClose={onClose}
       className="authModal"
-      size={config.size}
       backdrop={config.backdrop}
       showCloseButton={false}
     >
