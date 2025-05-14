@@ -17,27 +17,21 @@ export const ModalContext = createContext<ModalContextType>({
 // Configuration for different modal types
 export const MODAL_CONFIGS = {
   auth: {
-    size: 'sm',
     backdrop: true,
   },
   instructions: {
-    size: 'lg',
     backdrop: true,
   },
   latestUpdates: {
-    size: 'lg',
     backdrop: true,
   },
   categorySelection: {
-    size: 'md',
     backdrop: 'static',
   },
   profile: {
-    size: 'md',
     backdrop: true,
   },
   scoreboard: {
-    size: 'md',
     backdrop: 'static',
   },
 };

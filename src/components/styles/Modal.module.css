@@ -4,6 +4,7 @@
     color: var(--text-color);
     border: none;
     border-radius: 10px;
+    --bs-modal-width: 400px;
   }
   :global(.modal-header) {
     font-family: 'Fredoka';
