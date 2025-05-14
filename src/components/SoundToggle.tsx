@@ -1,42 +1,24 @@
-import VolumeOffOutlinedIcon from '@mui/icons-material/VolumeOffOutlined';
-import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import Switch from '@mui/material/Switch';
-import { useEffect, useState } from 'react';
 
+import { useToggle } from '@/hooks/useToggle';
 import type { SoundToggleProps } from '@/types/components';
 
-export const SoundToggle = ({ isMuted, onToggle }: SoundToggleProps) => {
-  // Track state change for animation
-  const [isChanging, setIsChanging] = useState(false);
-
-  // Visual feedback when toggling
-  const handleToggle = () => {
-    setIsChanging(true);
-    onToggle();
-  };
-
-  // Reset animation state
-  useEffect(() => {
-    if (isChanging) {
-      const timer = setTimeout(() => {
-        setIsChanging(false);
-      }, 300);
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [isChanging]);
+export function SoundToggle({ isMuted, onToggle }: SoundToggleProps) {
+  const { isChanging, handleToggle } = useToggle(onToggle);
 
   return (
     <div className={isChanging ? 'sound-toggle-active' : ''}>
       {isMuted ? (
-        <VolumeOffOutlinedIcon titleAccess="Sound is muted" />
+        <VolumeOffIcon titleAccess="Sound is muted" />
       ) : (
-        <VolumeUpOutlinedIcon titleAccess="Sound is on" />
+        <VolumeUpIcon titleAccess="Sound is on" />
       )}
       <Switch
         checked={!isMuted}
         onChange={handleToggle}
+        aria-label="Toggle sound"
         color="secondary"
         slotProps={{
           input: {
@@ -44,9 +26,6 @@ export const SoundToggle = ({ isMuted, onToggle }: SoundToggleProps) => {
           },
         }}
       />
-      <span className="visually-hidden">
-        {isMuted ? 'Sound is muted' : 'Sound is on'}
-      </span>
     </div>
   );
-};
+}
