@@ -19,8 +19,12 @@
   }
 }
 
-.latestUpdatesModal {
-  min-height: 35vh;
+.instructionsModal :global(.modal-content),
+.leaderboardModal :global(.modal-content) {
+  min-height: 45vh;
+  @container (max-width: 400px) {
+    height: 100%;
+  }
 }
 
 .modalRow {
@@ -202,13 +206,6 @@
   font-size: 0.8em;
   opacity: 0.8;
   padding: 1rem 0.5rem;
-}
-
-.instructionsModal :global(.modal-content) {
-  min-height: 50vh;
-  @container (max-width: 400px) {
-    height: 100%;
-  }
 }
 
 .leaderboardAvatar {

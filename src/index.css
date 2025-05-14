@@ -2,12 +2,10 @@ body {
   font-family: 'Fredoka';
   background: color-mix(in srgb, var(--bg-primary) 90%, black 10%);
   color: var(--text-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  place-items: center;
   height: 100dvh;
   letter-spacing: var(--text-spacing);
-  font-size: 1rem;
   font-weight: 400;
 }
 

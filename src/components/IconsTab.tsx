@@ -25,47 +25,31 @@ export function IconsTab() {
   // Game icons with their descriptions
   const icons = [
     {
-      icon: <ReplayCircleFilledOutlinedIcon className={styles.listIcon} />,
+      icon: <ReplayCircleFilledOutlinedIcon fontSize="small" />,
       description: 'Restart game',
     },
     {
-      icon: <ExitToAppOutlinedIcon className={styles.listIcon} />,
+      icon: <ExitToAppOutlinedIcon fontSize="small" />,
       description: 'Exit game',
     },
     {
-      icon: (
-        <TimerOutlinedIcon
-          className={`${styles.listIcon} ${styles.clockIcon}`}
-        />
-      ),
+      icon: <TimerOutlinedIcon fontSize="small" />,
       description: 'Game time',
     },
     {
-      icon: (
-        <FlipOutlinedIcon
-          className={`${styles.listIcon} ${styles.statsIcon}`}
-        />
-      ),
+      icon: <FlipOutlinedIcon fontSize="small" />,
       description: 'Moves',
     },
     {
-      icon: (
-        <CloseOutlinedIcon
-          className={`${styles.listIcon} ${styles.wrongPick}`}
-        />
-      ),
+      icon: <CloseOutlinedIcon className={styles.wrongPick} fontSize="small" />,
       description: 'Wrong pick',
     },
     {
-      icon: (
-        <CheckOutlinedIcon className={`${styles.listIcon} ${styles.success}`} />
-      ),
+      icon: <CheckOutlinedIcon className={styles.success} fontSize="small" />,
       description: 'Correct pick',
     },
     {
-      icon: (
-        <StarOutlinedIcon className={`${styles.listIcon} ${styles.starIcon}`} />
-      ),
+      icon: <StarOutlinedIcon className={styles.starIcon} fontSize="small" />,
       description: 'Stars earned',
     },
   ];
