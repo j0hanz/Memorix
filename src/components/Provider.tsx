@@ -15,6 +15,7 @@ import { useAppState } from '@/hooks/useAppState';
 import { useAuthProvider } from '@/hooks/useAuth';
 import { useGameReducer } from '@/hooks/useGameReducer';
 import { useModal } from '@/hooks/useModal';
+import { useAuth } from '@/hooks/useProvider';
 import type { AppError } from '@/types/api';
 import type { AuthProviderProps } from '@/types/auth';
 import type { ModalData, ModalType } from '@/types/context';
@@ -195,7 +196,8 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     loading,
     selectedCategory,
   } = useAppState();
-  const { logout, isAuthenticated } = useAuthProvider();
+  // Use useAuth instead of useAuthProvider
+  const { logout, isAuthenticated } = useAuth();
   const { openModal, closeModal } = useModal();
   const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
 

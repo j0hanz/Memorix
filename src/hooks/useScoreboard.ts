@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/hooks/useProvider';
 import { useSaveScore } from '@/hooks/useSaveScore';
 import { useScore } from '@/hooks/useScore';
 import type { UseScoreboardProps } from '@/types/hooks';

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { useAuth } from '@/hooks/useAuth';
 import { useForm } from '@/hooks/useForm';
+import { useAuth } from '@/hooks/useProvider';
 import { useToast } from '@/hooks/useToast';
 import { axiosReq } from '@/services/axios';
 import { gameService } from '@/services/gameService';

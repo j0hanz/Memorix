@@ -1,6 +1,5 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { AuthContext } from '@/contexts/AuthContext';
 import { axiosReq } from '@/services/axios';
 import type { ApiError } from '@/types/api';
 import type { AuthContextType, Profile, User } from '@/types/auth';
@@ -12,12 +11,6 @@ import {
   setRefreshToken,
   setToken,
 } from '@/utils/tokenUtils';
-
-// Hook to use auth context in components
-export function useAuth() {
-  const context = useContext(AuthContext);
-  return context;
-}
 
 // Hook to create auth provider state and logic
 export function useAuthProvider(): AuthContextType {
