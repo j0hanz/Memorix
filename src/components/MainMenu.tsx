@@ -11,8 +11,7 @@ import { LoadingCardSpinner } from '@/components/Spinner';
 import Toast from '@/components/Toast';
 import { DELAYS } from '@/constants/constants';
 import { useLinks } from '@/hooks/useLinks';
-import { useModal } from '@/hooks/useModal';
-import { useAuth } from '@/hooks/useProvider';
+import { useAuth, useModal } from '@/hooks/useProvider';
 import type { MainMenuProps } from '@/types/components';
 
 import { MenuButton } from './MenuButton';

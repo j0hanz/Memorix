@@ -11,9 +11,8 @@ import { LeaderboardModal } from '@/components/LeaderboardModal';
 import MainMenu from '@/components/MainMenu';
 import { GameProvider } from '@/components/Provider';
 import { LoadingCardSpinner } from '@/components/Spinner';
-import { useModal } from '@/hooks/useModal';
 import { useMotions } from '@/hooks/useMotions';
-import { useNavigation } from '@/hooks/useProvider';
+import { useNavigation, useModal } from '@/hooks/useProvider';
 
 const App = () => {
   const [showInitialLoading, setShowInitialLoading] = useState(false);
