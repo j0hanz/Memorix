@@ -1,0 +1,78 @@
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import type { ReactNode } from 'react';
+import { Modal as CustomModal } from 'react-bootstrap';
+
+import Button from '@/components/Button';
+import styles from '@/components/styles/Modal.module.css';
+
+export interface ModalProps {
+  show: boolean;
+  onClose: () => void;
+  title?: ReactNode;
+  children: ReactNode;
+  footer?: ReactNode;
+  className?: string;
+  bodyClassName?: string;
+  headerClassName?: string;
+  footerClassName?: string;
+  backdrop?: 'static' | boolean;
+  centered?: boolean;
+  size?: 'sm' | 'lg' | 'xl';
+  showCloseButton?: boolean;
+}
+
+export function Modal({
+  show,
+  onClose,
+  title,
+  children,
+  footer,
+  className = '',
+  bodyClassName = '',
+  headerClassName = '',
+  footerClassName = '',
+  backdrop = true,
+  centered = true,
+  size,
+  showCloseButton = true,
+}: ModalProps) {
+  return (
+    <CustomModal
+      show={show}
+      onHide={onClose}
+      centered={centered}
+      className={`${styles.modal} ${className}`}
+      backdrop={backdrop}
+      size={size}
+    >
+      {title && (
+        <CustomModal.Header
+          className={`border-0 d-flex justify-content-center ${headerClassName}`}
+        >
+          <CustomModal.Title>{title}</CustomModal.Title>
+        </CustomModal.Header>
+      )}
+
+      <CustomModal.Body className={`p-0 ${bodyClassName}`}>
+        {children}
+      </CustomModal.Body>
+
+      {footer && (
+        <CustomModal.Footer className={`border-0 ${footerClassName}`}>
+          {footer}
+        </CustomModal.Footer>
+      )}
+
+      {!footer && showCloseButton && (
+        <CustomModal.Footer className={`border-0 ${footerClassName}`}>
+          <Button
+            className={`${styles.closeButtonSolo} ${styles.modalButton}`}
+            icon={<CloseOutlinedIcon fontSize="small" />}
+            onClick={onClose}
+            text="Close"
+          />
+        </CustomModal.Footer>
+      )}
+    </CustomModal>
+  );
+}

@@ -1,24 +1,20 @@
 import { useEffect, useState } from 'react';
 
-import { ProfileModal } from '@/components/auth/ProfileModal';
-import { AuthModal } from '@/components/AuthModal';
-import { CategorySelection } from '@/components/CategorySelection';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import Game from '@/components/Game';
-import { GameInstructions } from '@/components/GameInstructions';
-import { LatestUpdates } from '@/components/LatestUpdates';
 import { LeaderboardModal } from '@/components/LeaderboardModal';
 import MainMenu from '@/components/MainMenu';
+import { ModalRegistry } from '@/components/ModalRegistry';
 import { GameProvider } from '@/components/Provider';
 import { LoadingCardSpinner } from '@/components/Spinner';
 import { useMotions } from '@/hooks/useMotions';
-import { useNavigation, useModal } from '@/hooks/useProvider';
+import { useModal, useNavigation } from '@/hooks/useProvider';
 
 const App = () => {
   const [showInitialLoading, setShowInitialLoading] = useState(false);
   const { enterAnimation } = useMotions();
   const navigation = useNavigation();
-  const { openModal, closeModal, activeModal } = useModal();
+  const { openModal } = useModal();
 
   const useAuthModal = () => {
     openModal('auth');
@@ -74,31 +70,11 @@ const App = () => {
               </GameProvider>
             </ErrorBoundary>
           )}
-
-          {/* Modals */}
-          <GameInstructions
-            show={activeModal === 'instructions'}
-            onClose={closeModal}
-          />
-          <LatestUpdates
-            show={activeModal === 'latestUpdates'}
-            onClose={closeModal}
-          />
-          <CategorySelection
-            show={activeModal === 'categorySelection'}
-            onClose={closeModal}
-            onSelectCategory={navigation.handleSelectCategory}
-          />
+          <ModalRegistry />
           <LeaderboardModal
             show={navigation.showLeaderboardModal}
             onClose={navigation.closeLeaderboardModal}
           />
-          <ProfileModal
-            show={activeModal === 'profile'}
-            onClose={closeModal}
-            logout={navigation.handleLogout}
-          />
-          <AuthModal show={activeModal === 'auth'} onClose={closeModal} />
         </>
       )}
     </ErrorBoundary>

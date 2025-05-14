@@ -1,9 +1,6 @@
-import { Modal } from 'react-bootstrap';
-
+import { Modal } from '@/components/Modal';
 import ScoreboardData from '@/components/ScoreboardData';
 import type { ScoreboardModalProps } from '@/types/components';
-
-import styles from './styles/Modal.module.css';
 
 export function ScoreboardModal({
   show,
@@ -19,25 +16,20 @@ export function ScoreboardModal({
   return (
     <Modal
       show={show}
-      onHide={onClose}
-      centered={true}
-      className={styles.modal}
+      onClose={onClose}
+      title={title}
       backdrop="static"
+      showCloseButton={false}
     >
-      <Modal.Header className="border-0 d-flex justify-content-center">
-        <Modal.Title>{title}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body className="p-0">
-        <ScoreboardData
-          onReset={onReset}
-          onExit={onExit}
-          moves={moves}
-          completedTime={completedTime}
-          categoryCode={categoryCode}
-        >
-          {children}
-        </ScoreboardData>
-      </Modal.Body>
+      <ScoreboardData
+        onReset={onReset}
+        onExit={onExit}
+        moves={moves}
+        completedTime={completedTime}
+        categoryCode={categoryCode}
+      >
+        {children}
+      </ScoreboardData>
     </Modal>
   );
 }

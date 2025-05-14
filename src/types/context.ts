@@ -25,6 +25,7 @@ export interface ModalData {
   onExit?: () => void;
   onSelectCategory?: (category: string) => void;
   logout?: () => void;
+  children?: ReactNode;
 }
 
 export interface ModalContextType {
@@ -61,7 +62,7 @@ export interface GameState {
 export interface GameContextType extends GameState {
   dispatch: Dispatch<GameAction>;
   handleCardSelection: (index: number) => void;
-  exitToMainMenu: () => void;
   resetGameState: () => void;
-  selectedCategory?: string;
+  exitToMainMenu: () => void;
+  selectedCategory: string;
 }
