@@ -1,20 +1,21 @@
-import { Modal } from 'react-bootstrap';
-
 import ProfileData from '@/components/auth/ProfileData';
-import styles from '@/components/styles/Modal.module.css';
+import { Modal } from '@/components/Modal';
+import { MODAL_CONFIGS } from '@/contexts/ModalContext';
 import type { ProfileModalProps } from '@/types/components';
 
 export function ProfileModal({ show, onClose, logout }: ProfileModalProps) {
+  const config = MODAL_CONFIGS.profile;
+
   return (
     <Modal
       show={show}
-      onHide={onClose}
-      centered={true}
-      className={`${styles.modal} ${styles.profileModal}`}
+      onClose={onClose}
+      className="profileModal"
+      size={config.size}
+      backdrop={config.backdrop}
+      showCloseButton={false}
     >
-      <Modal.Body className="p-0">
-        <ProfileData onClose={onClose} logout={logout} />
-      </Modal.Body>
+      <ProfileData onClose={onClose} logout={logout} />
     </Modal>
   );
 }

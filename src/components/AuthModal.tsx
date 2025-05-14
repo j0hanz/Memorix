@@ -1,21 +1,21 @@
-import { Modal } from 'react-bootstrap';
-
 import AuthData from '@/components/auth/AuthData';
+import { Modal } from '@/components/Modal';
+import { MODAL_CONFIGS } from '@/contexts/ModalContext';
 import type { AuthModalProps } from '@/types/components';
 
-import styles from './styles/Modal.module.css';
-
 export function AuthModal({ show, onClose }: AuthModalProps) {
+  const config = MODAL_CONFIGS.auth;
+
   return (
     <Modal
       show={show}
-      onHide={onClose}
-      centered={true}
-      className={`${styles.modal} ${styles.authModal}`}
+      onClose={onClose}
+      className="authModal"
+      size={config.size}
+      backdrop={config.backdrop}
+      showCloseButton={false}
     >
-      <Modal.Body className="p-0">
-        <AuthData onClose={onClose} />
-      </Modal.Body>
+      <AuthData onClose={onClose} />
     </Modal>
   );
 }

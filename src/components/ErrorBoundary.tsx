@@ -1,43 +1,39 @@
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
-import { Modal } from 'react-bootstrap';
 import type { FallbackProps } from 'react-error-boundary';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 
 import Button from '@/components/Button';
 import ErrorData from '@/components/ErrorData';
+import { Modal } from '@/components/Modal';
 import type { ErrorBoundaryProps } from '@/types/components';
 import { logError } from '@/utils/errorUtils';
-
-import styles from './styles/Modal.module.css';
 
 const ErrorFallback: React.FC<FallbackProps> = ({
   error,
   resetErrorBoundary,
 }) => {
   const errorObj = error instanceof Error ? error : new Error(String(error));
+  const footer = (
+    <Button
+      onClick={resetErrorBoundary}
+      text="Restart Application"
+      color="secondary"
+      className="modalButton"
+      icon={<RestartAltIcon fontSize="small" />}
+    />
+  );
+
   return (
     <Modal
       show={true}
+      onClose={() => {}}
+      title="Application Error"
       backdrop="static"
       centered={true}
-      animation={false}
-      className={`${styles.modal} ${styles.errorModal}`}
+      className="errorModal"
+      footer={footer}
     >
-      <Modal.Header className="border-0 d-flex justify-content-center">
-        <Modal.Title>Application Error</Modal.Title>
-      </Modal.Header>
-      <Modal.Body className="p-0">
-        <ErrorData error={errorObj} />
-      </Modal.Body>
-      <Modal.Footer className="border-0">
-        <Button
-          onClick={resetErrorBoundary}
-          text="Restart Application"
-          color="secondary"
-          className={`${styles.closeButtonSolo} ${styles.modalButton}`}
-          icon={<RestartAltIcon fontSize="small" />}
-        />
-      </Modal.Footer>
+      <ErrorData error={errorObj} />
     </Modal>
   );
 };
