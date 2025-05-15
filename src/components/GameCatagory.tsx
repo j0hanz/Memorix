@@ -16,7 +16,7 @@ export const GameCategory: FC<GameCategoryProps> = ({
   showAllOption = true,
   hideLabel = false,
 }) => {
-  // Ensure options are unique by value
+  // Show all option is only available for the filter category
   const selectOptions: SelectOption[] = showAllOption
     ? [{ value: '', label: 'All Categories' }, ...options]
     : [...options];
@@ -32,7 +32,13 @@ export const GameCategory: FC<GameCategoryProps> = ({
         value={value}
         onChange={handleChange}
         options={selectOptions}
-        placeholder={showAllOption ? undefined : 'Select Category'}
+        placeholder={
+          id === 'best-score-category'
+            ? undefined
+            : showAllOption
+              ? undefined
+              : 'Select Category'
+        }
         disabled={loading}
         className={styles.formSelect}
         label={!hideLabel ? label : undefined}

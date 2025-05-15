@@ -18,6 +18,12 @@ export function useGameHistory({
   const [bestCategory, setBestCategory] = useState<string>('');
   const [allCats, setAllCats] = useState<GameOptions[]>([]);
   const [pageSize, setPageSize] = useState<number>(5);
+  // Add state to track if initial load is complete
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
+  // Add state to track played categories
+  const [stablePlayedCategories, setStablePlayedCategories] = useState<
+    GameOptions[]
+  >([]);
 
   const {
     bestScores,
@@ -41,7 +47,7 @@ export function useGameHistory({
       {
         showToastOnError: true,
         errorCategory: 'GameHistory',
-        dependencies: [filterCategory, scores, scoresCount, scoresPage],
+        dependencies: [filterCategory, scoresPage],
         onSuccess: (data) => {
           if (data.results.length > 0) {
             setPageSize(data.results.length);
@@ -59,19 +65,27 @@ export function useGameHistory({
     );
   }, []);
 
-  const playedCategories: GameOptions[] = bestCats.map((c) => ({
-    value: c,
-    label: c,
-  }));
-
+  // Set the best category to the first one if not set
   useEffect(() => {
-    if (playedCategories.length === 1) {
-      setBestCategory(playedCategories[0].value);
+    if (bestCats.length > 0) {
+      const categories = bestCats.map((c) => ({
+        value: c,
+        label: c,
+      }));
+      setStablePlayedCategories(categories);
+      if (!bestCategory && categories.length > 0) {
+        setBestCategory(categories[0].value);
+      }
+      if (!initialLoadComplete) {
+        setInitialLoadComplete(true);
+      }
     }
-  }, [playedCategories]);
+  }, [bestCats, bestCategory, initialLoadComplete]);
 
   const totalPages = Math.max(1, Math.ceil(filteredCount / pageSize));
   const validPageScores: UserScore[] = filteredScores;
+
+  // Find the selected best score only once after filtering
   const selectedBest = bestScores.find(
     (s) => s.category_name.toLowerCase() === bestCategory.toLowerCase(),
   );
@@ -97,12 +111,12 @@ export function useGameHistory({
     filterCategory,
     bestCategory,
     allCats,
-    playedCategories,
+    playedCategories: stablePlayedCategories,
     selectedBest,
     filteredScores,
     validPageScores,
     totalPages,
-    loadingBest,
+    loadingBest: loadingBest && !initialLoadComplete,
     loading: isLoading || loadingScores,
     handleBestCategoryChange,
     handleFilterCategoryChange,

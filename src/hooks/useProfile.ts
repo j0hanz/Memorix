@@ -1,24 +1,26 @@
 import { useEffect, useState } from 'react';
 
-import { useForm } from '@/hooks/useForm';
+import type {
+  ProfileContextType,
+  ProfileFormValues,
+} from '@/contexts/ProfileContext';
 import { useAuth, useToast } from '@/hooks/useProvider';
 import { axiosReq } from '@/services/axios';
 import { gameService } from '@/services/gameService';
 import type { ApiError, UserScore } from '@/types/api';
 import { formatErrorMessage } from '@/utils/errorUtils';
-import { profilePasswordValidationRules } from '@/utils/validation';
 
-export function useProfile() {
+export function useProfile(): ProfileContextType {
   const { profile, getProfile, user, isAuthenticated, logout } = useAuth();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [scores, setScores] = useState<UserScore[]>([]);
-  const [scoresCount, setScoresCount] = useState<number>(0);
-  const [scoresPage, setScoresPage] = useState<number>(1);
-  const [loadingScores, setLoadingScores] = useState<boolean>(false);
+  const [scoresCount, setScoresCount] = useState(0);
+  const [scoresPage, setScoresPage] = useState(1);
+  const [loadingScores, setLoadingScores] = useState(false);
   const { showToast } = useToast();
 
   useEffect(() => {
@@ -30,7 +32,6 @@ export function useProfile() {
     }
   }, [user, profile, getProfile]);
 
-  // Fetch user scores (paginated)
   useEffect(() => {
     const fetchScores = async () => {
       if (user && isAuthenticated) {
@@ -40,7 +41,7 @@ export function useProfile() {
           setScores(data.results);
           setScoresCount(data.count);
         } catch {
-          // Ignore errors when fetching scores
+          // Silent fail
         } finally {
           setLoadingScores(false);
         }
@@ -50,7 +51,7 @@ export function useProfile() {
     void fetchScores();
   }, [user, isAuthenticated, scoresPage]);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setProfileImage(file);
@@ -62,12 +63,7 @@ export function useProfile() {
     }
   };
 
-  const handleUpdateProfile = async (
-    e?: React.FormEvent<HTMLFormElement>,
-  ): Promise<void> => {
-    if (e) {
-      e.preventDefault();
-    }
+  const handleUpdateProfile = async () => {
     if (!profileImage) {
       setError('Please select an image first');
       showToast('Please select an image first');
@@ -104,39 +100,35 @@ export function useProfile() {
     }
   };
 
-  // Password change form
-  const passwordForm = useForm(
-    { oldPassword: '', newPassword1: '', newPassword2: '' },
-    profilePasswordValidationRules,
-    async (values) => {
-      setLoading(true);
-      setError(null);
-      setSuccess(null);
-      try {
-        await axiosReq.post('/dj-rest-auth/password/change/', {
-          old_password: values.oldPassword,
-          new_password1: values.newPassword1,
-          new_password2: values.newPassword2,
-        });
-        setSuccess('Password changed successfully!');
-        showToast('Password changed successfully!');
-        return true;
-      } catch (err) {
-        const msg = formatErrorMessage(err as ApiError);
-        setError(msg);
-        showToast(msg);
-        return false;
-      } finally {
-        setLoading(false);
-      }
-    },
-  );
-
-  // Delete account handler
-  const handleDeleteAccount = async (): Promise<void> => {
+  const changePassword = async (values: ProfileFormValues) => {
     setLoading(true);
     setError(null);
     setSuccess(null);
+
+    try {
+      await axiosReq.post('/dj-rest-auth/password/change/', {
+        old_password: values.oldPassword,
+        new_password1: values.newPassword1,
+        new_password2: values.newPassword2,
+      });
+      setSuccess('Password changed successfully!');
+      showToast('Password changed successfully!');
+      return true;
+    } catch (err) {
+      const msg = formatErrorMessage(err as ApiError);
+      setError(msg);
+      showToast(msg);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
+
     try {
       await axiosReq.delete('/api/delete-account/');
       setSuccess('Account deleted successfully.');
@@ -153,6 +145,13 @@ export function useProfile() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const clearState = () => {
+    setError(null);
+    setSuccess(null);
+    setProfileImage(null);
+    setPreviewImage(null);
   };
 
   return {
@@ -172,7 +171,9 @@ export function useProfile() {
     scoresPage,
     setScoresPage,
     loadingScores,
-    passwordForm,
+    changePassword,
     handleDeleteAccount,
+    logout,
+    clearState,
   };
 }

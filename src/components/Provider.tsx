@@ -9,11 +9,13 @@ import { ErrorContext } from '@/contexts/ErrorContext';
 import { GameContext } from '@/contexts/GameContext';
 import { ModalContext } from '@/contexts/ModalContext';
 import { NavigationContext } from '@/contexts/NavigationContext';
+import { ProfileContext } from '@/contexts/ProfileContext';
 import { SoundContext } from '@/contexts/SoundContext';
 import { ToastContext } from '@/contexts/ToastContext';
 import { useAppState } from '@/hooks/useAppState';
 import { useAuthProvider } from '@/hooks/useAuth';
 import { useGameReducer } from '@/hooks/useGameReducer';
+import { useProfile } from '@/hooks/useProfile';
 import { useAuth, useModal } from '@/hooks/useProvider';
 import type { AppError } from '@/types/api';
 import type { AuthProviderProps } from '@/types/auth';
@@ -27,6 +29,16 @@ import {
 } from '@/utils/soundUtils';
 
 import { Toast } from './Toast';
+
+export function ProfileProvider({ children }: { children: ReactNode }) {
+  const profileState = useProfile();
+
+  return (
+    <ProfileContext.Provider value={profileState}>
+      {children}
+    </ProfileContext.Provider>
+  );
+}
 
 // AuthProvider
 export const AuthProvider = ({ children }: AuthProviderProps) => {

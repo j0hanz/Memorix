@@ -13,6 +13,7 @@ import {
   ErrorProvider,
   ModalProvider,
   NavigationProvider,
+  ProfileProvider,
   SoundProvider,
   ToastProvider,
 } from '@/components/Provider';
@@ -28,11 +29,13 @@ createRoot(rootElement).render(
       <ToastProvider>
         <SoundProvider>
           <AuthProvider>
-            <ModalProvider>
-              <NavigationProvider>
-                <App />
-              </NavigationProvider>
-            </ModalProvider>
+            <ProfileProvider>
+              <ModalProvider>
+                <NavigationProvider>
+                  <App />
+                </NavigationProvider>
+              </ModalProvider>
+            </ProfileProvider>
           </AuthProvider>
         </SoundProvider>
       </ToastProvider>

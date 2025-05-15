@@ -1,23 +1,45 @@
+import type { ChangeEvent, FocusEvent } from 'react';
 import { Form } from 'react-bootstrap';
 
 import styles from '@/components/styles/Modal.module.css';
-import type { ProfileChangePasswordProps } from '@/types/components';
+import type { ProfileFormValues } from '@/contexts/ProfileContext';
+import { useForm } from '@/hooks/useForm';
+import { useProfile } from '@/hooks/useProvider';
+import { profilePasswordValidationRules } from '@/utils/validation';
 
-export const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
-  error,
-  success,
-  values,
-  errors,
-  touched,
-  handleChange,
-  handleBlur,
-  handleSubmit,
-}) => {
+export function ProfileChangePassword({ onBack }: { onBack: () => void }) {
+  const { changePassword, error, success } = useProfile();
+
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
+    useForm<ProfileFormValues>(
+      { oldPassword: '', newPassword1: '', newPassword2: '' },
+      profilePasswordValidationRules,
+      async (formValues) => {
+        const result = await changePassword(formValues);
+        if (result) {
+          setTimeout(() => {
+            onBack();
+          }, 1500);
+        }
+        return result;
+      },
+    );
+
+  const handleInputBlur = (e: FocusEvent<HTMLInputElement>) => {
+    const typedEvent: ChangeEvent<HTMLInputElement> = {
+      ...e,
+      target: e.target as HTMLInputElement,
+      type: 'blur',
+    };
+
+    handleBlur(typedEvent);
+  };
+
   return (
     <>
       <Form
         onSubmit={(e) => {
-          void (handleSubmit && handleSubmit(e));
+          void handleSubmit(e);
         }}
         className="mb-1"
       >
@@ -30,7 +52,7 @@ export const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
             name="oldPassword"
             value={values.oldPassword}
             onChange={handleChange}
-            onBlur={handleBlur}
+            onBlur={handleInputBlur}
             autoComplete="current-password"
             isInvalid={!!errors.oldPassword && touched.oldPassword}
           />
@@ -38,6 +60,7 @@ export const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
             {errors.oldPassword}
           </Form.Control.Feedback>
         </Form.Group>
+
         <Form.Group controlId="newPassword1" className="mb-1">
           <Form.Label className="d-none">New Password</Form.Label>
           <Form.Control
@@ -47,7 +70,7 @@ export const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
             name="newPassword1"
             value={values.newPassword1}
             onChange={handleChange}
-            onBlur={handleBlur}
+            onBlur={handleInputBlur}
             autoComplete="new-password"
             isInvalid={!!errors.newPassword1 && touched.newPassword1}
           />
@@ -55,6 +78,7 @@ export const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
             {errors.newPassword1}
           </Form.Control.Feedback>
         </Form.Group>
+
         <Form.Group controlId="newPassword2" className="mb-1">
           <Form.Label className="d-none">Confirm New Password</Form.Label>
           <Form.Control
@@ -64,7 +88,7 @@ export const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
             name="newPassword2"
             value={values.newPassword2}
             onChange={handleChange}
-            onBlur={handleBlur}
+            onBlur={handleInputBlur}
             autoComplete="new-password"
             isInvalid={!!errors.newPassword2 && touched.newPassword2}
           />
@@ -73,10 +97,11 @@ export const ProfileChangePassword: React.FC<ProfileChangePasswordProps> = ({
           </Form.Control.Feedback>
         </Form.Group>
       </Form>
+
       {error && <div className="text-danger mb-1 text-center">{error}</div>}
       {success && (
         <div className="text-success mb-1 text-center">{success}</div>
       )}
     </>
   );
-};
+}

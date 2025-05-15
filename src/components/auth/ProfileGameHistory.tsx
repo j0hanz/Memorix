@@ -1,20 +1,18 @@
+import { useEffect, useState } from 'react';
+
 import { GameCategory } from '@/components/GameCatagory';
 import { Pagination } from '@/components/Pagination';
 import { ScoreRow } from '@/components/ScoreRow';
 import { useGameHistory } from '@/hooks/useGameHistory';
-import type { ProfileGameHistoryProps } from '@/types/components';
+import { useProfile } from '@/hooks/useProvider';
 
-export function ProfileGameHistory({
-  scores = [],
-  loadingScores,
-  scoresCount,
-  scoresPage,
-  setScoresPage,
-}: ProfileGameHistoryProps & {
-  scoresCount: number;
-  scoresPage: number;
-  setScoresPage: (page: number) => void;
-}) {
+export function ProfileGameHistory() {
+  const { scores, loadingScores, scoresCount, scoresPage, setScoresPage } =
+    useProfile();
+
+  // Add local state to prevent flickering
+  const [isStable, setIsStable] = useState(false);
+
   const {
     bestCategory,
     playedCategories,
@@ -37,19 +35,39 @@ export function ProfileGameHistory({
     setScoresPage,
   });
 
+  // Set component as stable once we have categories
+  useEffect(() => {
+    if (playedCategories.length > 0 && !isStable) {
+      setIsStable(true);
+    }
+  }, [playedCategories, isStable]);
+
+  // Don't render selector until we have data
+  if (!isStable && loadingBest) {
+    return <div className="text-center p-3">Loading best scores...</div>;
+  }
+
   return (
     <>
-      <GameCategory
-        id="best-score-category"
-        label="Best Scores"
-        options={playedCategories}
-        value={bestCategory}
-        onChange={handleBestCategoryChange}
-        loading={loadingBest}
-        showAllOption={false}
-      />
-      {selectedBest && (
-        <ScoreRow key={selectedBest.id} score={selectedBest} highlight={true} />
+      {playedCategories.length > 0 && (
+        <>
+          <GameCategory
+            id="best-score-category"
+            label="Best Scores"
+            options={playedCategories}
+            value={bestCategory}
+            onChange={handleBestCategoryChange}
+            loading={false}
+            showAllOption={false}
+          />
+          {selectedBest && (
+            <ScoreRow
+              key={selectedBest.id}
+              score={selectedBest}
+              highlight={true}
+            />
+          )}
+        </>
       )}
 
       <GameCategory
