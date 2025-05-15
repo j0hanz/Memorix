@@ -10,7 +10,7 @@ import { LoadingCardSpinner } from '@/components/Spinner';
 import { useMotions } from '@/hooks/useMotions';
 import { useModal, useNavigation } from '@/hooks/useProvider';
 
-const App = () => {
+export const App = () => {
   const [showInitialLoading, setShowInitialLoading] = useState(false);
   const { enterAnimation } = useMotions();
   const navigation = useNavigation();
@@ -80,5 +80,3 @@ const App = () => {
     </ErrorBoundary>
   );
 };
-
-export default App;

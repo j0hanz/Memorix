@@ -2,7 +2,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import type { FallbackProps } from 'react-error-boundary';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import ErrorData from '@/components/ErrorData';
 import { Modal } from '@/components/Modal';
 import type { ErrorBoundaryProps } from '@/types/components';

@@ -8,7 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useState } from 'react';
 import { Row } from 'react-bootstrap';
 
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';

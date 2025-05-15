@@ -11,23 +11,20 @@ import { StarRating } from './StarRating';
 function ScoreRow({ stars, moves, time }: ScoreRowProps) {
   return (
     <Row className="d-flex justify-content-between align-items-center m-1">
-        <Col xs={1} className="d-flex justify-content-start align-items-center">
-          <FlipOutlinedIcon fontSize="small" />
-          <small>{moves}</small>
-        </Col>
+      <Col xs={1} className="d-flex justify-content-start align-items-center">
+        <FlipOutlinedIcon fontSize="small" />
+        <small>{moves}</small>
+      </Col>
 
-        <Col
-          xs={2}
-          className="d-flex justify-content-center align-items-center"
-        >
-          <StarRating count={stars} />
-        </Col>
-        <Col xs={1} className="d-flex justify-content-end align-items-center">
-          <TimerOutlinedIcon fontSize="small" />
-          <small>{time}</small>
-        </Col>
-        <hr />
-      </Row>
+      <Col xs={2} className="d-flex justify-content-center align-items-center">
+        <StarRating count={stars} />
+      </Col>
+      <Col xs={1} className="d-flex justify-content-end align-items-center">
+        <TimerOutlinedIcon fontSize="small" />
+        <small>{time}</small>
+      </Col>
+      <hr />
+    </Row>
   );
 }
 

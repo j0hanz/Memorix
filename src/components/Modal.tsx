@@ -2,7 +2,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import type { ReactNode } from 'react';
 import { Modal as CustomModal } from 'react-bootstrap';
 
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import styles from '@/components/styles/Modal.module.css';
 
 export interface ModalProps {

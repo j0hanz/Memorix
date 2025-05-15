@@ -1,5 +1,5 @@
 import styles from '@/App.module.css';
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import type { ProfileAvatarProps } from '@/types/components';
 
 export const ProfileAvatar = ({

@@ -2,7 +2,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import type { FC } from 'react';
 
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import type { PaginationProps } from '@/types/components';
 
 export const Pagination: FC<PaginationProps> = ({

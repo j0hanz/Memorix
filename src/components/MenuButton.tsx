@@ -1,4 +1,4 @@
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import type { MenuButtonProps } from '@/types/components';
 
 export const MenuButton = ({

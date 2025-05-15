@@ -2,7 +2,7 @@ import { CATEGORY_INFO } from '@/constants/constants';
 import type { CategoryDataProps } from '@/types/components';
 import { getCategoryIcon } from '@/utils/categoryUtils';
 
-import Button from './Button';
+import { Button } from './Button';
 import styles from './styles/Modal.module.css';
 
 // Pure data component for category selection

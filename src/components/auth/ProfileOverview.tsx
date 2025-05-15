@@ -2,7 +2,7 @@ import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Col } from 'react-bootstrap';
 
-import Button from '@/components/Button';
+import { Button } from '@/components/Button';
 import styles from '@/components/styles/Modal.module.css';
 import type { ProfileOverviewProps } from '@/types/components';
 

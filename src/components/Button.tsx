@@ -8,7 +8,7 @@ import type { CustomButtonProps } from '@/types/components';
 import styles from './styles/Button.module.css';
 
 // Button component with optional icon, text, img, and tooltip
-const Button: FC<
+export const Button: FC<
   CustomButtonProps & {
     variant?: 'menu' | 'centered';
     color?: 'primary' | 'secondary' | 'transparent';
@@ -69,5 +69,3 @@ const Button: FC<
     buttonContent
   );
 };
-
-export default Button;
