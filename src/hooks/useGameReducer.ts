@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef } from 'react';
+import { useCallback, useEffect, useReducer, useRef } from 'react';
 
 import {
   CATEGORIES,
@@ -22,8 +22,8 @@ export function useGameReducer(
   // Store previous card index for matching logic
   const previousIndex = useRef<number | null>(null);
 
-  // Initialize game with shuffled deck
-  useEffect(() => {
+  // Initialize the game board and reveal sequence
+  const initializeGame = useCallback(() => {
     dispatch({ type: 'INITIALIZE_GAME', payload: { cards: deck } });
 
     // Start initial reveal sequence
@@ -43,69 +43,94 @@ export function useGameReducer(
     return () => {
       clearTimeout(revealTimer);
     };
-  }, [deck]);
+  }, [deck, dispatch]);
+
+  // Initialize game with shuffled deck
+  useEffect(() => {
+    const cleanup = initializeGame();
+    return cleanup;
+  }, [initializeGame]);
 
   // Check for game completion
   useEffect(() => {
+    // Calculate the elapsed time
+    function calculateElapsedTime() {
+      return state.startTime
+        ? Math.floor((Date.now() - state.startTime) / TIMER.INTERVAL)
+        : 0;
+    }
+
+    // Set game over state
+    function setGameOver(completedTime: number) {
+      dispatch({
+        type: 'SET_GAME_OVER',
+        payload: { completedTime },
+      });
+      dispatch({ type: 'TOGGLE_MODAL', payload: { show: true } });
+    }
+
+    // Check if the game is completed
     if (
       state.matchedPairs === GAME_CONFIG.TOTAL_PAIRS &&
       state.matchedPairs > 0
     ) {
-      const timeElapsed = state.startTime
-        ? Math.floor((Date.now() - state.startTime) / TIMER.INTERVAL)
-        : 0;
-
-      dispatch({
-        type: 'SET_GAME_OVER',
-        payload: { completedTime: timeElapsed },
-      });
-      dispatch({ type: 'TOGGLE_MODAL', payload: { show: true } });
+      const timeElapsed = calculateElapsedTime();
+      setGameOver(timeElapsed);
       playSound('complete');
     }
-  }, [state.matchedPairs, state.startTime, playSound]);
+  }, [state.matchedPairs, playSound, state.startTime, dispatch]);
 
-  // Card selection handler
-  function handleCardSelection(index: number) {
-    if (
+  // Check if a card is selectable
+  function isCardSelectable(index: number): boolean {
+    return !(
       state.isInitialReveal ||
       state.isProcessingMatch ||
       state.cards[index].status.includes('matched') ||
       index === state.selectedCardIndex
-    ) {
-      return;
-    }
+    );
+  }
 
-    // First card selection
-    if (state.selectedCardIndex === null) {
-      dispatch({ type: 'SELECT_CARD', payload: { index } });
-      previousIndex.current = index;
-      playSound('click');
-      return;
-    }
+  // Handle first card selection
+  function handleFirstCardSelection(index: number) {
+    dispatch({ type: 'SELECT_CARD', payload: { index } });
+    previousIndex.current = index;
+    playSound('click');
+  }
 
-    // Second card selection
+  // Handle second card selection
+  function handleSecondCardSelection(index: number) {
     dispatch({
       type: 'SET_PROCESSING_MATCH',
       payload: { isProcessing: true },
     });
     dispatch({ type: 'SELECT_CARD', payload: { index } });
 
-    // Check for match
-    const currentCard = state.cards[index];
-    const selectedCard = state.cards[state.selectedCardIndex];
-    const isMatch = currentCard.pairId === selectedCard.pairId;
+    const isMatch = checkForMatch(index);
+    updateGameState(isMatch);
+    processMatchAfterDelay(index, isMatch);
+  }
 
-    // Set feedback and increment moves
+  // Check if selected cards match
+  function checkForMatch(index: number): boolean {
+    const currentCard = state.cards[index];
+    const selectedCard = state.cards[state.selectedCardIndex as number];
+    return currentCard.pairId === selectedCard.pairId;
+  }
+
+  // Update game state based on match result
+  function updateGameState(isMatch: boolean) {
+    const feedbackType = isMatch ? FEEDBACK.SUCCESS : FEEDBACK.ERROR;
+
     dispatch({
       type: 'SET_FEEDBACK',
-      payload: { feedback: isMatch ? FEEDBACK.SUCCESS : FEEDBACK.ERROR },
+      payload: { feedback: feedbackType },
     });
     dispatch({ type: 'INCREMENT_MOVES' });
-
-    // Play sound based on match result
     playSound(isMatch ? 'correct' : 'wrong');
+  }
 
-    // Process match after delay
+  // Process match after delay
+  function processMatchAfterDelay(index: number, isMatch: boolean) {
     setTimeout(() => {
       dispatch({
         type: 'PROCESS_MATCH',
@@ -113,6 +138,19 @@ export function useGameReducer(
       });
       previousIndex.current = null;
     }, DELAYS.MATCH_PROCESSING);
+  }
+
+  // Handle card selection
+  function handleCardSelection(index: number) {
+    if (!isCardSelectable(index)) {
+      return;
+    }
+
+    if (state.selectedCardIndex === null) {
+      handleFirstCardSelection(index);
+    } else {
+      handleSecondCardSelection(index);
+    }
   }
 
   // Reset game state
