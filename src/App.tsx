@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
-import ErrorBoundary from '@/components/ErrorBoundary';
-import Game from '@/components/Game';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { Game } from '@/components/Game';
 import { LeaderboardModal } from '@/components/LeaderboardModal';
-import MainMenu from '@/components/MainMenu';
+import { MainMenu } from '@/components/MainMenu';
 import { ModalRegistry } from '@/components/ModalRegistry';
 import { GameProvider } from '@/components/Provider';
 import { LoadingCardSpinner } from '@/components/Spinner';
