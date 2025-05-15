@@ -1,43 +1,71 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useError, useToast } from '@/hooks/useProvider';
 import type { ErrorCategory, ErrorSeverity } from '@/types/api';
 import { getUserFriendlyMessage, logError } from '@/utils/errorUtils';
 
-type FetcherOptions<T> = {
+export type Fetcher<T> = (signal: AbortSignal) => Promise<T>;
+
+export interface FetcherOptions<T> {
   onSuccess?: (data: T) => void;
   showToastOnError?: boolean;
   errorCategory?: string;
   errorSeverity?: ErrorSeverity;
   dependencies?: unknown[];
-};
+  retryCount?: number;
+  retryDelay?: number;
+  skipFetch?: boolean;
+  initialData?: T | null;
+}
 
 export function useFetch<T>(
-  fetcher: (controller: AbortController) => Promise<T>,
+  fetcher: Fetcher<T>,
   options: FetcherOptions<T> = {},
 ) {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const { setError: setGlobalError } = useError();
-  const { showToast } = useToast();
-
   const {
     onSuccess,
     showToastOnError = false,
     errorCategory = 'api',
     errorSeverity = 'error',
     dependencies = [],
+    retryCount = 0,
+    retryDelay = 1000,
+    skipFetch = false,
+    initialData = null,
   } = options;
 
-  const fetchWithDependencies = useCallback(
-    async (controller: AbortController) => {
+  const [data, setData] = useState<T | null>(initialData);
+  const [loading, setLoading] = useState(!skipFetch);
+  const [error, setError] = useState<string | null>(null);
+  const [trigger, setTrigger] = useState(0);
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const { setError: setGlobalError } = useError();
+  const { showToast } = useToast();
+
+  const refetch = () => {
+    abortControllerRef.current?.abort();
+    setTrigger((t) => t + 1);
+  };
+
+  useEffect(() => {
+    if (skipFetch && trigger === 0) {
+      setLoading(false);
+      return;
+    }
+
+    abortControllerRef.current?.abort();
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    const fetchData = async (attempt: number): Promise<void> => {
+      setLoading(true);
+      setError(null);
       try {
-        const result = await fetcher(controller);
+        const result = await fetcher(controller.signal);
         if (!controller.signal.aborted) {
           setData(result);
-          setError(null);
-          if (onSuccess) onSuccess(result);
+          onSuccess?.(result);
         }
       } catch (err: unknown) {
         if (!controller.signal.aborted) {
@@ -46,33 +74,38 @@ export function useFetch<T>(
           if (showToastOnError) showToast(friendly);
           logError(err, errorCategory as ErrorCategory, errorSeverity);
           setGlobalError(err, errorCategory as ErrorCategory);
+
+          if (attempt < retryCount) {
+            setTimeout(() => void fetchData(attempt + 1), retryDelay);
+            return;
+          }
         }
       } finally {
         if (!controller.signal.aborted) {
           setLoading(false);
         }
       }
-    },
-    [
-      fetcher,
-      onSuccess,
-      showToastOnError,
-      showToast,
-      errorCategory,
-      errorSeverity,
-      setGlobalError,
-    ],
-  );
+    };
 
-  useEffect(() => {
-    const controller = new AbortController();
-    setLoading(true);
-    setError(null);
-    void fetchWithDependencies(controller);
+    void fetchData(0);
+
     return () => {
       controller.abort();
     };
-  }, [fetchWithDependencies, dependencies]);
+  }, [
+    trigger,
+    skipFetch,
+    retryCount,
+    retryDelay,
+    fetcher,
+    onSuccess,
+    showToastOnError,
+    errorCategory,
+    errorSeverity,
+    setGlobalError,
+    showToast,
+    dependencies,
+  ]);
 
-  return { data, loading, error, setData };
+  return { data, loading, error, setData, refetch };
 }

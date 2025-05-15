@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react';
-
 import { GameCategory } from '@/components/GameCatagory';
 import { Pagination } from '@/components/Pagination';
 import { ScoreRow } from '@/components/ScoreRow';
 import { useGameHistory } from '@/hooks/useGameHistory';
 import { useProfile } from '@/hooks/useProvider';
 
+// This component displays the game history of a user profile.
 export function ProfileGameHistory() {
   const { scores, loadingScores, scoresCount, scoresPage, setScoresPage } =
     useProfile();
-
-  // Add local state to prevent flickering
-  const [isStable, setIsStable] = useState(false);
 
   const {
     bestCategory,
@@ -22,7 +18,6 @@ export function ProfileGameHistory() {
     filteredScores,
     validPageScores,
     totalPages,
-    loadingBest,
     handleBestCategoryChange,
     handleFilterCategoryChange,
     handlePreviousPage,
@@ -34,18 +29,6 @@ export function ProfileGameHistory() {
     scoresPage,
     setScoresPage,
   });
-
-  // Set component as stable once we have categories
-  useEffect(() => {
-    if (playedCategories.length > 0 && !isStable) {
-      setIsStable(true);
-    }
-  }, [playedCategories, isStable]);
-
-  // Don't render selector until we have data
-  if (!isStable && loadingBest) {
-    return <div className="text-center p-3">Loading best scores...</div>;
-  }
 
   return (
     <>
@@ -69,7 +52,6 @@ export function ProfileGameHistory() {
           )}
         </>
       )}
-
       <GameCategory
         id="filter-category"
         label="Filter by Category"
@@ -79,7 +61,6 @@ export function ProfileGameHistory() {
         onChange={handleFilterCategoryChange}
         showAllOption={true}
       />
-
       {loadingScores ? (
         <div className="text-center p-4">Loading game history...</div>
       ) : filteredScores.length > 0 ? (
