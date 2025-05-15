@@ -9,7 +9,7 @@ export function useCommit() {
     },
     {
       showToastOnError: true,
-      errorCategory: 'Github',
+      errorCategory: 'api',
     },
   );
 

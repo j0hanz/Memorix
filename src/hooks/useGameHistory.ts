@@ -46,8 +46,7 @@ export function useGameHistory({
       },
       {
         showToastOnError: true,
-        errorCategory: 'GameHistory',
-        dependencies: [filterCategory, scoresPage],
+        errorCategory: 'api',
         onSuccess: (data) => {
           if (data.results.length > 0) {
             setPageSize(data.results.length);

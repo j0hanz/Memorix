@@ -9,9 +9,8 @@ export type Fetcher<T> = (signal: AbortSignal) => Promise<T>;
 export interface FetcherOptions<T> {
   onSuccess?: (data: T) => void;
   showToastOnError?: boolean;
-  errorCategory?: string;
+  errorCategory?: ErrorCategory;
   errorSeverity?: ErrorSeverity;
-  dependencies?: unknown[];
   retryCount?: number;
   retryDelay?: number;
   skipFetch?: boolean;
@@ -27,7 +26,6 @@ export function useFetch<T>(
     showToastOnError = false,
     errorCategory = 'api',
     errorSeverity = 'error',
-    dependencies = [],
     retryCount = 0,
     retryDelay = 1000,
     skipFetch = false,
@@ -38,12 +36,12 @@ export function useFetch<T>(
   const [loading, setLoading] = useState(!skipFetch);
   const [error, setError] = useState<string | null>(null);
   const [trigger, setTrigger] = useState(0);
-  const abortControllerRef = useRef<AbortController | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
   const { setError: setGlobalError } = useError();
   const { showToast } = useToast();
 
   const refetch = () => {
-    abortControllerRef.current?.abort();
+    abortRef.current?.abort();
     setTrigger((t) => t + 1);
   };
 
@@ -52,11 +50,9 @@ export function useFetch<T>(
       setLoading(false);
       return;
     }
-
-    abortControllerRef.current?.abort();
-
+    abortRef.current?.abort();
     const controller = new AbortController();
-    abortControllerRef.current = controller;
+    abortRef.current = controller;
 
     const fetchData = async (attempt: number): Promise<void> => {
       setLoading(true);
@@ -72,8 +68,8 @@ export function useFetch<T>(
           const friendly = getUserFriendlyMessage(err);
           setError(friendly);
           if (showToastOnError) showToast(friendly);
-          logError(err, errorCategory as ErrorCategory, errorSeverity);
-          setGlobalError(err, errorCategory as ErrorCategory);
+          logError(err, errorCategory, errorSeverity);
+          setGlobalError(err, errorCategory);
 
           if (attempt < retryCount) {
             setTimeout(() => void fetchData(attempt + 1), retryDelay);
@@ -88,7 +84,6 @@ export function useFetch<T>(
     };
 
     void fetchData(0);
-
     return () => {
       controller.abort();
     };
@@ -104,7 +99,6 @@ export function useFetch<T>(
     errorSeverity,
     setGlobalError,
     showToast,
-    dependencies,
   ]);
 
   return { data, loading, error, setData, refetch };

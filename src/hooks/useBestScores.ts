@@ -8,7 +8,7 @@ export function useBestScores() {
       return await gameService.getUserBestScores();
     },
     {
-      errorCategory: 'BestScores',
+      errorCategory: 'api',
       showToastOnError: true,
     },
   );
