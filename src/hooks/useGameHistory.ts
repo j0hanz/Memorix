@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { useBestScores } from '@/hooks/useBestScores';
-import { useToast } from '@/hooks/useProvider';
+import { useFetch } from '@/hooks/useFetch';
 import { gameService } from '@/services/gameService';
-import type { UserScore } from '@/types/api';
-import type { GameOptions } from '@/types/components';
-import type { UseGameHistoryProps } from '@/types/components';
+import type { PaginatedUserScores, UserScore } from '@/types/api';
+import type { GameOptions, UseGameHistoryProps } from '@/types/components';
 import { getCategoryOptions } from '@/utils/categoryUtils';
 
 export function useGameHistory({
@@ -18,9 +17,6 @@ export function useGameHistory({
   const [filterCategory, setFilterCategory] = useState<string>('');
   const [bestCategory, setBestCategory] = useState<string>('');
   const [allCats, setAllCats] = useState<GameOptions[]>([]);
-  const [filteredScores, setFilteredScores] = useState<UserScore[]>(scores);
-  const [filteredCount, setFilteredCount] = useState<number>(scoresCount);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pageSize, setPageSize] = useState<number>(5);
 
   const {
@@ -29,14 +25,37 @@ export function useGameHistory({
     loading: loadingBest,
   } = useBestScores();
 
-  const { showToast } = useToast();
+  const { data: filteredScoresData, loading: isLoading } =
+    useFetch<PaginatedUserScores>(
+      async () => {
+        if (!filterCategory) {
+          return {
+            results: scores,
+            count: scoresCount,
+            next: null,
+            previous: null,
+          };
+        }
+        return await gameService.getUserScores(scoresPage, filterCategory);
+      },
+      {
+        showToastOnError: true,
+        errorCategory: 'GameHistory',
+        dependencies: [filterCategory, scores, scoresCount, scoresPage],
+        onSuccess: (data) => {
+          if (data.results.length > 0) {
+            setPageSize(data.results.length);
+          }
+        },
+      },
+    );
+
+  const filteredScores = filteredScoresData?.results || [];
+  const filteredCount = filteredScoresData?.count || 0;
 
   useEffect(() => {
     setAllCats(
-      getCategoryOptions().map(({ value, label }) => ({
-        value,
-        label,
-      })),
+      getCategoryOptions().map(({ value, label }) => ({ value, label })),
     );
   }, []);
 
@@ -51,42 +70,9 @@ export function useGameHistory({
     }
   }, [playedCategories]);
 
-  useEffect(() => {
-    const fetchScores = async () => {
-      setIsLoading(true);
-      try {
-        if (filterCategory) {
-          const response = await gameService.getUserScores(
-            scoresPage,
-            filterCategory,
-          );
-          setFilteredScores(response.results);
-          setFilteredCount(response.count);
-          if (response.results.length > 0) {
-            setPageSize(response.results.length);
-          }
-        } else {
-          setFilteredScores(scores);
-          setFilteredCount(scoresCount);
-        }
-      } catch (error) {
-        console.error('Error fetching filtered scores:', error);
-        showToast('Failed to fetch filtered scores. Please try again.');
-        setFilteredScores([]);
-        setFilteredCount(0);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    void fetchScores();
-  }, [filterCategory, scores, scoresCount, scoresPage, showToast]);
-
-  const totalPages: number = Math.max(1, Math.ceil(filteredCount / pageSize));
-
+  const totalPages = Math.max(1, Math.ceil(filteredCount / pageSize));
   const validPageScores: UserScore[] = filteredScores;
-
-  const selectedBest: UserScore | undefined = bestScores.find(
+  const selectedBest = bestScores.find(
     (s) => s.category_name.toLowerCase() === bestCategory.toLowerCase(),
   );
 
@@ -100,15 +86,11 @@ export function useGameHistory({
   };
 
   const handlePreviousPage = () => {
-    if (scoresPage > 1) {
-      setScoresPage(scoresPage - 1);
-    }
+    if (scoresPage > 1) setScoresPage(scoresPage - 1);
   };
 
   const handleNextPage = () => {
-    if (scoresPage < totalPages) {
-      setScoresPage(scoresPage + 1);
-    }
+    if (scoresPage < totalPages) setScoresPage(scoresPage + 1);
   };
 
   return {
