@@ -10,7 +10,7 @@ import { StatsBar } from './StatsBar';
 import styles from './styles/Cards.module.css';
 
 // Component to display the game cards
-export default function Cards({
+export function Cards({
   cards,
   handleCardSelection,
   moves,

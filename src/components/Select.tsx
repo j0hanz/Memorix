@@ -82,5 +82,3 @@ export const Select: FC<SelectProps> = ({
     </>
   );
 };
-
-export default Select;

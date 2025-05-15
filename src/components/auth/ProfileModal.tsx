@@ -1,4 +1,4 @@
-import ProfileData from '@/components/auth/ProfileData';
+import { ProfileData } from '@/components/auth/ProfileData';
 import { Modal } from '@/components/Modal';
 import { MODAL_CONFIGS } from '@/contexts/ModalContext';
 import type { ProfileModalProps } from '@/types/components';

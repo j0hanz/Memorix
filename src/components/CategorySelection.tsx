@@ -1,4 +1,4 @@
-import CategoryData from '@/components/Category';
+import { CategoryData } from '@/components/Category';
 import { Modal } from '@/components/Modal';
 import type { CategoryProps } from '@/types/components';
 

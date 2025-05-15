@@ -7,7 +7,7 @@ import { useAppState } from '@/hooks/useAppState';
 import type { StatsBarProps } from '@/types/components';
 
 import { Button } from './Button';
-import Feedback from './Feedback';
+import { Feedback } from './Feedback';
 import { Moves, Timer } from './GameStats';
 import styles from './styles/Cards.module.css';
 

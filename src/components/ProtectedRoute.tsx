@@ -4,7 +4,10 @@ import { LoadingCardSpinner } from '@/components/Spinner';
 import { useAuth } from '@/hooks/useProvider';
 import type { ProtectedRouteProps } from '@/types/components';
 
-const ProtectedRoute = ({ children, onAuthRequired }: ProtectedRouteProps) => {
+export const ProtectedRoute = ({
+  children,
+  onAuthRequired,
+}: ProtectedRouteProps) => {
   const { isAuthenticated, loading } = useAuth();
 
   useEffect(() => {
@@ -17,5 +20,3 @@ const ProtectedRoute = ({ children, onAuthRequired }: ProtectedRouteProps) => {
 
   return isAuthenticated ? { children } : null;
 };
-
-export default ProtectedRoute;

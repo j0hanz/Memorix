@@ -1,6 +1,6 @@
 import type { CardProps } from '@/types/card';
 
-const Card: React.FC<CardProps> = ({
+export const Card: React.FC<CardProps> = ({
   className = '',
   onClick,
   children,
@@ -34,5 +34,3 @@ const Card: React.FC<CardProps> = ({
     </div>
   );
 };
-
-export default Card;

@@ -5,7 +5,7 @@ import { CATEGORIES, DELAYS, GAME_CONFIG } from '@/constants/constants';
 import type { SoundKey } from '@/constants/sounds';
 import { SOUND_FILES } from '@/constants/sounds';
 import { AuthContext } from '@/contexts/AuthContext';
-import ErrorContext from '@/contexts/ErrorContext';
+import { ErrorContext } from '@/contexts/ErrorContext';
 import { GameContext } from '@/contexts/GameContext';
 import { ModalContext } from '@/contexts/ModalContext';
 import { NavigationContext } from '@/contexts/NavigationContext';

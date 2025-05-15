@@ -5,8 +5,8 @@ import { ModalTabs } from '@/components/ModalTabs';
 import styles from '@/components/styles/Modal.module.css';
 import type { TabContent, TabItem } from '@/types/components';
 
-import Login from './Login';
-import Register from './Register';
+import { Login } from './Login';
+import { Register } from './Register';
 
 export const AuthData = ({ onClose }: { onClose: () => void }) => {
   const tabs: TabItem[] = [

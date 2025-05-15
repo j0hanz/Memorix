@@ -6,7 +6,7 @@ import { Button } from './Button';
 import styles from './styles/Modal.module.css';
 
 // Pure data component for category selection
-export default function CategoryData({ onSelectCategory }: CategoryDataProps) {
+export function CategoryData({ onSelectCategory }: CategoryDataProps) {
   return (
     <div className={styles.categoryDataContainer}>
       <div

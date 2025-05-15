@@ -9,7 +9,7 @@ import styles from '@/components/styles/Modal.module.css';
 import { useRegister } from '@/hooks/useRegister';
 import type { RegisterProps } from '@/types/auth';
 
-const Register = ({ onSuccess, onClose }: RegisterProps) => {
+export const Register = ({ onSuccess, onClose }: RegisterProps) => {
   const {
     values,
     errors,
@@ -87,5 +87,3 @@ const Register = ({ onSuccess, onClose }: RegisterProps) => {
     </Form>
   );
 };
-
-export default Register;

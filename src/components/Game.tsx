@@ -2,9 +2,9 @@ import { ScoreboardModal } from '@/components/ScoreboardModal';
 import { useGameState } from '@/hooks/useGameState';
 import type { GameProps } from '@/types/components';
 
-import Cards from './Cards';
+import { Cards } from './Cards';
 
-export default function Game({ onRestart }: GameProps) {
+export function Game({ onRestart }: GameProps) {
   const {
     cards,
     handleCardSelection,

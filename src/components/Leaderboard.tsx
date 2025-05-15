@@ -5,11 +5,11 @@ import { Col, Row } from 'react-bootstrap';
 import { useLeaderboardData } from '@/hooks/useLeaderboardData';
 
 import { Button } from './Button';
-import Select from './Select';
+import { Select } from './Select';
 import { StarRating } from './StarRating';
 import styles from './styles/Modal.module.css';
 
-const Leaderboard = () => {
+export const Leaderboard = () => {
   const {
     selectedCategory,
     leaderboard,
@@ -90,5 +90,3 @@ const Leaderboard = () => {
     </>
   );
 };
-
-export default Leaderboard;

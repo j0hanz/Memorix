@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import type { ImageProps } from '@/types/components';
 
-// Enhanced Image component with error handling and loading management
-const Image: React.FC<ImageProps> = ({
+// Image component to display images with error handling and fallback
+export const Image: React.FC<ImageProps> = ({
   src,
   alt,
   width,
@@ -48,5 +48,3 @@ const Image: React.FC<ImageProps> = ({
     />
   );
 };
-
-export default Image;

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import { AuthContext } from '@/contexts/AuthContext';
-import ErrorContext from '@/contexts/ErrorContext';
+import { ErrorContext } from '@/contexts/ErrorContext';
 import { ModalContext } from '@/contexts/ModalContext';
 import { NavigationContext } from '@/contexts/NavigationContext';
 import { SoundContext } from '@/contexts/SoundContext';

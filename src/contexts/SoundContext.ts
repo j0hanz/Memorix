@@ -21,5 +21,3 @@ export const SoundContext = createContext<SoundContextType>({
     // Default implementation does nothing
   },
 });
-
-export default SoundContext;

@@ -9,7 +9,7 @@ import styles from '@/components/styles/Modal.module.css';
 import { useLogin } from '@/hooks/useLogin';
 import type { LoginProps } from '@/types/auth';
 
-const Login = ({ onClose }: LoginProps) => {
+export const Login = ({ onClose }: LoginProps) => {
   const {
     values,
     errors,
@@ -66,5 +66,3 @@ const Login = ({ onClose }: LoginProps) => {
     </Form>
   );
 };
-
-export default Login;

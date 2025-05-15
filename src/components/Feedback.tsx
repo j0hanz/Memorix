@@ -9,7 +9,7 @@ import type { FeedbackProps } from '@/types/components';
 import styles from './styles/GameStats.module.css';
 
 // Display feedback messages based on the message prop
-const Feedback = ({ message }: FeedbackProps) => {
+export const Feedback = ({ message }: FeedbackProps) => {
   // Get the feedback animation
   const { feedbackAnimation } = useMotions();
   if (!message) return null;
@@ -32,5 +32,3 @@ const Feedback = ({ message }: FeedbackProps) => {
     </AnimatePresence>
   );
 };
-
-export default Feedback;

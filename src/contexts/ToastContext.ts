@@ -13,5 +13,3 @@ export const ToastContext = createContext<ToastContextType>({
     // Default implementation does nothing
   },
 });
-
-export default ToastContext;

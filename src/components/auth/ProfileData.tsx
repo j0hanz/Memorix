@@ -22,10 +22,10 @@ import { ProfileDeleteAccount } from './ProfileDeleteAccount';
 import { ProfileGameHistory } from './ProfileGameHistory';
 import { ProfileOverview } from './ProfileOverview';
 
-const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
-  onClose,
-  logout,
-}) => {
+export const ProfileData: React.FC<{
+  onClose: () => void;
+  logout: () => void;
+}> = ({ onClose, logout }) => {
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [showPasswordTab, setShowPasswordTab] = useState(false);
   const [showDeleteTab, setShowDeleteTab] = useState(false);
@@ -264,5 +264,3 @@ const ProfileData: React.FC<{ onClose: () => void; logout: () => void }> = ({
     </>
   );
 };
-
-export default ProfileData;

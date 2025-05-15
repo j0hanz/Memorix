@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 
-import Card from '@/components/Card';
-import Image from '@/components/Image';
+import { Card } from '@/components/Card';
+import { Image } from '@/components/Image';
 import { LoadingCardSpinner } from '@/components/Spinner';
 import { useCards } from '@/hooks/useCards';
 import { useMotions } from '@/hooks/useMotions';

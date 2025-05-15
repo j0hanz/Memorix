@@ -38,5 +38,3 @@ export const Score = ({ moves, completedTime }: ScoreProps) => {
     </>
   );
 };
-
-export default Score;

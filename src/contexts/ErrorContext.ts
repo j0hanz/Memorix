@@ -8,6 +8,6 @@ interface ErrorContextType {
   clearError: () => void;
 }
 
-const ErrorContext = createContext<ErrorContextType | undefined>(undefined);
-
-export default ErrorContext;
+export const ErrorContext = createContext<ErrorContextType | undefined>(
+  undefined,
+);

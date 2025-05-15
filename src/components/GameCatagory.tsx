@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
 import type { SelectOption } from '@/components/Select';
-import Select from '@/components/Select';
+import { Select } from '@/components/Select';
 import type { GameCategoryProps } from '@/types/components';
 
 import styles from './styles/Modal.module.css';
@@ -41,5 +41,3 @@ export const GameCategory: FC<GameCategoryProps> = ({
     </div>
   );
 };
-
-export default GameCategory;

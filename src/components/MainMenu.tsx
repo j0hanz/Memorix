@@ -18,7 +18,7 @@ import { MenuButton } from './MenuButton';
 import { ProfileAvatar } from './ProfileAvatar';
 import { SoundToggle } from './SoundToggle';
 
-const MainMenu = ({
+export const MainMenu = ({
   startGame,
   openInstructions,
   openLatestUpdates,
@@ -137,5 +137,3 @@ const MainMenu = ({
     </div>
   );
 };
-
-export default MainMenu;

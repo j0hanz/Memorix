@@ -2,7 +2,7 @@ import type { LoadingCardSpinnerProps } from '@/types/components';
 
 import styles from './styles/Spinner.module.css';
 
-const LoadingCardSpinner = ({
+export const LoadingCardSpinner = ({
   isLoading,
   message,
 }: LoadingCardSpinnerProps) => {
@@ -20,12 +20,10 @@ const LoadingCardSpinner = ({
   );
 };
 
-const LoadingSpinner = () => (
+export const LoadingSpinner = () => (
   <div className={styles.loadership_JWZDT} role="status" aria-label="Loading">
     {Array.from({ length: 5 }).map((_, i) => (
       <div key={i} />
     ))}
   </div>
 );
-
-export { LoadingCardSpinner, LoadingSpinner };

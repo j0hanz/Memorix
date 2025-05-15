@@ -38,7 +38,7 @@ const ErrorFallback: React.FC<FallbackProps> = ({
   );
 };
 
-const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
+export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
   children,
   fallback,
   onReset,
@@ -73,5 +73,3 @@ const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
     </ReactErrorBoundary>
   );
 };
-
-export default ErrorBoundary;

@@ -1,4 +1,4 @@
-import Leaderboard from '@/components/Leaderboard';
+import { Leaderboard } from '@/components/Leaderboard';
 import { Modal } from '@/components/Modal';
 import type { LeaderboardModalProps } from '@/types/components';
 
