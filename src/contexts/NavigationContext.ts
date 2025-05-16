@@ -18,7 +18,6 @@ export interface NavigationContextType {
   closeLeaderboardModal: () => void;
   openModalByType?: (type: ModalType) => void;
   selectedCategory: string;
-  showLeaderboardModal: boolean;
   isGameActive: boolean;
   loading: {
     isLoading: boolean;

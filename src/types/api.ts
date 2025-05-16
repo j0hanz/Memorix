@@ -92,4 +92,15 @@ export interface PaginatedUserScores {
 
 export interface LeaderboardEntry extends UserScore {
   profile_picture_url?: string;
+  rank: number;
+  category_code: string;
+  category: number;
+  profile_id: number;
+}
+
+export interface PaginatedLeaderboardEntries {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: LeaderboardEntry[];
 }

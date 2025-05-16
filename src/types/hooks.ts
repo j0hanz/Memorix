@@ -30,7 +30,6 @@ export interface NavigationOptions {
   }) => void;
   setIsGameActive: (value: boolean) => void;
   setSelectedCategory: (value: string) => void;
-  setShowLeaderboardModal?: (value: boolean) => void;
   logout: () => void;
   isAuthenticated: boolean;
 }

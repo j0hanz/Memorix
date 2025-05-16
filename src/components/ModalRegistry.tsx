@@ -3,6 +3,7 @@ import { AuthModal } from '@/components/AuthModal';
 import { CategorySelection } from '@/components/CategorySelection';
 import { GameInstructions } from '@/components/GameInstructions';
 import { LatestUpdates } from '@/components/LatestUpdates';
+import { LeaderboardModal } from '@/components/LeaderboardModal';
 import { ScoreboardModal } from '@/components/ScoreboardModal';
 import { useModal } from '@/hooks/useProvider';
 import { useNavigation } from '@/hooks/useProvider';
@@ -52,6 +53,9 @@ export function ModalRegistry() {
 
     case 'latestUpdates':
       return <LatestUpdates {...commonModalProps} />;
+
+    case 'leaderboard':
+      return <LeaderboardModal {...commonModalProps} />;
 
     case 'categorySelection':
       return (

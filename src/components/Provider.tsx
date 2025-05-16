@@ -210,7 +210,6 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   // Use useAuth instead of useAuthProvider
   const { logout, isAuthenticated } = useAuth();
   const { openModal, closeModal } = useModal();
-  const [showLeaderboardModal, setShowLeaderboardModal] = useState(false);
 
   function showLoadingWithMessage(
     message: string,
@@ -266,7 +265,6 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     logout();
     closeModal();
     setIsGameActive(false);
-    setShowLeaderboardModal(false);
   }
 
   function openInstructions() {
@@ -286,11 +284,11 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
   }
 
   function openLeaderboardModal() {
-    setShowLeaderboardModal(true);
+    openModal('leaderboard');
   }
 
   function closeLeaderboardModal() {
-    setShowLeaderboardModal(false);
+    closeModal();
   }
 
   return (
@@ -310,7 +308,6 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
         openLeaderboardModal,
         closeLeaderboardModal,
         selectedCategory,
-        showLeaderboardModal,
         isGameActive,
         loading,
       }}

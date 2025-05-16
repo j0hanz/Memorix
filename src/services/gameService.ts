@@ -4,6 +4,7 @@ import { axiosReq } from '@/services/axios';
 import type {
   GameResultData,
   LeaderboardEntry,
+  PaginatedLeaderboardEntries,
   PaginatedUserScores,
   UserScore,
 } from '@/types/api';
@@ -28,7 +29,7 @@ export const gameService = {
   async getLeaderboard(categoryId?: number): Promise<LeaderboardEntry[]> {
     const [result, error] = await handleAsyncOperation(
       () =>
-        axiosReq.get<LeaderboardEntry[]>('/api/memorix/results/leaderboard/', {
+        axiosReq.get<PaginatedLeaderboardEntries>('/api/memorix/leaderboard/', {
           params: categoryId != null ? { category: categoryId } : undefined,
         }),
       {
@@ -40,7 +41,7 @@ export const gameService = {
     if (error) {
       throw new Error(error.message);
     }
-    return result?.data || [];
+    return result?.data?.results || [];
   },
 
   async getCategories(): Promise<string[]> {

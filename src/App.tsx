@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Game } from '@/components/Game';
-import { LeaderboardModal } from '@/components/LeaderboardModal';
 import { MainMenu } from '@/components/MainMenu';
 import { ModalRegistry } from '@/components/ModalRegistry';
 import { GameProvider } from '@/components/Provider';
@@ -71,10 +70,6 @@ export const App = () => {
             </ErrorBoundary>
           )}
           <ModalRegistry />
-          <LeaderboardModal
-            show={navigation.showLeaderboardModal}
-            onClose={navigation.closeLeaderboardModal}
-          />
         </>
       )}
     </ErrorBoundary>

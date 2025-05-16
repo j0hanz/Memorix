@@ -40,7 +40,7 @@ export const Leaderboard = () => {
         <div className="text-danger text-center p-3">{error}</div>
       ) : leaderboard.length > 0 ? (
         <div className="my-3">
-          {leaderboard.slice(0, 5).map((entry, index) => (
+          {leaderboard.slice(0, 5).map((entry) => (
             <Row
               key={entry.id}
               className={`d-flex justify-content-between align-items-center ${styles.scoreRow}`}
@@ -49,7 +49,7 @@ export const Leaderboard = () => {
                 xs={1}
                 className="d-flex justify-content-start align-items-center gap-3"
               >
-                <span className={styles.rank}>{index + 1}</span>
+                <span className={styles.rank}>{entry.rank}</span>
                 {entry.profile_picture_url && (
                   <Button
                     img={entry.profile_picture_url}
