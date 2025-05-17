@@ -5,8 +5,8 @@ import { Col, Row } from 'react-bootstrap';
 
 import { StarRating } from '@/components/StarRating';
 import type { ScoreRowProps } from '@/types/components';
-import { getCategoryIcon } from '@/utils/categoryUtils';
 
+import { CategoryIcon } from './CategoryIcon';
 import styles from './styles/Modal.module.css';
 
 export const ScoreRow: FC<ScoreRowProps> = ({ score }) => (
@@ -15,7 +15,7 @@ export const ScoreRow: FC<ScoreRowProps> = ({ score }) => (
       className={`d-flex justify-content-between align-items-center ${styles.scoreRow}`}
     >
       <Col xs={1} className="d-flex justify-content-start align-items-center">
-        {getCategoryIcon(score.category_name)}
+        <CategoryIcon categoryName={score.category_name} />
       </Col>
       <Col xs={2} className="d-flex justify-content-center align-items-center">
         <StarRating count={score.stars} />

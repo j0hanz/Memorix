@@ -5,6 +5,7 @@ import { Col, Row } from 'react-bootstrap';
 import { useLeaderboardData } from '@/hooks/useLeaderboardData';
 
 import { Button } from './Button';
+import { CategoryIcon } from './CategoryIcon';
 import { Select } from './Select';
 import { StarRating } from './StarRating';
 import styles from './styles/Modal.module.css';
@@ -46,10 +47,11 @@ export const Leaderboard = () => {
               className={`d-flex justify-content-between align-items-center ${styles.scoreRow}`}
             >
               <Col
-                xs={1}
-                className="d-flex justify-content-start align-items-center gap-3"
+                xs={2}
+                className="d-flex justify-content-start align-items-center gap-2"
               >
                 <span className={styles.rank}>{entry.rank}</span>
+                <CategoryIcon categoryName={entry.category_name} />
                 {entry.profile_picture_url && (
                   <Button
                     img={entry.profile_picture_url}

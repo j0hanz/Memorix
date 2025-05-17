@@ -183,6 +183,12 @@ export interface GameCategoryProps {
   hideLabel?: boolean;
 }
 
+export interface CategoryIconProps {
+  categoryName: string;
+  placement?: 'top' | 'bottom' | 'left' | 'right';
+  className?: string;
+}
+
 // ScoreRow
 export interface ScoreRowProps {
   score: UserScore;
