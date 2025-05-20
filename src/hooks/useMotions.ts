@@ -53,14 +53,20 @@ function getCardAnimations() {
       rotateY: 0,
       scale: 1,
       y: 0,
-      transition: MOTIONS.SPRING.CARD_ENTRANCE,
+      transition: {
+        ...MOTIONS.SPRING.CARD_ENTRANCE,
+        duration: MOTIONS.DEFAULT_DURATION,
+      },
     },
     out: {
       opacity: 0,
       rotateY: -90,
       scale: 0.1,
       y: -90,
-      transition: MOTIONS.SPRING.CARD_ENTRANCE,
+      transition: {
+        ...MOTIONS.SPRING.CARD_ENTRANCE,
+        duration: MOTIONS.DEFAULT_DURATION,
+      },
     },
   };
 
