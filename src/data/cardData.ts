@@ -4,27 +4,27 @@ import type { CardDef, PairedCard } from '@/types/card';
 const IMAGE_PATHS = {
   [CATEGORIES.ANIMALS]: Array.from(
     { length: 6 },
-    (_, i) => `/img/animals/${String(i + 1)}.png`,
+    (_, i) => `/img/animals/${String(i + 1)}.webp`,
   ),
   [CATEGORIES.NATURE]: Array.from(
     { length: 6 },
-    (_, i) => `/img/nature/${String(i + 1)}.png`,
+    (_, i) => `/img/nature/${String(i + 1)}.webp`,
   ),
   [CATEGORIES.VEHICLES]: Array.from(
     { length: 6 },
-    (_, i) => `/img/vehicles/${String(i + 1)}.png`,
+    (_, i) => `/img/vehicles/${String(i + 1)}.webp`,
   ),
   [CATEGORIES.FOOD]: Array.from(
     { length: 6 },
-    (_, i) => `/img/food/${String(i + 1)}.png`,
+    (_, i) => `/img/food/${String(i + 1)}.webp`,
   ),
   [CATEGORIES.SHAPES]: Array.from(
     { length: 6 },
-    (_, i) => `/img/shapes/${String(i + 1)}.png`,
+    (_, i) => `/img/shapes/${String(i + 1)}.webp`,
   ),
   [CATEGORIES.NUMBERS]: Array.from(
     { length: 6 },
-    (_, i) => `/img/numbers/${String(i + 1)}.png`,
+    (_, i) => `/img/numbers/${String(i + 1)}.webp`,
   ),
 };
 
