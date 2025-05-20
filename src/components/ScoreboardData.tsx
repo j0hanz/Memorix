@@ -24,15 +24,13 @@ export function ScoreboardData({
 
   return (
     <>
-      <div className="p-3">
-        {children}
-        <Scoreboard moves={moves} completedTime={completedTime.toString()} />
-        <ScoreFeedback
-          isAuthenticated={isAuthenticated}
-          scoreSaved={scoreSaved}
-          saveError={saveError}
-        />
-      </div>
+      {children}
+      <Scoreboard moves={moves} completedTime={completedTime.toString()} />
+      <ScoreFeedback
+        isAuthenticated={isAuthenticated}
+        scoreSaved={scoreSaved}
+        saveError={saveError}
+      />
       <ModalFooterButtons
         leftText="Restart"
         rightText="Exit"

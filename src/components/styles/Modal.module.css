@@ -300,6 +300,7 @@
 .scoreItem {
   display: flex;
   align-items: center;
+  font-size: 1rem;
 }
 
 .scoreRow {
@@ -320,6 +321,7 @@
   align-items: center;
   font-size: 1.3rem;
   color: var(--text-color);
+  padding-inline: 1rem;
 }
 
 .starIcon {

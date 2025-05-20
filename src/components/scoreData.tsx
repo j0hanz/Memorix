@@ -11,14 +11,14 @@ export function Scoreboard({ moves, completedTime }: ScoreboardProps) {
   return (
     <div className={styles.scoreboard}>
       <div className={styles.scoreItem}>
-        <FlipOutlinedIcon className={`me-1 ${styles.statsIcon}`} />
+        <FlipOutlinedIcon className="me-1" />
         {moves}
       </div>
       <div className={styles.scoreItem}>
         <Score moves={moves} completedTime={completedTime} />
       </div>
       <div className={styles.scoreItem}>
-        <TimerOutlinedIcon className={`me-2 ${styles.clockIcon}`} />
+        <TimerOutlinedIcon className="me-1" />
         {completedTime}
       </div>
     </div>
