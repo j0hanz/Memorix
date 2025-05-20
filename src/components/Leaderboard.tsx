@@ -29,7 +29,6 @@ export const Leaderboard = () => {
           value={selectedCategory?.toString() || ''}
           onChange={handleCategoryChange}
           options={categoryOptions}
-          placeholder="All Categories"
           label="Filter by Category"
           hideLabel={true}
           className={styles.formSelect}
