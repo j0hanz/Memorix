@@ -1,9 +1,5 @@
 .cardWrapper {
   perspective: 1000px;
-  transform-style: preserve-3d;
-  will-change: transform, opacity;
-  transform-origin: center center;
-  container-type: inline-size;
 }
 
 .card {

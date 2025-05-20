@@ -1,6 +1,6 @@
 // Animation constants
 export const MOTIONS = {
-  DEFAULT_DURATION: 0.3,
+  DEFAULT_DURATION: 0.2,
   SPRING: {
     CARD_ENTRANCE: {
       type: 'spring',
@@ -17,12 +17,6 @@ export const MOTIONS = {
       type: 'spring',
       stiffness: 175,
       damping: 20,
-      bounce: 0.35,
-    },
-    HOVER: {
-      type: 'spring',
-      stiffness: 250,
-      damping: 25,
     },
   },
 };

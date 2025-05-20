@@ -78,7 +78,6 @@ function getCardAnimations() {
     },
     active: {
       rotateY: 180,
-      scale: 1.05,
       transition: {
         ...MOTIONS.SPRING.DEFAULT,
         duration: MOTIONS.DEFAULT_DURATION,
@@ -99,10 +98,6 @@ function getCardAnimations() {
         ...MOTIONS.SPRING.DEFAULT,
         duration: MOTIONS.DEFAULT_DURATION,
       },
-    },
-    hover: {
-      scale: 1.05,
-      transition: MOTIONS.SPRING.HOVER,
     },
   };
 
