@@ -5,9 +5,9 @@ export const DEFAULT_DURATION = 0.2;
 
 // Springs
 export const SPRING = {
-  CARD_ENTRANCE: { type: 'spring', stiffness: 125, damping: 20, bounce: 0.35 },
-  CARD_MATCH: { type: 'spring', stiffness: 100, damping: 20 },
-  DEFAULT: { type: 'spring', stiffness: 175, damping: 20 },
+  CARD_ENTRANCE: { type: 'spring', stiffness: 150, damping: 25, bounce: 0.35 },
+  CARD_MATCH: { type: 'spring', stiffness: 125, damping: 20 },
+  DEFAULT: { type: 'spring', stiffness: 200, damping: 25, bounce: 0.35 },
 };
 
 // Standard variant keys
@@ -20,7 +20,6 @@ export const VARIANTS = {
   ACTIVE: 'active' as const,
   MATCHED: 'matched' as const,
   HIDDEN: 'hidden' as const,
-  HOVER: 'hover' as const,
 };
 
 // Enter animation
@@ -37,7 +36,7 @@ export const ENTER_ANIMATION = {
 
 // Feedback animation
 export const FEEDBACK_VARIANTS: Variants = {
-  [VARIANTS.INITIAL]: { opacity: 0, scale: 0.1 },
+  [VARIANTS.INITIAL]: { opacity: 0, scale: 0 },
   [VARIANTS.ANIMATE]: {
     opacity: 1,
     scale: [0.1, 2, 1],
@@ -45,14 +44,14 @@ export const FEEDBACK_VARIANTS: Variants = {
   },
   [VARIANTS.EXIT]: {
     opacity: 0,
-    scale: 0.1,
+    scale: 0,
     transition: { duration: DEFAULT_DURATION },
   },
 };
 
 // Card entrance
 export const CARD_ENTRANCE_VARIANTS: Variants = {
-  [VARIANTS.INITIAL]: { opacity: 0, rotateY: 90, scale: 0.1, y: 90 },
+  [VARIANTS.INITIAL]: { opacity: 0, rotateY: 90, scale: 0, y: 90 },
   [VARIANTS.IN]: {
     opacity: 1,
     rotateY: 0,
@@ -63,7 +62,7 @@ export const CARD_ENTRANCE_VARIANTS: Variants = {
   [VARIANTS.OUT]: {
     opacity: 0,
     rotateY: -90,
-    scale: 0.1,
+    scale: 0,
     y: -90,
     transition: { ...SPRING.CARD_ENTRANCE, duration: DEFAULT_DURATION },
   },
@@ -85,10 +84,6 @@ export const FLIP_VARIANTS: Variants = {
     rotateY: 0,
     scale: 1,
     transition: { ...SPRING.DEFAULT, duration: DEFAULT_DURATION },
-  },
-  [VARIANTS.HOVER]: {
-    scale: 1.05,
-    transition: { duration: 0.1 },
   },
 };
 
