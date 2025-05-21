@@ -1,7 +1,7 @@
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 
-import { useScore } from '@/hooks/useScore';
+import { useScore } from '@/hooks/useScoreboard';
 import { useTimer } from '@/hooks/useTimer';
 import type { MovesProps, ScoreProps, TimerProps } from '@/types/components';
 

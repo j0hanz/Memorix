@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-import { useBestScores } from '@/hooks/useBestScores';
 import { useFetch } from '@/hooks/useFetch';
 import { gameService } from '@/services/gameService';
 import type { PaginatedUserScores, UserScore } from '@/types/api';
@@ -18,18 +17,28 @@ export function useGameHistory({
   const [bestCategory, setBestCategory] = useState<string>('');
   const [allCats, setAllCats] = useState<GameOptions[]>([]);
   const [pageSize, setPageSize] = useState<number>(5);
-  // Add state to track if initial load is complete
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
-  // Add state to track played categories
   const [stablePlayedCategories, setStablePlayedCategories] = useState<
     GameOptions[]
   >([]);
 
-  const {
-    bestScores,
-    categories: bestCats,
-    loading: loadingBest,
-  } = useBestScores();
+  // Merged useBestScores functionality
+  const { data: bestScoresData, loading: loadingBest } = useFetch<UserScore[]>(
+    async () => {
+      return await gameService.getUserBestScores();
+    },
+    {
+      errorCategory: 'api',
+      showToastOnError: true,
+    },
+  );
+
+  const bestScores = bestScoresData || [];
+
+  // Extract unique category names from bestScores
+  const bestCats: string[] = Array.from(
+    new Set(bestScores.map((s) => s.category_name)),
+  );
 
   const { data: filteredScoresData, loading: isLoading } =
     useFetch<PaginatedUserScores>(
