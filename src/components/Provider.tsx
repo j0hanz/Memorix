@@ -223,6 +223,10 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     }, GAME_CONFIG.LOADING_DELAY);
   }
 
+  function handleGitHubClick() {
+    window.open('https://github.com/j0hanz/Memorix', '_blank');
+  }
+
   function handleSelectCategory(category: string) {
     setSelectedCategory(category);
     closeModal();
@@ -307,6 +311,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
         closeLatestUpdates,
         openLeaderboardModal,
         closeLeaderboardModal,
+        handleGitHubClick,
         selectedCategory,
         isGameActive,
         loading,

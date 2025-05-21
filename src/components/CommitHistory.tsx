@@ -3,7 +3,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
 import { useCommit } from '@/hooks/useCommitHistory';
-import { useLinks } from '@/hooks/useLinks';
+import { useNavigation } from '@/hooks/useProvider';
 import type { CommitStatusProps } from '@/types/api';
 
 import { ModalFooterButtons } from './ModalFooterButtons';
@@ -11,7 +11,7 @@ import styles from './styles/Modal.module.css';
 
 export const CommitStatus = ({ onClose }: CommitStatusProps) => {
   const { commits, loading, error } = useCommit();
-  const { handleGitHubClick } = useLinks();
+  const { handleGitHubClick } = useNavigation();
 
   return (
     <>

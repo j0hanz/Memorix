@@ -16,6 +16,7 @@ export interface NavigationContextType {
   closeLatestUpdates: () => void;
   openLeaderboardModal: () => void;
   closeLeaderboardModal: () => void;
+  handleGitHubClick: () => void;
   openModalByType?: (type: ModalType) => void;
   selectedCategory: string;
   isGameActive: boolean;

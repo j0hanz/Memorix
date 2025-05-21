@@ -10,8 +10,7 @@ import styles from '@/App.module.css';
 import { LoadingCardSpinner } from '@/components/Spinner';
 import { Toast } from '@/components/Toast';
 import { DELAYS } from '@/constants/constants';
-import { useLinks } from '@/hooks/useLinks';
-import { useAuth, useModal } from '@/hooks/useProvider';
+import { useAuth, useModal, useSound } from '@/hooks/useProvider';
 import type { MainMenuProps } from '@/types/components';
 
 import { MenuButton } from './MenuButton';
@@ -26,7 +25,7 @@ export const MainMenu = ({
   openLeaderboardModal,
   handleAccountClick,
 }: MainMenuProps) => {
-  const { isMuted, toggleMute } = useLinks();
+  const { isMuted, toggleMute } = useSound();
   const { isAuthenticated, user, profile, getProfile } = useAuth();
   const { openModal } = useModal();
 
