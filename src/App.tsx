@@ -47,7 +47,11 @@ export const App = () => {
               startGame={navigation.startGame}
               openInstructions={navigation.openInstructions}
               openLatestUpdates={navigation.openLatestUpdates}
-              enterAnimation={enterAnimation}
+              enterAnimation={{
+                initial: enterAnimation.variants.initial,
+                animate: enterAnimation.variants.animate,
+                transition: enterAnimation.transition,
+              }}
               openAuthModal={useAuthModal}
               openLeaderboardModal={navigation.openLeaderboardModal}
               handleAccountClick={navigation.handleAccountClick}

@@ -1,26 +1,3 @@
-// Animation constants
-export const MOTIONS = {
-  DEFAULT_DURATION: 0.2,
-  SPRING: {
-    CARD_ENTRANCE: {
-      type: 'spring',
-      stiffness: 125,
-      damping: 20,
-      bounce: 0.35,
-    },
-    CARD_MATCH: {
-      type: 'spring',
-      stiffness: 100,
-      damping: 20,
-    },
-    DEFAULT: {
-      type: 'spring',
-      stiffness: 175,
-      damping: 20,
-    },
-  },
-};
-
 // Card interaction delays
 export const DELAYS = {
   INITIAL_REVEAL: 500,
