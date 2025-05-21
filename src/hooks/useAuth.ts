@@ -4,166 +4,117 @@ import { axiosReq } from '@/services/axios';
 import type { ApiError } from '@/types/api';
 import type { AuthContextType, Profile, User } from '@/types/auth';
 import { refreshAccessToken } from '@/utils/axiosUtils';
-import {
-  clearTokens,
-  getToken,
-  isTokenExpired,
-  setRefreshToken,
-  setToken,
-} from '@/utils/tokenUtils';
+import { tokenStorage, tokenValidator } from '@/utils/tokenUtils';
 
-// Hook to create auth provider state and logic
 export function useAuthProvider(): AuthContextType {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [token, setTokenState] = useState<string>(getToken() || '');
-  const [refreshToken, setRefreshTokenState] = useState<string>(
-    localStorage.getItem('refreshToken') || '',
+  const [token, setToken] = useState(tokenStorage.getToken() || '');
+  const [refreshToken, setRefresh] = useState(
+    tokenStorage.getRefreshToken() || '',
   );
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Clear user and tokens from state and localStorage
-  const logout = useCallback(() => {
+  function logout() {
     setUser(null);
     setProfile(null);
-    setTokenState('');
-    setRefreshTokenState('');
-    clearTokens();
-  }, []);
+    setToken('');
+    setRefresh('');
+    tokenStorage.clearTokens();
+  }
 
-  // Utility to update tokens in both state and localStorage with validation
-  const setAuthTokens = useCallback((access: string, refresh?: string) => {
-    if (access) {
-      setTokenState(access);
-      setToken(access);
-    }
+  function setAuthTokens(access: string, refresh?: string) {
+    setToken(access);
+    tokenStorage.setToken(access);
     if (refresh) {
-      setRefreshTokenState(refresh);
-      setRefreshToken(refresh);
+      setRefresh(refresh);
+      tokenStorage.setRefreshToken(refresh);
     }
-  }, []);
+  }
 
-  // Fetch the user's profile with better error handling
   const fetchProfile = useCallback(async (): Promise<Profile | null> => {
-    if (!token || !user || user.profile_id == null) return null;
-
+    if (!token || !user?.profile_id) return null;
     setLoading(true);
     setError(null);
 
     try {
-      const response = await axiosReq.get<Profile>(
+      const res = await axiosReq.get<Profile>(
         `/api/profiles/${String(user.profile_id)}/`,
       );
-      setProfile(response.data);
-      return response.data;
-    } catch (err: unknown) {
-      console.error('Failed to fetch profile:', err);
-      const errorObj = err as ApiError;
+      setProfile(res.data);
+      return res.data;
+    } catch (e: unknown) {
+      const err = e as ApiError;
       setError(
-        errorObj.response?.data?.detail &&
-          typeof errorObj.response.data.detail === 'string'
-          ? errorObj.response.data.detail
+        typeof err.response?.data?.detail === 'string'
+          ? err.response.data.detail
           : 'Failed to load profile',
       );
       return null;
     } finally {
       setLoading(false);
     }
-  }, [token, user]);
+  }, [token, user?.profile_id]);
 
-  // Initialize authentication state and fetch user data
   useEffect(() => {
-    const controller = new AbortController();
-    const initializeAuth = async () => {
-      if (!token) return;
+    void (async () => {
+      const stored = tokenStorage.getToken();
+      if (!stored) return;
 
+      setToken(stored);
       setLoading(true);
       setError(null);
 
-      try {
-        // Refresh token if expired
-        if (isTokenExpired(token)) {
-          const newToken = await refreshAccessToken();
-          if (newToken) {
-            setAuthTokens(newToken);
-          } else {
-            logout();
-            return;
-          }
-        }
-
-        // Fetch user
-        const userResponse = await axiosReq.get<User>('/dj-rest-auth/user/', {
-          signal: controller.signal,
-        });
-        if (controller.signal.aborted) return;
-        setUser(userResponse.data);
-
-        // Fetch profile if available
-        if (userResponse.data.profile_id != null) {
-          const profileResp = await axiosReq.get<Profile>(
-            `/api/profiles/${String(userResponse.data.profile_id)}/`,
-            { signal: controller.signal },
-          );
-          if (!controller.signal.aborted) {
-            setProfile(profileResp.data);
-          }
-        }
-      } catch (err: unknown) {
-        if (!controller.signal.aborted) {
-          console.error('Error during auth initialization:', err);
-          const errorObj = err as ApiError;
-          const errorMessage =
-            errorObj.response?.data?.detail &&
-            typeof errorObj.response.data.detail === 'string'
-              ? errorObj.response.data.detail
-              : 'Authentication error';
-          setError(errorMessage);
+      // try refresh
+      if (tokenValidator.isTokenExpired(stored)) {
+        const newToken = await refreshAccessToken();
+        if (newToken) setAuthTokens(newToken);
+        else {
           logout();
+          return;
         }
+      }
+
+      try {
+        const userRes = await axiosReq.get<User>('/dj-rest-auth/user/');
+        setUser(userRes.data);
+
+        if (userRes.data.profile_id) {
+          await fetchProfile();
+        }
+      } catch (e: unknown) {
+        const err = e as ApiError;
+        setError(
+          typeof err.response?.data?.detail === 'string'
+            ? err.response.data.detail
+            : 'Authentication error',
+        );
+        logout();
       } finally {
-        if (!controller.signal.aborted) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
-    };
+    })();
+  }, [fetchProfile]);
 
-    void initializeAuth();
-    return () => {
-      controller.abort();
-    };
-  }, [token, logout, setAuthTokens]);
-
-  // Listen for global logout events with enhanced event data
+  // global logout event
   useEffect(() => {
-    const handleLogout = (event: Event) => {
-      const customEvent = event as CustomEvent<{ reason?: unknown }>;
-      if (
-        customEvent.detail &&
-        typeof customEvent.detail === 'object' &&
-        customEvent.detail !== null &&
-        Object.prototype.hasOwnProperty.call(customEvent.detail, 'reason')
-      ) {
-        console.log(`Logout triggered: ${String(customEvent.detail.reason)}`);
-      }
+    const onLogout = (evt: Event) => {
+      console.log('Logout:', (evt as CustomEvent).detail);
       logout();
     };
-
-    window.addEventListener('auth:logout', handleLogout);
+    window.addEventListener('auth:logout', onLogout);
     return () => {
-      window.removeEventListener('auth:logout', handleLogout);
+      window.removeEventListener('auth:logout', onLogout);
     };
-  }, [logout]);
-
-  const isAuthenticated = Boolean(user && token);
+  }, []);
 
   return {
     user,
     profile,
     token,
     refreshToken,
-    isAuthenticated,
+    isAuthenticated: Boolean(user && token),
     login: () => Promise.resolve(false),
     register: () => Promise.resolve(false),
     logout,

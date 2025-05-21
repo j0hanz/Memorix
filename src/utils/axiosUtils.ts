@@ -3,128 +3,111 @@ import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { axiosReq } from '@/services/axios';
 import type { AuthResponse } from '@/types/auth';
 import {
-  clearTokens,
-  getIsRefreshing,
-  getRefreshToken,
-  getToken,
-  isTokenExpired,
-  onRefreshed,
   parseTokensFromResponse,
-  setIsRefreshing,
-  setToken,
-  subscribeTokenRefresh,
+  tokenRefreshManager,
+  tokenStorage,
+  tokenValidator,
 } from '@/utils/tokenUtils';
 
-// Function to refresh the access token using the refresh token.
-export const refreshAccessToken = async (): Promise<string | null> => {
-  const refresh = getRefreshToken();
-  if (!refresh) {
-    console.warn('No refresh token found. Cannot refresh access token.');
-    clearTokens();
-    return null;
-  }
-  try {
-    const response = await axiosReq.post('/dj-rest-auth/token/refresh/', {
-      refresh,
-    });
-    // Parse the new access token from the response
-    const { accessToken } = parseTokensFromResponse(
-      response.data as Partial<AuthResponse>,
-    );
+const AUTH_PATHS = [
+  '/dj-rest-auth/login/',
+  '/dj-rest-auth/registration/',
+  '/dj-rest-auth/token/refresh/',
+];
 
-    if (accessToken) {
-      setToken(accessToken);
-      return accessToken;
-    } else {
-      console.warn('No access token found in the response.');
-      clearTokens();
-      return null;
-    }
-  } catch (error) {
-    const axiosError = error as AxiosError;
-    if (axiosError.response && axiosError.response.status === 401) {
-      console.error('Unauthorized: Refresh token may be invalid or expired.');
-    } else {
-      console.error('Failed to refresh access token:', axiosError.message);
-    }
-    clearTokens();
-    return null;
-  }
-};
-
-// Handles the case when the access token is expired.
-async function handleExpiredToken(
+async function handleRefresh(
   config: InternalAxiosRequestConfig,
 ): Promise<InternalAxiosRequestConfig> {
-  if (!getIsRefreshing()) {
-    setIsRefreshing(true);
+  if (!tokenRefreshManager.getIsRefreshing()) {
+    tokenRefreshManager.setIsRefreshing(true);
     try {
       const newToken = await refreshAccessToken();
-      setIsRefreshing(false);
-      // Check if the new token is valid
+      tokenRefreshManager.setIsRefreshing(false);
+
       if (newToken) {
-        onRefreshed(newToken);
-        config.headers = config.headers || {};
+        tokenRefreshManager.onRefreshed(newToken);
         config.headers.Authorization = `Bearer ${newToken}`;
         return config;
       }
+
       window.dispatchEvent(
         new CustomEvent('auth:logout', {
           detail: { reason: 'token-refresh-failed' },
         }),
       );
-      // Handle the case when the refresh token is invalid or expired
-      return await Promise.reject(
-        new Error('Authentication expired. Please log in again.'),
-      );
-    } catch (error) {
-      setIsRefreshing(false);
+      throw new Error('Session expired');
+    } catch (err) {
+      tokenRefreshManager.setIsRefreshing(false);
       window.dispatchEvent(
-        new CustomEvent('auth:logout', { detail: { reason: 'refresh-error' } }),
+        new CustomEvent('auth:logout', {
+          detail: { reason: 'refresh-error' },
+        }),
       );
-      // Handle the error appropriately
-      return await Promise.reject(
-        error instanceof Error ? error : new Error('Token refresh error'),
-      );
+      throw err instanceof Error ? err : new Error('Refresh error');
     }
   }
-  // Wait for the token to be refreshed by another request
-  return await new Promise<InternalAxiosRequestConfig>((resolve) => {
-    subscribeTokenRefresh((newToken: string) => {
-      config.headers = config.headers || {};
-      config.headers.Authorization = `Bearer ${newToken}`;
+
+  return new Promise((resolve) => {
+    tokenRefreshManager.subscribeTokenRefresh((token) => {
+      if (config.headers && typeof config.headers.set === 'function') {
+        config.headers.set('Authorization', `Bearer ${token}`);
+      } else {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
       resolve(config);
     });
   });
 }
 
-const setupAxiosInterceptors = (): void => {
-  axiosReq.interceptors.request.use(
-    async (config: InternalAxiosRequestConfig) => {
-      const isAuthEndpoint =
-        config.url?.includes('/dj-rest-auth/login/') ||
-        config.url?.includes('/dj-rest-auth/registration/') ||
-        config.url?.includes('/dj-rest-auth/token/refresh/');
-      if (isAuthEndpoint) {
-        return config;
-      }
-      const token = getToken();
-      if (!token) {
-        return config;
-      }
-      if (isTokenExpired(token)) {
-        return await handleExpiredToken(config);
-      }
-      config.headers = config.headers || {};
-      config.headers.Authorization = `Bearer ${token}`;
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    },
-  );
-};
+export async function refreshAccessToken(): Promise<string | null> {
+  const refresh = tokenStorage.getRefreshToken();
+  if (!refresh) {
+    console.warn('No refresh token');
+    tokenStorage.clearTokens();
+    return null;
+  }
+
+  try {
+    const res = await axiosReq.post('/dj-rest-auth/token/refresh/', {
+      refresh,
+    });
+    const { accessToken } = parseTokensFromResponse(
+      res.data as Partial<AuthResponse>,
+    );
+    if (accessToken) {
+      tokenStorage.setToken(accessToken);
+      return accessToken;
+    }
+    console.warn('No access token in refresh response');
+  } catch (e) {
+    const err = e as AxiosError;
+    console.error(
+      err.response?.status === 401
+        ? 'Refresh token invalid'
+        : 'Refresh failed:',
+      err.message,
+    );
+  }
+
+  tokenStorage.clearTokens();
+  return null;
+}
+
+export function setupAxiosInterceptors(): void {
+  axiosReq.interceptors.request.use(async (config) => {
+    const url = config.url || '';
+    if (AUTH_PATHS.some((p) => url.includes(p))) return config;
+
+    const token = tokenStorage.getToken();
+    if (!token) return config;
+
+    if (tokenValidator.isTokenExpired(token)) {
+      return handleRefresh(config);
+    }
+
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+  });
+}
 
 setupAxiosInterceptors();
-
-export { setupAxiosInterceptors };
