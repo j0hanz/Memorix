@@ -2,7 +2,7 @@ import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { Col, Row } from 'react-bootstrap';
 
-import { useLeaderboardData } from '@/hooks/useLeaderboardData';
+import { useLeaderboard } from '@/hooks/useLeaderboard';
 
 import { Button } from './Button';
 import { CategoryIcon } from './CategoryIcon';
@@ -18,7 +18,7 @@ export const Leaderboard = () => {
     error,
     categoryOptions,
     handleCategoryChange,
-  } = useLeaderboardData();
+  } = useLeaderboard();
 
   return (
     <>
