@@ -2,6 +2,7 @@ import type { Variants } from 'framer-motion';
 
 // Base duration for all animations
 export const DEFAULT_DURATION = 0.2;
+export const FEEDBACK_DURATION = 0.3;
 
 // Springs
 export const SPRING = {
@@ -36,16 +37,18 @@ export const ENTER_ANIMATION = {
 
 // Feedback animation
 export const FEEDBACK_VARIANTS: Variants = {
-  [VARIANTS.INITIAL]: { opacity: 0, scale: 0.1 },
+  [VARIANTS.INITIAL]: { opacity: 0, scale: 0 },
   [VARIANTS.ANIMATE]: {
     opacity: 1,
-    scale: [0.1, 2, 1],
-    transition: { duration: DEFAULT_DURATION },
+    scale: [0.5, 1.5, 1],
+    transition: {
+      duration: FEEDBACK_DURATION,
+    },
   },
   [VARIANTS.EXIT]: {
     opacity: 0,
     scale: 0.1,
-    transition: { duration: DEFAULT_DURATION },
+    transition: { duration: FEEDBACK_DURATION },
   },
 };
 
