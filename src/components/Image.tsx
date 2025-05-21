@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { ImageProps } from '@/types/components';
 
@@ -19,6 +19,13 @@ export const Image: React.FC<ImageProps> = ({
   const [imgSrc, setImgSrc] = useState<string>(src);
   const [hasError, setHasError] = useState<boolean>(false);
 
+  // Update image source when src prop changes
+  useEffect(() => {
+    if (src !== imgSrc && !hasError) {
+      setImgSrc(src);
+    }
+  }, [src, imgSrc, hasError]);
+
   // Handle image load event
   const handleLoad = () => {
     onLoad?.();
@@ -33,9 +40,14 @@ export const Image: React.FC<ImageProps> = ({
     onError?.(event);
   };
 
+  // Add cache-busting query parameter for profile pictures
+  const finalSrc = imgSrc.includes('profile_picture') && !imgSrc.includes('?v=')
+    ? `${imgSrc}?v=${new Date().getTime()}`
+    : imgSrc;
+
   return (
     <img
-      src={imgSrc}
+      src={finalSrc}
       alt={alt}
       width={width}
       height={height}

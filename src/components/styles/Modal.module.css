@@ -96,7 +96,7 @@
 
 .btnMain {
   width: 100%;
-  height: 2rem;
+  height: 2.5rem;
   font-size: 1em;
 }
 
@@ -264,12 +264,16 @@
   display: flex;
   flex-direction: column;
   padding-inline: 1rem;
-  width: 9rem;
+  width: 100%;
+  max-width: 12rem;
+  @media (max-width: 390px) {
+    padding-inline: 0.5rem;
+    max-width: 9rem;
+  }
 }
 
 .profileImage {
   aspect-ratio: 1/1;
-  width: 100%;
   background: transparent;
   border: 1px solid var(--btn-secondary);
   border-radius: 10px 10px 0 0;

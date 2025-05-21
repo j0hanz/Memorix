@@ -2,9 +2,11 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
 
 import { Button } from '@/components/Button';
+import { Image } from '@/components/Image';
 import styles from '@/components/styles/Modal.module.css';
 import { useProfile } from '@/hooks/useProvider';
 
@@ -21,17 +23,24 @@ export function ProfileOverview({
   logout: () => void;
 }) {
   const { user, profile, previewImage, handleImageChange } = useProfile();
+  const [imageKey, setImageKey] = useState<number>(0);
+
+  // Update image key when profile picture URL or preview image changes
+  useEffect(() => {
+    setImageKey(prev => prev + 1);
+  }, [profile?.profile_picture_url, previewImage]);
+
+  const imageSrc = previewImage || profile?.profile_picture_url || '';
 
   return (
-    <Col className="d-flex justify-content-around align-items-center my-3">
+    <Col className="d-flex justify-content-between align-items-center my-3">
       <div className={styles.profileImageContainer}>
-        <img
-          src={previewImage || profile?.profile_picture_url}
+        <Image
+          key={imageKey}
+          src={imageSrc}
           alt="Profile"
           className={styles.profileImage}
-          onError={(e) => {
-            e.currentTarget.src = '/img/default-avatar.webp';
-          }}
+          fallbackSrc="/img/default-avatar.webp"
         />
         <Button
           className={`${styles.btnUpload} ${styles.btnMain}`}
