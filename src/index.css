@@ -1,12 +1,12 @@
 body {
-  font-family: 'Fredoka';
   background: color-mix(in srgb, var(--bg-primary) 90%, black 10%);
   color: var(--text-color);
   display: grid;
-  place-items: center;
+  font-family: 'Fredoka';
+  font-weight: 400;
   height: 100dvh;
   letter-spacing: var(--text-spacing);
-  font-weight: 400;
+  place-items: center;
 }
 
 .btn {
@@ -28,20 +28,20 @@ label {
 
 .form-select,
 select {
-  background-color: var(--bg-secondary);
-  border: none;
-  outline: none;
   appearance: none;
-  color: var(--text-color);
+  background-color: var(--bg-secondary);
   border-bottom: var(--border-bottom-primary);
   border-radius: var(--border-radius-secondary);
-  padding: 0.5rem 1rem;
+  border: none;
+  color: var(--text-color);
   cursor: pointer;
-  width: 100%;
+  outline: none;
+  padding: 0.5rem 1rem;
   transition: border-color 0.2s ease;
+  width: 100%;
   &:disabled {
-    opacity: 0.6;
     cursor: not-allowed;
+    opacity: 0.6;
   }
 }
 
@@ -59,4 +59,3 @@ option {
   body {
     font-size: 0.8rem;
   }
-}

@@ -1,4 +1,3 @@
-/* Row */
 .row {
   display: flex;
   justify-content: center;
@@ -6,7 +5,6 @@
   height: 100dvh;
   width: min(60vw, 800px);
   container-type: inline-size;
-
   @media (max-width: 990px) {
     width: min(75vw, 800px);
   }
@@ -15,7 +13,6 @@
   }
 }
 
-/* Stats */
 .statsTop {
   position: relative;
   display: flex;
@@ -25,20 +22,12 @@
   color: var(--text-color);
   border-bottom: 2px solid var(--bg-tertiary);
   width: calc(min(60vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));
-
   @media (max-width: 990px) {
     width: calc(min(75vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));
   }
   @media (max-width: 550px) {
     width: calc(min(98vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));
   }
-}
-
-.feedback {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .statsTopSuccess {
@@ -57,6 +46,13 @@
 .statsRight {
   display: flex;
   gap: 1rem;
+}
+
+.feedback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @container (max-width: 600px) {

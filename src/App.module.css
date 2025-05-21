@@ -1,24 +1,24 @@
 .menu {
+  align-items: center;
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 15rem;
   min-height: 30rem;
-  container-type: inline-size;
+  width: 15rem;
 }
 
 .gameTitle {
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 500;
-  font-size: 5rem;
   color: var(--text-color-highlight);
+  font-family: 'Fredoka', sans-serif;
+  font-size: 5rem;
+  font-weight: 500;
 }
 
 .btnRounded {
-  cursor: pointer;
-  width: 2rem;
-  height: 2rem;
   border-radius: var(--border-radius-circle);
+  cursor: pointer;
+  height: 2rem;
+  width: 2rem;
 }
 
 .menuButtons {
@@ -29,8 +29,8 @@
 }
 
 .btnMain {
-  height: 3.5rem;
   border: var(--border-primary);
+  height: 3.5rem;
   &:is(:hover, :active) {
     border: var(--border-primary) !important;
   }
@@ -55,10 +55,10 @@
 }
 
 .userInfoTopRight {
-  position: fixed;
-  top: 15px;
-  right: 15px;
   border-radius: var(--border-radius-circle);
+  position: fixed;
+  right: 15px;
+  top: 15px;
   z-index: 100;
   &:has(img:active) {
     box-shadow: 0 0 0 2px var(--btn-secondary);
@@ -66,12 +66,12 @@
 }
 
 .menuProfileImage {
-  width: 40px;
-  height: 40px;
   border-radius: var(--border-radius-circle);
-  object-fit: cover;
   cursor: pointer;
+  height: 40px;
+  object-fit: cover;
   transition: transform 0.2s ease;
+  width: 40px;
   &:where(:hover, :focus-visible) {
     transform: scale(1.05);
   }
@@ -88,13 +88,13 @@
 
 @media (max-width: 768px) {
   .userInfoTopRight {
-    top: 10px;
     right: 10px;
+    top: 10px;
   }
 
   .menuProfileImage {
-    width: 50px;
     height: 50px;
+    width: 50px;
   }
 }
 
