@@ -2,7 +2,6 @@
   :global(.modal-content) {
     background: var(--bg-secondary);
     color: var(--text-color);
-    border: none;
     border-radius: var(--border-radius-primary);
   }
   :global(.modal-header) {
@@ -218,8 +217,7 @@
 .navItemLeft,
 .navItemCenter,
 .navItemRight {
-  border: none;
-  background-color: var(--btn-secondary);
+  background: var(--btn-secondary);
   transition: var(--transition-primary);
   &:hover {
     background: var(--btn-secondary-hover);
@@ -231,22 +229,22 @@
 
 .navItemCenter {
   border-radius: var(--border-radius-secondary);
-  border-inline: 1px solid var(--bg-secondary);
+  border-inline: var(--border-secondary);
 }
 
 .navItemLeft {
   border-radius: var(--border-radius-top-left);
-  border-right: 1px solid var(--bg-secondary);
+  border-right: var(--border-secondary);
 }
 
 .navItemMiddle {
   border-radius: var(--border-radius-secondary);
-  border-block: 2px solid var(--btn-secondary);
+  border-block: var(--border-secondary);
 }
 
 .navItemRight {
   border-radius: var(--border-radius-top-right);
-  border-left: 1px solid var(--bg-secondary);
+  border-left: var(--border-secondary);
 }
 
 .navLink {
@@ -274,8 +272,8 @@
 
 .profileImage {
   aspect-ratio: 1/1;
-  background: transparent;
-  border: 1px solid var(--btn-secondary);
+  background: var(--bg-transparent);
+  border: var(--border-secondary);
   border-radius: var(--border-radius-top);
   object-fit: cover;
 }
