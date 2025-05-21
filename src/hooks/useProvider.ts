@@ -2,6 +2,7 @@ import { useContext } from 'react';
 
 import { AuthContext } from '@/contexts/AuthContext';
 import { ErrorContext } from '@/contexts/ErrorContext';
+import { GameContext } from '@/contexts/GameContext';
 import { ModalContext } from '@/contexts/ModalContext';
 import { NavigationContext } from '@/contexts/NavigationContext';
 import { ProfileContext } from '@/contexts/ProfileContext';
@@ -56,4 +57,16 @@ export function useSound() {
 // Toast context hook
 export function useToast() {
   return useContext(ToastContext);
+}
+
+// Game state context hook
+export function useGameState() {
+  // Retrieve game state from context
+  const context = useContext(GameContext);
+
+  if (context === undefined) {
+    throw new Error('useGameState must be used within a GameProvider');
+  }
+
+  return context;
 }

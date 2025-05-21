@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useState } from 'react';
 
 import { CARD_STATUS, FEEDBACK } from '@/constants/constants';
-import { useGameState } from '@/hooks/useGameState';
+import { useGameState } from '@/hooks/useProvider';
 import type { CardData } from '@/types/card';
 import type { CSSModuleClasses } from '@/types/hooks';
 
