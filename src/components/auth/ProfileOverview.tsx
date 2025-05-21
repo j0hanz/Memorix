@@ -27,7 +27,7 @@ export function ProfileOverview({
 
   // Update image key when profile picture URL or preview image changes
   useEffect(() => {
-    setImageKey(prev => prev + 1);
+    setImageKey((prev) => prev + 1);
   }, [profile?.profile_picture_url, previewImage]);
 
   const imageSrc = previewImage || profile?.profile_picture_url || '';
