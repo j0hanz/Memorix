@@ -38,7 +38,7 @@
 .secondaryColor {
   background: var(--btn-secondary) !important;
   &:is(:hover, :active) {
-    background: var(--btn-secondary-hover) !important;
+    background: var(--btn-secondary-hover-active) !important;
   }
 }
 

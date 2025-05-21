@@ -220,7 +220,7 @@
   background: var(--btn-secondary);
   transition: var(--transition-primary);
   &:hover {
-    background: var(--btn-secondary-hover);
+    background: var(--btn-secondary-hover-active);
   }
   &.active {
     background: var(--btn-primary);
