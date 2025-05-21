@@ -18,7 +18,7 @@
   cursor: pointer;
   width: 2rem;
   height: 2rem;
-  border-radius: 50%;
+  border-radius: var(--border-radius-circle);
 }
 
 .menuButtons {
@@ -30,9 +30,9 @@
 
 .btnMain {
   height: 3.5rem;
-  border: 1px solid var(--bg-primary);
+  border: var(--border-primary);
   &:is(:hover, :active) {
-    border: 1px solid var(--bg-primary) !important;
+    border: var(--border-primary) !important;
   }
 }
 
@@ -43,22 +43,22 @@
 }
 
 .btnStart {
-  border-radius: 6px 6px 0 0;
+  border-radius: var(--border-radius-top);
 }
 
 .btnMenu {
-  border-radius: 0;
+  border-radius: var(--border-radius-secondary);
 }
 
 .btnEnd {
-  border-radius: 0 0 6px 6px;
+  border-radius: var(--border-radius-bottom);
 }
 
 .userInfoTopRight {
   position: fixed;
   top: 15px;
   right: 15px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-circle);
   z-index: 100;
   &:has(img:active) {
     box-shadow: 0 0 0 2px var(--btn-secondary);
@@ -68,7 +68,7 @@
 .menuProfileImage {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-circle);
   object-fit: cover;
   cursor: pointer;
   transition: transform 0.2s ease;

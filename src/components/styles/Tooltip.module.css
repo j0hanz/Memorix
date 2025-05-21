@@ -10,9 +10,9 @@
 .tooltip {
   position: absolute;
   z-index: 9999;
-  background-color: color-mix(in srgb, var(--tooltip-bg) 90%, #fff 10%);
+  background-color: var(--bg-primary);
   padding: 0.5rem;
-  border-radius: 10px;
+  border-radius: var(--border-radius-primary);
   font-size: 0.8rem;
   &.top {
     bottom: 100%;

@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: var(--transition-primary);
   &:active .icon,
   &:active .text {
     transform: scale(0.9);
@@ -15,12 +15,12 @@
 .icon {
   display: flex;
   align-items: center;
-  transition: all 0.2s ease;
+  transition: var(--transition-primary);
 }
 
 .text {
   text-align: center;
-  transition: all 0.2s ease;
+  transition: var(--transition-primary);
 }
 
 .menuText {

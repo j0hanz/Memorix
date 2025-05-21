@@ -23,7 +23,7 @@
   justify-content: space-between;
   padding: 0.5rem 0;
   color: var(--text-color);
-  border-bottom: 2px solid var(--bg-card);
+  border-bottom: 2px solid var(--bg-tertiary);
   width: calc(min(60vw, 800px) - clamp(1rem, 0.75rem + 0.5vw, 1.5rem));
 
   @media (max-width: 990px) {

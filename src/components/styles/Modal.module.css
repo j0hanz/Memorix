@@ -1,9 +1,9 @@
 @scope (.modal) {
   :global(.modal-content) {
-    background: var(--bg-modal-content);
+    background: var(--bg-secondary);
     color: var(--text-color);
     border: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius-primary);
   }
   :global(.modal-header) {
     font-family: 'Fredoka';
@@ -58,7 +58,7 @@
 }
 
 .closeButtonSolo {
-  border-radius: 0 0 10px 10px;
+  border-radius: var(--border-radius-bottom);
 }
 
 .categoryDataContainer {
@@ -71,27 +71,27 @@
 }
 
 .btnCategorySelect {
-  border: 1px solid var(--bg-modal-content);
+  border: var(--border-secondary);
   height: 3.5rem;
-  border-radius: 0;
+  border-radius: var(--border-radius-secondary);
   &:is(:hover, :active) {
-    border: 1px solid var(--bg-modal-content) !important;
+    border: var(--border-secondary) !important;
   }
 }
 
 .btnClose {
-  border-radius: 0 0 10px 10px;
+  border-radius: var(--border-radius-bottom);
 }
 
 .btnLeft {
-  border-radius: 0 0 0 10px;
+  border-radius: var(--border-radius-bottom-left);
   &:is(:hover, :active) {
     border: none !important;
   }
 }
 
 .btnLogout {
-  border-radius: 6px 6px 0 0;
+  border-radius: var(--border-radius-top);
 }
 
 .btnMain {
@@ -101,26 +101,26 @@
 }
 
 .btnMenu {
-  border-radius: 0;
+  border-radius: var(--border-radius-secondary);
 }
 
 .btnPassword {
-  border-radius: 0;
+  border-radius: var(--border-radius-secondary);
 }
 
 .btnDelete {
-  border-radius: 0 0 6px 6px;
+  border-radius: var(--border-radius-bottom);
 }
 
 .btnRight {
-  border-radius: 0 0 10px 0;
+  border-radius: var(--border-radius-bottom-right);
   &:is(:hover, :active) {
     border: none !important;
   }
 }
 
 .btnUpload {
-  border-radius: 0 0 10px 10px;
+  border-radius: var(--border-radius-bottom);
 }
 
 .clickableLabel {
@@ -142,8 +142,8 @@
 
 .commitItem {
   padding: 0.8rem;
-  border-bottom: 1px solid var(--input-border-color);
-  border-radius: 0;
+  border-bottom: var(--border-bottom-primary);
+  border-radius: var(--border-radius-secondary);
 }
 
 .commitList {
@@ -161,7 +161,7 @@
   color: var(--text-color);
   opacity: 0.6;
   padding-block: 0.3rem;
-  transition: all 0.2s ease;
+  transition: var(--transition-primary);
   &:hover {
     opacity: 1;
   }
@@ -211,28 +211,8 @@
 .leaderboardAvatar {
   width: 25px;
   height: 25px;
-  border-radius: 50%;
+  border-radius: var(--border-radius-circle);
   object-fit: cover;
-}
-
-.navItemCenter {
-  border-radius: 0;
-  border-inline: 1px solid var(--shadow-row);
-}
-
-.navItemLeft {
-  border-radius: 10px 0 0 0;
-  border-right: 1px solid var(--shadow-row);
-}
-
-.navItemMiddle {
-  border-radius: 0;
-  border-block: 1px solid var(--btn-secondary);
-}
-
-.navItemRight {
-  border-radius: 0 10px 0 0;
-  border-left: 1px solid var(--shadow-row);
 }
 
 .navItemLeft,
@@ -240,13 +220,33 @@
 .navItemRight {
   border: none;
   background-color: var(--btn-secondary);
-  transition: all 0.3s ease;
+  transition: var(--transition-primary);
   &:hover {
     background: var(--btn-secondary-hover);
   }
   &.active {
     background: var(--btn-primary);
   }
+}
+
+.navItemCenter {
+  border-radius: var(--border-radius-secondary);
+  border-inline: 1px solid var(--bg-secondary);
+}
+
+.navItemLeft {
+  border-radius: var(--border-radius-top-left);
+  border-right: 1px solid var(--bg-secondary);
+}
+
+.navItemMiddle {
+  border-radius: var(--border-radius-secondary);
+  border-block: 2px solid var(--btn-secondary);
+}
+
+.navItemRight {
+  border-radius: var(--border-radius-top-right);
+  border-left: 1px solid var(--bg-secondary);
 }
 
 .navLink {
@@ -276,7 +276,7 @@
   aspect-ratio: 1/1;
   background: transparent;
   border: 1px solid var(--btn-secondary);
-  border-radius: 10px 10px 0 0;
+  border-radius: var(--border-radius-top);
   object-fit: cover;
 }
 
@@ -308,7 +308,7 @@
 }
 
 .scoreRow {
-  border-bottom: 1px solid var(--input-border-color);
+  border-bottom: var(--border-bottom-primary);
   padding-block: 0.5rem;
   margin: 0 auto;
 }
@@ -337,7 +337,7 @@
 }
 
 .underBorder {
-  border-bottom: 1px solid var(--input-border-color);
+  border-bottom: var(--border-bottom-primary);
 }
 
 .wrongPick {
@@ -345,14 +345,14 @@
 }
 
 .input {
-  border-bottom: 1px solid var(--input-border-color);
-  border-radius: 0;
+  border-bottom: var(--border-bottom-primary);
+  border-radius: var(--border-radius-secondary);
 }
 
 .formSelect {
-  border-bottom: 1px solid var(--input-border-color);
+  border-bottom: var(--border-bottom-primary);
   background-color: var(--bg-primary);
-  border-radius: 0;
+  border-radius: var(--border-radius-secondary);
 }
 
 .input {
@@ -364,8 +364,8 @@
 }
 
 .bottomBorder {
-  border-bottom: 1px solid var(--input-border-color);
-  border-radius: 0;
+  border-bottom: var(--border-bottom-primary);
+  border-radius: var(--border-radius-secondary);
 }
 
 @media (max-width: 425px) {

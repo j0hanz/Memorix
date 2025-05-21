@@ -6,8 +6,8 @@
   position: relative;
   aspect-ratio: 1/1;
   width: 100%;
-  background: var(--bg-card);
-  border-radius: 10px;
+  background: var(--bg-tertiary);
+  border-radius: var(--border-radius-primary);
   cursor: pointer;
   transform-style: preserve-3d;
   will-change: transform, opacity;
@@ -29,9 +29,9 @@
 }
 
 .front {
-  background: var(--bg-card-front);
+  background: var(--bg-primary);
   transform: rotateY(180deg);
-  border-radius: 10px;
+  border-radius: var(--border-radius-primary);
 }
 
 .front,
@@ -62,6 +62,6 @@
 
 @container (max-width: 350px) {
   .card {
-    border-radius: 6px;
+    border-radius: var(--border-radius-primary);
   }
 }

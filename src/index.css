@@ -33,17 +33,12 @@ select {
   outline: none;
   appearance: none;
   color: var(--text-color);
-  border-bottom: 1px solid var(--input-border-color);
-  border-radius: 0;
+  border-bottom: var(--border-bottom-primary);
+  border-radius: var(--border-radius-secondary);
   padding: 0.5rem 1rem;
   cursor: pointer;
   width: 100%;
   transition: border-color 0.2s ease;
-
-  &:hover {
-    border-color: var(--input-border-color-hover);
-  }
-
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -51,7 +46,7 @@ select {
 }
 
 option {
-  background: var(--bg-modal-content);
+  background: var(--bg-secondary);
 }
 
 @media (max-width: 425px) {

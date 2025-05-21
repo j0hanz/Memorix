@@ -8,7 +8,7 @@
   background: color-mix(in srgb, var(--toast-bg, #222) 90%, #fff 10%);
   color: var(--toast-color, #fff);
   padding: 1rem 1.5rem;
-  border-radius: 8px;
+  border-radius: var(--border-radius-primary);
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.18);
   z-index: 9999;
   font-size: 1rem;

@@ -10,8 +10,8 @@
   top: 50%;
   right: 0.5rem;
   translate: 0 -50%;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 6px solid var(--text-color);
+  border-left: 8px solid var(--bg-transparent);
+  border-right: 8px solid var(--bg-transparent);
+  border-top: 8px solid var(--bg-tertiary);
   pointer-events: none;
 }
