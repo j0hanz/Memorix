@@ -18,6 +18,10 @@ body {
   }
 }
 
+.invalid-feedback {
+  display: none !important;
+}
+
 label {
   padding: 0.5rem 1rem;
 }

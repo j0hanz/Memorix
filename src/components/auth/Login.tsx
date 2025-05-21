@@ -8,6 +8,7 @@ import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
 import { useLogin } from '@/hooks/useLogin';
 import type { LoginProps } from '@/types/auth';
+import { isFormComplete, loginRequiredFields } from '@/utils/validation';
 
 export const Login = ({ onClose }: LoginProps) => {
   const {
@@ -19,6 +20,9 @@ export const Login = ({ onClose }: LoginProps) => {
     handleSubmit,
     loading,
   } = useLogin(onClose);
+
+  // Check if the form is complete
+  const formComplete = isFormComplete(values, loginRequiredFields);
 
   return (
     <Form
@@ -59,7 +63,7 @@ export const Login = ({ onClose }: LoginProps) => {
         onRightClick={() => onClose?.()}
         leftIcon={!loading ? <LoginIcon fontSize="small" /> : null}
         rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
-        leftDisabled={loading}
+        leftDisabled={loading || !formComplete}
         rightDisabled={loading}
         leftType="submit"
       />

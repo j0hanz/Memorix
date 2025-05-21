@@ -8,6 +8,7 @@ import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
 import { useRegister } from '@/hooks/useRegister';
 import type { RegisterProps } from '@/types/auth';
+import { isFormComplete, registerRequiredFields } from '@/utils/validation';
 
 export const Register = ({ onSuccess, onClose }: RegisterProps) => {
   const {
@@ -20,6 +21,9 @@ export const Register = ({ onSuccess, onClose }: RegisterProps) => {
     handleSubmit,
     loading,
   } = useRegister(onSuccess);
+
+  // Check if the form is complete
+  const formComplete = isFormComplete(values, registerRequiredFields);
 
   return (
     <Form
@@ -80,7 +84,7 @@ export const Register = ({ onSuccess, onClose }: RegisterProps) => {
         onRightClick={onClose}
         leftIcon={loading ? null : <PersonAddIcon fontSize="small" />}
         rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
-        leftDisabled={loading}
+        leftDisabled={loading || !formComplete}
         rightDisabled={loading}
         leftType="submit"
       />

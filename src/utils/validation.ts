@@ -1,5 +1,6 @@
 import type { ValidationRules } from '@/types/hooks';
 
+// Validation rules for form fields
 export const required =
   (fieldName = 'Field') =>
   (value: string): string | null =>
@@ -36,11 +37,30 @@ export const compose =
     return null;
   };
 
+// Check if a form is complete
+export const isFormComplete = (
+  values: Record<string, string>,
+  requiredFields: string[],
+): boolean => {
+  return requiredFields.every((field) => values[field]?.trim() !== '');
+};
+
+// Check if a form has any validation errors
+export const hasValidationErrors = (
+  errors: Record<string, string>,
+): boolean => {
+  return Object.keys(errors).length > 0;
+};
+
+// Login validation configuration
 export const loginValidationRules: ValidationRules = {
   username: required('Username'),
   password: required('Password'),
 };
 
+export const loginRequiredFields = ['username', 'password'];
+
+// Register validation configuration
 export const registerValidationRules: ValidationRules = {
   username: required('Username'),
   password1: compose(required('Password'), minLength(6, 'Password')),
@@ -50,6 +70,9 @@ export const registerValidationRules: ValidationRules = {
   ),
 };
 
+export const registerRequiredFields = ['username', 'password1', 'password2'];
+
+// Profile password validation configuration
 export const profilePasswordValidationRules: ValidationRules = {
   oldPassword: required('Current password'),
   newPassword1: compose(required('New password'), minLength(6, 'New password')),
@@ -58,3 +81,9 @@ export const profilePasswordValidationRules: ValidationRules = {
     matches('newPassword1', 'New password'),
   ),
 };
+
+export const profilePasswordRequiredFields = [
+  'oldPassword',
+  'newPassword1',
+  'newPassword2',
+];
