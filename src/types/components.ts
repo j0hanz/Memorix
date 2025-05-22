@@ -8,6 +8,13 @@ import type { UserScore } from '@/types/services';
 export interface AuthProviderProps {
   children: ReactNode;
 }
+
+export interface GameProviderProps {
+  children: ReactNode;
+  onExit: () => void;
+  selectedCategory?: string;
+}
+
 export interface LoginProps {
   onClose?: () => void;
 }

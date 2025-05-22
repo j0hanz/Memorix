@@ -1,12 +1,11 @@
-import type { ReactNode } from 'react';
 import type { Dispatch } from 'react';
 
 import type { GameAction } from '@/reducers/gameReducer';
 import type { Profile, User } from '@/types/data';
-import type { ProfileFormValues } from '@/types/services';
-import type { UserScore } from '@/types/services';
+import type { ModalData } from '@/types/data';
+import type { GameState } from '@/types/reducers';
+import type { ProfileFormValues,UserScore } from '@/types/services';
 
-import type { PairedCard } from './data';
 import type { LoginCredentials, RegisterData } from './services';
 
 export interface AuthContextType {
@@ -62,45 +61,11 @@ export type ModalType =
   | 'categorySelection'
   | null;
 
-export interface ModalData {
-  categoryCode?: string;
-  moves?: number;
-  completedTime?: number;
-  onReset?: () => void;
-  onExit?: () => void;
-  onSelectCategory?: (category: string) => void;
-  logout?: () => void;
-  children?: ReactNode;
-}
-
 export interface ModalContextType {
   activeModal: ModalType;
   modalData: ModalData;
   openModal: (type: ModalType, data?: ModalData) => void;
   closeModal: () => void;
-}
-
-// Game provider props
-export interface GameProviderProps {
-  children: ReactNode;
-  onExit: () => void;
-  selectedCategory?: string;
-}
-
-// Game state
-export interface GameState {
-  cards: PairedCard[];
-  selectedCardIndex: number | null;
-  matchedPairs: number;
-  moves: number;
-  isGameOver: boolean;
-  timerActive: boolean;
-  feedback: string;
-  isInitialReveal: boolean;
-  isProcessingMatch: boolean;
-  completedTime: number;
-  startTime: number | null;
-  showModal: boolean;
 }
 
 // Game context

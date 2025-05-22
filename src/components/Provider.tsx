@@ -17,9 +17,9 @@ import { useAuthProvider } from '@/hooks/useAuth';
 import { useGameReducer } from '@/hooks/useGameReducer';
 import { useProfile } from '@/hooks/useProfile';
 import { useAuth, useModal } from '@/hooks/useProvider';
-import type { AuthProviderProps } from '@/types/components';
-import type { ModalData, ModalType } from '@/types/context';
-import type { GameProviderProps } from '@/types/context';
+import type { AuthProviderProps, GameProviderProps } from '@/types/components';
+import type { ModalType } from '@/types/context';
+import type { ModalData } from '@/types/data';
 import type { AppError } from '@/types/services';
 import { createAppError, logError } from '@/utils/errorUtils';
 import {

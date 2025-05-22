@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 export interface User {
   id: number;
   username: string;
@@ -63,4 +65,15 @@ export interface CardData {
   img: string;
   name: string;
   status: string;
+}
+
+export interface ModalData {
+  categoryCode?: string;
+  moves?: number;
+  completedTime?: number;
+  onReset?: () => void;
+  onExit?: () => void;
+  onSelectCategory?: (category: string) => void;
+  logout?: () => void;
+  children?: ReactNode;
 }
