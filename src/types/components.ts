@@ -2,7 +2,7 @@ import type { TargetAndTransition, Transition } from 'framer-motion';
 import type { ReactNode } from 'react';
 import type { ButtonProps } from 'react-bootstrap';
 
-import type { UserScore } from '@/types/api';
+import type { UserScore } from '@/types/services';
 
 import type { PairedCard } from './card';
 

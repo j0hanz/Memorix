@@ -1,3 +1,42 @@
+export interface GameResultData {
+  category: string;
+  moves: number;
+  time_seconds: number;
+  stars: number;
+}
+
+export interface UserScore {
+  id: number;
+  username: string;
+  category_name: string;
+  moves: number;
+  time_seconds: number;
+  stars: number;
+  completed_at: string;
+}
+
+export interface PaginatedUserScores {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: UserScore[];
+}
+
+export interface LeaderboardEntry extends UserScore {
+  profile_picture_url?: string;
+  rank: number;
+  category_code: string;
+  category: number;
+  profile_id: number;
+}
+
+export interface PaginatedLeaderboardEntries {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: LeaderboardEntry[];
+}
+
 export interface Commit {
   sha: string;
   message: string;
@@ -65,42 +104,3 @@ export type ErrorCategory =
   | 'network'
   | 'ui'
   | 'unknown';
-
-export interface GameResultData {
-  category: string;
-  moves: number;
-  time_seconds: number;
-  stars: number;
-}
-
-export interface UserScore {
-  id: number;
-  username: string;
-  category_name: string;
-  moves: number;
-  time_seconds: number;
-  stars: number;
-  completed_at: string;
-}
-
-export interface PaginatedUserScores {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: UserScore[];
-}
-
-export interface LeaderboardEntry extends UserScore {
-  profile_picture_url?: string;
-  rank: number;
-  category_code: string;
-  category: number;
-  profile_id: number;
-}
-
-export interface PaginatedLeaderboardEntries {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: LeaderboardEntry[];
-}

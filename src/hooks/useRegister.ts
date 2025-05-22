@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { useForm } from '@/hooks/useForm';
 import { useError, useToast } from '@/hooks/useProvider';
 import { axiosReq } from '@/services/axios';
-import type { ApiError } from '@/types/api';
 import type { RegisterData } from '@/types/auth';
+import type { ApiError } from '@/types/services';
 import { formatErrorMessage, logError } from '@/utils/errorUtils';
 import { registerValidationRules } from '@/utils/validation';
 

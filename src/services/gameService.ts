@@ -7,7 +7,7 @@ import type {
   PaginatedLeaderboardEntries,
   PaginatedUserScores,
   UserScore,
-} from '@/types/api';
+} from '@/types/services';
 import { handleAsyncOperation } from '@/utils/errorUtils';
 
 export const gameService = {

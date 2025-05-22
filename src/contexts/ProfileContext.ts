@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
-import type { UserScore } from '@/types/api';
 import type { Profile } from '@/types/auth';
+import type { UserScore } from '@/types/services';
 
 export interface ProfileFormValues extends Record<string, string> {
   oldPassword: string;

@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import type { AppError } from '@/types/api';
+import type { AppError } from '@/types/services';
 
 interface ErrorContextType {
   error: AppError | null;

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { useError, useToast } from '@/hooks/useProvider';
-import type { ErrorCategory, ErrorSeverity } from '@/types/api';
+import type { ErrorCategory, ErrorSeverity } from '@/types/services';
 import { getUserFriendlyMessage, logError } from '@/utils/errorUtils';
 
 export type Fetcher<T> = (signal: AbortSignal) => Promise<T>;

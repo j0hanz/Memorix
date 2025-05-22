@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 import { useFetch } from '@/hooks/useFetch';
 import { gameService } from '@/services/gameService';
-import type { PaginatedUserScores, UserScore } from '@/types/api';
 import type { GameOptions, UseGameHistoryProps } from '@/types/components';
+import type { PaginatedUserScores, UserScore } from '@/types/services';
 import { getCategoryOptions } from '@/utils/categoryUtils';
 
 export function useGameHistory({

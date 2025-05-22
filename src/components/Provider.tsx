@@ -17,10 +17,10 @@ import { useAuthProvider } from '@/hooks/useAuth';
 import { useGameReducer } from '@/hooks/useGameReducer';
 import { useProfile } from '@/hooks/useProfile';
 import { useAuth, useModal } from '@/hooks/useProvider';
-import type { AppError } from '@/types/api';
 import type { AuthProviderProps } from '@/types/auth';
 import type { ModalData, ModalType } from '@/types/context';
 import type { GameProviderProps } from '@/types/context';
+import type { AppError } from '@/types/services';
 import { createAppError, logError } from '@/utils/errorUtils';
 import {
   playSoundEffect,

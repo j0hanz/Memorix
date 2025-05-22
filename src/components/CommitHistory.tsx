@@ -4,7 +4,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 
 import { useCommit } from '@/hooks/useCommitHistory';
 import { useNavigation } from '@/hooks/useProvider';
-import type { CommitStatusProps } from '@/types/api';
+import type { CommitStatusProps } from '@/types/services';
 
 import { ModalFooterButtons } from './ModalFooterButtons';
 import styles from './styles/Modal.module.css';

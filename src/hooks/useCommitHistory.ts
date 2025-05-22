@@ -1,6 +1,6 @@
 import { useFetch } from '@/hooks/useFetch';
 import { fetchLatestCommits } from '@/services/github';
-import type { Commit } from '@/types/api';
+import type { Commit } from '@/types/services';
 
 export function useCommit() {
   const { data, loading, error } = useFetch<Commit[]>(

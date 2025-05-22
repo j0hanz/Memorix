@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 
 import { useFetch } from '@/hooks/useFetch';
 import { gameService } from '@/services/gameService';
-import type { LeaderboardEntry } from '@/types/api';
 import type { GameOptions } from '@/types/components';
+import type { LeaderboardEntry } from '@/types/services';
 import { getCategoryOptions } from '@/utils/categoryUtils';
 
 export function useLeaderboard(initialCategoryId?: number) {

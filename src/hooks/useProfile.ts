@@ -7,7 +7,7 @@ import type {
 import { useAuth, useToast } from '@/hooks/useProvider';
 import { axiosReq } from '@/services/axios';
 import { gameService } from '@/services/gameService';
-import type { ApiError, UserScore } from '@/types/api';
+import type { ApiError, UserScore } from '@/types/services';
 import { formatErrorMessage } from '@/utils/errorUtils';
 
 export function useProfile(): ProfileContextType {

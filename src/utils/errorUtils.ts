@@ -3,7 +3,7 @@ import type {
   AppError,
   ErrorCategory,
   ErrorSeverity,
-} from '@/types/api';
+} from '@/types/services';
 
 export const createAppError = (
   message: string,

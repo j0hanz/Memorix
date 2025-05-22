@@ -1,4 +1,4 @@
-import type { UserScore } from '@/types/api';
+import type { UserScore } from '@/types/services';
 
 export function usePaginated(
   scores: UserScore[],
