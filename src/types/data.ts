@@ -47,3 +47,20 @@ export interface ScoreRowProps {
   moves: number | React.ReactNode;
   time: string | React.ReactNode;
 }
+
+export interface CardDef {
+  pairId: number;
+  img: string;
+  status: string;
+  name: string;
+}
+
+export interface PairedCard extends CardDef {
+  id: number;
+}
+
+export interface CardData {
+  img: string;
+  name: string;
+  status: string;
+}

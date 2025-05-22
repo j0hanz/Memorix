@@ -2,9 +2,8 @@ import type { TargetAndTransition, Transition } from 'framer-motion';
 import type { ReactNode } from 'react';
 import type { ButtonProps } from 'react-bootstrap';
 
+import type { CardData, PairedCard } from '@/types/data';
 import type { UserScore } from '@/types/services';
-
-import type { PairedCard } from './card';
 
 export interface AuthProviderProps {
   children: React.ReactNode;
@@ -17,6 +16,23 @@ export interface LoginProps {
 export interface RegisterProps {
   onSuccess: () => void;
   onClose: () => void;
+}
+
+export interface GameCardProps {
+  card: CardData;
+  index: number;
+  clickHandler?: (index: number) => void;
+}
+
+export interface CardProps {
+  className?: string;
+  onClick?: () => void;
+  children: React.ReactNode;
+  role?: string;
+  ariaLabel?: string;
+  ariaSelected?: boolean;
+  ariaHidden?: boolean;
+  disabled?: boolean;
 }
 
 // Button and Menu

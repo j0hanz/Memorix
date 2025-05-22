@@ -1,6 +1,6 @@
 import { CARD_STATUS } from '@/constants/constants';
-import type { PairedCard } from '@/types/card';
 import type { GameState } from '@/types/context';
+import type { PairedCard } from '@/types/data';
 import {
   setAllCardsStatus,
   setCardStatus,

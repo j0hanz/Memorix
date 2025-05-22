@@ -6,7 +6,7 @@ import { Image } from '@/components/Image';
 import { LoadingCardSpinner } from '@/components/Spinner';
 import { useCards } from '@/hooks/useCards';
 import { useMotions } from '@/hooks/useMotions';
-import type { GameCardProps } from '@/types/card';
+import type { GameCardProps } from '@/types/components';
 
 import styles from './styles/GameCard.module.css';
 

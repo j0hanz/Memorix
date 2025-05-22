@@ -6,7 +6,7 @@ import type { Profile, User } from '@/types/data';
 import type { ProfileFormValues } from '@/types/services';
 import type { UserScore } from '@/types/services';
 
-import type { PairedCard } from './card';
+import type { PairedCard } from './data';
 import type { LoginCredentials, RegisterData } from './services';
 
 export interface AuthContextType {

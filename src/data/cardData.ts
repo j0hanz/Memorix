@@ -1,5 +1,5 @@
 import { CATEGORIES, GAME_CONFIG } from '@/constants/constants';
-import type { CardDef, PairedCard } from '@/types/card';
+import type { CardDef, PairedCard } from '@/types/data';
 
 const IMAGE_PATHS = {
   [CATEGORIES.ANIMALS]: Array.from(

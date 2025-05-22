@@ -1,5 +1,5 @@
 import { CARD_STATUS } from '@/constants/constants';
-import type { PairedCard } from '@/types/card';
+import type { PairedCard } from '@/types/data';
 
 export type CardState = '' | 'active' | 'active matched';
 

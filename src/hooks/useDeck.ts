@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { CATEGORIES } from '@/constants/constants';
 import { generateCards } from '@/data/cardData';
-import type { PairedCard } from '@/types/card';
+import type { PairedCard } from '@/types/data';
 import { shuffleCards } from '@/utils/deckUtils';
 
 export function useDeck(category = CATEGORIES.ANIMALS) {
