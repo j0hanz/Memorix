@@ -274,7 +274,10 @@ export interface MenuButtonProps extends InteractiveProps {
   variant?: 'menu' | 'centered';
 }
 
-export interface CustomButtonProps extends ButtonProps, InteractiveProps {
+export interface CustomButtonProps
+  extends Omit<InteractiveProps, 'onClick'>,
+    ButtonProps {
+  onClick?: React.MouseEventHandler<HTMLElement>;
   icon?: ReactNode;
   text?: ReactNode;
   color?: 'primary' | 'secondary' | 'transparent';

@@ -8,26 +8,6 @@ import type { ScoringCriteriaRowProps } from '@/types/components';
 
 import { StarRating } from './StarRating';
 
-function ScoreRow({ stars, moves, time }: ScoringCriteriaRowProps) {
-  return (
-    <Row className="d-flex justify-content-between align-items-center m-1">
-      <Col xs={1} className="d-flex justify-content-start align-items-center">
-        <FlipOutlinedIcon fontSize="small" />
-        <small>{moves}</small>
-      </Col>
-
-      <Col xs={2} className="d-flex justify-content-center align-items-center">
-        <StarRating count={stars} />
-      </Col>
-      <Col xs={1} className="d-flex justify-content-end align-items-center">
-        <TimerOutlinedIcon fontSize="small" />
-        <small>{time}</small>
-      </Col>
-      <hr />
-    </Row>
-  );
-}
-
 export function ScoringTab() {
   // Map the scoring thresholds to the scoring criteria rows
   const scoringCriteria: ScoringCriteriaRowProps[] = SCORING_THRESHOLDS.map(
@@ -56,12 +36,31 @@ export function ScoringTab() {
         </ListGroup.Item>
       </ListGroup>
       {scoringCriteria.map((criteria, index) => (
-        <ScoreRow
+        <Row
           key={index}
-          stars={criteria.stars}
-          moves={criteria.moves}
-          time={criteria.time}
-        />
+          className="d-flex justify-content-between align-items-center m-1"
+        >
+          <Col
+            xs={1}
+            className="d-flex justify-content-start align-items-center"
+          >
+            <FlipOutlinedIcon fontSize="small" />
+            <small>{criteria.moves}</small>
+          </Col>
+
+          <Col
+            xs={2}
+            className="d-flex justify-content-center align-items-center"
+          >
+            <StarRating count={criteria.stars} />
+          </Col>
+
+          <Col xs={1} className="d-flex justify-content-end align-items-center">
+            <TimerOutlinedIcon fontSize="small" />
+            <small>{criteria.time}</small>
+          </Col>
+          <hr />
+        </Row>
       ))}
     </>
   );
