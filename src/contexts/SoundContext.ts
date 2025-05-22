@@ -1,13 +1,6 @@
 import { createContext } from 'react';
 
-import type { SoundKey } from '@/constants/sounds';
-
-export interface SoundContextType {
-  isMuted: boolean;
-  playSound: (soundKey: SoundKey) => void;
-  toggleMute: () => void;
-  setMuteState: (muted: boolean) => void;
-}
+import type { SoundContextType } from '@/types/context';
 
 export const SoundContext = createContext<SoundContextType>({
   isMuted: false,

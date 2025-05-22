@@ -1,9 +1,6 @@
 import { createContext } from 'react';
 
-export interface ToastContextType {
-  showToast: (message: string, duration?: number) => void;
-  hideToast: () => void;
-}
+import type { ToastContextType } from '@/types/context';
 
 export const ToastContext = createContext<ToastContextType>({
   showToast: () => {

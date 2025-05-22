@@ -1,10 +1,11 @@
 import type { Dispatch } from 'react';
 
+import type { SoundKey } from '@/constants/sounds';
 import type { GameAction } from '@/reducers/gameReducer';
 import type { Profile, User } from '@/types/data';
 import type { ModalData } from '@/types/data';
 import type { GameState } from '@/types/reducers';
-import type { ProfileFormValues,UserScore } from '@/types/services';
+import type { ProfileFormValues, UserScore } from '@/types/services';
 
 import type { LoginCredentials, RegisterData } from './services';
 
@@ -47,6 +48,18 @@ export interface ProfileContextType {
   handleDeleteAccount: () => Promise<void>;
   logout: () => void;
   clearState: () => void;
+}
+
+export interface SoundContextType {
+  isMuted: boolean;
+  playSound: (soundKey: SoundKey) => void;
+  toggleMute: () => void;
+  setMuteState: (muted: boolean) => void;
+}
+
+export interface ToastContextType {
+  showToast: (message: string, duration?: number) => void;
+  hideToast: () => void;
 }
 
 export type ModalType =
