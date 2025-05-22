@@ -6,62 +6,24 @@ import type { CardData, PairedCard } from '@/types/data';
 import type { UserScore } from '@/types/services';
 
 export interface AuthProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
-
 export interface LoginProps {
   onClose?: () => void;
 }
-
 export interface RegisterProps {
   onSuccess: () => void;
   onClose: () => void;
 }
-
-export interface GameCardProps {
-  card: CardData;
-  index: number;
-  clickHandler?: (index: number) => void;
+export interface AuthModalProps {
+  show: boolean;
+  onClose: () => void;
 }
 
-export interface CardProps {
-  className?: string;
-  onClick?: () => void;
-  children: React.ReactNode;
-  role?: string;
-  ariaLabel?: string;
-  ariaSelected?: boolean;
-  ariaHidden?: boolean;
-  disabled?: boolean;
-}
-
-// Button and Menu
-export interface MenuButtonProps {
-  onClick: () => void;
-  icon: React.ReactNode;
-  text: string;
-  className?: string;
-  color?: 'primary' | 'secondary';
-  variant?: 'menu' | 'centered';
-}
-
-export interface CustomButtonProps extends ButtonProps {
-  icon?: ReactNode;
-  text?: React.ReactNode;
-  className?: string;
-  color?: 'primary' | 'secondary' | 'transparent';
-  img?: string;
-  imgAlt?: string;
-  imgClassName?: string;
-  category?: string;
-}
-
-// Profile
 export interface ProfileAvatarProps {
   profilePictureUrl?: string;
   onClick: () => void;
 }
-
 export interface ProfileChangePasswordProps {
   onBack: () => void;
   loading: boolean;
@@ -90,11 +52,8 @@ export interface ProfileChangePasswordProps {
     e?: React.FormEvent<HTMLFormElement> | React.MouseEvent,
   ) => void | Promise<void>;
 }
-
 export interface ProfileOverviewProps {
-  user: {
-    username: string;
-  };
+  user: { username: string };
   profile: {
     profile_picture_url?: string;
     created_at?: string;
@@ -104,7 +63,6 @@ export interface ProfileOverviewProps {
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   logout: () => void;
 }
-
 export interface ProfileDeleteAccountProps {
   loading?: boolean;
   error?: string | null;
@@ -112,35 +70,40 @@ export interface ProfileDeleteAccountProps {
   onDelete?: () => void;
   onBack?: () => void;
 }
-
-// Toast, Feedback, Sound
-export interface ToastProps {
-  message: string;
+export interface ProfileModalProps {
   show: boolean;
-  duration?: number;
-  placement?: 'top' | 'bottom';
+  onClose: () => void;
+  logout: () => void;
+}
+
+export interface MainMenuProps {
+  startGame: () => void;
+  openInstructions: () => void;
+  openLatestUpdates: () => void;
+  enterAnimation: EnterAnimation;
+  openAuthModal: () => void;
+  openLeaderboardModal: () => void;
+  handleAccountClick: () => void;
+}
+export interface GameProps {
+  onRestart: () => void;
+}
+
+export interface GameCardProps {
+  card: CardData;
+  index: number;
+  clickHandler?: (index: number) => void;
+}
+
+export interface CardProps {
   className?: string;
-  onClose?: () => void;
-}
-
-export interface ScoreFeedbackProps {
-  isAuthenticated: boolean;
-  scoreSaved: boolean;
-  saveError: string | null;
-}
-
-export interface SoundToggleProps {
-  isMuted: boolean;
-  onToggle: () => void;
-}
-
-// Stats and Cards
-export interface StatsBarProps {
-  moves: number;
-  timerActive: boolean;
-  feedback: string;
-  onReset: () => void;
-  onExit: () => void;
+  onClick?: () => void;
+  children: React.ReactNode;
+  role?: string;
+  ariaLabel?: string;
+  ariaSelected?: boolean;
+  ariaHidden?: boolean;
+  disabled?: boolean;
 }
 
 export interface CardsProps {
@@ -154,15 +117,159 @@ export interface CardsProps {
   feedback: string;
 }
 
-// Error Boundary
+export interface SoundToggleProps {
+  isMuted: boolean;
+  onToggle: () => void;
+}
+
+export interface StatsBarProps {
+  moves: number;
+  timerActive: boolean;
+  feedback: string;
+  onReset: () => void;
+  onExit: () => void;
+}
+
+export interface ScoreboardModalProps {
+  show: boolean;
+  onClose: () => void;
+  onReset: () => void;
+  onExit: () => void;
+  title?: string;
+  children?: ReactNode;
+  moves: number;
+  completedTime: number;
+  categoryCode: string;
+}
+export interface ScoreboardDataProps {
+  onReset: () => void;
+  onExit: () => void;
+  moves: number;
+  completedTime: number;
+  categoryCode: string;
+  children?: ReactNode;
+}
+export interface LeaderboardProps {
+  categoryId?: number;
+}
+export interface LeaderboardModalProps {
+  show: boolean;
+  onClose: () => void;
+}
+export interface ScoreFeedbackProps {
+  isAuthenticated: boolean;
+  scoreSaved: boolean;
+  saveError: string | null;
+}
+export interface ScoreRowProps {
+  score: UserScore;
+  highlight?: boolean;
+}
+export interface ProfileGameHistoryProps {
+  scores: UserScore[];
+  loadingScores: boolean;
+}
+export interface UseGameHistoryProps {
+  scores: UserScore[];
+  loadingScores: boolean;
+  scoresCount: number;
+  scoresPage: number;
+  setScoresPage: (page: number) => void;
+}
+
+export interface GameOptions {
+  value: string;
+  label: string;
+}
+export interface GameCategoryProps {
+  id: string;
+  label?: string;
+  options: GameOptions[];
+  value: string;
+  onChange: (v: string) => void;
+  loading?: boolean;
+  showAllOption?: boolean;
+  hideLabel?: boolean;
+}
+export interface CategoryIconProps {
+  categoryName: string;
+  placement?: 'top' | 'bottom' | 'left' | 'right';
+  className?: string;
+}
+export interface CategoryDataProps {
+  onSelectCategory: (category: string) => void;
+}
+export interface CategoryProps {
+  show: boolean;
+  onClose: () => void;
+  onSelectCategory: (category: string) => void;
+}
+
+export interface TimerProps {
+  timerActive: boolean;
+}
+export interface MovesProps {
+  moves: number;
+}
+export interface FeedbackProps {
+  message: string | null;
+}
+export interface ScoreProps {
+  moves: number;
+  completedTime: string;
+}
+
+export interface PaginationProps {
+  page: number;
+  totalPages: number;
+  onPrev: () => void;
+  onNext: () => void;
+}
+
+export interface MenuButtonProps {
+  onClick: () => void;
+  icon: ReactNode;
+  text: string;
+  className?: string;
+  color?: 'primary' | 'secondary';
+  variant?: 'menu' | 'centered';
+}
+export interface CustomButtonProps extends ButtonProps {
+  icon?: ReactNode;
+  text?: ReactNode;
+  className?: string;
+  color?: 'primary' | 'secondary' | 'transparent';
+  img?: string;
+  imgAlt?: string;
+  imgClassName?: string;
+  category?: string;
+}
+
+export interface ProtectedRouteProps {
+  children: ReactNode;
+  onAuthRequired: () => void;
+}
+
+export interface ImageProps {
+  src: string;
+  alt: string;
+  width?: string | number;
+  height?: string | number;
+  className?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+  onLoad?: () => void;
+  onError?: (e: React.SyntheticEvent<HTMLImageElement>) => void;
+  loading?: 'lazy' | 'eager';
+  fallbackSrc?: string;
+}
+
 export interface ErrorBoundaryProps {
-  children: React.ReactNode;
-  fallback?: React.ReactNode;
+  children: ReactNode;
+  fallback?: ReactNode;
   onReset?: () => void;
   onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
 }
-
-// Form
 export interface FormFieldProps {
   controlId: string;
   name: string;
@@ -178,7 +285,14 @@ export interface FormFieldProps {
   className?: string;
 }
 
-// Tooltip
+export interface ToastProps {
+  message: string;
+  show: boolean;
+  duration?: number;
+  placement?: 'top' | 'bottom';
+  className?: string;
+  onClose?: () => void;
+}
 export interface TooltipProps {
   children: ReactNode;
   content: ReactNode;
@@ -187,165 +301,31 @@ export interface TooltipProps {
   className?: string;
 }
 
-// Pagination
-export interface PaginationProps {
-  page: number;
-  totalPages: number;
-  onPrev: () => void;
-  onNext: () => void;
-}
-
-// GameCategory
-export interface GameOptions {
-  value: string;
-  label: string;
-}
-
-export interface GameCategoryProps {
-  id: string;
-  label?: string;
-  options: GameOptions[];
-  value: string;
-  onChange: (v: string) => void;
-  loading?: boolean;
-  showAllOption?: boolean;
-  hideLabel?: boolean;
-}
-
-export interface CategoryIconProps {
-  categoryName: string;
-  placement?: 'top' | 'bottom' | 'left' | 'right';
-  className?: string;
-}
-
-// ScoreRow
-export interface ScoreRowProps {
-  score: UserScore;
-  highlight?: boolean;
-}
-
-// ProfileGameHistory
-export interface ProfileGameHistoryProps {
-  scores: UserScore[];
-  loadingScores: boolean;
-}
-
-export interface UseGameHistoryProps {
-  scores: UserScore[];
-  loadingScores: boolean;
-  scoresCount: number;
-  scoresPage: number;
-  setScoresPage: (page: number) => void;
-}
-
-// Protected Route
-export interface ProtectedRouteProps {
-  children: ReactNode;
-  onAuthRequired: () => void;
-}
-
-// Tabs
 export interface TabItem {
   key: string;
   title: string;
   className: string;
   icon?: ReactNode;
 }
-
 export interface TabNavigationProps {
   activeKey: string;
   tabs: TabItem[];
   onSelect: (key: string) => void;
 }
-
 export interface ModalTabsProps {
   tabs: TabItem[];
   tabContents: TabContent[];
   defaultActiveKey?: string;
 }
-
 export interface TabContent {
   key: string;
   content: ReactNode;
 }
 
-// Star Rating
 export interface StarRatingProps {
   count: number;
   max?: number;
   className?: string;
-}
-
-// Image
-export interface ImageProps {
-  src: string;
-  alt: string;
-  width?: string | number;
-  height?: string | number;
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-  onLoad?: () => void;
-  onError?: (e: React.SyntheticEvent<HTMLImageElement>) => void;
-  loading?: 'lazy' | 'eager';
-  fallbackSrc?: string;
-}
-
-// Modal
-export interface ModalProps {
-  show: boolean;
-  onClose: () => void;
-  title?: string | ReactNode;
-  children: ReactNode;
-  footerContent?: ReactNode;
-  modalClassName?: string;
-  hasCloseButton?: boolean;
-  backdrop?: 'static' | boolean;
-  closeButtonText?: string;
-  bodyClassName?: string;
-}
-
-export interface LoadingCardSpinnerProps {
-  isLoading: boolean;
-  message?: string;
-}
-
-export interface ProfileModalProps {
-  show: boolean;
-  onClose: () => void;
-  logout: () => void;
-}
-
-// Scoreboard, Leaderboard, Category, etc.
-export interface Score {
-  id: string | number;
-  category_name: string;
-  stars: number;
-  moves: number;
-  time_seconds: number;
-  completed_at: string;
-  username: string;
-}
-
-export interface LeaderboardProps {
-  categoryId?: number;
-}
-
-export interface LeaderboardModalProps {
-  show: boolean;
-  onClose: () => void;
-}
-
-export interface ScoreboardModalProps {
-  show: boolean;
-  onClose: () => void;
-  onReset: () => void;
-  onExit: () => void;
-  title?: string;
-  children?: React.ReactNode;
-  moves: number;
-  completedTime: number;
-  categoryCode: string;
 }
 
 export interface GameInstructionsProps {
@@ -353,70 +333,17 @@ export interface GameInstructionsProps {
   onClose: () => void;
 }
 
-export interface CategoryDataProps {
-  onSelectCategory: (category: string) => void;
+export interface LoadingCardSpinnerProps {
+  isLoading: boolean;
+  message?: string;
 }
-
-export interface CategoryProps {
-  show: boolean;
-  onClose: () => void;
-  onSelectCategory: (category: string) => void;
-}
-
-export interface AuthModalProps {
-  show: boolean;
-  onClose: () => void;
-}
-
-export interface ScoreboardDataProps {
-  onReset: () => void;
-  onExit: () => void;
-  moves: number;
-  completedTime: number;
-  categoryCode: string;
-  children?: React.ReactNode;
-}
-
 export interface LatestUpdatesProps {
   show: boolean;
   onClose: () => void;
 }
 
-// Animations
 export interface EnterAnimation {
   initial: TargetAndTransition;
   animate: TargetAndTransition;
   transition: Transition;
-}
-
-// Main Menu, Game, Feedback, Score, Moves, Timer
-export interface MainMenuProps {
-  startGame: () => void;
-  openInstructions: () => void;
-  openLatestUpdates: () => void;
-  enterAnimation: EnterAnimation;
-  openAuthModal: () => void;
-  openLeaderboardModal: () => void;
-  handleAccountClick: () => void;
-}
-
-export interface GameProps {
-  onRestart: () => void;
-}
-
-export interface FeedbackProps {
-  message: string | null;
-}
-
-export interface ScoreProps {
-  moves: number;
-  completedTime: string;
-}
-
-export interface MovesProps {
-  moves: number;
-}
-
-export interface TimerProps {
-  timerActive: boolean;
 }
