@@ -14,7 +14,7 @@ import { SoundContext } from '@/contexts/SoundContext';
 import { ToastContext } from '@/contexts/ToastContext';
 import { useAppState } from '@/hooks/useAppState';
 import { useAuthProvider } from '@/hooks/useAuth';
-import { useGameReducer } from '@/hooks/useGameReducer';
+import { useGame } from '@/hooks/useGame';
 import { useProfile } from '@/hooks/useProfile';
 import { useAuth, useModal } from '@/hooks/useProvider';
 import type { AuthProviderProps, GameProviderProps } from '@/types/components';
@@ -213,14 +213,19 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
 
   function showLoadingWithMessage(
     message: string,
-    type: string,
+    type: 'initial' | 'start' | 'restart' | 'exit',
     callback?: () => void,
   ) {
     setLoading({ isLoading: true, message, type });
     setTimeout(() => {
-      setLoading({ isLoading: false, message: '', type: '' });
+      setLoading({ isLoading: false, message: undefined, type: undefined });
       if (callback) callback();
     }, GAME_CONFIG.LOADING_DELAY);
+  }
+
+  function handleAppReset() {
+    setIsGameActive(false);
+    setLoading({ isLoading: false, message: undefined, type: undefined });
   }
 
   function handleGitHubClick() {
@@ -246,11 +251,6 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
 
   function handleExit() {
     setIsGameActive(false);
-  }
-
-  function handleAppReset() {
-    setIsGameActive(false);
-    setLoading({ isLoading: false, message: '', type: '' });
   }
 
   function startGame() {
@@ -328,22 +328,12 @@ export const GameProvider = ({
   onExit,
   selectedCategory = CATEGORIES.ANIMALS,
 }: GameProviderProps): React.ReactElement => {
-  const {
-    state,
-    dispatch,
-    handleCardSelection,
-    resetGameState,
-    exitToMainMenu,
-  } = useGameReducer(onExit, selectedCategory);
+  const gameState = useGame(onExit, selectedCategory);
 
   return (
     <GameContext.Provider
       value={{
-        ...state,
-        dispatch,
-        handleCardSelection,
-        resetGameState,
-        exitToMainMenu,
+        ...gameState,
         selectedCategory,
       }}
     >

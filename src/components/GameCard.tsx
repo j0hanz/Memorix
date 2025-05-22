@@ -4,8 +4,9 @@ import React from 'react';
 import { Card } from '@/components/Card';
 import { Image } from '@/components/Image';
 import { LoadingCardSpinner } from '@/components/Spinner';
-import { useCards } from '@/hooks/useCards';
+import { useCard } from '@/hooks/useCard';
 import { useMotions } from '@/hooks/useMotions';
+import { useGameState } from '@/hooks/useProvider';
 import type { GameCardProps } from '@/types/components';
 
 import styles from './styles/GameCard.module.css';
@@ -13,21 +14,43 @@ import styles from './styles/GameCard.module.css';
 export function GameCard({ card, index, clickHandler }: GameCardProps) {
   const { flipAnimation, cardContentAnimation } = useMotions();
   const {
-    isClickable,
-    handleClick,
-    handleImageLoad,
-    handleImageError,
     getCardAnimation,
     getCardFrontAnimation,
     getCardStyleClasses,
+    isCardClickable,
+    handleCardClick,
+  } = useGameState();
+
+  const {
+    handleImageLoad,
+    handleImageError,
+    ariaSelected,
     isImageLoaded,
     isImageError,
-    ariaSelected,
-  } = useCards(card, index, clickHandler);
+  } = useCard(card);
 
-  const cardClasses = getCardStyleClasses(styles);
-  const animationState = getCardAnimation();
-  const frontAnimation = getCardFrontAnimation();
+  const cardClasses: string = getCardStyleClasses(
+    styles,
+    card,
+    isImageLoaded,
+    isImageError,
+  );
+  const animationState: string = getCardAnimation(card);
+  const frontAnimation: string = getCardFrontAnimation(card);
+  const isClickable: boolean = isCardClickable(
+    card,
+    index,
+    isImageLoaded,
+    isImageError,
+  );
+
+  const handleClick = (): void => {
+    handleCardClick(index, clickHandler, card, isImageLoaded, isImageError);
+  };
+
+  // Safe check for card status
+  const hasCardStatus = card?.status != null && card.status !== '';
+  const shouldFlipBack = hasCardStatus ? 'flipped' : 'initial';
 
   return (
     <motion.div
@@ -48,7 +71,7 @@ export function GameCard({ card, index, clickHandler }: GameCardProps) {
           className={styles.back}
           variants={cardContentAnimation.backFace}
           initial="initial"
-          animate={card?.status ? 'flipped' : 'initial'}
+          animate={shouldFlipBack}
         />
         <motion.div
           className={styles.front}

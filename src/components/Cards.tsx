@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { Col, Container, Row } from 'react-bootstrap';
 
-import { useCards } from '@/hooks/useCards';
 import { useMotions } from '@/hooks/useMotions';
+import { useGameState } from '@/hooks/useProvider';
 import type { CardsProps } from '@/types/components';
 
 import { GameCard } from './GameCard';
@@ -21,12 +21,14 @@ export function Cards({
 }: CardsProps) {
   // Get the card entrance animation
   const { cardEntranceAnimation } = useMotions();
-  const { getStatsTopClass } = useCards();
+  const { getStatsTopClass } = useGameState();
+
+  const statsTopClassName: string = getStatsTopClass(styles, feedback);
 
   return (
     <Container>
       <Row className={styles.row}>
-        <Col xs={12} className={getStatsTopClass(styles, feedback)}>
+        <Col xs={12} className={statsTopClassName}>
           <StatsBar
             moves={moves}
             timerActive={timerActive}

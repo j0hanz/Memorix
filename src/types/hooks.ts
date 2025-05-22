@@ -11,7 +11,7 @@ export interface AppState {
 export interface LoadingState {
   isLoading: boolean;
   message?: string;
-  type?: 'initial' | 'start' | 'restart' | 'exit' | undefined;
+  type?: 'initial' | 'start' | 'restart' | 'exit';
 }
 
 export interface NavigationOptions {
