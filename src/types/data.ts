@@ -44,12 +44,6 @@ export interface ScoreboardProps {
   completedTime: string;
 }
 
-export interface ScoreRowProps {
-  stars: number;
-  moves: number | React.ReactNode;
-  time: string | React.ReactNode;
-}
-
 export interface CardDef {
   pairId: number;
   img: string;

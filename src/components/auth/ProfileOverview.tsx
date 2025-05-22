@@ -13,19 +13,21 @@ import { useProfile } from '@/hooks/useProvider';
 const formatDate = (date?: string) =>
   date ? new Date(date).toLocaleDateString() : 'N/A';
 
+interface ProfileOverviewComponentProps {
+  onPasswordClick: () => void;
+  onDeleteClick: () => void;
+  logout: () => void;
+}
+
 export function ProfileOverview({
   onPasswordClick,
   onDeleteClick,
   logout,
-}: {
-  onPasswordClick: () => void;
-  onDeleteClick: () => void;
-  logout: () => void;
-}) {
+}: ProfileOverviewComponentProps) {
   const { user, profile, previewImage, handleImageChange } = useProfile();
   const [imageKey, setImageKey] = useState<number>(0);
 
-  // Update image key when profile picture URL or preview image changes
+  // Force re-render of image when profile picture changes
   useEffect(() => {
     setImageKey((prev) => prev + 1);
   }, [profile?.profile_picture_url, previewImage]);

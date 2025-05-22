@@ -4,11 +4,11 @@ import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { Col, ListGroup, Row } from 'react-bootstrap';
 
 import { SCORING_THRESHOLDS } from '@/constants/scoring';
-import type { ScoreRowProps } from '@/types/data';
+import type { ScoringCriteriaRowProps } from '@/types/components';
 
 import { StarRating } from './StarRating';
 
-function ScoreRow({ stars, moves, time }: ScoreRowProps) {
+function ScoreRow({ stars, moves, time }: ScoringCriteriaRowProps) {
   return (
     <Row className="d-flex justify-content-between align-items-center m-1">
       <Col xs={1} className="d-flex justify-content-start align-items-center">
@@ -29,22 +29,24 @@ function ScoreRow({ stars, moves, time }: ScoreRowProps) {
 }
 
 export function ScoringTab() {
-  // Use centralized scoring thresholds
-  const scoringCriteria: ScoreRowProps[] = SCORING_THRESHOLDS.map((row) => ({
-    stars: row.stars,
-    moves:
-      row.moves === Infinity ? (
-        <AllInclusiveOutlinedIcon fontSize="small" />
-      ) : (
-        row.moves
-      ),
-    time:
-      row.time === Infinity ? (
-        <AllInclusiveOutlinedIcon fontSize="small" />
-      ) : (
-        `${String(row.time)}s`
-      ),
-  }));
+  // Map the scoring thresholds to the scoring criteria rows
+  const scoringCriteria: ScoringCriteriaRowProps[] = SCORING_THRESHOLDS.map(
+    (row) => ({
+      stars: row.stars,
+      moves:
+        row.moves === Infinity ? (
+          <AllInclusiveOutlinedIcon fontSize="small" />
+        ) : (
+          row.moves
+        ),
+      time:
+        row.time === Infinity ? (
+          <AllInclusiveOutlinedIcon fontSize="small" />
+        ) : (
+          `${String(row.time)}s`
+        ),
+    }),
+  );
 
   return (
     <>
