@@ -194,8 +194,11 @@ export interface LeaderboardProps {
 }
 
 export type LeaderboardModalProps = BaseModalProps;
+
 export type GameInstructionsProps = BaseModalProps;
+
 export type LatestUpdatesProps = BaseModalProps;
+
 export interface CategoryProps extends BaseModalProps {
   onSelectCategory: (category: string) => void;
 }
@@ -215,6 +218,16 @@ export interface ScoringCriteriaRowProps {
   stars: number;
   moves: number | React.ReactNode;
   time: string | React.ReactNode;
+}
+
+export interface IconExplanationProps {
+  icon: ReactNode;
+  description: string;
+}
+
+export interface ScoreboardProps {
+  moves: number;
+  completedTime: string;
 }
 
 export interface TimerProps {

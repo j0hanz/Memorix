@@ -5,9 +5,13 @@ import type { GameAction } from '@/reducers/gameReducer';
 import type { Profile, User } from '@/types/data';
 import type { ModalData } from '@/types/data';
 import type { GameState } from '@/types/reducers';
-import type { ProfileFormValues, UserScore } from '@/types/services';
-
-import type { LoginCredentials, RegisterData } from './services';
+import type {
+  LoginCredentials,
+  ProfileFormValues,
+  RegisterData,
+  UserScore,
+} from '@/types/services';
+import type { AsyncState, VoidCallback } from '@/types/utils';
 
 export interface AuthContextType {
   user: User | null;
@@ -18,7 +22,7 @@ export interface AuthContextType {
   isAuthenticated: boolean;
   login: (credentials: LoginCredentials) => Promise<boolean>;
   register: (data: RegisterData) => Promise<boolean>;
-  logout: () => void;
+  logout: VoidCallback;
   getProfile: () => Promise<Profile | null>;
   loading: boolean;
   error: string | null;
@@ -27,18 +31,15 @@ export interface AuthContextType {
   fetchProfile: () => Promise<Profile | null>;
 }
 
-export interface ProfileContextType {
+export interface ProfileContextType extends AsyncState<Profile> {
   user: { username: string } | null;
-  profile: Profile | null;
-  loading: boolean;
-  error: string | null;
-  success: string | null;
   profileImage: File | null;
   previewImage: string | null;
   scores: UserScore[];
   scoresCount: number;
   scoresPage: number;
   loadingScores: boolean;
+  success: string | null;
   setError: (error: string | null) => void;
   setSuccess: (success: string | null) => void;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -46,20 +47,20 @@ export interface ProfileContextType {
   setScoresPage: (page: number) => void;
   changePassword: (values: ProfileFormValues) => Promise<boolean>;
   handleDeleteAccount: () => Promise<void>;
-  logout: () => void;
-  clearState: () => void;
+  logout: VoidCallback;
+  clearState: VoidCallback;
 }
 
 export interface SoundContextType {
   isMuted: boolean;
   playSound: (soundKey: SoundKey) => void;
-  toggleMute: () => void;
+  toggleMute: VoidCallback;
   setMuteState: (muted: boolean) => void;
 }
 
 export interface ToastContextType {
   showToast: (message: string, duration?: number) => void;
-  hideToast: () => void;
+  hideToast: VoidCallback;
 }
 
 export type ModalType =
@@ -78,14 +79,13 @@ export interface ModalContextType {
   activeModal: ModalType;
   modalData: ModalData;
   openModal: (type: ModalType, data?: ModalData) => void;
-  closeModal: () => void;
+  closeModal: VoidCallback;
 }
 
-// Game context
 export interface GameContextType extends GameState {
   dispatch: Dispatch<GameAction>;
   handleCardSelection: (index: number) => void;
-  resetGameState: () => void;
-  exitToMainMenu: () => void;
+  resetGameState: VoidCallback;
+  exitToMainMenu: VoidCallback;
   selectedCategory: string;
 }

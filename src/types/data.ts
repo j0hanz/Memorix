@@ -34,16 +34,6 @@ export interface VerifyResponse {
   user?: User;
 }
 
-export interface IconExplanationProps {
-  icon: React.ReactNode;
-  description: string;
-}
-
-export interface ScoreboardProps {
-  moves: number;
-  completedTime: string;
-}
-
 export interface CardDef {
   pairId: number;
   img: string;

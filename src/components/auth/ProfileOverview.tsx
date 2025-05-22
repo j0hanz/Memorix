@@ -24,7 +24,7 @@ export function ProfileOverview({
   onDeleteClick,
   logout,
 }: ProfileOverviewComponentProps) {
-  const { user, profile, previewImage, handleImageChange } = useProfile();
+  const { user, data: profile, previewImage, handleImageChange } = useProfile();
   const [imageKey, setImageKey] = useState<number>(0);
 
   // Force re-render of image when profile picture changes
