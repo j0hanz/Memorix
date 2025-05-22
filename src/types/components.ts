@@ -59,10 +59,36 @@ export interface RegisterProps {
 }
 
 export type AuthModalProps = BaseModalProps;
-
 export interface ProfileAvatarProps extends InteractiveProps {
   profilePictureUrl?: string;
   onClick: () => void;
+}
+
+export interface ProfileModalProps extends BaseModalProps {
+  logout: () => void;
+}
+
+export interface ProfileDataProps {
+  onClose: () => void;
+  logout: () => void;
+}
+
+export interface ProfileContentProps {
+  activeTab: string;
+  showPasswordTab: boolean;
+  showDeleteTab: boolean;
+  onPasswordClick: () => void;
+  onDeleteClick: () => void;
+  onBack: () => void;
+  logout: () => void;
+}
+
+export interface ProfileFooterProps {
+  activeTab: string;
+  showPasswordTab: boolean;
+  showDeleteTab: boolean;
+  onBack: () => void;
+  onClose: () => void;
 }
 
 export interface ProfileChangePasswordProps
@@ -89,24 +115,14 @@ export interface ProfileChangePasswordProps
 }
 
 export interface ProfileOverviewProps {
-  user: { username: string };
-  profile: {
-    profile_picture_url?: string;
-    created_at?: string;
-    updated_at?: string;
-  } | null;
-  previewImage: string | null;
-  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onPasswordClick: () => void;
+  onDeleteClick: () => void;
   logout: () => void;
 }
 
 export interface ProfileDeleteAccountProps extends BaseFormState {
   onDelete?: () => void;
   onBack?: () => void;
-}
-
-export interface ProfileModalProps extends BaseModalProps {
-  logout: () => void;
 }
 
 export interface ProfileGameHistoryProps {
@@ -130,6 +146,13 @@ export interface MainMenuProps {
   openAuthModal: () => void;
   openLeaderboardModal: () => void;
   handleAccountClick: () => void;
+}
+
+export interface MenuButtonProps extends InteractiveProps {
+  icon: ReactNode;
+  text: string;
+  color?: 'primary' | 'secondary';
+  variant?: 'menu' | 'centered';
 }
 
 export interface GameProps {
@@ -169,9 +192,32 @@ export interface CardsProps extends GameComponentProps, GameControlProps {
 
 export interface StatsBarProps extends GameComponentProps, GameControlProps {}
 
-export interface SoundToggleProps {
-  isMuted: boolean;
-  onToggle: () => void;
+export interface TimerProps {
+  timerActive: boolean;
+}
+
+export interface MovesProps {
+  moves: number;
+}
+
+export interface FeedbackProps {
+  message: string | null;
+}
+
+export interface ScoreProps {
+  moves: number;
+  completedTime: string;
+}
+
+export interface ScoreboardProps {
+  moves: number;
+  completedTime: string;
+}
+
+export interface StarRatingProps {
+  count: number;
+  max?: number;
+  className?: string;
 }
 
 export interface ScoreboardModalProps extends GameActionModalProps {
@@ -195,14 +241,6 @@ export interface LeaderboardProps {
 
 export type LeaderboardModalProps = BaseModalProps;
 
-export type GameInstructionsProps = BaseModalProps;
-
-export type LatestUpdatesProps = BaseModalProps;
-
-export interface CategoryProps extends BaseModalProps {
-  onSelectCategory: (category: string) => void;
-}
-
 export interface ScoreFeedbackProps {
   isAuthenticated: boolean;
   scoreSaved: boolean;
@@ -220,31 +258,18 @@ export interface ScoringCriteriaRowProps {
   time: string | React.ReactNode;
 }
 
-export interface IconExplanationProps {
-  icon: ReactNode;
-  description: string;
+export interface CategoryProps extends BaseModalProps {
+  onSelectCategory: (category: string) => void;
 }
 
-export interface ScoreboardProps {
-  moves: number;
-  completedTime: string;
+export interface CategoryDataProps {
+  onSelectCategory: (category: string) => void;
 }
 
-export interface TimerProps {
-  timerActive: boolean;
-}
-
-export interface MovesProps {
-  moves: number;
-}
-
-export interface FeedbackProps {
-  message: string | null;
-}
-
-export interface ScoreProps {
-  moves: number;
-  completedTime: string;
+export interface CategoryIconProps {
+  categoryName: string;
+  placement?: 'top' | 'bottom' | 'left' | 'right';
+  className?: string;
 }
 
 export interface GameOptions {
@@ -263,28 +288,13 @@ export interface GameCategoryProps {
   hideLabel?: boolean;
 }
 
-export interface CategoryIconProps {
-  categoryName: string;
-  placement?: 'top' | 'bottom' | 'left' | 'right';
-  className?: string;
-}
+export type GameInstructionsProps = BaseModalProps;
 
-export interface CategoryDataProps {
-  onSelectCategory: (category: string) => void;
-}
+export type LatestUpdatesProps = BaseModalProps;
 
-export interface PaginationProps {
-  page: number;
-  totalPages: number;
-  onPrev: () => void;
-  onNext: () => void;
-}
-
-export interface MenuButtonProps extends InteractiveProps {
+export interface IconExplanationProps {
   icon: ReactNode;
-  text: string;
-  color?: 'primary' | 'secondary';
-  variant?: 'menu' | 'centered';
+  description: string;
 }
 
 export interface CustomButtonProps
@@ -300,9 +310,16 @@ export interface CustomButtonProps
   category?: string;
 }
 
-export interface ProtectedRouteProps extends BaseComponentProps {
-  children: ReactNode;
-  onAuthRequired: () => void;
+export interface SoundToggleProps {
+  isMuted: boolean;
+  onToggle: () => void;
+}
+
+export interface PaginationProps {
+  page: number;
+  totalPages: number;
+  onPrev: () => void;
+  onNext: () => void;
 }
 
 export interface ImageProps extends InteractiveProps {
@@ -315,28 +332,6 @@ export interface ImageProps extends InteractiveProps {
   onError?: (e: React.SyntheticEvent<HTMLImageElement>) => void;
   loading?: 'lazy' | 'eager';
   fallbackSrc?: string;
-}
-
-export interface ErrorBoundaryProps extends BaseComponentProps {
-  children: ReactNode;
-  fallback?: ReactNode;
-  onReset?: () => void;
-  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
-}
-
-export interface FormFieldProps {
-  controlId: string;
-  name: string;
-  type: string;
-  label: string;
-  placeholder?: string;
-  defaultValue?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-  error?: string | string[];
-  showError?: boolean;
-  className?: string;
 }
 
 export interface LoadingCardSpinnerProps {
@@ -357,6 +352,21 @@ export interface TooltipProps extends BaseComponentProps {
   content: ReactNode;
   placement?: 'top' | 'bottom' | 'left' | 'right';
   delay?: number;
+  className?: string;
+}
+
+export interface FormFieldProps {
+  controlId: string;
+  name: string;
+  type: string;
+  label: string;
+  placeholder?: string;
+  defaultValue?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  error?: string | string[];
+  showError?: boolean;
   className?: string;
 }
 
@@ -384,10 +394,16 @@ export interface TabContent {
   content: ReactNode;
 }
 
-export interface StarRatingProps {
-  count: number;
-  max?: number;
-  className?: string;
+export interface ErrorBoundaryProps extends BaseComponentProps {
+  children: ReactNode;
+  fallback?: ReactNode;
+  onReset?: () => void;
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
+}
+
+export interface ProtectedRouteProps extends BaseComponentProps {
+  children: ReactNode;
+  onAuthRequired: () => void;
 }
 
 export interface EnterAnimation {
