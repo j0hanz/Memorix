@@ -1,3 +1,37 @@
+export interface User {
+  id: number;
+  username: string;
+  profile_id?: number;
+  profile_picture?: string;
+}
+
+export interface Profile {
+  id: number;
+  owner: number;
+  profile_picture?: string;
+  profile_picture_url?: string;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface JwtPayload {
+  user_id: number;
+  username: string;
+  exp: number;
+  iat: number;
+  jti: string;
+  token_type: string;
+}
+
+export interface TokenRefreshResponse {
+  access: string;
+}
+
+export interface VerifyResponse {
+  valid: boolean;
+  user?: User;
+}
+
 export interface IconExplanationProps {
   icon: React.ReactNode;
   description: string;

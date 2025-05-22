@@ -6,6 +6,19 @@ import type { UserScore } from '@/types/services';
 
 import type { PairedCard } from './card';
 
+export interface AuthProviderProps {
+  children: React.ReactNode;
+}
+
+export interface LoginProps {
+  onClose?: () => void;
+}
+
+export interface RegisterProps {
+  onSuccess: () => void;
+  onClose: () => void;
+}
+
 // Button and Menu
 export interface MenuButtonProps {
   onClick: () => void;

@@ -1,6 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 
-import type { AuthResponse, DecodedToken, TokenState } from '@/types/auth';
+import type { AuthResponse } from '@/types/services';
+import type { DecodedToken, TokenState } from '@/types/utils';
 
 // Constants
 const TOKEN_KEY = 'token';

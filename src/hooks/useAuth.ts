@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { axiosReq } from '@/services/axios';
-import type { AuthContextType, Profile, User } from '@/types/auth';
+import type { AuthContextType } from '@/types/context';
+import type { Profile, User } from '@/types/data';
 import type { ApiError } from '@/types/services';
 import { refreshAccessToken } from '@/utils/axiosUtils';
 import { tokenStorage, tokenValidator } from '@/utils/tokenUtils';

@@ -1,7 +1,7 @@
 import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 import { axiosReq } from '@/services/axios';
-import type { AuthResponse } from '@/types/auth';
+import type { AuthResponse } from '@/types/services';
 import {
   parseTokensFromResponse,
   tokenRefreshManager,

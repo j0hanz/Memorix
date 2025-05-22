@@ -7,7 +7,7 @@ import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
 import { useLogin } from '@/hooks/useLogin';
-import type { LoginProps } from '@/types/auth';
+import type { LoginProps } from '@/types/components';
 import { isFormComplete, loginRequiredFields } from '@/utils/validation';
 
 export const Login = ({ onClose }: LoginProps) => {

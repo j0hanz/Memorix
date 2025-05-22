@@ -7,7 +7,7 @@ import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
 import { useRegister } from '@/hooks/useRegister';
-import type { RegisterProps } from '@/types/auth';
+import type { RegisterProps } from '@/types/components';
 import { isFormComplete, registerRequiredFields } from '@/utils/validation';
 
 export const Register = ({ onSuccess, onClose }: RegisterProps) => {

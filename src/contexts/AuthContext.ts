@@ -1,6 +1,7 @@
 import { createContext } from 'react';
 
-import type { AuthContextType, Profile } from '@/types/auth';
+import type { AuthContextType } from '@/types/context';
+import type { Profile } from '@/types/data';
 
 export const AuthContext = createContext<AuthContextType>({
   user: null,

@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import type {
-  ProfileContextType,
-  ProfileFormValues,
-} from '@/contexts/ProfileContext';
 import { useAuth, useToast } from '@/hooks/useProvider';
 import { axiosReq } from '@/services/axios';
 import { gameService } from '@/services/gameService';
+import type { ProfileContextType } from '@/types/context';
+import type { ProfileFormValues } from '@/types/services';
 import type { ApiError, UserScore } from '@/types/services';
 import { formatErrorMessage } from '@/utils/errorUtils';
 

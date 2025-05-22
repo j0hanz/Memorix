@@ -1,3 +1,5 @@
+import type { User } from './data';
+
 export interface GameResultData {
   category: string;
   moves: number;
@@ -104,3 +106,36 @@ export type ErrorCategory =
   | 'network'
   | 'ui'
   | 'unknown';
+
+export interface ProfileFormValues extends Record<string, string> {
+  oldPassword: string;
+  newPassword1: string;
+  newPassword2: string;
+}
+
+export interface LoginState {
+  error: string | null;
+  fieldErrors: Record<string, string | string[]>;
+  values: { username: string; password: string };
+  success: boolean;
+}
+
+export interface LoginCredentials {
+  username: string;
+  password: string;
+}
+
+export interface RegisterData {
+  username: string;
+  password1: string;
+  password2: string;
+}
+
+export interface AuthResponse {
+  access?: string;
+  refresh?: string;
+  user: User;
+  access_token?: string;
+  refresh_token?: string;
+  token?: string;
+}
