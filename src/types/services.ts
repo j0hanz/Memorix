@@ -10,12 +10,24 @@ export interface ApiError {
   response?: {
     data?: {
       detail?: string;
+      non_field_errors?: string[];
       [key: string]: string | string[] | undefined;
     };
     status?: number;
     statusText?: string;
   };
   message?: string;
+  [key: string]: unknown;
+}
+
+export interface ApiRequestOptions {
+  context?: string;
+  errorMessage?: string;
+}
+
+export interface ApiPaginationParams {
+  page?: number;
+  pageSize?: number;
   [key: string]: unknown;
 }
 
@@ -37,6 +49,39 @@ export interface AppError {
   timestamp: Date;
   details?: unknown;
   handled?: boolean;
+}
+
+export interface LoginCredentials {
+  username: string;
+  password: string;
+}
+
+export interface RegisterData {
+  username: string;
+  password1: string;
+  password2: string;
+}
+
+export interface AuthResponse {
+  access?: string;
+  refresh?: string;
+  user: User;
+  access_token?: string;
+  refresh_token?: string;
+  token?: string;
+}
+
+export interface LoginState {
+  error: string | null;
+  fieldErrors: Record<string, string | string[]>;
+  values: { username: string; password: string };
+  success: boolean;
+}
+
+export interface ProfileFormValues extends Record<string, string> {
+  oldPassword: string;
+  newPassword1: string;
+  newPassword2: string;
 }
 
 export interface GameResultData {
@@ -102,37 +147,4 @@ export interface CommitListItemProps {
 
 export interface CommitStatusProps {
   onClose?: () => void;
-}
-
-export interface LoginCredentials {
-  username: string;
-  password: string;
-}
-
-export interface RegisterData {
-  username: string;
-  password1: string;
-  password2: string;
-}
-
-export interface AuthResponse {
-  access?: string;
-  refresh?: string;
-  user: User;
-  access_token?: string;
-  refresh_token?: string;
-  token?: string;
-}
-
-export interface ProfileFormValues extends Record<string, string> {
-  oldPassword: string;
-  newPassword1: string;
-  newPassword2: string;
-}
-
-export interface LoginState {
-  error: string | null;
-  fieldErrors: Record<string, string | string[]>;
-  values: { username: string; password: string };
-  success: boolean;
 }

@@ -2,15 +2,15 @@ import { useState } from 'react';
 
 import { useForm } from '@/hooks/useForm';
 import { useAuth, useError, useToast } from '@/hooks/useProvider';
-import { axiosReq } from '@/services/axios';
-import type { User } from '@/types/data';
-import type { AuthResponse, LoginCredentials } from '@/types/services';
+import { useServices } from '@/hooks/useServices';
+import type { LoginCredentials } from '@/types/services';
 import type { ApiError } from '@/types/services';
 import { formatErrorMessage, logError } from '@/utils/errorUtils';
 import { parseTokensFromResponse } from '@/utils/tokenUtils';
 import { loginValidationRules } from '@/utils/validation';
 
 export function useLogin(onSuccess?: () => void) {
+  const { auth } = useServices();
   const { setAuthTokens, setUser, fetchProfile } = useAuth();
   const { setError } = useError();
   const { showToast } = useToast();
@@ -22,14 +22,9 @@ export function useLogin(onSuccess?: () => void) {
     setLoginError(null);
 
     try {
-      const response = await axiosReq.post<AuthResponse>(
-        '/dj-rest-auth/login/',
-        values,
-      );
+      const response = await auth.login(values);
 
-      const { accessToken, refreshToken } = parseTokensFromResponse(
-        response.data,
-      );
+      const { accessToken, refreshToken } = parseTokensFromResponse(response);
 
       if (!accessToken) {
         setLoginError('Access token not found in response');
@@ -42,11 +37,11 @@ export function useLogin(onSuccess?: () => void) {
         setAuthTokens(accessToken);
       }
 
-      if (response.data.user) {
-        setUser(response.data.user);
+      if (response.user) {
+        setUser(response.user);
       } else {
-        const userResponse = await axiosReq.get('/dj-rest-auth/user/');
-        setUser(userResponse.data as User);
+        const userResponse = await auth.getCurrentUser();
+        setUser(userResponse);
       }
 
       await fetchProfile();

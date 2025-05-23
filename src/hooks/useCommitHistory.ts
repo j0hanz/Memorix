@@ -1,11 +1,12 @@
 import { useFetch } from '@/hooks/useFetch';
-import { fetchLatestCommits } from '@/services/github';
+import { useServices } from '@/hooks/useServices';
 import type { Commit } from '@/types/services';
 
 export function useCommit() {
+  const { github } = useServices();
   const { data, loading, error } = useFetch<Commit[]>(
     async () => {
-      return await fetchLatestCommits();
+      return await github.getLatestCommits();
     },
     {
       showToastOnError: true,

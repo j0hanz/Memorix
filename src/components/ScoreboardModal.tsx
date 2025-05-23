@@ -13,6 +13,9 @@ export function ScoreboardModal({
   completedTime,
   categoryCode,
 }: ScoreboardModalProps) {
+  const handleReset = onReset ?? (() => {});
+  const handleExit = onExit ?? (() => {});
+
   return (
     <Modal
       show={show}
@@ -22,8 +25,8 @@ export function ScoreboardModal({
       showCloseButton={false}
     >
       <ScoreboardData
-        onReset={onReset}
-        onExit={onExit}
+        onReset={handleReset}
+        onExit={handleExit}
         moves={moves}
         completedTime={completedTime}
         categoryCode={categoryCode}

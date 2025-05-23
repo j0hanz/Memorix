@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { SCORING_THRESHOLDS } from '@/constants/scoring';
 import { useAuth } from '@/hooks/useProvider';
-import { gameService } from '@/services/gameService';
+import { useServices } from '@/hooks/useServices';
 import type { UseSaveScoreProps, UseScoreboardProps } from '@/types/hooks';
 
 // Calculate stars based on moves and time
@@ -33,6 +33,7 @@ export function useSaveScore({
   completedTime,
   stars,
 }: UseSaveScoreProps) {
+  const { game } = useServices();
   const isSaving = useRef(false);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export function useSaveScore({
       if (show && isAuthenticated && !scoreSaved && !isSaving.current) {
         isSaving.current = true;
         try {
-          await gameService.saveGameResult({
+          await game.saveGameResult({
             category: categoryCode.toUpperCase(),
             moves,
             time_seconds: completedTime,

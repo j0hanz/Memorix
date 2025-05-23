@@ -1,6 +1,5 @@
 import type { AxiosError } from 'axios';
 
-import { axiosReq } from '@/services/axios';
 import type {
   GameResultData,
   LeaderboardEntry,
@@ -8,96 +7,83 @@ import type {
   PaginatedUserScores,
   UserScore,
 } from '@/types/services';
-import { handleAsyncOperation } from '@/utils/errorUtils';
 
-export const gameService = {
-  async saveGameResult(data: GameResultData): Promise<unknown> {
-    const [result, error] = await handleAsyncOperation(
-      () => axiosReq.post('/api/memorix/results/', data),
-      {
-        context: 'GameService',
-        errorMessage: 'Failed to save game result',
-      },
-    );
+import { get, getList, getPaginated, post } from './apiService';
 
-    if (error) {
-      throw new Error(error.message);
-    }
-    return result?.data;
-  },
+const ENDPOINTS = {
+  results: '/api/memorix/results/',
+  bestResults: '/api/memorix/results/best/',
+  leaderboard: '/api/memorix/leaderboard/',
+  categories: '/api/memorix/categories/',
+} as const;
 
-  async getLeaderboard(categoryId?: number): Promise<LeaderboardEntry[]> {
-    const [result, error] = await handleAsyncOperation(
-      () =>
-        axiosReq.get<PaginatedLeaderboardEntries>('/api/memorix/leaderboard/', {
-          params: categoryId != null ? { category: categoryId } : undefined,
-        }),
+export async function saveGameResult(data: GameResultData): Promise<unknown> {
+  return post(
+    ENDPOINTS.results,
+    data,
+    {
+      context: 'GameService',
+      errorMessage: 'Failed to save game result',
+    },
+    {
+      timeout: 10000,
+    },
+  );
+}
+
+export async function getLeaderboard(
+  categoryId?: number,
+): Promise<LeaderboardEntry[]> {
+  try {
+    const result = await get<PaginatedLeaderboardEntries>(
+      ENDPOINTS.leaderboard,
+      categoryId != null ? { category: categoryId } : undefined,
       {
         context: 'GameService',
         errorMessage: 'Failed to fetch leaderboard',
       },
     );
+    return result.results || [];
+  } catch (error) {
+    throw new Error((error as Error).message);
+  }
+}
 
-    if (error) {
-      throw new Error(error.message);
-    }
-    return result?.data?.results || [];
-  },
+export async function getCategories(): Promise<string[]> {
+  return getList<string>(ENDPOINTS.categories, undefined, {
+    context: 'GameService',
+    errorMessage: 'Failed to fetch categories',
+  });
+}
 
-  async getCategories(): Promise<string[]> {
-    const [result, error] = await handleAsyncOperation(
-      () => axiosReq.get<string[]>('/api/memorix/categories/'),
+export async function getUserScores(
+  page = 1,
+  category?: string,
+): Promise<PaginatedUserScores> {
+  try {
+    return await getPaginated<UserScore>(
+      ENDPOINTS.results,
       {
-        context: 'GameService',
-        errorMessage: 'Failed to fetch categories',
+        page,
+        ...(category ? { category } : {}),
       },
-    );
-
-    if (error) {
-      throw new Error(error.message);
-    }
-    return result?.data || [];
-  },
-
-  async getUserScores(
-    page = 1,
-    category?: string,
-  ): Promise<PaginatedUserScores> {
-    const [result, error] = await handleAsyncOperation(
-      () =>
-        axiosReq.get<PaginatedUserScores>('/api/memorix/results/', {
-          params: { page, ...(category ? { category } : {}) },
-        }),
       {
         context: 'GameService',
         errorMessage: 'Failed to fetch user scores',
       },
     );
-
-    if (error) {
-      const axiosError = error.details as AxiosError;
-      if (axiosError.response?.status === 401) {
-        return { count: 0, next: null, previous: null, results: [] };
-      }
-      throw new Error(error.message);
+  } catch (error) {
+    const axiosError = error as Error & { details?: AxiosError };
+    if (axiosError.details?.response?.status === 401) {
+      return { count: 0, next: null, previous: null, results: [] };
     }
-    return (
-      result?.data || { count: 0, next: null, previous: null, results: [] }
-    );
-  },
+    throw error;
+  }
+}
 
-  async getUserBestScores(): Promise<UserScore[]> {
-    const [result, error] = await handleAsyncOperation(
-      () => axiosReq.get<UserScore[]>('/api/memorix/results/best/'),
-      {
-        context: 'GameService',
-        errorMessage: 'Failed to fetch best scores',
-      },
-    );
-
-    if (error) {
-      throw new Error(error.message);
-    }
-    return result?.data || [];
-  },
-};
+export async function getUserBestScores(): Promise<UserScore[]> {
+  return getList<UserScore>(ENDPOINTS.bestResults, undefined, {
+    context: 'GameService',
+    errorMessage: 'Failed to fetch best scores',
+  });
+}

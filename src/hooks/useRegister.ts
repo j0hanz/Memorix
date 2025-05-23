@@ -2,33 +2,34 @@ import { useState } from 'react';
 
 import { useForm } from '@/hooks/useForm';
 import { useError, useToast } from '@/hooks/useProvider';
-import { axiosReq } from '@/services/axios';
+import { useServices } from '@/hooks/useServices';
 import type { RegisterData } from '@/types/services';
 import type { ApiError } from '@/types/services';
 import { formatErrorMessage, logError } from '@/utils/errorUtils';
 import { registerValidationRules } from '@/utils/validation';
 
 export function useRegister(onSuccess: () => void) {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const { setError: setGlobalError } = useError();
+  const { auth } = useServices();
+  const { setError } = useError();
   const { showToast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const [registerError, setRegisterError] = useState<string | null>(null);
 
   const handleRegister = async (values: RegisterData) => {
     setLoading(true);
-    setError(null);
+    setRegisterError(null);
 
     try {
-      await axiosReq.post('/dj-rest-auth/registration/', values);
-      showToast('Registration successful!');
+      await auth.register(values);
+      showToast('Registration successful! Please login.');
       onSuccess();
       return true;
     } catch (err: unknown) {
       const errorMessage = formatErrorMessage(err as ApiError);
-      setError(errorMessage);
+      setRegisterError(errorMessage);
       showToast(errorMessage);
-      logError(err, 'Registration', 'error');
-      setGlobalError(err, 'Registration');
+      logError(err, 'Register', 'error');
+      setError(err, 'Register');
       return false;
     } finally {
       setLoading(false);
@@ -44,6 +45,6 @@ export function useRegister(onSuccess: () => void) {
   return {
     ...formMethods,
     loading,
-    authError: error,
+    registerError,
   };
 }

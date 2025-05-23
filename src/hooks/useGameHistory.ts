@@ -1,31 +1,31 @@
 import { useEffect, useState } from 'react';
 
 import { useFetch } from '@/hooks/useFetch';
-import { gameService } from '@/services/gameService';
+import { useServices } from '@/hooks/useServices';
 import type { GameOptions, UseGameHistoryProps } from '@/types/components';
-import type { PaginatedUserScores, UserScore } from '@/types/services';
+import type { UserScore } from '@/types/services';
 import { getCategoryOptions } from '@/utils/categoryUtils';
 
 export function useGameHistory({
   scores = [],
-  loadingScores,
   scoresCount,
   scoresPage,
   setScoresPage,
 }: UseGameHistoryProps) {
+  const { game } = useServices();
   const [filterCategory, setFilterCategory] = useState<string>('');
   const [bestCategory, setBestCategory] = useState<string>('');
   const [allCats, setAllCats] = useState<GameOptions[]>([]);
-  const [pageSize, setPageSize] = useState<number>(5);
+  const [pageSize] = useState<number>(5);
   const [initialLoadComplete, setInitialLoadComplete] = useState(false);
   const [stablePlayedCategories, setStablePlayedCategories] = useState<
     GameOptions[]
   >([]);
 
-  // Merged useBestScores functionality
+  // Fetch user scores
   const { data: bestScoresData, loading: loadingBest } = useFetch<UserScore[]>(
     async () => {
-      return await gameService.getUserBestScores();
+      return await game.getUserBestScores();
     },
     {
       errorCategory: 'api',
@@ -33,48 +33,27 @@ export function useGameHistory({
     },
   );
 
-  const bestScores = bestScoresData || [];
+  // Filter scores by category
+  const filteredScores = filterCategory
+    ? scores.filter((s) => s.category_name === filterCategory)
+    : scores;
 
-  // Extract unique category names from bestScores
-  const bestCats: string[] = Array.from(
-    new Set(bestScores.map((s) => s.category_name)),
-  );
+  const filteredCount = filterCategory ? filteredScores.length : scoresCount;
 
-  const { data: filteredScoresData, loading: isLoading } =
-    useFetch<PaginatedUserScores>(
-      async () => {
-        if (!filterCategory) {
-          return {
-            results: scores,
-            count: scoresCount,
-            next: null,
-            previous: null,
-          };
-        }
-        return await gameService.getUserScores(scoresPage, filterCategory);
-      },
-      {
-        showToastOnError: true,
-        errorCategory: 'api',
-        onSuccess: (data) => {
-          if (data.results.length > 0) {
-            setPageSize(data.results.length);
-          }
-        },
-      },
-    );
-
-  const filteredScores = filteredScoresData?.results || [];
-  const filteredCount = filteredScoresData?.count || 0;
-
+  // Set initial categories
   useEffect(() => {
     setAllCats(
       getCategoryOptions().map(({ value, label }) => ({ value, label })),
     );
   }, []);
 
-  // Set the best category to the first one if not set
+  // Set played categories
   useEffect(() => {
+    const bestScores = bestScoresData || [];
+    const bestCats = [
+      ...new Set(bestScores.map((score) => score.category_name)),
+    ];
+
     if (bestCats.length > 0) {
       const categories = bestCats.map((c) => ({
         value: c,
@@ -88,13 +67,13 @@ export function useGameHistory({
         setInitialLoadComplete(true);
       }
     }
-  }, [bestCats, bestCategory, initialLoadComplete]);
+  }, [bestScoresData, bestCategory, initialLoadComplete]);
 
   const totalPages = Math.max(1, Math.ceil(filteredCount / pageSize));
   const validPageScores: UserScore[] = filteredScores;
 
   // Find the selected best score only once after filtering
-  const selectedBest = bestScores.find(
+  const selectedBest = (bestScoresData || []).find(
     (s) => s.category_name.toLowerCase() === bestCategory.toLowerCase(),
   );
 
@@ -125,7 +104,6 @@ export function useGameHistory({
     validPageScores,
     totalPages,
     loadingBest: loadingBest && !initialLoadComplete,
-    loading: isLoading || loadingScores,
     handleBestCategoryChange,
     handleFilterCategoryChange,
     handlePreviousPage,

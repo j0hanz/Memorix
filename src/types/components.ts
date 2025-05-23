@@ -159,6 +159,12 @@ export interface GameProps {
   onRestart: () => void;
 }
 
+export interface GameOptions {
+  value: string;
+  label: string;
+  id?: number;
+}
+
 export interface GameComponentProps {
   moves: number;
   timerActive: boolean;
