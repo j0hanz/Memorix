@@ -68,6 +68,7 @@ export function useSaveScore({
     stars,
     setScoreSaved,
     setSaveError,
+    game,
   ]);
 }
 
