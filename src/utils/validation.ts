@@ -1,3 +1,4 @@
+import { VALIDATION_CONFIGS } from '@/constants/configs';
 import type { ValidationRules } from '@/types/utils';
 
 // Validation rules for form fields
@@ -63,7 +64,10 @@ export const loginRequiredFields = ['username', 'password'];
 // Register validation configuration
 export const registerValidationRules: ValidationRules = {
   username: required('Username'),
-  password1: compose(required('Password'), minLength(6, 'Password')),
+  password1: compose(
+    required('Password'),
+    minLength(VALIDATION_CONFIGS.MIN_PASSWORD_LENGTH, 'Password'),
+  ),
   password2: compose(
     required('Password confirmation'),
     matches('password1', 'Password'),
@@ -75,7 +79,10 @@ export const registerRequiredFields = ['username', 'password1', 'password2'];
 // Profile password validation configuration
 export const profilePasswordValidationRules: ValidationRules = {
   oldPassword: required('Current password'),
-  newPassword1: compose(required('New password'), minLength(6, 'New password')),
+  newPassword1: compose(
+    required('New password'),
+    minLength(VALIDATION_CONFIGS.MIN_PASSWORD_LENGTH, 'New password'),
+  ),
   newPassword2: compose(
     required('Password confirmation'),
     matches('newPassword1', 'New password'),

@@ -1,12 +1,8 @@
 import { jwtDecode } from 'jwt-decode';
 
+import { TOKEN_CONFIGS } from '@/constants/configs';
 import type { AuthResponse } from '@/types/services';
 import type { DecodedToken, TokenState } from '@/types/utils';
-
-// Constants
-const TOKEN_KEY = 'token';
-const REFRESH_TOKEN_KEY = 'refreshToken';
-const TOKEN_EXPIRY_BUFFER_SECONDS = 60;
 
 // Token state management
 const tokenState: TokenState = {
@@ -16,15 +12,16 @@ const tokenState: TokenState = {
 
 // Token storage operations
 export const tokenStorage = {
-  getToken: (): string | null => localStorage.getItem(TOKEN_KEY),
-  getRefreshToken: (): string | null => localStorage.getItem(REFRESH_TOKEN_KEY),
+  getToken: (): string | null => localStorage.getItem(TOKEN_CONFIGS.TOKEN_KEY),
+  getRefreshToken: (): string | null =>
+    localStorage.getItem(TOKEN_CONFIGS.REFRESH_TOKEN_KEY),
 
   setToken: (token: string): void => {
     if (!token) {
       console.warn('Attempting to set empty token');
       return;
     }
-    localStorage.setItem(TOKEN_KEY, token);
+    localStorage.setItem(TOKEN_CONFIGS.TOKEN_KEY, token);
   },
 
   setRefreshToken: (token: string): void => {
@@ -32,12 +29,12 @@ export const tokenStorage = {
       console.warn('Attempting to set empty refresh token');
       return;
     }
-    localStorage.setItem(REFRESH_TOKEN_KEY, token);
+    localStorage.setItem(TOKEN_CONFIGS.REFRESH_TOKEN_KEY, token);
   },
 
   clearTokens: (): void => {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    localStorage.removeItem(TOKEN_CONFIGS.TOKEN_KEY);
+    localStorage.removeItem(TOKEN_CONFIGS.REFRESH_TOKEN_KEY);
   },
 };
 
@@ -49,7 +46,9 @@ export const tokenValidator = {
     try {
       const { exp } = jwtDecode<DecodedToken>(token);
       // Consider token expired a bit earlier to prevent edge cases
-      return (exp - TOKEN_EXPIRY_BUFFER_SECONDS) * 1000 < Date.now();
+      return (
+        (exp - TOKEN_CONFIGS.TOKEN_EXPIRY_BUFFER_SECONDS) * 1000 < Date.now()
+      );
     } catch (error) {
       console.error('Error decoding token:', error);
       return true;

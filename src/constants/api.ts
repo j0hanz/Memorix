@@ -1,3 +1,5 @@
+import { PAGINATION_CONFIGS } from './configs';
+
 // Axios configuration
 export const AXIOS_CONFIG = {
   baseURL: import.meta.env.VITE_API_BASE_URL as string,
@@ -9,7 +11,7 @@ export const AXIOS_CONFIG = {
 // GitHub API config
 export const GITHUB_API = {
   API_URL: import.meta.env.VITE_GITHUB_API_URL as string,
-  COMMITS_PER_PAGE: 3,
+  COMMITS_PER_PAGE: PAGINATION_CONFIGS.GITHUB_COMMITS_PER_PAGE,
 };
 
 // Auth API endpoints

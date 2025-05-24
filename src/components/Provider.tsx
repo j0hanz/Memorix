@@ -1,7 +1,7 @@
 import { type ReactNode, useState } from 'react';
 import useSound from 'use-sound';
 
-import { CATEGORIES, DELAYS, GAME_CONFIG } from '@/constants/game';
+import { CATEGORIES, DELAYS, STATE_CONFIG } from '@/constants/game';
 import type { SoundKey } from '@/constants/sounds';
 import { SOUND_FILES } from '@/constants/sounds';
 import { AuthContext } from '@/contexts/AuthContext';
@@ -220,7 +220,7 @@ export function NavigationProvider({ children }: { children: ReactNode }) {
     setTimeout(() => {
       setLoading({ isLoading: false, message: undefined, type: undefined });
       if (callback) callback();
-    }, GAME_CONFIG.LOADING_DELAY);
+    }, STATE_CONFIG.LOADING_DELAY);
   }
 
   function handleAppReset() {

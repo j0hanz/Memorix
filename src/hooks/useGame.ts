@@ -4,7 +4,7 @@ import {
   CATEGORIES,
   DELAYS,
   FEEDBACK,
-  GAME_CONFIG,
+  STATE_CONFIG,
   TIMER,
 } from '@/constants/game';
 import { useDeck } from '@/hooks/useDeck';
@@ -70,7 +70,7 @@ export function useGame(
     }
 
     if (
-      state.matchedPairs === GAME_CONFIG.TOTAL_PAIRS &&
+      state.matchedPairs === STATE_CONFIG.TOTAL_PAIRS &&
       state.matchedPairs > 0
     ) {
       const timeElapsed = calculateElapsedTime();

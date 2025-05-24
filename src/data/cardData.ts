@@ -1,4 +1,4 @@
-import { CATEGORIES, GAME_CONFIG } from '@/constants/game';
+import { CATEGORIES, STATE_CONFIG } from '@/constants/game';
 import type { CardDef, PairedCard } from '@/types/data';
 
 const IMAGE_PATHS = {
@@ -29,7 +29,7 @@ const IMAGE_PATHS = {
 };
 
 export function generateCards(category = CATEGORIES.ANIMALS): PairedCard[] {
-  const totalPairs: number = GAME_CONFIG.TOTAL_PAIRS;
+  const totalPairs: number = STATE_CONFIG.TOTAL_PAIRS;
   if (!totalPairs) return [];
 
   const imagePaths = IMAGE_PATHS[category];

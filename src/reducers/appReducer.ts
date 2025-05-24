@@ -1,11 +1,11 @@
-import { CATEGORIES, GAME_CONFIG } from '@/constants/game';
+import { CATEGORIES, STATE_CONFIG } from '@/constants/game';
 import type { AppState } from '@/types/hooks';
 import type { AppAction } from '@/types/reducers';
 
 export const initialAppState: AppState = {
-  isGameActive: GAME_CONFIG.INITIAL_STATE.GAME_ACTIVE,
+  isGameActive: STATE_CONFIG.INITIAL_STATE.GAME_ACTIVE,
   loading: {
-    isLoading: GAME_CONFIG.INITIAL_STATE.LOADING,
+    isLoading: STATE_CONFIG.INITIAL_STATE.LOADING,
     message: '',
     type: 'initial',
   },
