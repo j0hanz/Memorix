@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 
 import { AUTH_ENDPOINTS, PROFILE_ENDPOINTS } from '@/constants/api';
+import { authReducer, initialAuthState } from '@/reducers/authReducer';
 import { axiosReq } from '@/services/axios';
 import type { AuthContextType } from '@/types/context';
 import type { Profile, User } from '@/types/data';
@@ -9,64 +10,60 @@ import { refreshAccessToken } from '@/utils/axiosUtils';
 import { tokenStorage, tokenValidator } from '@/utils/tokenUtils';
 
 export function useAuthProvider(): AuthContextType {
-  const [user, setUser] = useState<User | null>(null);
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [token, setToken] = useState(tokenStorage.getToken() || '');
-  const [refreshToken, setRefresh] = useState(
-    tokenStorage.getRefreshToken() || '',
-  );
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [state, dispatch] = useReducer(authReducer, initialAuthState);
 
   function logout() {
-    setUser(null);
-    setProfile(null);
-    setToken('');
-    setRefresh('');
+    dispatch({ type: 'LOGOUT' });
     tokenStorage.clearTokens();
   }
 
   function setAuthTokens(access: string, refresh?: string) {
-    setToken(access);
+    dispatch({
+      type: 'SET_TOKENS',
+      payload: { token: access, refreshToken: refresh },
+    });
     tokenStorage.setToken(access);
     if (refresh) {
-      setRefresh(refresh);
       tokenStorage.setRefreshToken(refresh);
     }
   }
 
+  const setUser = (user: User | null) => {
+    dispatch({ type: 'SET_USER', payload: { user } });
+  };
+
   const fetchProfile = useCallback(async (): Promise<Profile | null> => {
-    if (!token || !user?.profile_id) return null;
-    setLoading(true);
-    setError(null);
+    if (!state.token || !state.user?.profile_id) return null;
+    dispatch({ type: 'SET_LOADING', payload: { loading: true } });
+    dispatch({ type: 'CLEAR_ERROR' });
 
     try {
       const res = await axiosReq.get<Profile>(
-        PROFILE_ENDPOINTS.profileDetail(user.profile_id),
+        PROFILE_ENDPOINTS.profileDetail(state.user.profile_id),
       );
-      setProfile(res.data);
+      dispatch({ type: 'SET_PROFILE', payload: { profile: res.data } });
       return res.data;
     } catch (e: unknown) {
       const err = e as ApiError;
-      setError(
+      const errorMessage =
         typeof err.response?.data?.detail === 'string'
           ? err.response.data.detail
-          : 'Failed to load profile',
-      );
+          : 'Failed to load profile';
+      dispatch({ type: 'SET_ERROR', payload: { error: errorMessage } });
       return null;
     } finally {
-      setLoading(false);
+      dispatch({ type: 'SET_LOADING', payload: { loading: false } });
     }
-  }, [token, user?.profile_id]);
+  }, [state.token, state.user?.profile_id]);
 
   useEffect(() => {
     void (async () => {
       const stored = tokenStorage.getToken();
       if (!stored) return;
 
-      setToken(stored);
-      setLoading(true);
-      setError(null);
+      dispatch({ type: 'SET_TOKENS', payload: { token: stored } });
+      dispatch({ type: 'SET_LOADING', payload: { loading: true } });
+      dispatch({ type: 'CLEAR_ERROR' });
 
       // try refresh
       if (tokenValidator.isTokenExpired(stored)) {
@@ -80,21 +77,21 @@ export function useAuthProvider(): AuthContextType {
 
       try {
         const userRes = await axiosReq.get<User>(AUTH_ENDPOINTS.user);
-        setUser(userRes.data);
+        dispatch({ type: 'SET_USER', payload: { user: userRes.data } });
 
         if (userRes.data.profile_id) {
           await fetchProfile();
         }
       } catch (e: unknown) {
         const err = e as ApiError;
-        setError(
+        const errorMessage =
           typeof err.response?.data?.detail === 'string'
             ? err.response.data.detail
-            : 'Authentication error',
-        );
+            : 'Authentication error';
+        dispatch({ type: 'SET_ERROR', payload: { error: errorMessage } });
         logout();
       } finally {
-        setLoading(false);
+        dispatch({ type: 'SET_LOADING', payload: { loading: false } });
       }
     })();
   }, [fetchProfile]);
@@ -112,17 +109,17 @@ export function useAuthProvider(): AuthContextType {
   }, []);
 
   return {
-    user,
-    profile,
-    token,
-    refreshToken,
-    isAuthenticated: Boolean(user && token),
+    user: state.user,
+    profile: state.profile,
+    token: state.token,
+    refreshToken: state.refreshToken,
+    isAuthenticated: state.isAuthenticated,
     login: () => Promise.resolve(false),
     register: () => Promise.resolve(false),
     logout,
     getProfile: fetchProfile,
-    loading,
-    error,
+    loading: state.loading,
+    error: state.error,
     setUser,
     setAuthTokens,
     fetchProfile,

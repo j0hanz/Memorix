@@ -1,4 +1,35 @@
+import type { Profile, User } from '@/types/data';
+import type { AppState } from '@/types/hooks';
+
 import type { PairedCard } from './data';
+
+export type AppAction =
+  | { type: 'SET_LOADING'; value: Partial<AppState['loading']> }
+  | { type: 'SET_GAME_ACTIVE'; value: boolean }
+  | { type: 'SET_SELECTED_CATEGORY'; value: string };
+
+export interface AuthState {
+  user: User | null;
+  profile: Profile | null;
+  token: string;
+  refreshToken: string;
+  isAuthenticated: boolean;
+  loading: boolean;
+  error: string | null;
+}
+
+export type AuthAction =
+  | { type: 'SET_LOADING'; payload: { loading: boolean } }
+  | { type: 'SET_ERROR'; payload: { error: string | null } }
+  | { type: 'SET_USER'; payload: { user: User | null } }
+  | { type: 'SET_PROFILE'; payload: { profile: Profile | null } }
+  | { type: 'SET_TOKENS'; payload: { token: string; refreshToken?: string } }
+  | {
+      type: 'LOGIN_SUCCESS';
+      payload: { user: User; token: string; refreshToken: string };
+    }
+  | { type: 'LOGOUT' }
+  | { type: 'CLEAR_ERROR' };
 
 export interface GameState {
   cards: PairedCard[];
