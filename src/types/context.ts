@@ -58,6 +58,13 @@ export interface ProfileContextType extends AsyncState<Profile> {
   handleDeleteAccount: () => Promise<void>;
   logout: VoidCallback;
   clearState: VoidCallback;
+  activeTab: string;
+  showPasswordTab: boolean;
+  showDeleteTab: boolean;
+  handleTabChange: (key: string) => void;
+  handlePasswordClick: () => void;
+  handleDeleteClick: () => void;
+  handleBackToOverview: () => void;
 }
 
 export interface SoundContextType {

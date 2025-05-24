@@ -14,6 +14,12 @@ export function useProfile(): ProfileContextType {
   const [success, setSuccess] = useState<string | null>(null);
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+
+  // Tab navigation state
+  const [activeTab, setActiveTab] = useState<string>('overview');
+  const [showPasswordTab, setShowPasswordTab] = useState(false);
+  const [showDeleteTab, setShowDeleteTab] = useState(false);
+
   const { showToast } = useToast();
 
   // Use the dedicated scores hook
@@ -28,6 +34,26 @@ export function useProfile(): ProfileContextType {
       void fetchProfileData();
     }
   }, [user, profile, getProfile]);
+
+  // Tab navigation handlers
+  const handleTabChange = (key: string) => {
+    setActiveTab(key);
+    setShowPasswordTab(false);
+    setShowDeleteTab(false);
+  };
+
+  const handlePasswordClick = () => {
+    setShowPasswordTab(true);
+  };
+
+  const handleDeleteClick = () => {
+    setShowDeleteTab(true);
+  };
+
+  const handleBackToOverview = () => {
+    setShowPasswordTab(false);
+    setShowDeleteTab(false);
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -152,5 +178,12 @@ export function useProfile(): ProfileContextType {
     handleDeleteAccount,
     logout,
     clearState,
+    activeTab,
+    showPasswordTab,
+    showDeleteTab,
+    handleTabChange,
+    handlePasswordClick,
+    handleDeleteClick,
+    handleBackToOverview,
   };
 }

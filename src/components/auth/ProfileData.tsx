@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Row } from 'react-bootstrap';
 
 import styles from '@/components/styles/Modal.module.css';
@@ -17,30 +16,19 @@ export function ProfileData({
   onClose: () => void;
   logout: () => void;
 }) {
-  const [activeTab, setActiveTab] = useState<string>('overview');
-  const [showPasswordTab, setShowPasswordTab] = useState(false);
-  const [showDeleteTab, setShowDeleteTab] = useState(false);
-
-  const { error, success, setError, setSuccess } = useProfile();
-
-  const handleTabChange = (key: string) => {
-    setActiveTab(key);
-    setShowPasswordTab(false);
-    setShowDeleteTab(false);
-  };
-
-  const handlePasswordClick = () => {
-    setShowPasswordTab(true);
-  };
-
-  const handleDeleteClick = () => {
-    setShowDeleteTab(true);
-  };
-
-  const handleBackToOverview = () => {
-    setShowPasswordTab(false);
-    setShowDeleteTab(false);
-  };
+  const {
+    error,
+    success,
+    setError,
+    setSuccess,
+    activeTab,
+    showPasswordTab,
+    showDeleteTab,
+    handleTabChange,
+    handlePasswordClick,
+    handleDeleteClick,
+    handleBackToOverview,
+  } = useProfile();
 
   const tabs = ProfileTabs(styles);
 
