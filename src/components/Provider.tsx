@@ -17,7 +17,12 @@ import { useNavigationHandler } from '@/hooks/useNavigation';
 import { useProfile } from '@/hooks/useProfile';
 import { useSoundHandler } from '@/hooks/useSound';
 import { useToastHandler } from '@/hooks/useToast';
-import type { AuthProviderProps, GameProviderProps } from '@/types/components';
+import type {
+  AuthProviderProps,
+  GameProviderProps,
+  SoundProviderProps,
+  ToastProviderProps,
+} from '@/types/components';
 
 import { Toast } from './Toast';
 
@@ -57,22 +62,12 @@ export function ModalProvider({ children }: { children: ReactNode }) {
   );
 }
 
-// SoundProvider
-interface SoundProviderProps {
-  children: ReactNode;
-}
-
 export function SoundProvider({ children }: SoundProviderProps) {
   const soundState = useSoundHandler();
 
   return (
     <SoundContext.Provider value={soundState}>{children}</SoundContext.Provider>
   );
-}
-
-// ToastProvider
-interface ToastProviderProps {
-  children: ReactNode;
 }
 
 export function ToastProvider({ children }: ToastProviderProps) {

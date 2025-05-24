@@ -39,6 +39,10 @@ export interface InteractiveProps {
   className?: string;
 }
 
+export interface SoundProviderProps {
+  children: ReactNode;
+}
+
 export interface AuthProviderProps extends BaseComponentProps {
   children: ReactNode;
 }
@@ -47,6 +51,10 @@ export interface GameProviderProps extends BaseComponentProps {
   children: ReactNode;
   onExit: () => void;
   selectedCategory?: string;
+}
+
+export interface ToastProviderProps {
+  children: ReactNode;
 }
 
 export interface LoginProps {
