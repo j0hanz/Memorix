@@ -46,7 +46,7 @@ export function isCardActive(card: PairedCard): boolean {
   return card.status === CARD_STATUS.ACTIVE;
 }
 
-// New utility functions moved from useGame.ts
+// Card animation utilities
 export function getCardAnimation(card?: CardData): string {
   if (!card) return 'hidden';
   if (card.status === CARD_STATUS.MATCHED) return 'matched';

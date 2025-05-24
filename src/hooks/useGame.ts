@@ -11,7 +11,6 @@ import { useDeck } from '@/hooks/useDeck';
 import { useSound } from '@/hooks/useProvider';
 import { gameReducer, initialGameState } from '@/reducers/gameReducer';
 import type { CardData } from '@/types/data';
-import type { CSSModuleClasses } from '@/types/hooks';
 import {
   getCardAnimation,
   getCardFrontAnimation,
@@ -197,32 +196,8 @@ export function useGame(
     onExit();
   }
 
-  // Wrapper functions that use the imported utilities
-  const getCardAnimationState = (card?: CardData): string => {
-    return getCardAnimation(card);
-  };
-
-  const getCardFrontAnimationState = (card?: CardData): string => {
-    return getCardFrontAnimation(card);
-  };
-
-  const getCardClasses = (
-    styles: CSSModuleClasses,
-    card?: CardData,
-    imageLoaded?: boolean,
-    imageError?: boolean,
-  ): string => {
-    return getCardStyleClasses(styles, card, imageLoaded, imageError);
-  };
-
-  const getStatsClasses = (
-    styles: CSSModuleClasses,
-    feedback?: string,
-  ): string => {
-    return getStatsTopClass(styles, feedback);
-  };
-
-  const isCardClickableState = (
+  // Get card animation
+  const checkCardClickable = (
     card?: CardData,
     index?: number,
     imageLoaded?: boolean,
@@ -248,11 +223,11 @@ export function useGame(
     exitGame,
     exitToMainMenu: exitGame,
     isCardSelectable,
-    getCardAnimation: getCardAnimationState,
-    getCardFrontAnimation: getCardFrontAnimationState,
-    getCardStyleClasses: getCardClasses,
-    getStatsTopClass: getStatsClasses,
-    isCardClickable: isCardClickableState,
+    getCardAnimation,
+    getCardFrontAnimation,
+    getCardStyleClasses,
+    getStatsTopClass,
+    isCardClickable: checkCardClickable,
     dispatch,
   };
 }
