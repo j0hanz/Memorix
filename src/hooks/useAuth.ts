@@ -2,10 +2,10 @@ import { useCallback, useEffect, useReducer } from 'react';
 
 import { AUTH_ENDPOINTS, PROFILE_ENDPOINTS } from '@/constants/api';
 import { authReducer, initialAuthState } from '@/reducers/authReducer';
-import { axiosReq } from '@/services/axios';
 import type { AuthContextType } from '@/types/context';
 import type { Profile, User } from '@/types/data';
 import type { ApiError } from '@/types/services';
+import { axiosReq } from '@/utils/axios';
 import { refreshAccessToken } from '@/utils/axiosUtils';
 import { tokenStorage, tokenValidator } from '@/utils/tokenUtils';
 

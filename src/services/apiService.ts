@@ -1,8 +1,8 @@
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { axiosReq } from '@/services/axios';
 import type { ApiPaginationParams, ApiRequestOptions } from '@/types/services';
 import type { PaginatedData } from '@/types/utils';
+import { axiosReq } from '@/utils/axios';
 import { handleAsyncOperation } from '@/utils/errorUtils';
 
 async function executeRequest<T>(

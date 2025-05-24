@@ -1,8 +1,8 @@
 import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 import { AUTH_ENDPOINTS } from '@/constants/api';
-import { axiosReq } from '@/services/axios';
 import type { AuthResponse } from '@/types/services';
+import { axiosReq } from '@/utils/axios';
 import {
   parseTokensFromResponse,
   tokenRefreshManager,
