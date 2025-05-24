@@ -1,12 +1,6 @@
 import { createContext } from 'react';
 
-import type { AppError } from '@/types/services';
-
-interface ErrorContextType {
-  error: AppError | null;
-  setError: (error: unknown, context?: string) => void;
-  clearError: () => void;
-}
+import type { ErrorContextType } from '@/types/context'
 
 export const ErrorContext = createContext<ErrorContextType | undefined>(
   undefined,

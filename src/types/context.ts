@@ -8,6 +8,7 @@ import type { CardData } from '@/types/data';
 import type { CSSModuleClasses } from '@/types/hooks';
 import type { GameState } from '@/types/reducers';
 import type {
+  AppError,
   LoginCredentials,
   ProfileFormValues,
   RegisterData,
@@ -31,6 +32,12 @@ export interface AuthContextType {
   setUser: (user: User | null) => void;
   setAuthTokens: (accessToken: string, refreshToken?: string) => void;
   fetchProfile: () => Promise<Profile | null>;
+}
+
+export interface ErrorContextType {
+  error: AppError | null;
+  setError: (error: unknown, context?: string) => void;
+  clearError: () => void;
 }
 
 export interface ProfileContextType extends AsyncState<Profile> {
@@ -82,6 +89,31 @@ export interface ModalContextType {
   modalData: ModalData;
   openModal: (type: ModalType, data?: ModalData) => void;
   closeModal: VoidCallback;
+}
+
+export interface NavigationContextType {
+  startGame: () => void;
+  handleSelectCategory: (category: string) => void;
+  handleRestart: () => void;
+  handleExit: () => void;
+  handleAppReset: () => void;
+  handleAccountClick: () => void;
+  handleLogout: () => void;
+  openInstructions: () => void;
+  closeInstructions: () => void;
+  openLatestUpdates: () => void;
+  closeLatestUpdates: () => void;
+  openLeaderboardModal: () => void;
+  closeLeaderboardModal: () => void;
+  handleGitHubClick: () => void;
+  openModalByType?: (type: ModalType) => void;
+  selectedCategory: string;
+  isGameActive: boolean;
+  loading: {
+    isLoading: boolean;
+    message?: string;
+    type?: string;
+  };
 }
 
 export interface GameContextType extends GameState {
