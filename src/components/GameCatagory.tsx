@@ -39,10 +39,9 @@ export const GameCategory: FC<GameCategoryProps> = ({
               ? undefined
               : 'Select Category'
         }
+        label={hideLabel ? undefined : label}
         disabled={loading}
         className={styles.formSelect}
-        label={!hideLabel ? label : undefined}
-        hideLabel={hideLabel}
       />
     </div>
   );

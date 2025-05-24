@@ -56,9 +56,9 @@ export function useSaveScore({
     completedTime,
     moves,
     stars,
+    game,
     setScoreSaved,
     setSaveError,
-    game,
   ]);
 }
 
@@ -69,10 +69,11 @@ export function useScoreboard({
   categoryCode,
 }: UseScoreboardProps) {
   const { isAuthenticated } = useAuth();
-  const { stars } = useStarRating(moves, completedTime);
   const [scoreSaved, setScoreSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
+  const { stars } = useStarRating(moves, completedTime);
 
+  // Use the save score hook to automatically save the score
   useSaveScore({
     show: true,
     isAuthenticated,
@@ -86,11 +87,9 @@ export function useScoreboard({
   });
 
   return {
-    isAuthenticated,
     stars,
+    isAuthenticated,
     scoreSaved,
-    setScoreSaved,
     saveError,
-    setSaveError,
   };
 }

@@ -1,23 +1,11 @@
-import { Leaderboard } from '@/components/Leaderboard';
 import { Modal } from '@/components/Modal';
+import type { LeaderboardModalProps } from '@/types/components';
 
-import styles from './styles/Modal.module.css';
+import { Leaderboard } from './Leaderboard';
 
-export function LeaderboardModal({
-  show = true,
-  onClose,
-}: {
-  show?: boolean;
-  onClose?: () => void;
-}) {
-  const handleOnClose = onClose ?? (() => {});
+export function LeaderboardModal({ show, onClose }: LeaderboardModalProps) {
   return (
-    <Modal
-      show={show}
-      onClose={handleOnClose}
-      title="Leaderboard"
-      className={styles.leaderboardModal}
-    >
+    <Modal show={show} onClose={onClose} title="Leaderboard">
       <Leaderboard />
     </Modal>
   );

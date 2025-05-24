@@ -8,6 +8,8 @@ import { Modal } from '@/components/Modal';
 import type { ErrorBoundaryProps } from '@/types/components';
 import { logError } from '@/utils/errorUtils';
 
+import styles from './styles/Modal.module.css';
+
 const ErrorFallback: React.FC<FallbackProps> = ({
   error,
   resetErrorBoundary,
@@ -18,7 +20,7 @@ const ErrorFallback: React.FC<FallbackProps> = ({
       onClick={resetErrorBoundary}
       text="Restart Application"
       color="secondary"
-      className="modalButton"
+      className={`${styles.modalButton} ${styles.closeButtonSolo}`}
       icon={<RestartAltIcon fontSize="small" />}
     />
   );

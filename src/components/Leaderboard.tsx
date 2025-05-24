@@ -10,7 +10,7 @@ import { Select } from './Select';
 import { StarRating } from './StarRating';
 import styles from './styles/Modal.module.css';
 
-export const Leaderboard = () => {
+export function Leaderboard() {
   const {
     selectedCategory,
     leaderboard,
@@ -90,4 +90,4 @@ export const Leaderboard = () => {
       )}
     </>
   );
-};
+}
