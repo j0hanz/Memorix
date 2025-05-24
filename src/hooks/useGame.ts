@@ -31,25 +31,19 @@ export function useGame(
   // Initialize the game board and reveal sequence
   const initializeGame = useCallback((): (() => void) => {
     dispatch({ type: 'INITIALIZE_GAME', payload: { cards: deck } });
-
-    // Start initial reveal sequence
+    // Start initial reveal and hide sequence
+    let hideTimer: ReturnType<typeof setTimeout>;
     const revealTimer = setTimeout(() => {
       dispatch({ type: 'REVEAL_ALL_CARDS' });
-
-      const hideTimer = setTimeout(() => {
+      hideTimer = setTimeout(() => {
         dispatch({ type: 'HIDE_ALL_CARDS' });
         dispatch({ type: 'START_TIMER' });
       }, DELAYS.INITIAL_REVEAL_TIME);
-
-      // Return cleanup function for hideTimer
-      return () => {
-        clearTimeout(hideTimer);
-      };
     }, DELAYS.INITIAL_REVEAL);
-
-    // Return cleanup function for revealTimer
+    // Cleanup both timers
     return () => {
       clearTimeout(revealTimer);
+      if (hideTimer) clearTimeout(hideTimer);
     };
   }, [deck]);
 
@@ -196,22 +190,6 @@ export function useGame(
     onExit();
   }
 
-  // Get card animation
-  const checkCardClickable = (
-    card?: CardData,
-    index?: number,
-    imageLoaded?: boolean,
-    imageError?: boolean,
-  ): boolean => {
-    return isCardClickable(
-      card,
-      index,
-      imageLoaded,
-      imageError,
-      state.isInitialReveal,
-      state.isProcessingMatch,
-    );
-  };
 
   return {
     ...state,
@@ -227,7 +205,7 @@ export function useGame(
     getCardFrontAnimation,
     getCardStyleClasses,
     getStatsTopClass,
-    isCardClickable: checkCardClickable,
+    isCardClickable,
     dispatch,
   };
 }
