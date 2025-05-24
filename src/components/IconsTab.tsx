@@ -7,7 +7,7 @@ import StarOutlinedIcon from '@mui/icons-material/StarOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { ListGroup } from 'react-bootstrap';
 
-import type { IconExplanationProps } from '@/types/data';
+import type { IconExplanationProps } from '@/types/components';
 
 import styles from './styles/Modal.module.css';
 

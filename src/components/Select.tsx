@@ -1,26 +1,8 @@
 import type { ChangeEvent, FC } from 'react';
 
+import type { SelectProps } from '@/types/components';
+
 import styles from './styles/Select.module.css';
-
-export interface SelectOption {
-  value: string;
-  label: string;
-}
-
-export interface SelectProps {
-  id?: string;
-  name?: string;
-  value: string;
-  onChange: (value: string) => void;
-  options: SelectOption[];
-  placeholder?: string;
-  disabled?: boolean;
-  className?: string;
-  required?: boolean;
-  label?: string;
-  hideLabel?: boolean;
-  ariaLabel?: string;
-}
 
 export const Select: FC<SelectProps> = ({
   id,

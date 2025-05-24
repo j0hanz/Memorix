@@ -25,6 +25,22 @@ export interface BaseFormState {
   success?: string | null;
 }
 
+export interface ModalProps {
+  show: boolean;
+  onClose: () => void;
+  title?: ReactNode;
+  children: ReactNode;
+  footer?: ReactNode;
+  className?: string;
+  bodyClassName?: string;
+  headerClassName?: string;
+  footerClassName?: string;
+  backdrop?: 'static' | boolean;
+  centered?: boolean;
+  size?: 'sm' | 'lg' | 'xl';
+  showCloseButton?: boolean;
+}
+
 export interface FormHandlers {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
@@ -161,6 +177,39 @@ export interface MenuButtonProps extends InteractiveProps {
   text: string;
   color?: 'primary' | 'secondary';
   variant?: 'menu' | 'centered';
+}
+
+export interface ModalFooterButtonsProps {
+  leftText?: ReactNode;
+  rightText: ReactNode;
+  onLeftClick?: () => void;
+  onRightClick: () => void;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
+  leftDisabled?: boolean;
+  rightDisabled?: boolean;
+  leftType?: 'button' | 'submit' | 'reset';
+  rightType?: 'button' | 'submit' | 'reset';
+}
+
+export interface SelectOption {
+  value: string;
+  label: string;
+}
+
+export interface SelectProps {
+  id?: string;
+  name?: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: SelectOption[];
+  placeholder?: string;
+  disabled?: boolean;
+  className?: string;
+  required?: boolean;
+  label?: string;
+  hideLabel?: boolean;
+  ariaLabel?: string;
 }
 
 export interface GameProps {
@@ -406,6 +455,10 @@ export interface ModalTabsProps {
 export interface TabContent {
   key: string;
   content: ReactNode;
+}
+
+export interface ErrorDataProps {
+  error: Error;
 }
 
 export interface ErrorBoundaryProps extends BaseComponentProps {

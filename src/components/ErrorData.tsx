@@ -3,11 +3,8 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { useEffect } from 'react';
 
 import styles from '@/components/styles/Modal.module.css';
+import type { ErrorDataProps } from '@/types/components';
 import { getUserFriendlyMessage, logError } from '@/utils/errorUtils';
-
-interface ErrorDataProps {
-  error: Error;
-}
 
 export default function ErrorData({ error }: ErrorDataProps) {
   // Get a user-friendly message

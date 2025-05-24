@@ -1,25 +1,9 @@
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import type { ReactNode } from 'react';
 import { Modal as CustomModal } from 'react-bootstrap';
 
 import { Button } from '@/components/Button';
 import styles from '@/components/styles/Modal.module.css';
-
-export interface ModalProps {
-  show: boolean;
-  onClose: () => void;
-  title?: ReactNode;
-  children: ReactNode;
-  footer?: ReactNode;
-  className?: string;
-  bodyClassName?: string;
-  headerClassName?: string;
-  footerClassName?: string;
-  backdrop?: 'static' | boolean;
-  centered?: boolean;
-  size?: 'sm' | 'lg' | 'xl';
-  showCloseButton?: boolean;
-}
+import type { ModalProps } from '@/types/components';
 
 export function Modal({
   show,

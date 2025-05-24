@@ -1,20 +1,7 @@
-import type { ReactNode } from 'react';
+import type { ModalFooterButtonsProps } from '@/types/components';
 
 import { Button } from './Button';
 import styles from './styles/Modal.module.css';
-
-interface ModalFooterButtonsProps {
-  leftText?: ReactNode;
-  rightText: ReactNode;
-  onLeftClick?: () => void;
-  onRightClick: () => void;
-  leftIcon?: ReactNode;
-  rightIcon?: ReactNode;
-  leftDisabled?: boolean;
-  rightDisabled?: boolean;
-  leftType?: 'button' | 'submit' | 'reset';
-  rightType?: 'button' | 'submit' | 'reset';
-}
 
 export const ModalFooterButtons = ({
   leftText,
