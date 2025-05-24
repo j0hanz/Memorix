@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "composite": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "preserve",
@@ -11,15 +12,14 @@
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    "allowImportingTsExtensions": false,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
+    "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
