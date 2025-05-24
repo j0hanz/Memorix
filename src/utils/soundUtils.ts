@@ -1,7 +1,6 @@
-import { useState } from 'react';
-
 import type { SoundKey } from '@/constants/sounds';
 import { SOUND_STATE } from '@/constants/sounds';
+import type { SoundMapType } from '@/types/utils';
 
 // Function to get the initial mute state from localStorage
 export function getInitialMuteState(): boolean {
@@ -22,9 +21,6 @@ export function saveMuteState(muted: boolean): void {
   }
 }
 
-// Function to play sound
-export type SoundMapType = Record<SoundKey, () => void>;
-
 // Function to play sound based on the key
 export function playSoundEffect(
   soundMap: SoundMapType,
@@ -43,26 +39,4 @@ export function playSoundEffect(
   } catch (error) {
     console.error('Error playing sound:', error);
   }
-}
-
-// Function to create a sound map
-export function useSoundState() {
-  const [isMuted, setIsMuted] = useState<boolean>(() => getInitialMuteState());
-
-  // Function to toggle mute state
-  function toggleMute(): void {
-    setMuteState(!isMuted);
-  }
-
-  // Function to set mute state
-  function setMuteState(muted: boolean): void {
-    setIsMuted(muted);
-    saveMuteState(muted);
-  }
-
-  return {
-    isMuted,
-    toggleMute,
-    setMuteState,
-  };
 }

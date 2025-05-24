@@ -1,3 +1,5 @@
+import type { SoundKey } from '@/constants/sounds';
+
 import type { CardDef } from './data';
 
 export type VoidCallback = () => void;
@@ -15,6 +17,8 @@ export interface PaginatedData<T> {
   previous: string | null;
   results: T[];
 }
+
+export type SoundMapType = Record<SoundKey, () => void>;
 
 export interface TokenState {
   isRefreshing: boolean;

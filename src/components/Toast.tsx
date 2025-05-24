@@ -1,5 +1,5 @@
 import { DELAYS } from '@/constants/game';
-import { useToast } from '@/hooks/useToast';
+import { useToastVisibility } from '@/hooks/useToast';
 import type { ToastProps } from '@/types/components';
 
 import styles from './styles/Toast.module.css';
@@ -12,7 +12,7 @@ export function Toast({
   className = '',
   onClose,
 }: ToastProps) {
-  const { visible } = useToast({
+  const { visible } = useToastVisibility({
     show,
     duration,
     onClose,

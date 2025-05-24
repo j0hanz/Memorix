@@ -46,27 +46,36 @@ export function useError() {
 
 // Modal context hook
 export function useModal() {
-  return useContext(ModalContext);
+  const context = useContext(ModalContext);
+  if (context === undefined) {
+    throw new Error('useModal must be used within a ModalProvider');
+  }
+  return context;
 }
 
 // Sound context hook
 export function useSound() {
-  return useContext(SoundContext);
+  const context = useContext(SoundContext);
+  if (context === undefined) {
+    throw new Error('useSound must be used within a SoundProvider');
+  }
+  return context;
 }
 
 // Toast context hook
 export function useToast() {
-  return useContext(ToastContext);
+  const context = useContext(ToastContext);
+  if (context === undefined) {
+    throw new Error('useToast must be used within a ToastProvider');
+  }
+  return context;
 }
 
 // Game state context hook
 export function useGameState() {
-  // Retrieve game state from context
   const context = useContext(GameContext);
-
   if (context === undefined) {
     throw new Error('useGameState must be used within a GameProvider');
   }
-
   return context;
 }

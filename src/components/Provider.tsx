@@ -1,9 +1,6 @@
-import { type ReactNode, useState } from 'react';
-import useSound from 'use-sound';
+import { type ReactNode } from 'react';
 
-import { CATEGORIES, DELAYS, STATE_CONFIG } from '@/constants/game';
-import type { SoundKey } from '@/constants/sounds';
-import { SOUND_FILES } from '@/constants/sounds';
+import { CATEGORIES } from '@/constants/game';
 import { AuthContext } from '@/contexts/AuthContext';
 import { ErrorContext } from '@/contexts/ErrorContext';
 import { GameContext } from '@/contexts/GameContext';
@@ -12,21 +9,15 @@ import { NavigationContext } from '@/contexts/NavigationContext';
 import { ProfileContext } from '@/contexts/ProfileContext';
 import { SoundContext } from '@/contexts/SoundContext';
 import { ToastContext } from '@/contexts/ToastContext';
-import { useAppState } from '@/hooks/useAppState';
 import { useAuthProvider } from '@/hooks/useAuth';
+import { useErrorHandler } from '@/hooks/useError';
 import { useGame } from '@/hooks/useGame';
+import { useModalHandler } from '@/hooks/useModal';
+import { useNavigationHandler } from '@/hooks/useNavigation';
 import { useProfile } from '@/hooks/useProfile';
-import { useAuth, useModal } from '@/hooks/useProvider';
+import { useSoundHandler } from '@/hooks/useSound';
+import { useToastHandler } from '@/hooks/useToast';
 import type { AuthProviderProps, GameProviderProps } from '@/types/components';
-import type { ModalType } from '@/types/context';
-import type { ModalData } from '@/types/data';
-import type { AppError } from '@/types/services';
-import { createAppError, logError } from '@/utils/errorUtils';
-import {
-  playSoundEffect,
-  type SoundMapType,
-  useSoundState,
-} from '@/utils/soundUtils';
 
 import { Toast } from './Toast';
 
@@ -50,54 +41,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
 // ErrorProvider
 export function ErrorProvider({ children }: { children: ReactNode }) {
-  const [error, setAppError] = useState<AppError | null>(null);
-
-  const setError = (err: unknown, context?: string) => {
-    const appError =
-      err instanceof Error
-        ? createAppError(err.message, { details: err })
-        : createAppError(String(err));
-    logError(err, context);
-    setAppError(appError);
-  };
-
-  const clearError = () => {
-    setAppError(null);
-  };
+  const errorState = useErrorHandler();
 
   return (
-    <ErrorContext.Provider value={{ error, setError, clearError }}>
-      {children}
-    </ErrorContext.Provider>
+    <ErrorContext.Provider value={errorState}>{children}</ErrorContext.Provider>
   );
 }
 
 // ModalProvider
 export function ModalProvider({ children }: { children: ReactNode }) {
-  const [activeModal, setActiveModal] = useState<ModalType>(null);
-  const [modalData, setModalData] = useState<ModalData>({});
-
-  const openModal = (type: ModalType, data: ModalData = {}) => {
-    setActiveModal(type);
-    setModalData(data);
-  };
-
-  const closeModal = () => {
-    setActiveModal(null);
-    setModalData({});
-  };
+  const modalState = useModalHandler();
 
   return (
-    <ModalContext.Provider
-      value={{
-        activeModal,
-        modalData,
-        openModal,
-        closeModal,
-      }}
-    >
-      {children}
-    </ModalContext.Provider>
+    <ModalContext.Provider value={modalState}>{children}</ModalContext.Provider>
   );
 }
 
@@ -107,52 +63,10 @@ interface SoundProviderProps {
 }
 
 export function SoundProvider({ children }: SoundProviderProps) {
-  const { isMuted, toggleMute, setMuteState } = useSoundState();
-
-  const [playButton] = useSound(SOUND_FILES.button, {
-    volume: 1.0,
-    soundEnabled: !isMuted,
-  });
-  const [playClick] = useSound(SOUND_FILES.click, {
-    volume: 1.0,
-    soundEnabled: !isMuted,
-  });
-  const [playComplete] = useSound(SOUND_FILES.complete, {
-    volume: 1.0,
-    soundEnabled: !isMuted,
-  });
-  const [playCorrect] = useSound(SOUND_FILES.correct, {
-    volume: 1.0,
-    soundEnabled: !isMuted,
-  });
-  const [playWrong] = useSound(SOUND_FILES.wrong, {
-    volume: 1.0,
-    soundEnabled: !isMuted,
-  });
-
-  const soundMap: SoundMapType = {
-    button: playButton,
-    click: playClick,
-    complete: playComplete,
-    correct: playCorrect,
-    wrong: playWrong,
-  };
-
-  function playSound(soundKey: SoundKey): void {
-    playSoundEffect(soundMap, soundKey, isMuted);
-  }
+  const soundState = useSoundHandler();
 
   return (
-    <SoundContext.Provider
-      value={{
-        isMuted,
-        playSound,
-        toggleMute,
-        setMuteState,
-      }}
-    >
-      {children}
-    </SoundContext.Provider>
+    <SoundContext.Provider value={soundState}>{children}</SoundContext.Provider>
   );
 }
 
@@ -162,27 +76,7 @@ interface ToastProviderProps {
 }
 
 export function ToastProvider({ children }: ToastProviderProps) {
-  const [toast, setToast] = useState<{
-    message: string;
-    show: boolean;
-    duration: number;
-  }>({
-    message: '',
-    show: false,
-    duration: DELAYS.TOAST_DURATION,
-  });
-
-  function showToast(message: string, duration = DELAYS.TOAST_DURATION) {
-    setToast({
-      message,
-      show: true,
-      duration,
-    });
-  }
-
-  function hideToast() {
-    setToast((prev) => ({ ...prev, show: false }));
-  }
+  const { toast, showToast, hideToast } = useToastHandler();
 
   return (
     <ToastContext.Provider value={{ showToast, hideToast }}>
@@ -199,124 +93,10 @@ export function ToastProvider({ children }: ToastProviderProps) {
 
 // NavigationProvider
 export function NavigationProvider({ children }: { children: ReactNode }) {
-  const {
-    setIsGameActive,
-    setSelectedCategory,
-    setLoading,
-    isGameActive,
-    loading,
-    selectedCategory,
-  } = useAppState();
-  // Use useAuth instead of useAuthProvider
-  const { logout, isAuthenticated } = useAuth();
-  const { openModal, closeModal } = useModal();
-
-  function showLoadingWithMessage(
-    message: string,
-    type: 'initial' | 'start' | 'restart' | 'exit',
-    callback?: () => void,
-  ) {
-    setLoading({ isLoading: true, message, type });
-    setTimeout(() => {
-      setLoading({ isLoading: false, message: undefined, type: undefined });
-      if (callback) callback();
-    }, STATE_CONFIG.LOADING_DELAY);
-  }
-
-  function handleAppReset() {
-    setIsGameActive(false);
-    setLoading({ isLoading: false, message: undefined, type: undefined });
-  }
-
-  function handleGitHubClick() {
-    window.open('https://github.com/j0hanz/Memorix', '_blank');
-  }
-
-  function handleSelectCategory(category: string) {
-    setSelectedCategory(category);
-    closeModal();
-    showLoadingWithMessage('Starting...', 'start', () => {
-      setIsGameActive(true);
-    });
-  }
-
-  function handleRestart() {
-    showLoadingWithMessage('Restarting...', 'restart', () => {
-      setIsGameActive(false);
-      setTimeout(() => {
-        setIsGameActive(true);
-      }, 50);
-    });
-  }
-
-  function handleExit() {
-    setIsGameActive(false);
-  }
-
-  function startGame() {
-    openModal('categorySelection');
-  }
-
-  function handleAccountClick() {
-    if (isAuthenticated) {
-      openModal('profile');
-    } else {
-      openModal('auth');
-    }
-  }
-
-  function handleLogout() {
-    logout();
-    closeModal();
-    setIsGameActive(false);
-  }
-
-  function openInstructions() {
-    openModal('instructions');
-  }
-
-  function closeInstructions() {
-    closeModal();
-  }
-
-  function openLatestUpdates() {
-    openModal('latestUpdates');
-  }
-
-  function closeLatestUpdates() {
-    closeModal();
-  }
-
-  function openLeaderboardModal() {
-    openModal('leaderboard');
-  }
-
-  function closeLeaderboardModal() {
-    closeModal();
-  }
+  const navigationState = useNavigationHandler();
 
   return (
-    <NavigationContext.Provider
-      value={{
-        startGame,
-        handleSelectCategory,
-        handleRestart,
-        handleExit,
-        handleAppReset,
-        handleAccountClick,
-        handleLogout,
-        openInstructions,
-        closeInstructions,
-        openLatestUpdates,
-        closeLatestUpdates,
-        openLeaderboardModal,
-        closeLeaderboardModal,
-        handleGitHubClick,
-        selectedCategory,
-        isGameActive,
-        loading,
-      }}
-    >
+    <NavigationContext.Provider value={navigationState}>
       {children}
     </NavigationContext.Provider>
   );

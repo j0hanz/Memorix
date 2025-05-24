@@ -4,13 +4,12 @@ import PersonIcon from '@mui/icons-material/Person';
 import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
 import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
 import { motion } from 'framer-motion';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 
 import styles from '@/App.module.css';
 import { LoadingCardSpinner } from '@/components/Spinner';
 import { Toast } from '@/components/Toast';
-import { DELAYS } from '@/constants/game';
-import { useAuth, useModal, useSound } from '@/hooks/useProvider';
+import { useMenuHandler } from '@/hooks/useMenu';
 import type { MainMenuProps } from '@/types/components';
 
 import { MenuButton } from './MenuButton';
@@ -25,53 +24,23 @@ export const MainMenu = ({
   openLeaderboardModal,
   handleAccountClick,
 }: MainMenuProps) => {
-  const { isMuted, toggleMute } = useSound();
-  const { isAuthenticated, user, profile, getProfile } = useAuth();
-  const { openModal } = useModal();
-
-  // Auth toast state
-  const [showAuthToast, setShowAuthToast] = useState(false);
-  const [authMessage, setAuthMessage] = useState('');
-  const [menuLoading, setMenuLoading] = useState(true);
-
-  useEffect(() => {
-    if (isAuthenticated && user && !profile) {
-      void getProfile();
-    }
-  }, [isAuthenticated, user, profile, getProfile]);
-
-  // Handle user authentication state
-  useEffect(() => {
-    setMenuLoading(true);
-    const timer = setTimeout(() => {
-      setMenuLoading(false);
-    }, DELAYS.SPINNER_DURATION);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [isAuthenticated, user, profile]);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      setAuthMessage('Logged in');
-      setShowAuthToast(true);
-      const timer = setTimeout(() => {
-        setShowAuthToast(false);
-      }, DELAYS.TOAST_DURATION);
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-    setShowAuthToast(false);
-  }, [isAuthenticated]);
+  const {
+    isMuted,
+    toggleMute,
+    isAuthenticated,
+    profile,
+    showAuthToast,
+    authMessage,
+    menuLoading,
+    handleProfileAvatarClick,
+    handleCloseAuthToast,
+  } = useMenuHandler();
 
   return (
     <div className={styles.menu}>
       <ProfileAvatar
         profilePictureUrl={profile?.profile_picture_url}
-        onClick={() => {
-          openModal('profile');
-        }}
+        onClick={handleProfileAvatarClick}
       />
       <motion.div
         initial={enterAnimation.initial}
@@ -129,9 +98,7 @@ export const MainMenu = ({
         message={authMessage}
         show={showAuthToast}
         placement="top"
-        onClose={() => {
-          setShowAuthToast(false);
-        }}
+        onClose={handleCloseAuthToast}
       />
     </div>
   );
