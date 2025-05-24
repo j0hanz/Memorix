@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-
+import { useImage } from '@/hooks/useImage';
 import type { ImageProps } from '@/types/components';
 
 // Image component to display images with error handling and fallback
@@ -16,39 +15,16 @@ export const Image: React.FC<ImageProps> = ({
   loading = 'lazy',
   fallbackSrc,
 }) => {
-  const [imgSrc, setImgSrc] = useState<string>(src);
-  const [hasError, setHasError] = useState<boolean>(false);
+  const { imgSrc, handleLoad, handleError } = useImage({
+    src,
+    fallbackSrc,
+    onLoad,
+    onError,
+  });
 
-  // Update image source when src prop changes
-  useEffect(() => {
-    if (src !== imgSrc && !hasError) {
-      setImgSrc(src);
-    }
-  }, [src, imgSrc, hasError]);
-
-  // Handle image load event
-  const handleLoad = () => {
-    onLoad?.();
-  };
-
-  // Handle image error with fallback
-  const handleError = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    if (!hasError && fallbackSrc) {
-      setImgSrc(fallbackSrc);
-      setHasError(true);
-    }
-    onError?.(event);
-  };
-
-  const finalSrc =
-    imgSrc.includes('profile_picture') && !imgSrc.includes('?v=')
-      ? `${imgSrc}?v=${Date.now().toString()}`
-      : imgSrc;
-
-  // Render the image element
   const imageElement = (
     <img
-      src={finalSrc}
+      src={imgSrc}
       alt={alt}
       width={width}
       height={height}
@@ -60,7 +36,6 @@ export const Image: React.FC<ImageProps> = ({
     />
   );
 
-  // If onClick is provided, wrap the image in a clickable div
   if (onClick) {
     return (
       <div
@@ -84,5 +59,6 @@ export const Image: React.FC<ImageProps> = ({
       </div>
     );
   }
+
   return imageElement;
 };

@@ -11,7 +11,11 @@ export const ProfileAvatar = ({
   const { openModal } = useModal();
 
   return profilePictureUrl ? (
-    <ProtectedRoute onAuthRequired={() => { openModal('auth'); }}>
+    <ProtectedRoute
+      onAuthRequired={() => {
+        openModal('auth');
+      }}
+    >
       <Button
         onClick={onClick}
         className={styles.userInfoTopRight}

@@ -1,22 +1,18 @@
-import { useEffect } from 'react';
-
 import { LoadingCardSpinner } from '@/components/Spinner';
-import { useAuth } from '@/hooks/useProvider';
+import { useRoute } from '@/hooks/useRoute';
 import type { ProtectedRouteProps } from '@/types/components';
 
 export const ProtectedRoute = ({
   children,
   onAuthRequired,
 }: ProtectedRouteProps) => {
-  const { isAuthenticated, loading } = useAuth();
+  const { shouldShowLoading, shouldShowChildren } = useRoute({
+    onAuthRequired,
+  });
 
-  useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      onAuthRequired();
-    }
-  }, [loading, isAuthenticated, onAuthRequired]);
+  if (shouldShowLoading) {
+    return <LoadingCardSpinner isLoading={true} />;
+  }
 
-  if (loading) return <LoadingCardSpinner isLoading={true} />;
-
-  return isAuthenticated ? children : null;
+  return shouldShowChildren ? children : null;
 };

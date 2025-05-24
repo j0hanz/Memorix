@@ -29,7 +29,11 @@ export function ScoreboardData({
     <>
       {children}
       <Scoreboard moves={moves} completedTime={completedTime.toString()} />
-      <ProtectedRoute onAuthRequired={() => { openModal('auth'); }}>
+      <ProtectedRoute
+        onAuthRequired={() => {
+          openModal('auth');
+        }}
+      >
         <ScoreFeedback
           isAuthenticated={isAuthenticated}
           scoreSaved={scoreSaved}

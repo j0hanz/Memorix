@@ -20,14 +20,22 @@ export function ProfileContent({
   const renderContent = (): ReactNode => {
     if (activeTab === 'overview' && showPasswordTab) {
       return (
-        <ProtectedRoute onAuthRequired={() => { onBack(); }}>
+        <ProtectedRoute
+          onAuthRequired={() => {
+            onBack();
+          }}
+        >
           <ProfileChangePassword onBack={onBack} />
         </ProtectedRoute>
       );
     }
     if (activeTab === 'overview' && showDeleteTab) {
       return (
-        <ProtectedRoute onAuthRequired={() => { onBack(); }}>
+        <ProtectedRoute
+          onAuthRequired={() => {
+            onBack();
+          }}
+        >
           <ProfileDeleteAccount />
         </ProtectedRoute>
       );
@@ -43,7 +51,11 @@ export function ProfileContent({
     }
     if (activeTab === 'history') {
       return (
-        <ProtectedRoute onAuthRequired={() => { onBack(); }}>
+        <ProtectedRoute
+          onAuthRequired={() => {
+            onBack();
+          }}
+        >
           <ProfileGameHistory />
         </ProtectedRoute>
       );

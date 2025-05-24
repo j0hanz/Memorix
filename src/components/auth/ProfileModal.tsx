@@ -7,7 +7,11 @@ import { ProfileData } from './ProfileData';
 export function ProfileModal({ show, onClose, logout }: ProfileModalProps) {
   return (
     <Modal show={show} onClose={onClose} showCloseButton={false}>
-      <ProtectedRoute onAuthRequired={() => { onClose(); }}>
+      <ProtectedRoute
+        onAuthRequired={() => {
+          onClose();
+        }}
+      >
         <ProfileData onClose={onClose} logout={logout} />
       </ProtectedRoute>
     </Modal>

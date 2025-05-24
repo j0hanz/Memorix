@@ -1,29 +1,24 @@
-import { useState } from 'react';
-
+import { useImage } from '@/hooks/useImage';
 import type { CardData } from '@/types/data';
 
 export function useCard(card?: CardData) {
-  const [imageState, setImageState] = useState({
-    loaded: false,
-    error: false,
+  const { isLoaded, hasError, handleLoad, handleError } = useImage({
+    src: card?.img || '',
+    onLoad: () => {},
+    onError: () => {},
   });
-
-  const handleImageLoad = () => {
-    setImageState({ loaded: true, error: false });
-  };
-
-  const handleImageError = () => {
-    setImageState({ loaded: true, error: true });
-  };
 
   const ariaSelected = !!card && card.status.includes('active');
 
   return {
-    imageState,
-    handleImageLoad,
-    handleImageError,
+    imageState: {
+      loaded: isLoaded,
+      error: hasError,
+    },
+    handleImageLoad: handleLoad,
+    handleImageError: handleError,
     ariaSelected,
-    isImageLoaded: imageState.loaded,
-    isImageError: imageState.error,
+    isImageLoaded: isLoaded,
+    isImageError: hasError,
   };
 }
