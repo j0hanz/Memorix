@@ -1,29 +1,14 @@
 import { useEffect, useState } from 'react';
 
 import { DELAYS } from '@/constants/game';
-
-interface ToastProps {
-  show: boolean;
-  duration?: number;
-  onClose?: () => void;
-}
-
-interface ToastHandlerReturn {
-  toast: {
-    message: string;
-    show: boolean;
-    duration: number;
-  };
-  showToast: (message: string, duration?: number) => void;
-  hideToast: () => void;
-}
+import type { ToastHandlerReturn, ToastVisibilityProps } from '@/types/hooks';
 
 // For individual toast components (existing functionality)
 export function useToastVisibility({
   show,
   duration = 0,
   onClose,
-}: ToastProps) {
+}: ToastVisibilityProps) {
   const [visible, setVisible] = useState(show);
 
   useEffect(() => {

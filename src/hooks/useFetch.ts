@@ -1,21 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { useError, useToast } from '@/hooks/useProvider';
-import type { ErrorCategory, ErrorSeverity } from '@/types/services';
+import type { Fetcher, FetcherOptions } from '@/types/hooks';
 import { getUserFriendlyMessage, logError } from '@/utils/errorUtils';
-
-export type Fetcher<T> = (signal: AbortSignal) => Promise<T>;
-
-export interface FetcherOptions<T> {
-  onSuccess?: (data: T) => void;
-  showToastOnError?: boolean;
-  errorCategory?: ErrorCategory;
-  errorSeverity?: ErrorSeverity;
-  retryCount?: number;
-  retryDelay?: number;
-  skipFetch?: boolean;
-  initialData?: T | null;
-}
 
 export function useFetch<T>(
   fetcher: Fetcher<T>,
