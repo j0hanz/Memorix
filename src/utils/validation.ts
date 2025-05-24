@@ -1,4 +1,4 @@
-import type { ValidationRules } from '@/types/hooks';
+import type { ValidationRules } from '@/types/utils';
 
 // Validation rules for form fields
 export const required =

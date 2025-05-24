@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import type { ValidationRules } from '@/types/hooks';
+import type { ValidationRules } from '@/types/utils';
 
 // Hook to derive validation errors based on current form values and validation rules
 export function useValidate(

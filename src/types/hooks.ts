@@ -76,9 +76,3 @@ export interface AnimationReturn {
 }
 
 export type CSSModuleClasses = Record<string, string>;
-
-export type ValidationRule = (
-  value: string,
-  formValues?: Record<string, string>,
-) => string | null;
-export type ValidationRules = Record<string, ValidationRule>;

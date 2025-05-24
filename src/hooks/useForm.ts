@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { useValidate } from '@/hooks/useValidate';
-import type { ValidationRules } from '@/types/hooks';
+import type { ValidationRules } from '@/types/utils';
 
 // This hook is used to manage form state and validation.
 export function useFormSubmitStatus() {
