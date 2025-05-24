@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 import type { ProfileContentProps } from '@/types/components';
 
 import { ProfileChangePassword } from './ProfileChangePassword';
@@ -18,10 +19,18 @@ export function ProfileContent({
 }: ProfileContentProps) {
   const renderContent = (): ReactNode => {
     if (activeTab === 'overview' && showPasswordTab) {
-      return <ProfileChangePassword onBack={onBack} />;
+      return (
+        <ProtectedRoute onAuthRequired={() => { onBack(); }}>
+          <ProfileChangePassword onBack={onBack} />
+        </ProtectedRoute>
+      );
     }
     if (activeTab === 'overview' && showDeleteTab) {
-      return <ProfileDeleteAccount />;
+      return (
+        <ProtectedRoute onAuthRequired={() => { onBack(); }}>
+          <ProfileDeleteAccount />
+        </ProtectedRoute>
+      );
     }
     if (activeTab === 'overview') {
       return (
@@ -33,7 +42,11 @@ export function ProfileContent({
       );
     }
     if (activeTab === 'history') {
-      return <ProfileGameHistory />;
+      return (
+        <ProtectedRoute onAuthRequired={() => { onBack(); }}>
+          <ProfileGameHistory />
+        </ProtectedRoute>
+      );
     }
     return null;
   };

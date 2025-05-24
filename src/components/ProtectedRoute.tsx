@@ -18,5 +18,5 @@ export const ProtectedRoute = ({
 
   if (loading) return <LoadingCardSpinner isLoading={true} />;
 
-  return isAuthenticated ? { children } : null;
+  return isAuthenticated ? children : null;
 };

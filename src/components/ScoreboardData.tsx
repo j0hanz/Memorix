@@ -1,7 +1,9 @@
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { Scoreboard } from '@/components/scoreData';
+import { useModal } from '@/hooks/useProvider';
 import { useScoreboard } from '@/hooks/useScoreboard';
 import type { ScoreboardDataProps } from '@/types/components';
 
@@ -16,6 +18,7 @@ export function ScoreboardData({
   categoryCode,
   children,
 }: ScoreboardDataProps) {
+  const { openModal } = useModal();
   const { isAuthenticated, scoreSaved, saveError } = useScoreboard({
     moves,
     completedTime,
@@ -26,11 +29,13 @@ export function ScoreboardData({
     <>
       {children}
       <Scoreboard moves={moves} completedTime={completedTime.toString()} />
-      <ScoreFeedback
-        isAuthenticated={isAuthenticated}
-        scoreSaved={scoreSaved}
-        saveError={saveError}
-      />
+      <ProtectedRoute onAuthRequired={() => { openModal('auth'); }}>
+        <ScoreFeedback
+          isAuthenticated={isAuthenticated}
+          scoreSaved={scoreSaved}
+          saveError={saveError}
+        />
+      </ProtectedRoute>
       <ModalFooterButtons
         leftText="Restart"
         rightText="Exit"
