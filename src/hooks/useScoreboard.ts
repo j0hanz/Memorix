@@ -1,22 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { SCORING_THRESHOLDS } from '@/constants/scoring';
+import { calculateStars } from '@/constants/scoring';
 import { useAuth } from '@/hooks/useProvider';
 import { useServices } from '@/hooks/useServices';
 import type { UseSaveScoreProps, UseScoreboardProps } from '@/types/hooks';
 
-// Calculate stars based on moves and time
-export function calculateStars(moves: number, completedTime: number): number {
-  for (const { stars, moves: m, time: t } of SCORING_THRESHOLDS) {
-    if (moves <= m && completedTime <= t) {
-      return stars;
-    }
-  }
-  return 1;
-}
-
 // Hook for calculating score stars
-export function useScore(moves: number, completedTime: number) {
+export function useStarRating(moves: number, completedTime: number) {
   const stars = calculateStars(moves, completedTime);
   return { stars };
 }
@@ -79,7 +69,7 @@ export function useScoreboard({
   categoryCode,
 }: UseScoreboardProps) {
   const { isAuthenticated } = useAuth();
-  const { stars } = useScore(moves, completedTime);
+  const { stars } = useStarRating(moves, completedTime);
   const [scoreSaved, setScoreSaved] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
 

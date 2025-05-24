@@ -1,5 +1,6 @@
 import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
+import { AUTH_ENDPOINTS } from '@/constants/api';
 import { axiosReq } from '@/services/axios';
 import type { AuthResponse } from '@/types/services';
 import {
@@ -10,9 +11,9 @@ import {
 } from '@/utils/tokenUtils';
 
 const AUTH_PATHS = [
-  '/dj-rest-auth/login/',
-  '/dj-rest-auth/registration/',
-  '/dj-rest-auth/token/refresh/',
+  AUTH_ENDPOINTS.login,
+  AUTH_ENDPOINTS.register,
+  AUTH_ENDPOINTS.refresh,
 ];
 
 async function handleRefresh(
@@ -68,7 +69,7 @@ export async function refreshAccessToken(): Promise<string | null> {
   }
 
   try {
-    const res = await axiosReq.post('/dj-rest-auth/token/refresh/', {
+    const res = await axiosReq.post(AUTH_ENDPOINTS.refresh, {
       refresh,
     });
     const { accessToken } = parseTokensFromResponse(

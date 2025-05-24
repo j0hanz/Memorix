@@ -1,4 +1,4 @@
-import { CATEGORY_INFO } from '@/constants/constants';
+import { CATEGORY_INFO } from '@/constants/game';
 import type { CategoryDataProps } from '@/types/components';
 import { getCategoryIcon } from '@/utils/categoryUtils';
 

@@ -1,19 +1,24 @@
-import clsx from 'clsx';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 
 import {
-  CARD_STATUS,
   CATEGORIES,
   DELAYS,
   FEEDBACK,
   GAME_CONFIG,
   TIMER,
-} from '@/constants/constants';
+} from '@/constants/game';
 import { useDeck } from '@/hooks/useDeck';
 import { useSound } from '@/hooks/useProvider';
 import { gameReducer, initialGameState } from '@/reducers/gameReducer';
 import type { CardData } from '@/types/data';
 import type { CSSModuleClasses } from '@/types/hooks';
+import {
+  getCardAnimation,
+  getCardFrontAnimation,
+  getCardStyleClasses,
+  getStatsTopClass,
+  isCardClickable,
+} from '@/utils/cardUtils';
 
 export function useGame(
   onExit: () => void,
@@ -162,7 +167,14 @@ export function useGame(
     imageLoaded?: boolean,
     imageError?: boolean,
   ): void {
-    const clickable = isCardClickable(card, index, imageLoaded, imageError);
+    const clickable = isCardClickable(
+      card,
+      index,
+      imageLoaded,
+      imageError,
+      state.isInitialReveal,
+      state.isProcessingMatch,
+    );
     if (!clickable || typeof index !== 'number') {
       return;
     }
@@ -185,65 +197,49 @@ export function useGame(
     onExit();
   }
 
-  // Utility functions with proper return types
-  function getCardAnimation(card?: CardData): string {
-    if (!card) return 'hidden';
-    if (card.status === CARD_STATUS.MATCHED) return 'matched';
-    if (card.status === CARD_STATUS.ACTIVE) return 'active';
-    return 'hidden';
-  }
+  // Wrapper functions that use the imported utilities
+  const getCardAnimationState = (card?: CardData): string => {
+    return getCardAnimation(card);
+  };
 
-  function getCardFrontAnimation(card?: CardData): string {
-    if (!card) return 'initial';
-    if (card.status === CARD_STATUS.MATCHED) return 'matched';
-    if (card.status === CARD_STATUS.ACTIVE) return 'flipped';
-    return 'initial';
-  }
+  const getCardFrontAnimationState = (card?: CardData): string => {
+    return getCardFrontAnimation(card);
+  };
 
-  function getCardStyleClasses(
+  const getCardClasses = (
     styles: CSSModuleClasses,
     card?: CardData,
     imageLoaded?: boolean,
     imageError?: boolean,
-  ): string {
-    return clsx(styles.card, {
-      [styles.loading]: !imageLoaded && !imageError,
-      [styles.matched]: card?.status.includes(CARD_STATUS.MATCHED),
-      [styles.active]: card?.status === CARD_STATUS.ACTIVE,
-    });
-  }
+  ): string => {
+    return getCardStyleClasses(styles, card, imageLoaded, imageError);
+  };
 
-  function getStatsTopClass(
+  const getStatsClasses = (
     styles: CSSModuleClasses,
     feedback?: string,
-  ): string {
-    return clsx(styles.statsTop, {
-      [styles.statsTopSuccess]: feedback === FEEDBACK.SUCCESS,
-      [styles.statsTopError]: feedback === FEEDBACK.ERROR,
-    });
-  }
+  ): string => {
+    return getStatsTopClass(styles, feedback);
+  };
 
-  function isCardClickable(
+  const isCardClickableState = (
     card?: CardData,
     index?: number,
     imageLoaded?: boolean,
     imageError?: boolean,
-  ): boolean {
-    return !!(
-      card &&
-      typeof index === 'number' &&
-      (imageLoaded || imageError) &&
-      !state.isInitialReveal &&
-      !card.status.includes(CARD_STATUS.MATCHED) &&
-      !state.isProcessingMatch
+  ): boolean => {
+    return isCardClickable(
+      card,
+      index,
+      imageLoaded,
+      imageError,
+      state.isInitialReveal,
+      state.isProcessingMatch,
     );
-  }
+  };
 
   return {
-    // Game state
     ...state,
-
-    // Game actions
     selectCard,
     handleCardSelection: selectCard,
     handleCardClick,
@@ -252,15 +248,11 @@ export function useGame(
     exitGame,
     exitToMainMenu: exitGame,
     isCardSelectable,
-
-    // Utility functions
-    getCardAnimation,
-    getCardFrontAnimation,
-    getCardStyleClasses,
-    getStatsTopClass,
-    isCardClickable,
-
-    // Direct reducer dispatch
+    getCardAnimation: getCardAnimationState,
+    getCardFrontAnimation: getCardFrontAnimationState,
+    getCardStyleClasses: getCardClasses,
+    getStatsTopClass: getStatsClasses,
+    isCardClickable: isCardClickableState,
     dispatch,
   };
 }

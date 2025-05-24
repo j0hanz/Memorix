@@ -1,4 +1,4 @@
-import { CARD_STATUS } from '@/constants/constants';
+import { CARD_STATUS } from '@/constants/game';
 import type { PairedCard } from '@/types/data';
 import type { GameState } from '@/types/reducers';
 import {

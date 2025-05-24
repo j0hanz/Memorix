@@ -46,16 +46,6 @@ export const CATEGORY_INFO = {
   },
 };
 
-// CSS class variants
-export const CSS_CLASSES = {
-  ACTIVE: 'active',
-  ERROR: 'error',
-  GRAYED_OUT: 'grayedOut',
-  LOADING: 'loading',
-  MATCHED: 'matched',
-  SUCCESS: 'success',
-};
-
 // Feedback types
 export const FEEDBACK = {
   ERROR: 'error',
@@ -74,21 +64,7 @@ export const GAME_CONFIG = {
   TOTAL_PAIRS: 6,
 };
 
-// GitHub API config
-export const GITHUB_API = {
-  API_URL: import.meta.env.VITE_GITHUB_API_URL as string,
-  COMMITS_PER_PAGE: 3,
-};
-
 // Timer constants
 export const TIMER = {
   INTERVAL: 1000,
-};
-
-// Axios configuration
-export const AXIOS_CONFIG = {
-  baseURL: import.meta.env.VITE_API_BASE_URL as string,
-  headersPost: {
-    'Content-Type': 'application/json',
-  },
 };

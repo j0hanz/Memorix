@@ -1,5 +1,6 @@
 import type { AxiosError } from 'axios';
 
+import { GAME_ENDPOINTS } from '@/constants/api';
 import type {
   GameResultData,
   LeaderboardEntry,
@@ -10,16 +11,9 @@ import type {
 
 import { get, getList, getPaginated, post } from './apiService';
 
-const ENDPOINTS = {
-  results: '/api/memorix/results/',
-  bestResults: '/api/memorix/results/best/',
-  leaderboard: '/api/memorix/leaderboard/',
-  categories: '/api/memorix/categories/',
-} as const;
-
 export async function saveGameResult(data: GameResultData): Promise<unknown> {
   return post(
-    ENDPOINTS.results,
+    GAME_ENDPOINTS.results,
     data,
     {
       context: 'GameService',
@@ -36,7 +30,7 @@ export async function getLeaderboard(
 ): Promise<LeaderboardEntry[]> {
   try {
     const result = await get<PaginatedLeaderboardEntries>(
-      ENDPOINTS.leaderboard,
+      GAME_ENDPOINTS.leaderboard,
       categoryId != null ? { category: categoryId } : undefined,
       {
         context: 'GameService',
@@ -50,7 +44,7 @@ export async function getLeaderboard(
 }
 
 export async function getCategories(): Promise<string[]> {
-  return getList<string>(ENDPOINTS.categories, undefined, {
+  return getList<string>(GAME_ENDPOINTS.categories, undefined, {
     context: 'GameService',
     errorMessage: 'Failed to fetch categories',
   });
@@ -62,7 +56,7 @@ export async function getUserScores(
 ): Promise<PaginatedUserScores> {
   try {
     return await getPaginated<UserScore>(
-      ENDPOINTS.results,
+      GAME_ENDPOINTS.results,
       {
         page,
         ...(category ? { category } : {}),
@@ -82,7 +76,7 @@ export async function getUserScores(
 }
 
 export async function getUserBestScores(): Promise<UserScore[]> {
-  return getList<UserScore>(ENDPOINTS.bestResults, undefined, {
+  return getList<UserScore>(GAME_ENDPOINTS.bestResults, undefined, {
     context: 'GameService',
     errorMessage: 'Failed to fetch best scores',
   });

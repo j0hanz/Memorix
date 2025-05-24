@@ -1,23 +1,24 @@
 import { useEffect, useState } from 'react';
 
 import { useAuth, useToast } from '@/hooks/useProvider';
+import { useScore } from '@/hooks/useScore';
 import { useServices } from '@/hooks/useServices';
 import type { ProfileContextType } from '@/types/context';
-import type { ProfileFormValues, UserScore } from '@/types/services';
+import type { ProfileFormValues } from '@/types/services';
 
 export function useProfile(): ProfileContextType {
-  const { profile, getProfile, user, isAuthenticated, logout } = useAuth();
-  const { game, profile: profileService } = useServices();
+  const { profile, getProfile, user, logout } = useAuth();
+  const { profile: profileService } = useServices();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [scores, setScores] = useState<UserScore[]>([]);
-  const [scoresCount, setScoresCount] = useState(0);
-  const [scoresPage, setScoresPage] = useState(1);
-  const [loadingScores, setLoadingScores] = useState(false);
   const { showToast } = useToast();
+
+  // Use the dedicated scores hook
+  const { scores, scoresCount, scoresPage, setScoresPage, loadingScores } =
+    useScore();
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -27,25 +28,6 @@ export function useProfile(): ProfileContextType {
       void fetchProfileData();
     }
   }, [user, profile, getProfile]);
-
-  useEffect(() => {
-    const fetchScores = async () => {
-      if (user && isAuthenticated) {
-        setLoadingScores(true);
-        try {
-          const data = await game.getUserScores(scoresPage);
-          setScores(data.results);
-          setScoresCount(data.count);
-        } catch {
-          // Silent fail
-        } finally {
-          setLoadingScores(false);
-        }
-      }
-    };
-
-    void fetchScores();
-  }, [user, isAuthenticated, scoresPage, game]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -75,7 +57,7 @@ export function useProfile(): ProfileContextType {
     setError(null);
 
     try {
-      await profileService.uploadProfilePicture(profileImage);
+      await profileService.uploadProfilePicture(profile.id, profileImage);
       setSuccess('Profile picture updated successfully!');
       showToast('Profile picture updated successfully!');
       setProfileImage(null);
@@ -91,14 +73,55 @@ export function useProfile(): ProfileContextType {
     }
   };
 
-  const changePassword = (values: ProfileFormValues): Promise<boolean> => {
-    console.log('Change password called with:', values);
-    return Promise.resolve(false);
+  const changePassword = async (
+    values: ProfileFormValues,
+  ): Promise<boolean> => {
+    if (!profile?.id) {
+      setError('No profile found');
+      return false;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      await profileService.changePassword(values);
+      setSuccess('Password changed successfully!');
+      showToast('Password changed successfully!');
+      return true;
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : 'Failed to change password';
+      setError(errorMessage);
+      showToast(errorMessage);
+      return false;
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleDeleteAccount = (): Promise<void> => {
-    console.log('Delete account called');
-    return Promise.resolve();
+  const handleDeleteAccount = async (): Promise<void> => {
+    if (!profile?.id) {
+      setError('No profile found');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      await profileService.deleteAccount(profile.id);
+      setSuccess('Account deleted successfully');
+      showToast('Account deleted successfully');
+      logout();
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : 'Failed to delete account';
+      setError(errorMessage);
+      showToast(errorMessage);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const clearState = () => {

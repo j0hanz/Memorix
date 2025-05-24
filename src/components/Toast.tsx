@@ -1,4 +1,4 @@
-import { DELAYS } from '@/constants/constants';
+import { DELAYS } from '@/constants/game';
 import { useToast } from '@/hooks/useToast';
 import type { ToastProps } from '@/types/components';
 

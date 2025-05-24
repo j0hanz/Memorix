@@ -1,18 +1,11 @@
-import { CARD_STATUS } from '@/constants/constants';
-import type { PairedCard } from '@/types/data';
+import clsx from 'clsx';
 
-export type CardState = '' | 'active' | 'active matched';
+import { CARD_STATUS, FEEDBACK } from '@/constants/game';
+import { CSS_CLASSES } from '@/constants/styles';
+import type { CardData, PairedCard } from '@/types/data';
+import type { CSSModuleClasses } from '@/types/hooks';
 
-export const CARD_STATE: {
-  Default: CardState;
-  Active: CardState;
-  Matched: CardState;
-} = {
-  Default: '',
-  Active: 'active',
-  Matched: 'active matched',
-};
-
+// Existing card status manipulation functions
 export function setCardStatus(
   cards: PairedCard[],
   index: number,
@@ -51,4 +44,60 @@ export function isCardMatched(card: PairedCard): boolean {
 
 export function isCardActive(card: PairedCard): boolean {
   return card.status === CARD_STATUS.ACTIVE;
+}
+
+// New utility functions moved from useGame.ts
+export function getCardAnimation(card?: CardData): string {
+  if (!card) return 'hidden';
+  if (card.status === CARD_STATUS.MATCHED) return 'matched';
+  if (card.status === CARD_STATUS.ACTIVE) return 'active';
+  return 'hidden';
+}
+
+export function getCardFrontAnimation(card?: CardData): string {
+  if (!card) return 'initial';
+  if (card.status === CARD_STATUS.MATCHED) return 'matched';
+  if (card.status === CARD_STATUS.ACTIVE) return 'flipped';
+  return 'initial';
+}
+
+export function getCardStyleClasses(
+  styles: CSSModuleClasses,
+  card?: CardData,
+  imageLoaded?: boolean,
+  imageError?: boolean,
+): string {
+  return clsx(styles.card, {
+    [styles[CSS_CLASSES.LOADING]]: !imageLoaded && !imageError,
+    [styles[CSS_CLASSES.MATCHED]]: card?.status.includes(CARD_STATUS.MATCHED),
+    [styles[CSS_CLASSES.ACTIVE]]: card?.status === CARD_STATUS.ACTIVE,
+  });
+}
+
+export function getStatsTopClass(
+  styles: CSSModuleClasses,
+  feedback?: string,
+): string {
+  return clsx(styles.statsTop, {
+    [styles.statsTopSuccess]: feedback === FEEDBACK.SUCCESS,
+    [styles.statsTopError]: feedback === FEEDBACK.ERROR,
+  });
+}
+
+export function isCardClickable(
+  card?: CardData,
+  index?: number,
+  imageLoaded?: boolean,
+  imageError?: boolean,
+  isInitialReveal?: boolean,
+  isProcessingMatch?: boolean,
+): boolean {
+  return !!(
+    card &&
+    typeof index === 'number' &&
+    (imageLoaded || imageError) &&
+    !isInitialReveal &&
+    !card.status.includes(CARD_STATUS.MATCHED) &&
+    !isProcessingMatch
+  );
 }

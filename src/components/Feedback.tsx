@@ -2,7 +2,7 @@ import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { FEEDBACK } from '@/constants/constants';
+import { FEEDBACK } from '@/constants/game';
 import { useMotions } from '@/hooks/useMotions';
 import type { FeedbackProps } from '@/types/components';
 

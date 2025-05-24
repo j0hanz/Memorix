@@ -1,7 +1,7 @@
 import { type ReactNode, useState } from 'react';
 import useSound from 'use-sound';
 
-import { CATEGORIES, DELAYS, GAME_CONFIG } from '@/constants/constants';
+import { CATEGORIES, DELAYS, GAME_CONFIG } from '@/constants/game';
 import type { SoundKey } from '@/constants/sounds';
 import { SOUND_FILES } from '@/constants/sounds';
 import { AuthContext } from '@/contexts/AuthContext';

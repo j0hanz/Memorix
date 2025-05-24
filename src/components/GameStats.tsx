@@ -1,7 +1,7 @@
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 
-import { useScore } from '@/hooks/useScoreboard';
+import { useStarRating } from '@/hooks/useScoreboard';
 import { useTimer } from '@/hooks/useTimer';
 import type { MovesProps, ScoreProps, TimerProps } from '@/types/components';
 
@@ -30,7 +30,7 @@ export const Timer = ({ timerActive }: TimerProps) => {
 
 // Score component
 export const Score = ({ moves, completedTime }: ScoreProps) => {
-  const { stars } = useScore(moves, parseInt(completedTime, 10));
+  const { stars } = useStarRating(moves, parseInt(completedTime, 10));
   return (
     <>
       <StarRating count={stars} />

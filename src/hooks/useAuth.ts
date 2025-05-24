@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
+import { AUTH_ENDPOINTS, PROFILE_ENDPOINTS } from '@/constants/api';
 import { axiosReq } from '@/services/axios';
 import type { AuthContextType } from '@/types/context';
 import type { Profile, User } from '@/types/data';
@@ -41,7 +42,7 @@ export function useAuthProvider(): AuthContextType {
 
     try {
       const res = await axiosReq.get<Profile>(
-        `/api/profiles/${String(user.profile_id)}/`,
+        PROFILE_ENDPOINTS.profileDetail(user.profile_id),
       );
       setProfile(res.data);
       return res.data;
@@ -78,7 +79,7 @@ export function useAuthProvider(): AuthContextType {
       }
 
       try {
-        const userRes = await axiosReq.get<User>('/dj-rest-auth/user/');
+        const userRes = await axiosReq.get<User>(AUTH_ENDPOINTS.user);
         setUser(userRes.data);
 
         if (userRes.data.profile_id) {

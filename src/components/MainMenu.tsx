@@ -9,7 +9,7 @@ import { Suspense, useEffect, useState } from 'react';
 import styles from '@/App.module.css';
 import { LoadingCardSpinner } from '@/components/Spinner';
 import { Toast } from '@/components/Toast';
-import { DELAYS } from '@/constants/constants';
+import { DELAYS } from '@/constants/game';
 import { useAuth, useModal, useSound } from '@/hooks/useProvider';
 import type { MainMenuProps } from '@/types/components';
 

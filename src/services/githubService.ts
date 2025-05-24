@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GITHUB_API } from '@/constants/constants';
+import { GITHUB_API } from '@/constants/api';
 import type { Commit, GitHubCommitResponse } from '@/types/services';
 
 const githubAxios = axios.create({

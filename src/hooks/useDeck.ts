@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { CATEGORIES } from '@/constants/constants';
+import { CATEGORIES } from '@/constants/game';
 import { generateCards } from '@/data/cardData';
 import type { PairedCard } from '@/types/data';
 import { shuffleCards } from '@/utils/deckUtils';
