@@ -1,6 +1,6 @@
 import { AuthData } from '@/components/auth/AuthData';
 import { Modal } from '@/components/Modal';
-import { MODAL_CONFIGS } from '@/contexts/ModalContext';
+import { MODAL_CONFIGS } from '@/constants/configs';
 import type { AuthModalProps } from '@/types/components';
 
 export function AuthModal({ show, onClose }: AuthModalProps) {
