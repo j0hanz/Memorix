@@ -9,6 +9,13 @@ export interface AsyncState<T> {
   error: string | null;
 }
 
+export interface PaginatedData<T> {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[];
+}
+
 export interface TokenState {
   isRefreshing: boolean;
   subscribers: ((token: string) => void)[];

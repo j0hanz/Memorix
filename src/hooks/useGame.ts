@@ -190,7 +190,6 @@ export function useGame(
     onExit();
   }
 
-
   return {
     ...state,
     selectCard,
