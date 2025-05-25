@@ -75,10 +75,10 @@ export function ProfileGameHistory() {
           {scores.map((s) => (
             <ScoreRow key={s.id} score={s} />
           ))}
-          {total > 5 && (
+          {total > 3 && (
             <Pagination
               page={page}
-              totalPages={Math.ceil(total / 5)}
+              totalPages={Math.ceil(total / 3)}
               onPrev={() => {
                 setPage(page - 1);
               }}

@@ -10,8 +10,7 @@ import { CategoryIcon } from './CategoryIcon';
 import styles from './styles/Modal.module.css';
 
 export const ScoreRow: FC<ScoreRowProps> = ({ score }) => (
-  <div>
-    <Row
+  <Row
       className={`d-flex justify-content-between align-items-center ${styles.scoreRow}`}
     >
       <Col xs={1} className="d-flex justify-content-start align-items-center">
@@ -30,5 +29,4 @@ export const ScoreRow: FC<ScoreRowProps> = ({ score }) => (
         {score.completed_at}
       </Col>
     </Row>
-  </div>
 );

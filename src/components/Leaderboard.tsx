@@ -39,17 +39,14 @@ export function Leaderboard() {
       ) : error ? (
         <div className="text-danger text-center p-3">{error}</div>
       ) : leaderboard.length > 0 ? (
-        <div className="my-3">
+        <>
           {leaderboard.slice(0, 5).map((entry) => (
-            <Row
-              key={entry.id}
-              className={`d-flex justify-content-between align-items-center ${styles.scoreRow}`}
-            >
+            <Row key={entry.id} className={styles.scoreRow}>
               <Col
                 xs={2}
                 className="d-flex justify-content-start align-items-center gap-2"
               >
-                <span className={styles.rank}>{entry.rank}</span>
+                <div className={styles.rank}>{entry.rank}</div>
                 <CategoryIcon categoryName={entry.category_name} />
                 {entry.profile_picture_url && (
                   <Button
@@ -82,7 +79,7 @@ export function Leaderboard() {
               </Col>
             </Row>
           ))}
-        </div>
+        </>
       ) : (
         <div className="text-center p-3 mt-3">
           No leaderboard data available.

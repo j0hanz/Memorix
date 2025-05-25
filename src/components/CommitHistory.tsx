@@ -15,7 +15,7 @@ export const CommitStatus = ({ onClose }: CommitStatusProps) => {
 
   return (
     <>
-      <div className={styles.latestUpdatesModal}>
+      <div className={styles.modalRow}>
         {loading && (
           <div className={styles.commitStatus}>Loading commit data...</div>
         )}

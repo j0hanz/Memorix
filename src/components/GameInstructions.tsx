@@ -12,7 +12,7 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
     <Modal
       show={show}
       onClose={onClose}
-      className={styles.instructionsModal}
+      className={styles.modalContent}
       backdrop={config.backdrop}
     >
       <InstructionsData />

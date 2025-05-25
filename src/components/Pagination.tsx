@@ -5,13 +5,15 @@ import type { FC } from 'react';
 import { Button } from '@/components/Button';
 import type { PaginationProps } from '@/types/components';
 
+import styles from './styles/Pagination.module.css';
+
 export const Pagination: FC<PaginationProps> = ({
   page,
   totalPages,
   onPrev,
   onNext,
 }) => (
-  <div className="d-flex justify-content-center align-items-center gap-3">
+  <div className={styles.paginationButtons}>
     <Button
       onClick={onPrev}
       disabled={page === 1}

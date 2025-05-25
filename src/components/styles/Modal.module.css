@@ -18,8 +18,7 @@
   }
 }
 
-.instructionsModal :global(.modal-content),
-.leaderboardModal :global(.modal-content) {
+.modalContent :global(.modal-content) {
   min-height: 45vh;
   @container (max-width: 400px) {
     height: 100%;
@@ -27,7 +26,8 @@
 }
 
 .modalRow {
-  min-height: 30vh;
+  min-height: 35vh;
+  padding-block: 0.5rem;
 }
 
 .accountInfo {
@@ -47,7 +47,6 @@
 
 .modalButtons {
   display: flex;
-  gap: 1px;
   margin-top: 1rem;
 }
 
@@ -128,10 +127,10 @@
 }
 
 .commitDate {
-  align-items: center;
-  color: var(--text-count-color);
   display: flex;
+  align-items: center;
   font-size: 0.9em;
+  gap: 0.5rem;
   opacity: 0.8;
 }
 
@@ -286,7 +285,6 @@
 
 .rank {
   font-size: 1rem;
-  font-weight: bold;
 }
 
 .scoreIconStar {
@@ -306,6 +304,8 @@
 }
 
 .scoreRow {
+  display: flex;
+  justify-content: space-between;
   border-bottom: var(--border-bottom-primary);
   margin: 0 auto;
   padding-block: 0.5rem;
@@ -323,7 +323,7 @@
   display: flex;
   font-size: 1.3rem;
   justify-content: space-between;
-  padding-inline: 1rem;
+  padding: 1rem;
 }
 
 .starIcon {
