@@ -42,7 +42,7 @@ export function ProfileOverview({
           src={imageSrc}
           alt="Profile"
           className={styles.profileImage}
-          fallbackSrc="/img/default-avatar.webp"
+          fallbackSrc="/img/fallback.webp"
         />
         <Button
           className={`${styles.btnUpload} ${styles.btnMain}`}

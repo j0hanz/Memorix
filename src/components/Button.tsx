@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import { Button as CustomButton } from 'react-bootstrap';
 
+import { Image } from '@/components/Image';
 import { Tooltip } from '@/components/Tooltip';
 import { useSound } from '@/hooks/useProvider';
 import type { CustomButtonProps } from '@/types/components';
@@ -57,13 +58,12 @@ export const Button: FC<
   const buttonContent = (
     <CustomButton {...props} onClick={handleClick} className={buttonClassName}>
       {img && (
-        <img
+        <Image
           src={img}
           alt={imgAlt || ''}
           className={imgClassName}
-          onError={(e) => {
-            e.currentTarget.src = '/img/default-avatar.webp';
-          }}
+          fallbackSrc="/img/fallback.webp"
+          loading="eager"
         />
       )}
       {icon && <div className={styles.icon}>{icon}</div>}
