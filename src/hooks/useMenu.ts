@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 
 import { DELAYS } from '@/constants/game';
-import { useAuth, useModal } from '@/hooks/useProvider';
-import { useSoundHandler } from '@/hooks/useSound';
+import { useAuth, useModal, useSound } from '@/hooks/useProvider';
 
 // Menu state handler
 export function useMenuHandler() {
-  const { isMuted, toggleMute } = useSoundHandler();
+  const { isMuted, toggleMute } = useSound();
   const { isAuthenticated, user, profile, getProfile } = useAuth();
   const { openModal } = useModal();
 
