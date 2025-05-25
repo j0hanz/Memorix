@@ -1,34 +1,23 @@
 import { GameCategory } from '@/components/GameCatagory';
 import { Pagination } from '@/components/Pagination';
 import { ScoreRow } from '@/components/ScoreRow';
-import { useGameHistory } from '@/hooks/useGameHistory';
-import { useProfile } from '@/hooks/useProvider';
+import { useProfileScore } from '@/hooks/useProfileScore';
 
-// This component displays the game history of a user profile.
 export function ProfileGameHistory() {
-  const { scores, loadingScores, scoresCount, scoresPage, setScoresPage } =
-    useProfile();
-
   const {
-    bestCategory,
-    playedCategories,
-    selectedBest,
-    filterCategory,
-    allCats,
-    filteredScores,
-    validPageScores,
-    totalPages,
-    handleBestCategoryChange,
-    handleFilterCategoryChange,
-    handlePreviousPage,
-    handleNextPage,
-  } = useGameHistory({
+    currentDisplayBestScore,
+    loadingBest,
     scores,
-    loadingScores,
-    scoresCount,
-    scoresPage,
-    setScoresPage,
-  });
+    total,
+    page,
+    setPage,
+    pagedCategoryFilter,
+    setPagedCategoryFilter,
+    selectedBestCategory,
+    setSelectedBestCategory,
+    loadingPaged,
+    playedCategories,
+  } = useProfileScore();
 
   return (
     <>
@@ -38,47 +27,73 @@ export function ProfileGameHistory() {
             id="best-score-category"
             label="Best Scores"
             options={playedCategories}
-            value={bestCategory}
-            onChange={handleBestCategoryChange}
-            loading={false}
+            value={selectedBestCategory}
+            onChange={(v) => {
+              setSelectedBestCategory(v);
+            }}
+            loading={loadingBest}
             showAllOption={false}
           />
-          {selectedBest && (
+          {loadingBest && !currentDisplayBestScore && (
+            <div className="text-center p-2">Loading best score...</div>
+          )}
+          {currentDisplayBestScore && (
             <ScoreRow
-              key={selectedBest.id}
-              score={selectedBest}
+              key={currentDisplayBestScore.id}
+              score={currentDisplayBestScore}
               highlight={true}
             />
           )}
+          {!loadingBest && !currentDisplayBestScore && selectedBestCategory && (
+            <div className="text-center p-3 mt-1">
+              No best score recorded for{' '}
+              {playedCategories.find((pc) => pc.value === selectedBestCategory)
+                ?.label || selectedBestCategory}
+              .
+            </div>
+          )}
         </>
       )}
+
       <GameCategory
         id="filter-category"
         label="Filter by Category"
         hideLabel={true}
-        options={allCats}
-        value={filterCategory}
-        onChange={handleFilterCategoryChange}
+        options={playedCategories}
+        value={pagedCategoryFilter || ''}
+        onChange={(v) => {
+          setPagedCategoryFilter(v);
+          setPage(1);
+        }}
         showAllOption={true}
       />
-      {loadingScores ? (
+
+      {loadingPaged ? (
         <div className="text-center p-4">Loading game history...</div>
-      ) : filteredScores.length > 0 ? (
+      ) : scores.length > 0 ? (
         <>
-          {validPageScores.map((s) => (
+          {scores.map((s) => (
             <ScoreRow key={s.id} score={s} />
           ))}
-          {totalPages > 1 && (
+          {total > 5 && (
             <Pagination
-              page={scoresPage}
-              totalPages={totalPages}
-              onPrev={handlePreviousPage}
-              onNext={handleNextPage}
+              page={page}
+              totalPages={Math.ceil(total / 5)}
+              onPrev={() => {
+                setPage(page - 1);
+              }}
+              onNext={() => {
+                setPage(page + 1);
+              }}
             />
           )}
         </>
       ) : (
-        <div className="text-center p-3 mt-3">No game history found.</div>
+        <div className="text-center p-3 mt-3">
+          {pagedCategoryFilter
+            ? `No game history found for ${playedCategories.find((pc) => pc.value === pagedCategoryFilter)?.label || pagedCategoryFilter}.`
+            : 'No game history found.'}
+        </div>
       )}
     </>
   );
