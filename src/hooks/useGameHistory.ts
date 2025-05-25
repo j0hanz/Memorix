@@ -11,6 +11,7 @@ export function useGameHistory({
   scoresCount,
   scoresPage,
   setScoresPage,
+  loadingScores,
 }: UseGameHistoryProps) {
   const { game } = useServices();
   const [filterCategory, setFilterCategory] = useState<string>('');
@@ -22,7 +23,7 @@ export function useGameHistory({
     GameOptions[]
   >([]);
 
-  // Fetch user scores
+  // Fetch user best scores
   const { data: bestScoresData, loading: loadingBest } = useFetch<UserScore[]>(
     async () => {
       return await game.getUserBestScores();
@@ -33,12 +34,26 @@ export function useGameHistory({
     },
   );
 
-  // Filter scores by category
-  const filteredScores = filterCategory
-    ? scores.filter((s) => s.category_name === filterCategory)
-    : scores;
-
-  const filteredCount = filterCategory ? filteredScores.length : scoresCount;
+  // Fetch filtered scores when filter category changes
+  const { data: filteredScoresData, loading: loadingFiltered } = useFetch<{
+    results: UserScore[];
+    count: number;
+  }>(
+    async () => {
+      if (!filterCategory) {
+        // Return current scores if no filter
+        return { results: scores, count: scoresCount };
+      }
+      // Get filtered data from server with category and page
+      const data = await game.getUserScores(scoresPage, filterCategory);
+      return data;
+    },
+    {
+      errorCategory: 'api',
+      skipFetch: !filterCategory,
+      initialData: { results: scores, count: scoresCount },
+    },
+  );
 
   // Set initial categories
   useEffect(() => {
@@ -47,7 +62,7 @@ export function useGameHistory({
     );
   }, []);
 
-  // Set played categories
+  // Set played categories from best scores
   useEffect(() => {
     const bestScores = bestScoresData || [];
     const bestCats = [
@@ -55,10 +70,15 @@ export function useGameHistory({
     ];
 
     if (bestCats.length > 0) {
-      const categories = bestCats.map((c) => ({
-        value: c,
-        label: c,
-      }));
+      const categories = bestCats.map((categoryName) => {
+        const categoryOption = getCategoryOptions().find(
+          (opt) => opt.label === categoryName,
+        );
+        return {
+          value: categoryOption?.value || categoryName.toLowerCase(),
+          label: categoryName,
+        };
+      });
       setStablePlayedCategories(categories);
       if (!bestCategory && categories.length > 0) {
         setBestCategory(categories[0].value);
@@ -69,13 +89,26 @@ export function useGameHistory({
     }
   }, [bestScoresData, bestCategory, initialLoadComplete]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredCount / pageSize));
-  const validPageScores: UserScore[] = filteredScores;
+  // Get display results based on filter state
+  const displayScores = filterCategory
+    ? filteredScoresData?.results || []
+    : scores;
 
-  // Find the selected best score only once after filtering
-  const selectedBest = (bestScoresData || []).find(
-    (s) => s.category_name.toLowerCase() === bestCategory.toLowerCase(),
-  );
+  // Calculate total count based on filter state
+  const displayCount = filterCategory
+    ? filteredScoresData?.count || 0
+    : scoresCount;
+
+  // Calculate total pages
+  const totalPages = Math.max(1, Math.ceil(displayCount / pageSize));
+
+  // Find the selected best score
+  const selectedBest = (bestScoresData || []).find((s) => {
+    const categoryOption = getCategoryOptions().find(
+      (opt) => opt.value === bestCategory,
+    );
+    return s.category_name === (categoryOption?.label || bestCategory);
+  });
 
   const handleBestCategoryChange = (value: string) => {
     setBestCategory(value);
@@ -100,10 +133,11 @@ export function useGameHistory({
     allCats,
     playedCategories: stablePlayedCategories,
     selectedBest,
-    filteredScores,
-    validPageScores,
+    filteredScores: displayScores,
+    validPageScores: displayScores,
     totalPages,
     loadingBest: loadingBest && !initialLoadComplete,
+    loadingScores: loadingScores || loadingFiltered,
     handleBestCategoryChange,
     handleFilterCategoryChange,
     handlePreviousPage,
