@@ -21,9 +21,11 @@ export const NavItem = ({
 }) => {
   const { playSound } = useSound();
 
+  const defaultClass = styles.navItem;
+
   return (
     <Nav.Item
-      className={`py-1 mb-1 d-flex align-items-center ${className} ${isActive ? styles.active : ''}`}
+      className={`py-1 mb-1 d-flex align-items-center ${className} ${isActive ? styles.active : ''} ${defaultClass}`}
     >
       <Nav.Link
         eventKey={eventKey}

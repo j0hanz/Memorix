@@ -8,6 +8,5 @@ export const CSS_CLASSES = {
   SUCCESS: 'success',
   HIDDEN: 'hidden',
   WRONG_PICK: 'wrongPick',
-  UNDER_BORDER: 'underBorder',
   BOTTOM_BORDER: 'bottomBorder',
 } as const;

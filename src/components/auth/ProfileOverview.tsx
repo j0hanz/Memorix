@@ -45,7 +45,7 @@ export function ProfileOverview({
           fallbackSrc="/img/fallback.webp"
         />
         <Button
-          className={`${styles.btnUpload} ${styles.btnMain}`}
+          className={`${styles.btnSolo} ${styles.btnMain}`}
           icon={<DriveFolderUploadIcon fontSize="small" />}
           color="secondary"
           text="Upload"
@@ -84,7 +84,7 @@ export function ProfileOverview({
               color="secondary"
             />
             <Button
-              className={`${styles.btnMain} ${styles.btnPassword}`}
+              className={styles.btnMain}
               variant="menu"
               text="Change Password"
               onClick={onPasswordClick}
@@ -93,7 +93,7 @@ export function ProfileOverview({
               icon={<LockResetIcon fontSize="small" />}
             />
             <Button
-              className={`${styles.btnMain} ${styles.btnDelete}`}
+              className={`${styles.btnMain} ${styles.btnSolo}`}
               variant="menu"
               text="Delete Account"
               onClick={onDeleteClick}

@@ -8,6 +8,7 @@ import { Suspense } from 'react';
 
 import styles from '@/App.module.css';
 import { LoadingCardSpinner } from '@/components/Spinner';
+import btnStyles from '@/components/styles/Button.module.css';
 import { Toast } from '@/components/Toast';
 import { useMenuHandler } from '@/hooks/useMenu';
 import type { MainMenuProps } from '@/types/components';
@@ -55,39 +56,39 @@ export const MainMenu = ({
         {menuLoading ? (
           <LoadingCardSpinner isLoading={true} message="Loading..." />
         ) : (
-          <div className={styles.menuButtons}>
+          <div className={btnStyles.menuButtons}>
             <MenuButton
               onClick={startGame}
-              className={`${styles.btnMain} ${styles.btnStart}`}
+              className={`${btnStyles.btnMain} ${btnStyles.btnStart}`}
               icon={<PlayCircleOutlineOutlinedIcon />}
               text="Start Game"
               color="primary"
             />
             <MenuButton
               onClick={handleAccountClick}
-              className={`${styles.btnMain} ${styles.btnMenu}`}
+              className={`${btnStyles.btnMain} ${btnStyles.btnMenu}`}
               icon={<PersonIcon />}
               text={isAuthenticated ? 'Profile' : 'Account'}
             />
             <MenuButton
               onClick={openLeaderboardModal}
-              className={`${styles.btnMain} ${styles.btnMenu}`}
+              className={`${btnStyles.btnMain} ${btnStyles.btnMenu}`}
               icon={<EmojiEventsIcon />}
               text="Leaderboard"
             />
             <MenuButton
               onClick={openInstructions}
-              className={`${styles.btnMain} ${styles.btnMenu}`}
+              className={`${btnStyles.btnMain} ${btnStyles.btnMenu}`}
               icon={<InfoOutlinedIcon />}
               text="Guide"
             />
             <MenuButton
               onClick={openLatestUpdates}
-              className={`${styles.btnMain} ${styles.btnEnd}`}
+              className={`${btnStyles.btnMain} ${btnStyles.btnEnd}`}
               icon={<TrackChangesOutlinedIcon />}
               text="Updates"
             />
-            <div className={styles.bottomMenu}>
+            <div className={btnStyles.bottomMenu}>
               <SoundToggle isMuted={isMuted} onToggle={toggleMute} />
             </div>
           </div>

@@ -20,7 +20,7 @@ const ErrorFallback: React.FC<FallbackProps> = ({
       onClick={resetErrorBoundary}
       text="Restart Application"
       color="secondary"
-      className={`${styles.modalButton} ${styles.closeButtonSolo}`}
+      className={`${styles.modalButton} ${styles.btnSolo}`}
       icon={<RestartAltIcon fontSize="small" />}
     />
   );

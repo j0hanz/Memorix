@@ -50,7 +50,7 @@ export function Modal({
       {!footer && showCloseButton && (
         <CustomModal.Footer className={`border-0 ${footerClassName}`}>
           <Button
-            className={`${styles.closeButtonSolo} ${styles.modalButton}`}
+            className={`${styles.btnSolo} ${styles.modalButton}`}
             icon={<CloseOutlinedIcon fontSize="small" />}
             onClick={onClose}
             text="Close"

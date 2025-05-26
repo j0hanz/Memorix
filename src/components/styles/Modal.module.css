@@ -66,11 +66,12 @@
   width: 100%;
 }
 
-.closeButtonSolo,
-.btnClose {
+/* Bottom border radius buttons */
+.btnSolo {
   border-radius: var(--border-radius-bottom);
 }
 
+/* Left border radius */
 .btnLeft {
   border-radius: var(--border-radius-bottom-left);
 
@@ -79,6 +80,7 @@
   }
 }
 
+/* Right border radius */
 .btnRight {
   border-radius: var(--border-radius-bottom-right);
 
@@ -87,18 +89,14 @@
   }
 }
 
+/* Top border radius */
 .btnLogout {
   border-radius: var(--border-radius-top);
 }
 
-.btnMenu,
-.btnPassword {
+/* Secondary border radius */
+.btnMenu {
   border-radius: var(--border-radius-secondary);
-}
-
-.btnDelete,
-.btnUpload {
-  border-radius: var(--border-radius-bottom);
 }
 
 /* Category selection */
@@ -122,9 +120,7 @@
 }
 
 /* Navigation items */
-.navItemLeft,
-.navItemCenter,
-.navItemRight {
+.navItem {
   background: var(--btn-secondary);
   transition: var(--transition-primary);
 
@@ -142,14 +138,10 @@
   border-right: var(--border-secondary);
 }
 
+/* Combined center and middle styles */
 .navItemCenter {
+  border-radius: var(--border-radius-secondary);
   border-inline: var(--border-secondary);
-  border-radius: var(--border-radius-secondary);
-}
-
-.navItemMiddle {
-  border-block: var(--border-secondary);
-  border-radius: var(--border-radius-secondary);
 }
 
 .navItemRight {
@@ -352,7 +344,6 @@
   opacity: 0.6;
 }
 
-.underBorder,
 .bottomBorder {
   border-bottom: var(--border-bottom-primary);
   border-radius: var(--border-radius-secondary);

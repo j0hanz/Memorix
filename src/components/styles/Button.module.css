@@ -51,6 +51,48 @@
   padding: 0 !important;
 }
 
+.btnRounded {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.menuButtons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.btnMain {
+  height: 3.5rem;
+  border: var(--border-primary);
+
+  &:is(:hover, :active) {
+    border: var(--border-primary) !important;
+  }
+}
+
+.bottomMenu {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* Button border radius variations */
+.btnStart {
+  border-radius: var(--border-radius-top);
+}
+
+.btnMenu {
+  border-radius: var(--border-radius-secondary);
+}
+
+.btnEnd {
+  border-radius: var(--border-radius-bottom);
+}
+
 /* Container queries */
 @container (max-width: 400px) {
   .customButton {
