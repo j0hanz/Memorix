@@ -10,9 +10,7 @@ import { CategoryIcon } from './CategoryIcon';
 import styles from './styles/Modal.module.css';
 
 export const ScoreRow: FC<ScoreRowProps> = ({ score }) => (
-  <Row
-    className={styles.scoreRow}
-  >
+  <Row className={styles.scoreRow}>
     <Col xs={1} className="d-flex justify-content-start align-items-center">
       <CategoryIcon categoryName={score.category_name} />
     </Col>

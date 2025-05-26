@@ -2,6 +2,7 @@
   position: relative;
   display: inline-block;
   cursor: pointer;
+
   &:focus-visible {
     outline: 2px solid var(--btn-primary);
   }
@@ -9,26 +10,30 @@
 
 .tooltip {
   position: absolute;
-  z-index: 9999;
-  background-color: var(--bg-primary);
   padding: 0.5rem;
+  background-color: var(--bg-primary);
   border-radius: var(--border-radius-primary);
   font-size: 0.8rem;
+  z-index: 9999;
+
   &.top {
     bottom: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(-8px);
   }
+
   &.bottom {
     top: 100%;
     left: 50%;
     transform: translateX(-50%) translateY(8px);
   }
+
   &.left {
     right: 100%;
     top: 50%;
     transform: translateY(-50%) translateX(-8px);
   }
+
   &.right {
     left: 100%;
     top: 50%;
@@ -36,6 +41,7 @@
   }
 }
 
+/* Container queries */
 @container (max-width: 400px) {
   .tooltip {
     font-size: 0.7rem;

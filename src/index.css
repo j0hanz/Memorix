@@ -12,6 +12,7 @@ body {
 .btn {
   --bs-btn-disabled-bg: var(--btn-secondary);
   --bs-btn-disabled-border-color: transparent;
+
   &:is(:hover, :focus-visible) {
     background: var(--btn-secondary);
     border-color: var(--btn-secondary);
@@ -39,6 +40,7 @@ select {
   cursor: pointer;
   outline: none;
   transition: border-color 0.2s ease;
+
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;
@@ -49,6 +51,7 @@ option {
   background: var(--bg-secondary);
 }
 
+/* Responsive typography */
 @media (max-width: 425px) {
   body {
     font-size: 0.9rem;

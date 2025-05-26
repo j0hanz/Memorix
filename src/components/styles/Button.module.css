@@ -3,12 +3,14 @@
   align-items: center;
   justify-content: center;
   transition: var(--transition-primary);
+
+  &:focus-visible {
+    outline: 2px solid var(--btn-primary);
+  }
+
   &:active .icon,
   &:active .text {
     transform: scale(0.9);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--btn-primary);
   }
 }
 
@@ -27,9 +29,10 @@
   flex: 1;
 }
 
-/* Color classes */
+/* Color variants */
 .primaryColor {
   background: var(--btn-primary);
+
   &:is(:hover, :active) {
     background: var(--btn-primary-hover) !important;
   }
@@ -37,6 +40,7 @@
 
 .secondaryColor {
   background: var(--btn-secondary) !important;
+
   &:is(:hover, :active) {
     background: var(--btn-secondary-hover-active) !important;
   }
@@ -47,6 +51,7 @@
   padding: 0 !important;
 }
 
+/* Container queries */
 @container (max-width: 400px) {
   .customButton {
     font-size: 0.9em;

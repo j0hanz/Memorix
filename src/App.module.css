@@ -9,7 +9,7 @@
 
 .gameTitle {
   font:
-    500 5rem 'Fredoka',
+    500 5rem/1 'Fredoka',
     sans-serif;
   color: var(--text-color-highlight);
 }
@@ -31,6 +31,7 @@
 .btnMain {
   height: 3.5rem;
   border: var(--border-primary);
+
   &:is(:hover, :active) {
     border: var(--border-primary) !important;
   }
@@ -42,6 +43,7 @@
   margin-top: 0.5rem;
 }
 
+/* Button border radius variations */
 .btnStart {
   border-radius: var(--border-radius-top);
 }
@@ -54,12 +56,14 @@
   border-radius: var(--border-radius-bottom);
 }
 
+/* User profile section */
 .userInfoTopRight {
   position: fixed;
   top: 15px;
   right: 15px;
   z-index: 100;
   border-radius: 50%;
+
   &:has(img:active) {
     box-shadow: 0 0 0 2px var(--btn-secondary);
   }
@@ -72,20 +76,24 @@
   object-fit: cover;
   cursor: pointer;
   transition: transform 0.2s ease;
+
   &:where(:hover, :focus-visible) {
     transform: scale(1.05);
   }
+
   &:active {
     transform: scale(0.95);
   }
 }
 
+/* Container queries */
 @container (max-width: 400px) {
   .menu {
     width: 10rem;
   }
 }
 
+/* Media queries */
 @media (max-width: 768px) {
   .userInfoTopRight {
     top: 10px;

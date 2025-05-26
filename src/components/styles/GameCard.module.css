@@ -4,6 +4,7 @@
 
 .card {
   aspect-ratio: 1/1;
+  width: 100%;
   background: var(--bg-tertiary);
   border-radius: var(--border-radius-primary);
   cursor: pointer;
@@ -12,20 +13,37 @@
   transform-style: preserve-3d;
   transition: outline 0.1s ease-out 0.1s;
   will-change: transform, opacity;
-  width: 100%;
+
   &:focus-visible {
     outline: 2px solid var(--btn-primary);
   }
+
   &:has(.matched) {
     outline: var(--outline-card-matched);
   }
 }
 
+.front,
 .back {
-  background-image: url('/img/card-back.webp');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform-origin: center center;
+  overflow: hidden;
+
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: rotateY(180deg);
+  }
+}
+
+.back {
+  background: url('/img/card-back.webp') center/contain no-repeat;
 }
 
 .front {
@@ -34,24 +52,7 @@
   transform: rotateY(180deg);
 }
 
-.front,
-.back {
-  backface-visibility: hidden;
-  height: 100%;
-  left: 0;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  transform-origin: center center;
-  width: 100%;
-  & img {
-    height: 100%;
-    object-fit: cover;
-    transform: rotateY(180deg);
-    width: 100%;
-  }
-}
-
+/* Card states */
 .matched {
   outline: var(--outline-card-matched);
 }
@@ -60,6 +61,7 @@
   outline: var(--outline-card-active);
 }
 
+/* Container queries */
 @container (max-width: 350px) {
   .card {
     border-radius: var(--border-radius-primary);

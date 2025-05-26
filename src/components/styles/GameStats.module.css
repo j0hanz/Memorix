@@ -10,6 +10,7 @@
   font-size: 0.9rem;
 }
 
+/* Icon colors */
 .scoreIcon {
   color: color-mix(in srgb, var(--color-star-icon) 80%, #fff 20%);
 }
@@ -26,10 +27,12 @@
   color: var(--feedback-wrong);
 }
 
+/* Container queries */
 @container (max-width: 300px) {
   .stats {
     gap: 0.1rem;
   }
+
   .count {
     font-size: 0.8rem;
   }

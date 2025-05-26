@@ -1,32 +1,37 @@
 @scope (.modal) {
   :global(.modal-content) {
+    display: flex;
+    flex-direction: column;
     background: var(--bg-secondary);
     border-radius: var(--border-radius-primary);
     color: var(--text-color);
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
   }
+
   :global(.modal-header) {
     color: var(--text-color);
   }
+
   :global(.modal-footer) {
     --bs-modal-footer-gap: 0;
-    color: var(--text-color);
-    border-top: 1px solid var(--border-secondary);
     display: flex;
     justify-content: space-between;
+    color: var(--text-color);
+    border-top: 1px solid var(--border-secondary);
   }
+
   :global(.h4) {
     font-size: 1.5rem;
   }
 }
 
+/* Modal content sizing */
 .modalContent :global(.modal-content) {
   min-height: 45vh;
-  @container (max-width: 400px) {
-    height: 100%;
-  }
+}
+
+.errorModal :global(.modal-content) {
+  min-height: 30vh;
 }
 
 .modalRow {
@@ -34,12 +39,7 @@
   padding-block: 0.5rem;
 }
 
-.accountInfo {
-  display: none;
-  font-size: 0.8rem;
-  opacity: 0.6;
-}
-
+/* Button layouts */
 .menuButtons {
   display: flex;
   flex-direction: column;
@@ -59,10 +59,49 @@
   gap: 0.3rem;
 }
 
-.closeButtonSolo {
+/* Button variants */
+.btnMain {
+  font-size: 1em;
+  height: 2.5rem;
+  width: 100%;
+}
+
+.closeButtonSolo,
+.btnClose {
   border-radius: var(--border-radius-bottom);
 }
 
+.btnLeft {
+  border-radius: var(--border-radius-bottom-left);
+
+  &:is(:hover, :active) {
+    border: none !important;
+  }
+}
+
+.btnRight {
+  border-radius: var(--border-radius-bottom-right);
+
+  &:is(:hover, :active) {
+    border: none !important;
+  }
+}
+
+.btnLogout {
+  border-radius: var(--border-radius-top);
+}
+
+.btnMenu,
+.btnPassword {
+  border-radius: var(--border-radius-secondary);
+}
+
+.btnDelete,
+.btnUpload {
+  border-radius: var(--border-radius-bottom);
+}
+
+/* Category selection */
 .categoryDataContainer {
   margin-bottom: 2rem;
 }
@@ -73,171 +112,39 @@
 }
 
 .btnCategorySelect {
+  height: 3.5rem;
   border: var(--border-secondary);
   border-radius: var(--border-radius-secondary);
-  height: 3.5rem;
+
   &:is(:hover, :active) {
     border: var(--border-secondary) !important;
   }
 }
 
-.btnClose {
-  border-radius: var(--border-radius-bottom);
-}
-
-.btnLeft {
-  border-radius: var(--border-radius-bottom-left);
-  &:is(:hover, :active) {
-    border: none !important;
-  }
-}
-
-.btnLogout {
-  border-radius: var(--border-radius-top);
-}
-
-.btnMain {
-  font-size: 1em;
-  height: 2.5rem;
-  width: 100%;
-}
-
-.btnMenu {
-  border-radius: var(--border-radius-secondary);
-}
-
-.btnPassword {
-  border-radius: var(--border-radius-secondary);
-}
-
-.btnDelete {
-  border-radius: var(--border-radius-bottom);
-}
-
-.btnRight {
-  border-radius: var(--border-radius-bottom-right);
-  &:is(:hover, :active) {
-    border: none !important;
-  }
-}
-
-.btnUpload {
-  border-radius: var(--border-radius-bottom);
-}
-
-.clickableLabel {
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.commitDate {
-  display: flex;
-  align-items: center;
-  font-size: 0.9em;
-  gap: 0.5rem;
-  opacity: 0.8;
-}
-
-.commitIcon {
-  margin-inline-end: 0.5rem;
-}
-
-.commitItem {
-  border-bottom: var(--border-bottom-primary);
-  border-radius: var(--border-radius-secondary);
-  padding: 0.8rem;
-}
-
-.commitList {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.commitMessage a {
-  align-items: center;
-  color: var(--text-color);
-  display: flex;
-  opacity: 0.6;
-  padding-block: 0.3rem;
-  text-decoration: none;
-  transition: var(--transition-primary);
-  &:hover {
-    opacity: 1;
-  }
-}
-
-.commitStatus {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.fileInputHidden {
-  display: none;
-}
-
-.grayedOut {
-  color: var(--color-star-icon-gray);
-}
-
-.errorModal :global(.modal-content) {
-  min-height: 30vh;
-  @container (max-width: 400px) {
-    height: 100%;
-  }
-}
-
-.errorIcon {
-  color: var(--feedback-wrong);
-  font-size: 6rem !important;
-  margin-bottom: 0.5rem;
-  opacity: 0.8;
-}
-
-.errorArrowIcon {
-  color: var(--feedback-wrong);
-}
-
-.errorMessage {
-  align-items: center;
-  display: flex;
-  font-size: 0.8em;
-  gap: 0.5rem;
-  opacity: 0.8;
-  padding: 1rem 0.5rem;
-}
-
-.leaderboardAvatar {
-  border-radius: var(--border-radius-circle);
-  height: 25px;
-  object-fit: cover;
-  width: 25px;
-}
-
+/* Navigation items */
 .navItemLeft,
 .navItemCenter,
 .navItemRight {
   background: var(--btn-secondary);
   transition: var(--transition-primary);
+
   &:hover {
     background: var(--btn-secondary-hover-active);
   }
+
   &.active {
     background: var(--btn-primary);
   }
 }
 
-.navItemCenter {
-  border-inline: var(--border-secondary);
-  border-radius: var(--border-radius-secondary);
-}
-
 .navItemLeft {
   border-radius: var(--border-radius-top-left);
   border-right: var(--border-secondary);
+}
+
+.navItemCenter {
+  border-inline: var(--border-secondary);
+  border-radius: var(--border-radius-secondary);
 }
 
 .navItemMiddle {
@@ -251,26 +158,20 @@
 }
 
 .navLink {
-  align-items: center;
   display: flex;
-  font-size: 0.95em;
-  gap: 0.3rem;
+  align-items: center;
   justify-content: center;
-  @media (max-width: 425px) {
-    font-size: 0.9em;
-  }
+  gap: 0.3rem;
+  font-size: 0.95em;
 }
 
+/* Profile section */
 .profileImageContainer {
   display: flex;
   flex-direction: column;
   max-width: 12rem;
   padding-inline: 1rem;
   width: 100%;
-  @media (max-width: 390px) {
-    max-width: 9rem;
-    padding-inline: 0.5rem;
-  }
 }
 
 .profileImage {
@@ -283,73 +184,146 @@
 
 .profileUsername {
   color: var(--text-color);
-  font-size: 1.2rem;
-  font-weight: 500;
+  font: 500 1.2rem/1 inherit;
 }
 
-.rank {
-  font-size: 1rem;
-}
-
-.scoreIconStar {
-  font-size: 0.9rem !important;
-  @media (max-width: 425px) {
-    font-size: 0.8rem !important;
-  }
-  @media (max-width: 315px) {
-    font-size: 0.7rem !important;
-  }
+/* Score and ranking */
+.scoreboard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  color: var(--text-color);
+  font-size: 1.3rem;
 }
 
 .scoreItem {
-  align-items: center;
   display: flex;
+  align-items: center;
   font-size: 1rem;
 }
 
 .scoreRow {
   display: flex;
   justify-content: space-between;
-  border-bottom: var(--border-bottom-primary);
   margin: 0 auto;
   padding-block: 0.5rem;
+  border-bottom: var(--border-bottom-primary);
 }
 
 .scoreTab {
-  align-items: center;
   display: flex;
+  align-items: center;
   gap: 0.1rem;
 }
 
-.scoreboard {
-  align-items: center;
-  color: var(--text-color);
-  display: flex;
-  font-size: 1.3rem;
-  justify-content: space-between;
-  padding: 1rem;
+.rank {
+  font-size: 1rem;
+}
+
+.leaderboardAvatar {
+  width: 25px;
+  height: 25px;
+  border-radius: var(--border-radius-circle);
+  object-fit: cover;
+}
+
+/* Icon styles */
+.scoreIconStar {
+  font-size: 0.9rem !important;
 }
 
 .starIcon {
   color: var(--color-star-icon);
 }
 
-.success {
-  color: var(--feedback-correct);
+.grayedOut {
+  color: var(--color-star-icon-gray);
 }
 
-.underBorder {
-  border-bottom: var(--border-bottom-primary);
+/* State colors */
+.success {
+  color: var(--feedback-correct);
 }
 
 .wrongPick {
   color: var(--feedback-wrong);
 }
 
-.input {
+/* Error styles */
+.errorIcon {
+  color: var(--feedback-wrong);
+  font-size: 6rem !important;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+.errorArrowIcon {
+  color: var(--feedback-wrong);
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0.5rem;
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+
+/* Commit history */
+.commitList {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.commitItem {
+  padding: 0.8rem;
   border-bottom: var(--border-bottom-primary);
   border-radius: var(--border-radius-secondary);
+}
+
+.commitDate {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.commitIcon {
+  margin-inline-end: 0.5rem;
+}
+
+.commitMessage a {
+  display: flex;
+  align-items: center;
+  padding-block: 0.3rem;
+  color: var(--text-color);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: var(--transition-primary);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.commitStatus {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Form elements */
+.input {
   margin-block: 2rem;
+  border-bottom: var(--border-bottom-primary);
+  border-radius: var(--border-radius-secondary);
+
   &::placeholder {
     color: var(--text-color);
     opacity: 0.6;
@@ -362,13 +336,60 @@
   border-radius: var(--border-radius-secondary);
 }
 
+.fileInputHidden {
+  display: none;
+}
+
+.clickableLabel {
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Utility classes */
+.accountInfo {
+  display: none;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.underBorder,
 .bottomBorder {
   border-bottom: var(--border-bottom-primary);
   border-radius: var(--border-radius-secondary);
 }
 
+/* Media queries */
 @media (max-width: 425px) {
   .btnMain {
     font-size: 0.8rem;
+  }
+
+  .navLink {
+    font-size: 0.9em;
+  }
+
+  .scoreIconStar {
+    font-size: 0.8rem !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .profileImageContainer {
+    max-width: 9rem;
+    padding-inline: 0.5rem;
+  }
+}
+
+@media (max-width: 315px) {
+  .scoreIconStar {
+    font-size: 0.7rem !important;
+  }
+}
+
+/* Container queries */
+@container (max-width: 400px) {
+  .modalContent :global(.modal-content),
+  .errorModal :global(.modal-content) {
+    height: 100%;
   }
 }
