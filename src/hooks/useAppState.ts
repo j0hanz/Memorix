@@ -2,6 +2,7 @@ import { useReducer } from 'react';
 
 import { appReducer, initialAppState } from '@/reducers/appReducer';
 import type { AppState } from '@/types/hooks';
+import { appActions } from '@/utils/appActions';
 
 export function useAppState() {
   // Initialize app state with reducer
@@ -12,13 +13,13 @@ export function useAppState() {
     loading: state.loading,
     selectedCategory: state.selectedCategory,
     setLoading: (loadingState: Partial<AppState['loading']>) => {
-      dispatch({ type: 'SET_LOADING', value: loadingState });
+      dispatch(appActions.setLoading(loadingState));
     },
     setIsGameActive: (value: boolean) => {
-      dispatch({ type: 'SET_GAME_ACTIVE', value });
+      dispatch(appActions.setGameActive(value));
     },
     setSelectedCategory: (value: string) => {
-      dispatch({ type: 'SET_SELECTED_CATEGORY', value });
+      dispatch(appActions.setSelectedCategory(value));
     },
   };
 }
