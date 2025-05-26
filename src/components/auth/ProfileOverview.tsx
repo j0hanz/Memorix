@@ -7,6 +7,7 @@ import { Col } from 'react-bootstrap';
 
 import { Button } from '@/components/Button';
 import { Image } from '@/components/Image';
+import btnStyles from '@/components/styles/Button.module.css';
 import styles from '@/components/styles/Modal.module.css';
 import { useProfile } from '@/hooks/useProvider';
 
@@ -45,7 +46,7 @@ export function ProfileOverview({
           fallbackSrc="/img/fallback.webp"
         />
         <Button
-          className={`${styles.btnSolo} ${styles.btnMain}`}
+          className={`${styles.btnSolo} ${btnStyles.btnProfileMenu}`}
           icon={<DriveFolderUploadIcon fontSize="small" />}
           color="secondary"
           text="Upload"
@@ -73,18 +74,18 @@ export function ProfileOverview({
           <span className={styles.accountInfo}>
             Updated: {formatDate(profile.updated_at)}
           </span>
-          <div className={styles.menuButtons}>
+          <div className={btnStyles.menuButtons}>
             <div className={styles.profileUsername}>{user?.username}</div>
             <Button
               onClick={logout}
-              className={`${styles.btnMain} ${styles.btnLogout}`}
+              className={`${btnStyles.btnProfileMenu} ${btnStyles.btnStart}`}
               variant="menu"
               text="Sign Out"
               icon={<LogoutIcon fontSize="small" />}
               color="secondary"
             />
             <Button
-              className={styles.btnMain}
+              className={`${btnStyles.btnProfileMenu} ${btnStyles.btnMenu}`}
               variant="menu"
               text="Change Password"
               onClick={onPasswordClick}
@@ -93,7 +94,7 @@ export function ProfileOverview({
               icon={<LockResetIcon fontSize="small" />}
             />
             <Button
-              className={`${styles.btnMain} ${styles.btnSolo}`}
+              className={`${btnStyles.btnProfileMenu} ${btnStyles.btnEnd}`}
               variant="menu"
               text="Delete Account"
               onClick={onDeleteClick}

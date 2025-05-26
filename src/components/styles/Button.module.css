@@ -14,21 +14,6 @@
   }
 }
 
-.icon {
-  display: flex;
-  align-items: center;
-  transition: var(--transition-primary);
-}
-
-.text {
-  text-align: center;
-  transition: var(--transition-primary);
-}
-
-.menuText {
-  flex: 1;
-}
-
 /* Color variants */
 .primaryColor {
   background: var(--btn-primary);
@@ -51,6 +36,21 @@
   padding: 0 !important;
 }
 
+.icon {
+  display: flex;
+  align-items: center;
+  transition: var(--transition-primary);
+}
+
+.text {
+  text-align: center;
+  transition: var(--transition-primary);
+}
+
+.menuText {
+  flex: 1;
+}
+
 .btnRounded {
   width: 2rem;
   height: 2rem;
@@ -62,7 +62,22 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 1rem 0;
+}
+
+.btnProfileMenu {
+  font-size: 1em;
+  height: 3rem;
+  width: 100%;
+  border: var(--border-primary);
+
+  &:is(:hover, :active) {
+    border: var(--border-primary) !important;
+  }
+}
+
+.btnModalFooter {
+  display: flex;
+  margin-top: 1rem;
 }
 
 .btnMain {
@@ -80,7 +95,27 @@
   margin-top: 0.5rem;
 }
 
-/* Button border radius variations */
+.modalButton {
+  flex: 1;
+  gap: 0.3rem;
+}
+
+.btnLeft {
+  border-radius: var(--border-radius-bottom-left);
+
+  &:is(:hover, :active) {
+    border: none !important;
+  }
+}
+
+.btnRight {
+  border-radius: var(--border-radius-bottom-right);
+
+  &:is(:hover, :active) {
+    border: none !important;
+  }
+}
+
 .btnStart {
   border-radius: var(--border-radius-top);
 }
@@ -91,6 +126,21 @@
 
 .btnEnd {
   border-radius: var(--border-radius-bottom);
+}
+
+.btnCategoryContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.btnCategorySelect {
+  height: 3.5rem;
+  border: var(--border-secondary);
+  border-radius: var(--border-radius-secondary);
+
+  &:is(:hover, :active) {
+    border: var(--border-secondary) !important;
+  }
 }
 
 /* Container queries */

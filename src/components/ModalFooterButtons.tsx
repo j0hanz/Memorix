@@ -1,8 +1,7 @@
+import btnStyles from '@/components/styles/Button.module.css';
 import type { ModalFooterButtonsProps } from '@/types/components';
 
 import { Button } from './Button';
-import styles from './styles/Modal.module.css';
-
 export const ModalFooterButtons = ({
   leftText,
   rightText,
@@ -15,10 +14,10 @@ export const ModalFooterButtons = ({
   leftType = 'button',
   rightType = 'button',
 }: ModalFooterButtonsProps) => (
-  <div className={styles.modalButtons}>
+  <div className={btnStyles.btnModalFooter}>
     {leftText && (
       <Button
-        className={`${styles.btnLeft} ${styles.modalButton}`}
+        className={`${btnStyles.btnLeft} ${btnStyles.modalButton}`}
         onClick={onLeftClick}
         icon={leftIcon}
         text={leftText}
@@ -28,7 +27,7 @@ export const ModalFooterButtons = ({
       />
     )}
     <Button
-      className={`${styles.btnRight} ${styles.modalButton}`}
+      className={`${btnStyles.btnRight} ${btnStyles.modalButton}`}
       onClick={onRightClick}
       icon={rightIcon}
       text={rightText}

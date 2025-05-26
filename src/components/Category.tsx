@@ -1,3 +1,4 @@
+import btnStyles from '@/components/styles/Button.module.css';
 import { CATEGORY_INFO } from '@/constants/game';
 import type { CategoryDataProps } from '@/types/components';
 import { getCategoryIcon } from '@/utils/categoryUtils';
@@ -10,14 +11,14 @@ export function CategoryData({ onSelectCategory }: CategoryDataProps) {
   return (
     <div className={styles.categoryDataContainer}>
       <div
-        className={styles.btnCategoryContainer}
+        className={btnStyles.btnCategoryContainer}
         role="group"
         aria-label="Category selection"
       >
         {Object.entries(CATEGORY_INFO).map(([category, info]) => (
           <Button
             key={category}
-            className={styles.btnCategorySelect}
+            className={btnStyles.btnCategorySelect}
             category={category}
             onClick={() => {
               onSelectCategory(category);

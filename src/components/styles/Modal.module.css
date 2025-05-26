@@ -39,88 +39,16 @@
   padding-block: 0.5rem;
 }
 
-/* Button layouts */
-.menuButtons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  margin-block: 1rem;
-  max-width: 18rem;
-  width: 100%;
-}
-
-.modalButtons {
-  display: flex;
-  margin-top: 1rem;
-}
-
-.modalButton {
-  flex: 1;
-  gap: 0.3rem;
-}
-
-/* Button variants */
-.btnMain {
-  font-size: 1em;
-  height: 2.5rem;
-  width: 100%;
-}
-
-/* Bottom border radius buttons */
-.btnSolo {
-  border-radius: var(--border-radius-bottom);
-}
-
-/* Left border radius */
-.btnLeft {
-  border-radius: var(--border-radius-bottom-left);
-
-  &:is(:hover, :active) {
-    border: none !important;
-  }
-}
-
-/* Right border radius */
-.btnRight {
-  border-radius: var(--border-radius-bottom-right);
-
-  &:is(:hover, :active) {
-    border: none !important;
-  }
-}
-
-/* Top border radius */
-.btnLogout {
-  border-radius: var(--border-radius-top);
-}
-
-/* Secondary border radius */
-.btnMenu {
-  border-radius: var(--border-radius-secondary);
-}
-
 /* Category selection */
 .categoryDataContainer {
   margin-bottom: 2rem;
 }
 
-.btnCategoryContainer {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.btnCategorySelect {
-  height: 3.5rem;
-  border: var(--border-secondary);
-  border-radius: var(--border-radius-secondary);
-
-  &:is(:hover, :active) {
-    border: var(--border-secondary) !important;
-  }
-}
-
 /* Navigation items */
 .navItem {
+  display: flex;
+  align-items: center;
+  height: 3rem;
   background: var(--btn-secondary);
   transition: var(--transition-primary);
 

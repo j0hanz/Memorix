@@ -2,6 +2,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { Modal as CustomModal } from 'react-bootstrap';
 
 import { Button } from '@/components/Button';
+import btnStyles from '@/components/styles/Button.module.css';
 import styles from '@/components/styles/Modal.module.css';
 import type { ModalProps } from '@/types/components';
 
@@ -50,7 +51,7 @@ export function Modal({
       {!footer && showCloseButton && (
         <CustomModal.Footer className={`border-0 ${footerClassName}`}>
           <Button
-            className={`${styles.btnSolo} ${styles.modalButton}`}
+            className={`${btnStyles.btnEnd} ${btnStyles.modalButton}`}
             icon={<CloseOutlinedIcon fontSize="small" />}
             onClick={onClose}
             text="Close"
