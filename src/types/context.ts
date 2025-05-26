@@ -1,11 +1,11 @@
 import type { Dispatch } from 'react';
 
 import type { SoundKey } from '@/constants/sounds';
-import type { GameAction } from '@/reducers/gameReducer';
 import type { Profile, User } from '@/types/data';
 import type { ModalData } from '@/types/data';
 import type { CardData } from '@/types/data';
 import type { CSSModuleClasses } from '@/types/hooks';
+import type { GameAction } from '@/types/reducers';
 import type { GameState } from '@/types/reducers';
 import type {
   AppError,

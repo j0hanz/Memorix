@@ -1,6 +1,7 @@
 import { ScoreboardModal } from '@/components/ScoreboardModal';
 import { useGameState } from '@/hooks/useProvider';
 import type { GameProps } from '@/types/components';
+import { gameActions } from '@/utils/gameActions';
 
 import { Cards } from './Cards';
 
@@ -29,7 +30,7 @@ export function Game({ onRestart }: GameProps) {
 
   // Close the modal
   const handleModalClose = () => {
-    dispatch({ type: 'TOGGLE_MODAL', payload: { show: false } });
+    dispatch(gameActions.toggleModal(false));
   };
 
   return (

@@ -18,6 +18,7 @@ import {
   getStatsTopClass,
   isCardClickable,
 } from '@/utils/cardUtils';
+import { gameActions } from '@/utils/gameActions';
 
 export function useGame(
   onExit: () => void,
@@ -30,14 +31,14 @@ export function useGame(
 
   // Initialize the game board and reveal sequence
   const initializeGame = useCallback((): (() => void) => {
-    dispatch({ type: 'INITIALIZE_GAME', payload: { cards: deck } });
+    dispatch(gameActions.initializeGame(deck));
     // Start initial reveal and hide sequence
     let hideTimer: ReturnType<typeof setTimeout>;
     const revealTimer = setTimeout(() => {
-      dispatch({ type: 'REVEAL_ALL_CARDS' });
+      dispatch(gameActions.revealAllCards());
       hideTimer = setTimeout(() => {
-        dispatch({ type: 'HIDE_ALL_CARDS' });
-        dispatch({ type: 'START_TIMER' });
+        dispatch(gameActions.hideAllCards());
+        dispatch(gameActions.startTimer());
       }, DELAYS.INITIAL_REVEAL_TIME);
     }, DELAYS.INITIAL_REVEAL);
     // Cleanup both timers
@@ -62,11 +63,8 @@ export function useGame(
     }
 
     function setGameOver(completedTime: number): void {
-      dispatch({
-        type: 'SET_GAME_OVER',
-        payload: { completedTime },
-      });
-      dispatch({ type: 'TOGGLE_MODAL', payload: { show: true } });
+      dispatch(gameActions.setGameOver(completedTime));
+      dispatch(gameActions.toggleModal(true));
     }
 
     if (
@@ -91,18 +89,15 @@ export function useGame(
 
   // Handle first card selection
   function handleFirstCardSelection(index: number): void {
-    dispatch({ type: 'SELECT_CARD', payload: { index } });
+    dispatch(gameActions.selectCard(index));
     previousIndex.current = index;
     playSound('click');
   }
 
   // Handle second card selection
   function handleSecondCardSelection(index: number): void {
-    dispatch({
-      type: 'SET_PROCESSING_MATCH',
-      payload: { isProcessing: true },
-    });
-    dispatch({ type: 'SELECT_CARD', payload: { index } });
+    dispatch(gameActions.setProcessingMatch(true));
+    dispatch(gameActions.selectCard(index));
 
     const isMatch = checkForMatch(index);
     updateGameState(isMatch);
@@ -120,21 +115,15 @@ export function useGame(
   function updateGameState(isMatch: boolean): void {
     const feedbackType = isMatch ? FEEDBACK.SUCCESS : FEEDBACK.ERROR;
 
-    dispatch({
-      type: 'SET_FEEDBACK',
-      payload: { feedback: feedbackType },
-    });
-    dispatch({ type: 'INCREMENT_MOVES' });
+    dispatch(gameActions.setFeedback(feedbackType));
+    dispatch(gameActions.incrementMoves());
     playSound(isMatch ? 'correct' : 'wrong');
   }
 
   // Process match after delay
   function processMatchAfterDelay(index: number, isMatch: boolean): void {
     setTimeout(() => {
-      dispatch({
-        type: 'PROCESS_MATCH',
-        payload: { index, isMatch },
-      });
+      dispatch(gameActions.processMatch(index, isMatch));
       previousIndex.current = null;
     }, DELAYS.MATCH_PROCESSING);
   }
@@ -181,7 +170,7 @@ export function useGame(
   // Reset game state
   function resetGame(): void {
     refreshDeck();
-    dispatch({ type: 'RESET_GAME', payload: { cards: deck } });
+    dispatch(gameActions.resetGame(deck));
   }
 
   // Exit to main menu

@@ -6,33 +6,42 @@ import {
   setMultipleCardStatus,
 } from '@/utils/cardUtils';
 
+// Initial game state definition
 export const initialGameState: GameState = {
+  // Card state
   cards: [],
   selectedCardIndex: null,
   matchedPairs: 0,
+
+  // Game progress
   moves: 0,
   isGameOver: false,
+  completedTime: 0,
+
+  // Timer state
   timerActive: false,
+  startTime: null,
+
+  // UI state
   feedback: '',
+  showModal: false,
+
+  // Game state
   isInitialReveal: true,
   isProcessingMatch: false,
-  completedTime: 0,
-  startTime: null,
-  showModal: false,
 };
 
-// Reducer function for the game state
+// Main game reducer function
 export function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
+    // Card management actions
     case 'INITIALIZE_GAME':
-      // Initialize game state with cards
       return {
         ...initialGameState,
         cards: action.payload.cards,
       };
 
     case 'REVEAL_ALL_CARDS':
-      // Reveal all cards at the start of the game
       return {
         ...state,
         isProcessingMatch: true,
@@ -40,7 +49,6 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       };
 
     case 'HIDE_ALL_CARDS':
-      // Hide all cards after a delay
       return {
         ...state,
         isProcessingMatch: false,
@@ -53,65 +61,55 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         })),
       };
 
-    case 'SELECT_CARD': {
-      // Select a card for comparison
-      const { index } = action.payload;
+    case 'SELECT_CARD':
       return {
         ...state,
-        cards: setCardStatus(state.cards, index, CARD_STATUS.ACTIVE),
+        cards: setCardStatus(
+          state.cards,
+          action.payload.index,
+          CARD_STATUS.ACTIVE,
+        ),
         selectedCardIndex:
-          state.selectedCardIndex === null ? index : state.selectedCardIndex,
+          state.selectedCardIndex === null
+            ? action.payload.index
+            : state.selectedCardIndex,
       };
-    }
 
     case 'PROCESS_MATCH': {
-      // Process the selected pair of cards
-      const { index, isMatch } = action.payload;
       const prevIndex = state.selectedCardIndex as number;
-      const newStatus = isMatch ? CARD_STATUS.MATCHED : CARD_STATUS.DEFAULT;
+      const newStatus = action.payload.isMatch
+        ? CARD_STATUS.MATCHED
+        : CARD_STATUS.DEFAULT;
+
       return {
         ...state,
         cards: setMultipleCardStatus(
           state.cards,
-          [index, prevIndex],
+          [action.payload.index, prevIndex],
           newStatus,
         ),
         selectedCardIndex: null,
-        matchedPairs: isMatch ? state.matchedPairs + 1 : state.matchedPairs,
+        matchedPairs: action.payload.isMatch
+          ? state.matchedPairs + 1
+          : state.matchedPairs,
         isProcessingMatch: false,
       };
     }
 
     case 'SET_PROCESSING_MATCH':
-      // Set the processing match state
       return {
         ...state,
         isProcessingMatch: action.payload.isProcessing,
       };
 
-    case 'SET_FEEDBACK':
-      // Set feedback message
-      return {
-        ...state,
-        feedback: action.payload.feedback,
-      };
-
-    case 'CLEAR_FEEDBACK':
-      // Clear feedback message
-      return {
-        ...state,
-        feedback: '',
-      };
-
+    // Game progress actions
     case 'INCREMENT_MOVES':
-      // Increment move count
       return {
         ...state,
         moves: state.moves + 1,
       };
 
     case 'SET_GAME_OVER':
-      // Set game over state
       return {
         ...state,
         isGameOver: true,
@@ -119,8 +117,14 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         completedTime: action.payload.completedTime,
       };
 
+    case 'RESET_GAME':
+      return {
+        ...initialGameState,
+        cards: action.payload.cards,
+      };
+
+    // Timer actions
     case 'START_TIMER':
-      // Start the game timer
       return {
         ...state,
         timerActive: true,
@@ -128,24 +132,28 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       };
 
     case 'STOP_TIMER':
-      // Stop the game timer
       return {
         ...state,
         timerActive: false,
       };
 
+    // UI state actions
+    case 'SET_FEEDBACK':
+      return {
+        ...state,
+        feedback: action.payload.feedback,
+      };
+
+    case 'CLEAR_FEEDBACK':
+      return {
+        ...state,
+        feedback: '',
+      };
+
     case 'TOGGLE_MODAL':
-      // Toggle the game over modal
       return {
         ...state,
         showModal: action.payload.show,
-      };
-
-    case 'RESET_GAME':
-      // Reset the game state
-      return {
-        ...initialGameState,
-        cards: action.payload.cards,
       };
 
     default:
