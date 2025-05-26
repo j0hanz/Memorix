@@ -3,12 +3,7 @@ import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { AUTH_ENDPOINTS } from '@/constants/api';
 import type { AuthResponse } from '@/types/services';
 import { axiosReq } from '@/utils/axios';
-import {
-  parseTokensFromResponse,
-  tokenRefreshManager,
-  tokenStorage,
-  tokenValidator,
-} from '@/utils/tokenUtils';
+import { tokenManager } from '@/utils/tokenUtils';
 
 const AUTH_PATHS = [
   AUTH_ENDPOINTS.login,
@@ -16,96 +11,97 @@ const AUTH_PATHS = [
   AUTH_ENDPOINTS.refresh,
 ];
 
-async function handleRefresh(
+async function handleTokenRefresh(
   config: InternalAxiosRequestConfig,
 ): Promise<InternalAxiosRequestConfig> {
-  if (!tokenRefreshManager.getIsRefreshing()) {
-    tokenRefreshManager.setIsRefreshing(true);
-    try {
-      const newToken = await refreshAccessToken();
-      tokenRefreshManager.setIsRefreshing(false);
-
-      if (newToken) {
-        tokenRefreshManager.onRefreshed(newToken);
-        config.headers.Authorization = `Bearer ${newToken}`;
-        return config;
-      }
-
-      window.dispatchEvent(
-        new CustomEvent('auth:logout', {
-          detail: { reason: 'token-refresh-failed' },
-        }),
-      );
-      throw new Error('Session expired');
-    } catch (err) {
-      tokenRefreshManager.setIsRefreshing(false);
-      window.dispatchEvent(
-        new CustomEvent('auth:logout', {
-          detail: { reason: 'refresh-error' },
-        }),
-      );
-      throw err instanceof Error ? err : new Error('Refresh error');
-    }
+  // Check if we are already refreshing
+  if (tokenManager.isRefreshing()) {
+    return new Promise((resolve) => {
+      tokenManager.subscribeToRefresh((token) => {
+        config.headers.Authorization = `Bearer ${token}`;
+        resolve(config);
+      });
+    });
   }
 
-  return new Promise((resolve) => {
-    tokenRefreshManager.subscribeTokenRefresh((token) => {
-      if (config.headers && typeof config.headers.set === 'function') {
-        config.headers.set('Authorization', `Bearer ${token}`);
-      } else {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-      resolve(config);
-    });
-  });
+  // Start refresh process
+  tokenManager.setRefreshing(true);
+
+  try {
+    const newToken = await refreshAccessToken();
+
+    if (newToken) {
+      tokenManager.notifyRefreshComplete(newToken);
+      config.headers.Authorization = `Bearer ${newToken}`;
+      return config;
+    }
+    window.dispatchEvent(
+      new CustomEvent('auth:logout', {
+        detail: { reason: 'token-refresh-failed' },
+      }),
+    );
+    throw new Error('Session expired');
+  } catch (error) {
+    window.dispatchEvent(
+      new CustomEvent('auth:logout', {
+        detail: { reason: 'refresh-error' },
+      }),
+    );
+    throw error instanceof Error ? error : new Error('Refresh error');
+  } finally {
+    tokenManager.setRefreshing(false);
+  }
 }
 
 export async function refreshAccessToken(): Promise<string | null> {
-  const refresh = tokenStorage.getRefreshToken();
+  const refresh = tokenManager.getRefreshToken();
   if (!refresh) {
-    console.warn('No refresh token');
-    tokenStorage.clearTokens();
+    tokenManager.clearTokens();
     return null;
   }
-
   try {
-    const res = await axiosReq.post(AUTH_ENDPOINTS.refresh, {
-      refresh,
-    });
-    const { accessToken } = parseTokensFromResponse(
-      res.data as Partial<AuthResponse>,
+    const response = await axiosReq.post(AUTH_ENDPOINTS.refresh, { refresh });
+    const { accessToken } = tokenManager.parseTokensFromResponse(
+      response.data as Partial<AuthResponse>,
     );
+
     if (accessToken) {
-      tokenStorage.setToken(accessToken);
+      tokenManager.setToken(accessToken);
       return accessToken;
     }
-    console.warn('No access token in refresh response');
-  } catch (e) {
-    const err = e as AxiosError;
-    console.error(
+  } catch (error) {
+    const err = error as AxiosError;
+    console.warn(
       err.response?.status === 401
-        ? 'Refresh token invalid'
-        : 'Refresh failed:',
-      err.message,
+        ? 'Refresh token expired'
+        : `Token refresh failed: ${err.message}`,
     );
   }
 
-  tokenStorage.clearTokens();
+  tokenManager.clearTokens();
   return null;
 }
 
 export function setupAxiosInterceptors(): void {
   axiosReq.interceptors.request.use(async (config) => {
     const url = config.url || '';
-    if (AUTH_PATHS.some((p) => url.includes(p))) return config;
 
-    const token = tokenStorage.getToken();
-    if (!token) return config;
-
-    if (tokenValidator.isTokenExpired(token)) {
-      return handleRefresh(config);
+    // Skip auth for authentication endpoints
+    if (AUTH_PATHS.some((path) => url.includes(path))) {
+      return config;
     }
 
+    const token = tokenManager.getToken();
+    if (!token) {
+      return config;
+    }
+
+    // Check if token needs refresh
+    if (tokenManager.isTokenExpired(token)) {
+      return handleTokenRefresh(config);
+    }
+
+    // Set the Authorization header
     config.headers.Authorization = `Bearer ${token}`;
     return config;
   });

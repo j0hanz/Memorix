@@ -20,16 +20,6 @@ export interface PaginatedData<T> {
 
 export type SoundMapType = Record<SoundKey, () => void>;
 
-export interface TokenState {
-  isRefreshing: boolean;
-  subscribers: ((token: string) => void)[];
-}
-
-export interface DecodedToken {
-  exp: number;
-  [key: string]: unknown;
-}
-
 export interface CardInteractionOptions<T extends CardDef> {
   onMatch?: (matchedCards?: T[]) => void;
   onMismatch?: (unmatchedCards?: T[]) => void;

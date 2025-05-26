@@ -1,5 +1,6 @@
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import { ListGroup } from 'react-bootstrap';
+
+import { MODAL_ICONS } from '@/utils/iconUtils';
 
 import styles from './styles/Modal.module.css';
 
@@ -17,7 +18,7 @@ export function OverviewTab() {
       </ListGroup>
       <ListGroup horizontal={true}>
         <ListGroup.Item>
-          <PlayArrowIcon fontSize="small" className={styles.errorArrowIcon} />
+          {MODAL_ICONS.play(styles.errorArrowIcon)}
         </ListGroup.Item>
         <ListGroup.Item>
           The game rates your performance based on the number of moves and time

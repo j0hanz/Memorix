@@ -1,7 +1,3 @@
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import LockResetIcon from '@mui/icons-material/LockReset';
-import LogoutIcon from '@mui/icons-material/Logout';
 import { useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
 
@@ -10,6 +6,7 @@ import { Image } from '@/components/Image';
 import btnStyles from '@/components/styles/Button.module.css';
 import styles from '@/components/styles/Modal.module.css';
 import { useProfile } from '@/hooks/useProvider';
+import { AUTH_ICONS } from '@/utils/iconUtils';
 
 const formatDate = (date?: string) =>
   date ? new Date(date).toLocaleDateString() : 'N/A';
@@ -47,7 +44,7 @@ export function ProfileOverview({
         />
         <Button
           className={`${btnStyles.btnEnd} ${btnStyles.btnProfileMenu}`}
-          icon={<DriveFolderUploadIcon fontSize="small" />}
+          icon={AUTH_ICONS.upload()}
           color="secondary"
           text="Upload"
           variant="menu"
@@ -81,7 +78,7 @@ export function ProfileOverview({
               className={`${btnStyles.btnProfileMenu} ${btnStyles.btnStart}`}
               variant="menu"
               text="Sign Out"
-              icon={<LogoutIcon fontSize="small" />}
+              icon={AUTH_ICONS.logout()}
               color="secondary"
             />
             <Button
@@ -91,7 +88,7 @@ export function ProfileOverview({
               onClick={onPasswordClick}
               type="button"
               color="secondary"
-              icon={<LockResetIcon fontSize="small" />}
+              icon={AUTH_ICONS.password()}
             />
             <Button
               className={`${btnStyles.btnProfileMenu} ${btnStyles.btnEnd}`}
@@ -99,7 +96,7 @@ export function ProfileOverview({
               text="Delete Account"
               onClick={onDeleteClick}
               type="button"
-              icon={<DeleteOutlineIcon fontSize="small" />}
+              icon={AUTH_ICONS.deleteAccount()}
               color="secondary"
             />
           </div>

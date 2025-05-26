@@ -6,7 +6,7 @@ import { useServices } from '@/hooks/useServices';
 import type { LoginCredentials } from '@/types/services';
 import type { ApiError } from '@/types/services';
 import { formatErrorMessage, logError } from '@/utils/errorUtils';
-import { parseTokensFromResponse } from '@/utils/tokenUtils';
+import { tokenManager } from '@/utils/tokenUtils';
 import { loginValidationRules } from '@/utils/validation';
 
 export function useLogin(onSuccess?: () => void) {
@@ -24,7 +24,8 @@ export function useLogin(onSuccess?: () => void) {
     try {
       const response = await auth.login(values);
 
-      const { accessToken, refreshToken } = parseTokensFromResponse(response);
+      const { accessToken, refreshToken } =
+        tokenManager.parseTokensFromResponse(response);
 
       if (!accessToken) {
         setLoginError('Access token not found in response');

@@ -1,4 +1,3 @@
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import type { FallbackProps } from 'react-error-boundary';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 
@@ -7,6 +6,7 @@ import ErrorData from '@/components/ErrorData';
 import { Modal } from '@/components/Modal';
 import type { ErrorBoundaryProps } from '@/types/components';
 import { logError } from '@/utils/errorUtils';
+import { getIcon } from '@/utils/iconUtils';
 
 import styles from './styles/Modal.module.css';
 
@@ -21,7 +21,7 @@ const ErrorFallback: React.FC<FallbackProps> = ({
       text="Restart Application"
       color="secondary"
       className={`${styles.modalButton} ${styles.btnSolo}`}
-      icon={<RestartAltIcon fontSize="small" />}
+      icon={getIcon('RESTART', { fontSize: 'small' })}
     />
   );
 

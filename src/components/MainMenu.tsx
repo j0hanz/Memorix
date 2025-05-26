@@ -1,8 +1,3 @@
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import PersonIcon from '@mui/icons-material/Person';
-import PlayCircleOutlineOutlinedIcon from '@mui/icons-material/PlayCircleOutlineOutlined';
-import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
 import { motion } from 'framer-motion';
 import { Suspense } from 'react';
 
@@ -12,6 +7,7 @@ import btnStyles from '@/components/styles/Button.module.css';
 import { Toast } from '@/components/Toast';
 import { useMenuHandler } from '@/hooks/useMenu';
 import type { MainMenuProps } from '@/types/components';
+import { MENU_ICONS } from '@/utils/iconUtils';
 
 import { MenuButton } from './MenuButton';
 import { ProfileAvatar } from './ProfileAvatar';
@@ -60,32 +56,32 @@ export const MainMenu = ({
             <MenuButton
               onClick={startGame}
               className={`${btnStyles.btnMain} ${btnStyles.btnStart}`}
-              icon={<PlayCircleOutlineOutlinedIcon />}
+              icon={MENU_ICONS.play()}
               text="Start Game"
               color="primary"
             />
             <MenuButton
               onClick={handleAccountClick}
               className={`${btnStyles.btnMain} ${btnStyles.btnMenu}`}
-              icon={<PersonIcon />}
+              icon={MENU_ICONS.person()}
               text={isAuthenticated ? 'Profile' : 'Account'}
             />
             <MenuButton
               onClick={openLeaderboardModal}
               className={`${btnStyles.btnMain} ${btnStyles.btnMenu}`}
-              icon={<EmojiEventsIcon />}
+              icon={MENU_ICONS.trophy()}
               text="Leaderboard"
             />
             <MenuButton
               onClick={openInstructions}
               className={`${btnStyles.btnMain} ${btnStyles.btnMenu}`}
-              icon={<InfoOutlinedIcon />}
+              icon={MENU_ICONS.info()}
               text="Guide"
             />
             <MenuButton
               onClick={openLatestUpdates}
               className={`${btnStyles.btnMain} ${btnStyles.btnEnd}`}
-              icon={<TrackChangesOutlinedIcon />}
+              icon={MENU_ICONS.updates()}
               text="Updates"
             />
             <div className={btnStyles.bottomMenu}>

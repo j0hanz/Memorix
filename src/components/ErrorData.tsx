@@ -1,10 +1,9 @@
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { useEffect } from 'react';
 
 import styles from '@/components/styles/Modal.module.css';
 import type { ErrorDataProps } from '@/types/components';
 import { getUserFriendlyMessage, logError } from '@/utils/errorUtils';
+import { AUTH_ICONS, MODAL_ICONS } from '@/utils/iconUtils';
 
 export default function ErrorData({ error }: ErrorDataProps) {
   // Get a user-friendly message
@@ -22,10 +21,10 @@ export default function ErrorData({ error }: ErrorDataProps) {
       <div
         className={`d-flex flex-column align-items-center ${styles.bottomBorder}`}
       >
-        <WarningAmberIcon className={styles.errorIcon} />
+        {AUTH_ICONS.warningLarge(styles.errorIcon)}
       </div>
       <div className={styles.errorMessage}>
-        <PlayArrowIcon className={styles.errorArrowIcon} fontSize="small" />
+        {MODAL_ICONS.play(styles.errorArrowIcon)}
         {friendlyMessage}
         {process.env.NODE_ENV === 'development' &&
           rawMessage !== friendlyMessage && (

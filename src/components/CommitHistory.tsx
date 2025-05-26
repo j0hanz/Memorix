@@ -1,12 +1,10 @@
-import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import { Suspense } from 'react';
 
 import { LoadingSpinner } from '@/components/Spinner';
 import { useCommit } from '@/hooks/useCommitHistory';
 import { useNavigation } from '@/hooks/useProvider';
 import type { CommitStatusProps } from '@/types/services';
+import { MENU_ICONS, NAVIGATION_ICONS } from '@/utils/iconUtils';
 
 import { ModalFooterButtons } from './ModalFooterButtons';
 import styles from './styles/Modal.module.css';
@@ -32,7 +30,7 @@ const CommitContent = () => {
         {commits.map(({ sha, date, url, message }) => (
           <li key={sha} className={styles.commitItem}>
             <div className={styles.commitDate}>
-              <CalendarTodayOutlinedIcon fontSize="small" />
+              {MENU_ICONS.calendar()}
               <span>{new Date(date).toLocaleDateString()}</span>
             </div>
             <div className={styles.commitMessage}>
@@ -68,10 +66,10 @@ export const CommitStatus = ({ onClose }: CommitStatusProps) => {
       </div>
       <ModalFooterButtons
         leftText="GitHub"
-        leftIcon={<GitHubIcon fontSize="small" />}
+        leftIcon={MENU_ICONS.github()}
         onLeftClick={handleGitHubClick}
         rightText="Close"
-        rightIcon={<CloseOutlinedIcon fontSize="small" />}
+        rightIcon={NAVIGATION_ICONS.close()}
         onRightClick={onClose ?? (() => {})}
       />
     </>

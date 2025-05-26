@@ -1,9 +1,6 @@
-import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
-
 import { ModalTabs } from '@/components/ModalTabs';
 import type { TabContent, TabItem } from '@/types/components';
+import { MODAL_ICONS } from '@/utils/iconUtils';
 
 import { IconsTab } from './IconsTab';
 import { OverviewTab } from './OverviewTab';
@@ -16,19 +13,19 @@ export function InstructionsData() {
       key: 'overview',
       title: 'Guide',
       className: styles.navItemLeft,
-      icon: <InfoOutlinedIcon fontSize="small" />,
+      icon: MODAL_ICONS.info(),
     },
     {
       key: 'symbols',
       title: 'Symbols',
       className: styles.navItemCenter,
-      icon: <FormatListBulletedOutlinedIcon fontSize="small" />,
+      icon: MODAL_ICONS.list(),
     },
     {
       key: 'stars',
       title: 'Stars',
       className: styles.navItemRight,
-      icon: <StarBorderOutlinedIcon fontSize="small" />,
+      icon: MODAL_ICONS.starOutline(),
     },
   ];
 

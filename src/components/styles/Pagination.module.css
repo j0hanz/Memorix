@@ -1,7 +1,25 @@
-.paginationButtons {
+.paginationRow {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  margin-top: 1rem;
+  padding-block: 1rem;
+  margin: 0 auto;
+}
+
+.arrowStart {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.pageInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrowEnd {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }

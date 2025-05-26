@@ -1,5 +1,3 @@
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import LoginIcon from '@mui/icons-material/Login';
 import { Form } from 'react-bootstrap';
 
 import { FormField } from '@/components/FormField';
@@ -8,6 +6,7 @@ import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
 import { useLogin } from '@/hooks/useLogin';
 import type { LoginProps } from '@/types/components';
+import { AUTH_ICONS, NAVIGATION_ICONS } from '@/utils/iconUtils';
 import { isFormComplete, loginRequiredFields } from '@/utils/validation';
 
 export const Login = ({ onClose }: LoginProps) => {
@@ -61,8 +60,8 @@ export const Login = ({ onClose }: LoginProps) => {
         rightText="Close"
         onLeftClick={undefined}
         onRightClick={() => onClose?.()}
-        leftIcon={!loading ? <LoginIcon fontSize="small" /> : null}
-        rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
+        leftIcon={!loading ? AUTH_ICONS.login() : null}
+        rightIcon={NAVIGATION_ICONS.exit()}
         leftDisabled={loading || !formComplete}
         rightDisabled={loading}
         leftType="submit"

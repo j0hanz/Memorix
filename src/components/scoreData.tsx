@@ -1,8 +1,6 @@
-import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
-
 import { Score } from '@/components/GameStats';
 import type { ScoreboardProps } from '@/types/components';
+import { MODAL_ICONS } from '@/utils/iconUtils';
 
 import styles from './styles/Modal.module.css';
 
@@ -11,14 +9,14 @@ export function Scoreboard({ moves, completedTime }: ScoreboardProps) {
   return (
     <div className={styles.scoreboard}>
       <div className={styles.scoreItem}>
-        <FlipOutlinedIcon className="me-1" />
+        {MODAL_ICONS.moves()}
         {moves}
       </div>
       <div className={styles.scoreItem}>
         <Score moves={moves} completedTime={completedTime} />
       </div>
       <div className={styles.scoreItem}>
-        <TimerOutlinedIcon className="me-1" />
+        {MODAL_ICONS.timer()}
         {completedTime}
       </div>
     </div>

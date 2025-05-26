@@ -1,11 +1,9 @@
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
-
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { Scoreboard } from '@/components/scoreData';
 import { useModal } from '@/hooks/useProvider';
 import { useScoreboard } from '@/hooks/useScoreboard';
 import type { ScoreboardDataProps } from '@/types/components';
+import { MODAL_ICONS } from '@/utils/iconUtils';
 
 import { ModalFooterButtons } from './ModalFooterButtons';
 import { ScoreFeedback } from './ScoreFeedback';
@@ -45,8 +43,8 @@ export function ScoreboardData({
         rightText="Exit"
         onLeftClick={onReset}
         onRightClick={onExit}
-        leftIcon={<ReplayCircleFilledOutlinedIcon fontSize="small" />}
-        rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
+        leftIcon={MODAL_ICONS.restart()}
+        rightIcon={MODAL_ICONS.exit()}
       />
     </>
   );

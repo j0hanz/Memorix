@@ -1,11 +1,8 @@
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-
 import { ModalFooterButtons } from '@/components/ModalFooterButtons';
 import { LoadingSpinner } from '@/components/Spinner';
 import { useProfile } from '@/hooks/useProvider';
 import type { ProfileFooterProps } from '@/types/components';
+import { AUTH_ICONS } from '@/utils/iconUtils';
 
 export function ProfileFooter({
   activeTab,
@@ -24,10 +21,8 @@ export function ProfileFooter({
         rightText="Back"
         onLeftClick={undefined}
         onRightClick={onBack}
-        leftIcon={
-          loading ? undefined : <DriveFolderUploadIcon fontSize="small" />
-        }
-        rightIcon={<ArrowBackIcon fontSize="small" />}
+        leftIcon={loading ? undefined : AUTH_ICONS.upload()}
+        rightIcon={AUTH_ICONS.back()}
         leftDisabled={loading}
         rightDisabled={loading}
         leftType="submit"
@@ -44,8 +39,8 @@ export function ProfileFooter({
           void handleDeleteAccount();
         }}
         onRightClick={onBack}
-        leftIcon={loading ? undefined : <DeleteForeverIcon fontSize="small" />}
-        rightIcon={<ArrowBackIcon fontSize="small" />}
+        leftIcon={loading ? undefined : AUTH_ICONS.delete()}
+        rightIcon={AUTH_ICONS.back()}
         leftDisabled={loading}
         rightDisabled={loading}
         leftType="button"
@@ -61,9 +56,7 @@ export function ProfileFooter({
         void handleUpdateProfile();
       }}
       onRightClick={onClose}
-      leftIcon={
-        loading ? undefined : <DriveFolderUploadIcon fontSize="small" />
-      }
+      leftIcon={loading ? undefined : AUTH_ICONS.upload()}
       leftDisabled={loading || !profileImage || activeTab !== 'overview'}
       rightDisabled={false}
     />

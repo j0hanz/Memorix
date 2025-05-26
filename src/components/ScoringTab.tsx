@@ -1,10 +1,8 @@
-import AllInclusiveOutlinedIcon from '@mui/icons-material/AllInclusiveOutlined';
-import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { Col, ListGroup, Row } from 'react-bootstrap';
 
 import { SCORING_THRESHOLDS } from '@/constants/scoring';
 import type { ScoringCriteriaRowProps } from '@/types/components';
+import { MODAL_ICONS } from '@/utils/iconUtils';
 
 import { StarRating } from './StarRating';
 
@@ -13,18 +11,9 @@ export function ScoringTab() {
   const scoringCriteria: ScoringCriteriaRowProps[] = SCORING_THRESHOLDS.map(
     (row) => ({
       stars: row.stars,
-      moves:
-        row.moves === Infinity ? (
-          <AllInclusiveOutlinedIcon fontSize="small" />
-        ) : (
-          row.moves
-        ),
+      moves: row.moves === Infinity ? MODAL_ICONS.infinite() : row.moves,
       time:
-        row.time === Infinity ? (
-          <AllInclusiveOutlinedIcon fontSize="small" />
-        ) : (
-          `${String(row.time)}s`
-        ),
+        row.time === Infinity ? MODAL_ICONS.infinite() : `${String(row.time)}s`,
     }),
   );
 
@@ -44,7 +33,7 @@ export function ScoringTab() {
             xs={1}
             className="d-flex justify-content-start align-items-center"
           >
-            <FlipOutlinedIcon fontSize="small" />
+            {MODAL_ICONS.moves()}
             <small>{criteria.moves}</small>
           </Col>
 
@@ -56,7 +45,7 @@ export function ScoringTab() {
           </Col>
 
           <Col xs={1} className="d-flex justify-content-end align-items-center">
-            <TimerOutlinedIcon fontSize="small" />
+            {MODAL_ICONS.timer()}
             <small>{criteria.time}</small>
           </Col>
           <hr />

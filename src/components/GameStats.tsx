@@ -1,9 +1,7 @@
-import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
-
 import { useStarRating } from '@/hooks/useScoreboard';
 import { useTimer } from '@/hooks/useTimer';
 import type { MovesProps, ScoreProps, TimerProps } from '@/types/components';
+import { GAME_ICONS } from '@/utils/iconUtils';
 
 import { StarRating } from './StarRating';
 import styles from './styles/GameStats.module.css';
@@ -11,7 +9,7 @@ import styles from './styles/GameStats.module.css';
 // Moves component
 export const Moves = ({ moves }: MovesProps) => (
   <div className={styles.stats}>
-    <FlipOutlinedIcon />
+    {GAME_ICONS.moves()}
     <span className={styles.count}>{moves}</span>
   </div>
 );
@@ -22,7 +20,7 @@ export const Timer = ({ timerActive }: TimerProps) => {
 
   return (
     <div className={styles.stats}>
-      <TimerOutlinedIcon />
+      {GAME_ICONS.timer()}
       <span className={styles.count}>{elapsedTime}</span>
     </div>
   );

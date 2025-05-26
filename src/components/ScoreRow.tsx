@@ -1,10 +1,9 @@
-import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import type { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
 import { StarRating } from '@/components/StarRating';
 import type { ScoreRowProps } from '@/types/components';
+import { MODAL_ICONS } from '@/utils/iconUtils';
 
 import { CategoryIcon } from './CategoryIcon';
 import styles from './styles/Modal.module.css';
@@ -18,10 +17,10 @@ export const ScoreRow: FC<ScoreRowProps> = ({ score }) => (
       <StarRating count={score.stars} />
     </Col>
     <Col xs={2} className="d-flex justify-content-start align-items-center">
-      {score.moves} <FlipOutlinedIcon fontSize="small" />
+      {score.moves} {MODAL_ICONS.moves()}
     </Col>
     <Col xs={1} className="d-flex justify-content-end align-items-center">
-      {score.time_seconds} <TimerOutlinedIcon fontSize="small" />
+      {score.time_seconds} {MODAL_ICONS.timer()}
     </Col>
     <Col xs={2} className="d-flex justify-content-end align-items-center">
       {score.completed_at}

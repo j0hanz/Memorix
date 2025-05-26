@@ -1,10 +1,8 @@
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
-
 import { LoadingSpinner } from '@/components/Spinner';
 import btnStyles from '@/components/styles/Button.module.css';
 import { useAppState } from '@/hooks/useAppState';
 import type { StatsBarProps } from '@/types/components';
+import { GAME_ICONS } from '@/utils/iconUtils';
 
 import { Button } from './Button';
 import { Feedback } from './Feedback';
@@ -34,13 +32,7 @@ export const StatsBar = ({
         <Button
           className={btnStyles.btnRounded}
           onClick={onReset}
-          icon={
-            isRestarting ? (
-              <LoadingSpinner />
-            ) : (
-              <ReplayCircleFilledOutlinedIcon fontSize="small" />
-            )
-          }
+          icon={isRestarting ? <LoadingSpinner /> : GAME_ICONS.restart()}
           aria-label={isRestarting ? 'Restarting...' : 'Reset Game'}
           color="secondary"
           disabled={loading.isLoading}
@@ -48,7 +40,7 @@ export const StatsBar = ({
         <Button
           className={btnStyles.btnRounded}
           onClick={onExit}
-          icon={<ExitToAppOutlinedIcon fontSize="small" />}
+          icon={GAME_ICONS.exit()}
           aria-label="Exit Game"
           color="secondary"
           disabled={loading.isLoading}

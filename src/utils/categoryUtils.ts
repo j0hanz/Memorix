@@ -1,24 +1,6 @@
-import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
-import CrueltyFreeOutlinedIcon from '@mui/icons-material/CrueltyFreeOutlined';
-import DirectionsCarOutlinedIcon from '@mui/icons-material/DirectionsCarOutlined';
-import LooksOneOutlinedIcon from '@mui/icons-material/LooksOneOutlined';
-import ParkOutlinedIcon from '@mui/icons-material/ParkOutlined';
-import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
 import React from 'react';
 
-export const CATEGORY_ICONS: Record<string, () => React.ReactElement> = {
-  Animals: () =>
-    React.createElement(CrueltyFreeOutlinedIcon, { fontSize: 'small' }),
-  Nature: () => React.createElement(ParkOutlinedIcon, { fontSize: 'small' }),
-  Vehicles: () =>
-    React.createElement(DirectionsCarOutlinedIcon, { fontSize: 'small' }),
-  Food: () =>
-    React.createElement(RestaurantOutlinedIcon, { fontSize: 'small' }),
-  Shapes: () =>
-    React.createElement(CategoryOutlinedIcon, { fontSize: 'small' }),
-  Numbers: () =>
-    React.createElement(LooksOneOutlinedIcon, { fontSize: 'small' }),
-};
+import { CATEGORY_ICONS } from '@/utils/iconUtils';
 
 export const CATEGORY_OPTIONS = [
   { label: 'Animals', value: 'animals', id: 1 },

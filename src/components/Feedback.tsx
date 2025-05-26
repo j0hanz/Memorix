@@ -1,10 +1,10 @@
-import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { AnimatePresence, motion } from 'framer-motion';
+import React from 'react';
 
 import { FEEDBACK } from '@/constants/game';
 import { useMotions } from '@/hooks/useMotions';
 import type { FeedbackProps } from '@/types/components';
+import { getIcon } from '@/utils/iconUtils';
 
 import styles from './styles/GameStats.module.css';
 
@@ -23,11 +23,9 @@ export const Feedback = ({ message }: FeedbackProps) => {
         exit="exit"
         variants={feedbackAnimation}
       >
-        {message === FEEDBACK.SUCCESS ? (
-          <CheckOutlinedIcon fontSize="large" className={styles.success} />
-        ) : (
-          <CloseOutlinedIcon fontSize="large" className={styles.error} />
-        )}
+        {message === FEEDBACK.SUCCESS
+          ? getIcon('CHECK', { fontSize: 'large', className: styles.success })
+          : getIcon('CLOSE', { fontSize: 'large', className: styles.error })}
       </motion.div>
     </AnimatePresence>
   );

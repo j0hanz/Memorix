@@ -7,14 +7,14 @@ import type { Profile, User } from '@/types/data';
 import type { ApiError } from '@/types/services';
 import { axiosReq } from '@/utils/axios';
 import { refreshAccessToken } from '@/utils/axiosUtils';
-import { tokenStorage, tokenValidator } from '@/utils/tokenUtils';
+import { tokenManager } from '@/utils/tokenUtils';
 
 export function useAuthProvider(): AuthContextType {
   const [state, dispatch] = useReducer(authReducer, initialAuthState);
 
   function logout() {
     dispatch({ type: 'LOGOUT' });
-    tokenStorage.clearTokens();
+    tokenManager.clearTokens();
   }
 
   function setAuthTokens(access: string, refresh?: string) {
@@ -22,9 +22,9 @@ export function useAuthProvider(): AuthContextType {
       type: 'SET_TOKENS',
       payload: { token: access, refreshToken: refresh },
     });
-    tokenStorage.setToken(access);
+    tokenManager.setToken(access);
     if (refresh) {
-      tokenStorage.setRefreshToken(refresh);
+      tokenManager.setRefreshToken(refresh);
     }
   }
 
@@ -58,7 +58,7 @@ export function useAuthProvider(): AuthContextType {
 
   useEffect(() => {
     void (async () => {
-      const stored = tokenStorage.getToken();
+      const stored = tokenManager.getToken();
       if (!stored) return;
 
       dispatch({ type: 'SET_TOKENS', payload: { token: stored } });
@@ -66,7 +66,7 @@ export function useAuthProvider(): AuthContextType {
       dispatch({ type: 'CLEAR_ERROR' });
 
       // try refresh
-      if (tokenValidator.isTokenExpired(stored)) {
+      if (tokenManager.isTokenExpired(stored)) {
         const newToken = await refreshAccessToken();
         if (newToken) setAuthTokens(newToken);
         else {

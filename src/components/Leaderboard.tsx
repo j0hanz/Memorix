@@ -1,8 +1,7 @@
-import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import { Col, Row } from 'react-bootstrap';
 
 import { useLeaderboard } from '@/hooks/useLeaderboard';
+import { MODAL_ICONS } from '@/utils/iconUtils';
 
 import { Button } from './Button';
 import { CategoryIcon } from './CategoryIcon';
@@ -68,14 +67,14 @@ export function Leaderboard() {
                 className="d-flex justify-content-end align-items-center"
               >
                 {entry.moves}
-                <FlipOutlinedIcon fontSize="small" />
+                {MODAL_ICONS.moves()}
               </Col>
               <Col
                 xs={1}
                 className="d-flex justify-content-end align-items-center"
               >
                 {entry.time_seconds}
-                <TimerOutlinedIcon fontSize="small" />
+                {MODAL_ICONS.timer()}
               </Col>
             </Row>
           ))}

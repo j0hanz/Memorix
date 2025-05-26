@@ -1,9 +1,7 @@
-import LoginIcon from '@mui/icons-material/Login';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-
 import { ModalTabs } from '@/components/ModalTabs';
 import styles from '@/components/styles/Modal.module.css';
 import type { TabContent, TabItem } from '@/types/components';
+import { AUTH_ICONS } from '@/utils/iconUtils';
 
 import { Login } from './Login';
 import { Register } from './Register';
@@ -14,13 +12,13 @@ export const AuthData = ({ onClose }: { onClose: () => void }) => {
       key: 'login',
       title: 'Login',
       className: styles.navItemLeft,
-      icon: <LoginIcon fontSize="small" />,
+      icon: AUTH_ICONS.login(),
     },
     {
       key: 'register',
       title: 'Register',
       className: styles.navItemRight,
-      icon: <PersonAddIcon fontSize="small" />,
+      icon: AUTH_ICONS.register(),
     },
   ];
 

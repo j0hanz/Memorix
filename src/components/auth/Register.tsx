@@ -1,5 +1,3 @@
-import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Form } from 'react-bootstrap';
 
 import { FormField } from '@/components/FormField';
@@ -8,6 +6,7 @@ import { LoadingSpinner } from '@/components/Spinner';
 import styles from '@/components/styles/Modal.module.css';
 import { useRegister } from '@/hooks/useRegister';
 import type { RegisterProps } from '@/types/components';
+import { AUTH_ICONS, NAVIGATION_ICONS } from '@/utils/iconUtils';
 import { isFormComplete, registerRequiredFields } from '@/utils/validation';
 
 export const Register = ({ onSuccess, onClose }: RegisterProps) => {
@@ -82,8 +81,8 @@ export const Register = ({ onSuccess, onClose }: RegisterProps) => {
         rightText="Close"
         onLeftClick={undefined}
         onRightClick={onClose}
-        leftIcon={loading ? null : <PersonAddIcon fontSize="small" />}
-        rightIcon={<ExitToAppOutlinedIcon fontSize="small" />}
+        leftIcon={loading ? null : AUTH_ICONS.register()}
+        rightIcon={NAVIGATION_ICONS.close()}
         leftDisabled={loading || !formComplete}
         rightDisabled={loading}
         leftType="submit"
