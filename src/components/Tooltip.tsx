@@ -13,7 +13,7 @@ export function Tooltip({
   const [visible, setVisible] = useState(false);
 
   return (
-    <span
+    <div
       className={styles.tooltipTrigger}
       onMouseEnter={() => {
         setVisible(true);
@@ -34,13 +34,13 @@ export function Tooltip({
     >
       {children}
       {visible && content && (
-        <span
+        <div
           className={`${styles.tooltip} ${styles[placement]} ${className}`}
           role="tooltip"
         >
           {content}
-        </span>
+        </div>
       )}
-    </span>
+    </div>
   );
 }
