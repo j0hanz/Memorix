@@ -11,7 +11,9 @@
   --color-10: #ff4d4d;
   --color-11: #ffd700;
   --color-12: #282e35;
+}
 
+:root {
   /* Background colors */
   --bg-primary: var(--color-7);
   --bg-secondary: var(--color-6);
