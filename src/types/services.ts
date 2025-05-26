@@ -71,13 +71,6 @@ export interface AuthResponse {
   token?: string;
 }
 
-export interface LoginState {
-  error: string | null;
-  fieldErrors: Record<string, string | string[]>;
-  values: { username: string; password: string };
-  success: boolean;
-}
-
 export interface ProfileFormValues extends Record<string, string> {
   oldPassword: string;
   newPassword1: string;
@@ -135,14 +128,6 @@ export interface GitHubCommitResponse {
   author: {
     login: string;
   } | null;
-}
-
-export interface CommitListProps {
-  commits: Commit[];
-}
-
-export interface CommitListItemProps {
-  commit: Commit;
 }
 
 export interface CommitStatusProps {

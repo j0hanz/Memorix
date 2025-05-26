@@ -2,8 +2,6 @@ import type { TargetAndTransition, Transition, Variants } from 'framer-motion';
 
 import type { ErrorCategory, ErrorSeverity } from '@/types/services';
 
-import type { VoidCallback } from './utils';
-
 export interface AppState {
   isGameActive: boolean;
   loading: LoadingState;
@@ -14,22 +12,6 @@ export interface LoadingState {
   isLoading: boolean;
   message?: string;
   type?: 'initial' | 'start' | 'restart' | 'exit';
-}
-
-export interface NavigationOptions {
-  setLoading: (loadingState: LoadingState) => void;
-  setIsGameActive: (value: boolean) => void;
-  setSelectedCategory: (value: string) => void;
-  logout: VoidCallback;
-  isAuthenticated: boolean;
-}
-
-export interface GameHandlerOptions {
-  setIsLoading: (value: boolean) => void;
-  setIsGameActive: (value: boolean) => void;
-  setSelectedCategory: (value: string) => void;
-  setShowLeaderboardModal?: (value: boolean) => void;
-  logout: VoidCallback;
 }
 
 export interface UseScoreboardProps {
@@ -61,15 +43,6 @@ export interface FetcherOptions<T> {
   retryDelay?: number;
   skipFetch?: boolean;
   initialData?: T | null;
-}
-
-export interface MotionOptions {
-  duration?: number;
-  delay?: number;
-  type?: 'spring' | 'tween' | 'inertia';
-  stiffness?: number;
-  damping?: number;
-  bounce?: number;
 }
 
 export interface EnterAnimation {

@@ -41,14 +41,6 @@ export interface ModalProps {
   showCloseButton?: boolean;
 }
 
-export interface FormHandlers {
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
-  handleSubmit?: (
-    e?: React.FormEvent<HTMLFormElement> | React.MouseEvent,
-  ) => void | Promise<void>;
-}
-
 export interface InteractiveProps {
   onClick?: () => void;
   disabled?: boolean;
@@ -92,11 +84,6 @@ export interface ProfileModalProps extends BaseModalProps {
   logout: () => void;
 }
 
-export interface ProfileDataProps {
-  onClose: () => void;
-  logout: () => void;
-}
-
 export interface ProfileContentProps {
   activeTab: string;
   showPasswordTab: boolean;
@@ -113,53 +100,6 @@ export interface ProfileFooterProps {
   showDeleteTab: boolean;
   onBack: () => void;
   onClose: () => void;
-}
-
-export interface ProfileChangePasswordProps
-  extends BaseFormState,
-    FormHandlers {
-  onBack: () => void;
-  values: {
-    oldPassword: string;
-    newPassword1: string;
-    newPassword2: string;
-  };
-  errors: {
-    oldPassword?: string;
-    newPassword1?: string;
-    newPassword2?: string;
-    [key: string]: string | undefined;
-  };
-  touched: {
-    oldPassword?: boolean;
-    newPassword1?: boolean;
-    newPassword2?: boolean;
-    [key: string]: boolean | undefined;
-  };
-}
-
-export interface ProfileOverviewProps {
-  onPasswordClick: () => void;
-  onDeleteClick: () => void;
-  logout: () => void;
-}
-
-export interface ProfileDeleteAccountProps extends BaseFormState {
-  onDelete?: () => void;
-  onBack?: () => void;
-}
-
-export interface ProfileGameHistoryProps {
-  scores: UserScore[];
-  loadingScores: boolean;
-}
-
-export interface UseGameHistoryProps {
-  scores: UserScore[];
-  loadingScores: boolean;
-  scoresCount: number;
-  scoresPage: number;
-  setScoresPage: (page: number) => void;
 }
 
 export interface MainMenuProps {
