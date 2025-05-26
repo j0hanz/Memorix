@@ -21,9 +21,11 @@ export const LoadingCardSpinner = ({
 };
 
 export const LoadingSpinner = () => (
-  <div className={styles.loadership_JWZDT} role="status" aria-label="Loading">
-    {Array.from({ length: 5 }).map((_, i) => (
-      <div key={i} />
-    ))}
+  <div className={styles.spinnerContainer}>
+    <div className={styles.loadership_JWZDT} role="status" aria-label="Loading">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <div key={i} />
+      ))}
+    </div>
   </div>
 );

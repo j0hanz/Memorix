@@ -1,8 +1,8 @@
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import ReplayCircleFilledOutlinedIcon from '@mui/icons-material/ReplayCircleFilledOutlined';
 
-import btnStyles from '@/components/styles/Button.module.css';
 import { LoadingSpinner } from '@/components/Spinner';
+import btnStyles from '@/components/styles/Button.module.css';
 import { useAppState } from '@/hooks/useAppState';
 import type { StatsBarProps } from '@/types/components';
 

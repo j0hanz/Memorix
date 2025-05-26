@@ -1,10 +1,6 @@
 .spinnerContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  container-type: inline-size;
+  display: grid;
+  place-items: center;
 }
 
 .hidden {
