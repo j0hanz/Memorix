@@ -52,18 +52,6 @@ export function authReducer(state: AuthState, action: AuthAction): AuthState {
         isAuthenticated: Boolean(state.user && action.payload.token),
       };
 
-    case 'LOGIN_SUCCESS':
-      // Handle successful login
-      return {
-        ...state,
-        user: action.payload.user,
-        token: action.payload.token,
-        refreshToken: action.payload.refreshToken,
-        isAuthenticated: true,
-        loading: false,
-        error: null,
-      };
-
     case 'LOGOUT':
       // Reset to initial state on logout
       return initialAuthState;

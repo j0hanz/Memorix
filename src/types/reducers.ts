@@ -24,10 +24,6 @@ export type AuthAction =
   | { type: 'SET_USER'; payload: { user: User | null } }
   | { type: 'SET_PROFILE'; payload: { profile: Profile | null } }
   | { type: 'SET_TOKENS'; payload: { token: string; refreshToken?: string } }
-  | {
-      type: 'LOGIN_SUCCESS';
-      payload: { user: User; token: string; refreshToken: string };
-    }
   | { type: 'LOGOUT' }
   | { type: 'CLEAR_ERROR' };
 
