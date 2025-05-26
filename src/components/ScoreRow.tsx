@@ -11,22 +11,22 @@ import styles from './styles/Modal.module.css';
 
 export const ScoreRow: FC<ScoreRowProps> = ({ score }) => (
   <Row
-      className={`d-flex justify-content-between align-items-center ${styles.scoreRow}`}
-    >
-      <Col xs={1} className="d-flex justify-content-start align-items-center">
-        <CategoryIcon categoryName={score.category_name} />
-      </Col>
-      <Col xs={2} className="d-flex justify-content-center align-items-center">
-        <StarRating count={score.stars} />
-      </Col>
-      <Col xs={2} className="d-flex justify-content-start align-items-center">
-        {score.moves} <FlipOutlinedIcon fontSize="small" />
-      </Col>
-      <Col xs={1} className="d-flex justify-content-end align-items-center">
-        {score.time_seconds} <TimerOutlinedIcon fontSize="small" />
-      </Col>
-      <Col xs={2} className="d-flex justify-content-end align-items-center">
-        {score.completed_at}
-      </Col>
-    </Row>
+    className={styles.scoreRow}
+  >
+    <Col xs={1} className="d-flex justify-content-start align-items-center">
+      <CategoryIcon categoryName={score.category_name} />
+    </Col>
+    <Col xs={2} className="d-flex justify-content-center align-items-center">
+      <StarRating count={score.stars} />
+    </Col>
+    <Col xs={2} className="d-flex justify-content-start align-items-center">
+      {score.moves} <FlipOutlinedIcon fontSize="small" />
+    </Col>
+    <Col xs={1} className="d-flex justify-content-end align-items-center">
+      {score.time_seconds} <TimerOutlinedIcon fontSize="small" />
+    </Col>
+    <Col xs={2} className="d-flex justify-content-end align-items-center">
+      {score.completed_at}
+    </Col>
+  </Row>
 );
