@@ -1,19 +1,19 @@
 body {
+  display: grid;
+  place-items: center;
+  height: 100dvh;
   background: color-mix(in srgb, var(--bg-primary) 90%, black 10%);
   color: var(--text-color);
-  display: grid;
-  font-family: 'Fredoka';
-  font-weight: 400;
-  height: 100dvh;
-  letter-spacing: var(--text-spacing);
-  place-items: center;
+  font:
+    400 1rem/1.5 'Fredoka',
+    sans-serif;
 }
 
 .btn {
   --bs-btn-disabled-bg: var(--btn-secondary);
   --bs-btn-disabled-border-color: transparent;
   &:is(:hover, :focus-visible) {
-    background-color: var(--btn-secondary);
+    background: var(--btn-secondary);
     border-color: var(--btn-secondary);
   }
 }
@@ -29,16 +29,16 @@ label {
 .form-select,
 select {
   appearance: none;
-  background-color: var(--bg-secondary);
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border: none;
   border-bottom: var(--border-bottom-primary);
   border-radius: var(--border-radius-secondary);
-  border: none;
   color: var(--text-color);
   cursor: pointer;
   outline: none;
-  padding: 0.5rem 1rem;
   transition: border-color 0.2s ease;
-  width: 100%;
   &:disabled {
     cursor: not-allowed;
     opacity: 0.6;

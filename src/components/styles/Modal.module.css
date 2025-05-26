@@ -3,15 +3,19 @@
     background: var(--bg-secondary);
     border-radius: var(--border-radius-primary);
     color: var(--text-color);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
   :global(.modal-header) {
     color: var(--text-color);
-    font-family: 'Fredoka';
-    letter-spacing: 1px;
   }
   :global(.modal-footer) {
     --bs-modal-footer-gap: 0;
     color: var(--text-color);
+    border-top: 1px solid var(--border-secondary);
+    display: flex;
+    justify-content: space-between;
   }
   :global(.h4) {
     font-size: 1.5rem;
@@ -26,7 +30,7 @@
 }
 
 .modalRow {
-  min-height: 35vh;
+  min-height: 30vh;
   padding-block: 0.5rem;
 }
 
