@@ -5,6 +5,7 @@ import type { PaginatedData } from '@/types/utils';
 import { axiosReq } from '@/utils/axios';
 import { handleAsyncOperation } from '@/utils/errorUtils';
 
+// This function executes an API request and handles errors uniformly.
 async function executeRequest<T>(
   requestFn: () => Promise<AxiosResponse<T>>,
   options: ApiRequestOptions = {},
@@ -23,6 +24,7 @@ async function executeRequest<T>(
   return result?.data as T;
 }
 
+// This service provides methods to interact with the API using Axios.
 export async function get<T>(
   endpoint: string,
   params?: Record<string, unknown>,
@@ -35,6 +37,7 @@ export async function get<T>(
   );
 }
 
+// This function performs a POST request to the specified endpoint with optional data and configuration.
 export async function post<T>(
   endpoint: string,
   data?: unknown,
@@ -47,6 +50,7 @@ export async function post<T>(
   );
 }
 
+// This function performs a PUT request to the specified endpoint with optional data and configuration.
 export async function put<T>(
   endpoint: string,
   data?: unknown,
@@ -56,6 +60,7 @@ export async function put<T>(
   return executeRequest(() => axiosReq.put<T>(endpoint, data, config), options);
 }
 
+// This function performs a PATCH request to the specified endpoint with optional data and configuration.
 export async function patch<T>(
   endpoint: string,
   data?: unknown,
@@ -68,6 +73,7 @@ export async function patch<T>(
   );
 }
 
+// This function performs a DELETE request to the specified endpoint with optional configuration.
 export async function deleteRequest<T>(
   endpoint: string,
   options?: ApiRequestOptions,
@@ -76,6 +82,7 @@ export async function deleteRequest<T>(
   return executeRequest(() => axiosReq.delete<T>(endpoint, config), options);
 }
 
+// This function retrieves paginated data from the specified endpoint with optional parameters.
 export async function getPaginated<T>(
   endpoint: string,
   params: ApiPaginationParams = {},
@@ -90,6 +97,7 @@ export async function getPaginated<T>(
   );
 }
 
+// This function retrieves a list of items from the specified endpoint with optional parameters.
 export async function getList<T>(
   endpoint: string,
   params?: Record<string, unknown>,

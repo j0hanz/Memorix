@@ -25,6 +25,12 @@ export interface ApiRequestOptions {
   errorMessage?: string;
 }
 
+export interface FileUploadOptions extends ApiRequestOptions {
+  method?: 'POST' | 'PATCH';
+  fieldName?: string;
+  additionalData?: Record<string, string | Blob>;
+}
+
 export interface ApiPaginationParams {
   page?: number;
   pageSize?: number;

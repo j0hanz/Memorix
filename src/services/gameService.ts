@@ -11,8 +11,9 @@ import type {
 
 import { get, getList, getPaginated, post } from './apiService';
 
-export async function saveGameResult(data: GameResultData): Promise<unknown> {
-  return post(
+// This service provides methods to interact with game results and leaderboards.
+export async function saveGameResult(data: GameResultData): Promise<void> {
+  await post(
     GAME_ENDPOINTS.results,
     data,
     {
@@ -25,24 +26,22 @@ export async function saveGameResult(data: GameResultData): Promise<unknown> {
   );
 }
 
+// This function retrieves the leaderboard entries for a specific category.
 export async function getLeaderboard(
   categoryId?: number,
 ): Promise<LeaderboardEntry[]> {
-  try {
-    const result = await get<PaginatedLeaderboardEntries>(
-      GAME_ENDPOINTS.leaderboard,
-      categoryId != null ? { category: categoryId } : undefined,
-      {
-        context: 'GameService',
-        errorMessage: 'Failed to fetch leaderboard',
-      },
-    );
-    return result.results || [];
-  } catch (error) {
-    throw new Error((error as Error).message);
-  }
+  const result = await get<PaginatedLeaderboardEntries>(
+    GAME_ENDPOINTS.leaderboard,
+    categoryId != null ? { category: categoryId } : undefined,
+    {
+      context: 'GameService',
+      errorMessage: 'Failed to fetch leaderboard',
+    },
+  );
+  return result.results || [];
 }
 
+// This function retrieves the list of game categories.
 export async function getCategories(): Promise<string[]> {
   return getList<string>(GAME_ENDPOINTS.categories, undefined, {
     context: 'GameService',
@@ -50,6 +49,7 @@ export async function getCategories(): Promise<string[]> {
   });
 }
 
+// This function retrieves paginated user scores, optionally filtered by category.
 export async function getUserScores(
   page = 1,
   category?: string,
@@ -75,6 +75,7 @@ export async function getUserScores(
   }
 }
 
+// This function retrieves the best scores of the user.
 export async function getUserBestScores(): Promise<UserScore[]> {
   return getList<UserScore>(GAME_ENDPOINTS.bestResults, undefined, {
     context: 'GameService',

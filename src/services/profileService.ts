@@ -1,9 +1,10 @@
-import { AUTH_ENDPOINTS, PROFILE_ENDPOINTS } from '@/constants/api';
+import { PROFILE_ENDPOINTS } from '@/constants/api';
 import type { Profile } from '@/types/data';
-import type { ProfileFormValues } from '@/types/services';
 
-import { deleteRequest, get, getList, patch, post } from './apiService';
+import { deleteRequest, get, getList, patch } from './apiService';
+import { uploadProfilePicture as uploadPicture } from './uploadService';
 
+// This service provides methods to interact with user profiles.
 export async function getProfiles(): Promise<Profile[]> {
   return getList<Profile>(PROFILE_ENDPOINTS.profiles, undefined, {
     context: 'ProfileService',
@@ -18,6 +19,7 @@ export async function getProfile(id: number): Promise<Profile> {
   });
 }
 
+// This function updates a user profile with the provided data.
 export async function updateProfile(
   id: number,
   data: Partial<Profile>,
@@ -28,35 +30,18 @@ export async function updateProfile(
   });
 }
 
+// This function uploads a profile picture for a user profile.
 export async function uploadProfilePicture(
   profileId: number,
   file: File,
 ): Promise<Profile> {
-  const formData = new FormData();
-  formData.append('profile_picture', file);
-
-  return patch<Profile>(
+  return uploadPicture<Profile>(
     PROFILE_ENDPOINTS.profileDetail(profileId),
-    formData,
-    {
-      context: 'ProfileService',
-      errorMessage: 'Failed to upload profile picture',
-    },
-    {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    },
+    file,
   );
 }
 
-export async function changePassword(data: ProfileFormValues): Promise<void> {
-  await post<Record<string, never>>(AUTH_ENDPOINTS.passwordChange, data, {
-    context: 'ProfileService',
-    errorMessage: 'Failed to change password',
-  });
-}
-
+// This function deletes a user account by profile ID.
 export async function deleteAccount(profileId: number): Promise<void> {
   await deleteRequest<Record<string, never>>(
     PROFILE_ENDPOINTS.profileDetail(profileId),
@@ -67,6 +52,7 @@ export async function deleteAccount(profileId: number): Promise<void> {
   );
 }
 
+// This function deletes a user profile by ID.
 export async function deleteProfile(id: number): Promise<void> {
   await deleteRequest<Record<string, never>>(
     PROFILE_ENDPOINTS.profileDetail(id),

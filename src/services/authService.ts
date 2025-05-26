@@ -8,6 +8,7 @@ import type {
 
 import { get, post } from './apiService';
 
+// This service provides methods to handle user authentication, including login, registration, logout, and token management.
 export async function login(
   credentials: LoginCredentials,
 ): Promise<AuthResponse> {
@@ -17,6 +18,7 @@ export async function login(
   });
 }
 
+// This function registers a new user with the provided data.
 export async function register(data: RegisterData): Promise<AuthResponse> {
   return post<AuthResponse>(AUTH_ENDPOINTS.register, data, {
     context: 'AuthService',
@@ -24,6 +26,7 @@ export async function register(data: RegisterData): Promise<AuthResponse> {
   });
 }
 
+// This function logs out the current user by making a POST request to the logout endpoint.
 export async function logout(): Promise<void> {
   await post<Record<string, never>>(
     AUTH_ENDPOINTS.logout,
@@ -35,6 +38,7 @@ export async function logout(): Promise<void> {
   );
 }
 
+// This function refreshes the authentication token using the provided refresh token.
 export async function refreshToken(
   refreshToken: string,
 ): Promise<AuthResponse> {
@@ -48,6 +52,7 @@ export async function refreshToken(
   );
 }
 
+// This function verifies a token by making a POST request to the verify endpoint.
 export async function verifyToken(token: string): Promise<void> {
   await post<Record<string, never>>(
     AUTH_ENDPOINTS.verify,
@@ -59,6 +64,7 @@ export async function verifyToken(token: string): Promise<void> {
   );
 }
 
+// This function retrieves the current user's data by making a GET request to the user endpoint.
 export async function getCurrentUser(): Promise<User> {
   return get<User>(AUTH_ENDPOINTS.user, undefined, {
     context: 'AuthService',
@@ -66,6 +72,7 @@ export async function getCurrentUser(): Promise<User> {
   });
 }
 
+// This function changes the user's password by making a POST request to the password change endpoint.
 export async function changePassword(data: {
   old_password: string;
   new_password1: string;

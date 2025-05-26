@@ -8,7 +8,7 @@ import type { ProfileFormValues } from '@/types/services';
 
 export function useProfile(): ProfileContextType {
   const { profile, getProfile, user, logout } = useAuth();
-  const { profile: profileService } = useServices();
+  const { profile: profileService, auth: authService } = useServices();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -98,7 +98,6 @@ export function useProfile(): ProfileContextType {
       setLoading(false);
     }
   };
-
   const changePassword = async (
     values: ProfileFormValues,
   ): Promise<boolean> => {
@@ -111,7 +110,13 @@ export function useProfile(): ProfileContextType {
     setError(null);
 
     try {
-      await profileService.changePassword(values);
+      // Convert ProfileFormValues to auth service format
+      const passwordData = {
+        old_password: values.oldPassword,
+        new_password1: values.newPassword1,
+        new_password2: values.newPassword2,
+      };
+      await authService.changePassword(passwordData);
       setSuccess('Password changed successfully!');
       showToast('Password changed successfully!');
       return true;
