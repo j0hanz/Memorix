@@ -46,7 +46,7 @@ export function ProfileOverview({
           fallbackSrc="/img/fallback.webp"
         />
         <Button
-          className={`${styles.btnSolo} ${btnStyles.btnProfileMenu}`}
+          className={`${btnStyles.btnEnd} ${btnStyles.btnProfileMenu}`}
           icon={<DriveFolderUploadIcon fontSize="small" />}
           color="secondary"
           text="Upload"

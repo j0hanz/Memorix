@@ -279,10 +279,6 @@
 
 /* Media queries */
 @media (max-width: 425px) {
-  .btnMain {
-    font-size: 0.8rem;
-  }
-
   .navLink {
     font-size: 0.9em;
   }

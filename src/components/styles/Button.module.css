@@ -65,7 +65,7 @@
 }
 
 .btnProfileMenu {
-  font-size: 1em;
+  font-size: 0.9em;
   height: 3rem;
   width: 100%;
   border: var(--border-primary);
@@ -147,5 +147,8 @@
 @container (max-width: 400px) {
   .customButton {
     font-size: 0.9em;
+  }
+  .btnProfileMenu {
+    font-size: 0.8em;
   }
 }
