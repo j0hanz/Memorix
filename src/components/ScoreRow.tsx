@@ -17,10 +17,10 @@ export const ScoreRow: FC<ScoreRowProps> = ({ score }) => (
       <StarRating count={score.stars} />
     </Col>
     <Col xs={2} className="d-flex justify-content-start align-items-center">
-      {MODAL_ICONS.moves()} {score.moves}
+      {score.moves} {MODAL_ICONS.moves()}
     </Col>
-    <Col xs={1} className="d-flex justify-content-start align-items-center">
-      {MODAL_ICONS.timer()} {score.time_seconds}
+    <Col xs={1} className="d-flex justify-content-end align-items-center">
+      {score.time_seconds} {MODAL_ICONS.timer()}
     </Col>
     <Col xs={2} className="d-flex justify-content-end align-items-center">
       {score.completed_at}
