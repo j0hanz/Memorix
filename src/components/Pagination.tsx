@@ -20,6 +20,7 @@ export const Pagination: FC<PaginationProps> = ({
         disabled={page === 1}
         icon={NAVIGATION_ICONS.previous()}
         aria-label="Previous Page"
+        tooltip={page === 1 ? 'First' : 'Previous'}
       />
     </Col>
     <Col xs={3} className={styles.pageInfo}>
@@ -31,6 +32,7 @@ export const Pagination: FC<PaginationProps> = ({
         disabled={page === totalPages}
         icon={NAVIGATION_ICONS.next()}
         aria-label="Next Page"
+        tooltip={page === totalPages ? 'Last' : 'Next'}
       />
     </Col>
   </Row>

@@ -24,6 +24,8 @@ export const ProfileAvatar = ({
         imgAlt="Profile"
         imgClassName={styles.menuProfileImage}
         color="transparent"
+        tooltip="Profile"
+        tooltipPlacement="bottom"
       />
     </ProtectedRoute>
   ) : null;

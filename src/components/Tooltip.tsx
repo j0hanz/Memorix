@@ -14,7 +14,7 @@ export function Tooltip({
 
   return (
     <div
-      className={styles.tooltipTrigger}
+      className={`${styles.tooltipTrigger} ${className}`}
       onMouseEnter={() => {
         setVisible(true);
       }}
@@ -35,7 +35,7 @@ export function Tooltip({
       {children}
       {visible && content && (
         <div
-          className={`${styles.tooltip} ${styles[placement]} ${className}`}
+          className={`${styles.tooltip} ${styles[placement]}`}
           role="tooltip"
         >
           {content}

@@ -4,11 +4,10 @@ import { Button as CustomButton } from 'react-bootstrap';
 import { Image } from '@/components/Image';
 import { Tooltip } from '@/components/Tooltip';
 import { useSound } from '@/hooks/useProvider';
-import type { CustomButtonProps } from '@/types/components';
+import type { CustomButtonProps } from '@/types/components'; // Assuming BootstrapButtonProps is the base
 
 import styles from './styles/Button.module.css';
 
-// Button component with optional icon, text, img, and tooltip
 export const Button: FC<
   CustomButtonProps & {
     variant?: 'menu' | 'centered';
@@ -17,7 +16,9 @@ export const Button: FC<
     imgAlt?: string;
     imgClassName?: string;
     tooltip?: string;
+    tooltipPlacement?: 'top' | 'bottom' | 'left' | 'right';
     category?: string;
+    className?: string;
   }
 > = ({
   icon,
@@ -31,11 +32,11 @@ export const Button: FC<
   variant,
   color = 'secondary',
   tooltip,
+  tooltipPlacement,
   ...props
 }) => {
-  const buttonClassName = [
+  const baseButtonAppearanceClasses = [
     styles.customButton,
-    className,
     color === 'primary' ? styles.primaryColor : '',
     color === 'secondary' ? styles.secondaryColor : '',
     color === 'transparent' ? styles.transparent : '',
@@ -43,10 +44,10 @@ export const Button: FC<
     .filter(Boolean)
     .join(' ')
     .trim();
-  const { playSound } = useSound();
 
   const textClassName =
     `${styles.text} ${variant === 'menu' ? styles.menuText : ''}`.trim();
+  const { playSound } = useSound();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (onClick) {
@@ -55,8 +56,8 @@ export const Button: FC<
     }
   };
 
-  const buttonContent = (
-    <CustomButton {...props} onClick={handleClick} className={buttonClassName}>
+  const buttonInnards = (
+    <>
       {img && (
         <Image
           src={img}
@@ -69,12 +70,36 @@ export const Button: FC<
       {icon && <div className={styles.icon}>{icon}</div>}
       {text && <div className={textClassName}>{text}</div>}
       {children}
-    </CustomButton>
+    </>
   );
 
-  return tooltip ? (
-    <Tooltip content={tooltip}>{buttonContent}</Tooltip>
-  ) : (
-    buttonContent
-  );
+  if (tooltip) {
+    return (
+      <Tooltip
+        content={tooltip}
+        placement={tooltipPlacement || 'bottom'}
+        className={className}
+      >
+        <CustomButton
+          {...props}
+          onClick={handleClick}
+          className={baseButtonAppearanceClasses}
+        >
+          {buttonInnards}
+        </CustomButton>
+      </Tooltip>
+    );
+  } else {
+    const finalButtonClassName =
+      `${baseButtonAppearanceClasses} ${className}`.trim();
+    return (
+      <CustomButton
+        {...props}
+        onClick={handleClick}
+        className={finalButtonClassName}
+      >
+        {buttonInnards}
+      </CustomButton>
+    );
+  }
 };

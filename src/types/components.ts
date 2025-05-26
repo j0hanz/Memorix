@@ -311,6 +311,9 @@ export interface CustomButtonProps
   imgAlt?: string;
   imgClassName?: string;
   category?: string;
+  variant?: 'menu' | 'centered';
+  tooltip?: string;
+  tooltipPlacement?: 'top' | 'bottom' | 'left' | 'right';
 }
 
 export interface SoundToggleProps {
@@ -351,10 +354,10 @@ export interface ToastProps {
   onClose?: () => void;
 }
 
-export interface TooltipProps extends BaseComponentProps {
-  content: ReactNode;
+export interface TooltipProps {
+  children: React.ReactNode;
+  content: React.ReactNode;
   placement?: 'top' | 'bottom' | 'left' | 'right';
-  delay?: number;
   className?: string;
 }
 
