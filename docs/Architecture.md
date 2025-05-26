@@ -1,7 +1,7 @@
 # Memorix Architecture Overview
 
-
 ## State Management Flow
+
 ```
 
 🎮 GAME FLOW      🔐 AUTH FLOW         ⚙️ APP FLOW
@@ -100,6 +100,7 @@ Components       Components           Components
 ### Data Flow Examples
 
 #### 🎮 Game Score Submission
+
 ```
 Component → useGame.saveScore → gameActions.setScore
   → gameReducer → useServices.game.saveGameResult
@@ -107,6 +108,7 @@ Component → useGame.saveScore → gameActions.setScore
 ```
 
 #### 🔐 User Authentication
+
 ```
 Component → useAuth.login → authActions.loginRequest
   → authReducer → useServices.auth.login
@@ -114,6 +116,7 @@ Component → useAuth.login → authActions.loginRequest
 ```
 
 #### 👤 Profile Picture Upload
+
 ```
 Component → useProfile.uploadPicture → profileActions.uploadStart
   → profileReducer → useServices.upload.uploadProfilePicture
@@ -123,12 +126,14 @@ Component → useProfile.uploadPicture → profileActions.uploadStart
 ## Architecture Benefits
 
 ### 🚀 Development Experience
+
 - **Type Safety**: 100% coverage across state management
 - **Autocomplete**: For all actions and services
 - **Error Prevention**: Compile-time error detection
 - **Self-documenting**: Clear action creators and service contracts
 
 ### 🏗️ Design Principles
+
 - **Unidirectional Data Flow**: Predictable state updates
 - **Modular Design**: Feature-based organization
 - **Service Composition**: Reusable business logic

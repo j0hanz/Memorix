@@ -16,7 +16,7 @@ import {
   ProfileProvider,
   SoundProvider,
   ToastProvider,
-} from '@/components/Provider';
+} from '@/components/ui/Provider';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {

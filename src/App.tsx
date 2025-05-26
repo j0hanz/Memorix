@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { Game } from '@/components/Game';
-import { MainMenu } from '@/components/MainMenu';
-import { ModalRegistry } from '@/components/ModalRegistry';
-import { GameProvider } from '@/components/Provider';
-import { LoadingCardSpinner } from '@/components/Spinner';
+import { Game } from '@/components/game/Game';
+import { ModalRegistry } from '@/components/modals/ModalRegistry';
+import { MainMenu } from '@/components/navigation/MainMenu';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import { GameProvider } from '@/components/ui/Provider';
+import { LoadingCardSpinner } from '@/components/ui/Spinner';
 import { useMotions } from '@/hooks/useMotions';
 import { useModal, useNavigation } from '@/hooks/useProvider';
 
