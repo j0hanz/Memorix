@@ -4,9 +4,9 @@ import React from 'react';
 import { Card } from '@/components/cards/Card';
 import { Image } from '@/components/ui/Image';
 import { LoadingCardSpinner } from '@/components/ui/Spinner';
-import { useCard } from '@/hooks/useCard';
-import { useMotions } from '@/hooks/useMotions';
-import { useGameState } from '@/hooks/useProvider';
+import { useCard } from '@/hooks/game/useCard';
+import { useMotions } from '@/hooks/game/useMotions';
+import { useGameState } from '@/hooks/shared/useProvider';
 import type { GameCardProps } from '@/types/components';
 
 import styles from '../styles/GameCard.module.css';

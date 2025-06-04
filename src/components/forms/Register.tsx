@@ -4,7 +4,7 @@ import { FormField } from '@/components/forms/FormField';
 import { ModalFooterButtons } from '@/components/modals/ModalFooterButtons';
 import styles from '@/components/styles/Modal.module.css';
 import { LoadingSpinner } from '@/components/ui/Spinner';
-import { useRegister } from '@/hooks/useRegister';
+import { useRegister } from '@/hooks/auth/useRegister';
 import type { RegisterProps } from '@/types/components';
 import { AUTH_ICONS, NAVIGATION_ICONS } from '@/utils/iconUtils';
 import { isFormComplete, registerRequiredFields } from '@/utils/validation';

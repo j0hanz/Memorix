@@ -1,4 +1,4 @@
-import { useProfile } from '@/hooks/useProvider';
+import { useProfile } from '@/hooks/shared/useProvider';
 import { AUTH_ICONS } from '@/utils/iconUtils';
 
 export function ProfileDeleteAccount() {

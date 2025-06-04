@@ -5,7 +5,7 @@ import { Button } from '@/components/buttons/Button';
 import btnStyles from '@/components/styles/Button.module.css';
 import styles from '@/components/styles/Modal.module.css';
 import { Image } from '@/components/ui/Image';
-import { useProfile } from '@/hooks/useProvider';
+import { useProfile } from '@/hooks/shared/useProvider';
 import { AUTH_ICONS } from '@/utils/iconUtils';
 
 const formatDate = (date?: string) =>

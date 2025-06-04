@@ -6,8 +6,8 @@ import { MainMenu } from '@/components/navigation/MainMenu';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { GameProvider } from '@/components/ui/Provider';
 import { LoadingCardSpinner } from '@/components/ui/Spinner';
-import { useMotions } from '@/hooks/useMotions';
-import { useModal, useNavigation } from '@/hooks/useProvider';
+import { useMotions } from '@/hooks/game/useMotions';
+import { useModal, useNavigation } from '@/hooks/shared/useProvider';
 
 export const App = () => {
   const [showInitialLoading, setShowInitialLoading] = useState(false);

@@ -1,6 +1,6 @@
 import { Cards } from '@/components/cards/Cards';
 import { ScoreboardModal } from '@/components/modals/ScoreboardModal';
-import { useGameState } from '@/hooks/useProvider';
+import { useGameState } from '@/hooks/shared/useProvider';
 import type { GameProps } from '@/types/components';
 import { gameActions } from '@/utils/gameActions';
 

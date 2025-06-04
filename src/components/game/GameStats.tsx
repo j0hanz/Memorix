@@ -1,6 +1,6 @@
 import { StarRating } from '@/components/ui/StarRating';
-import { useStarRating } from '@/hooks/useScoreboard';
-import { useTimer } from '@/hooks/useTimer';
+import { useTimer } from '@/hooks/game/useTimer';
+import { useStarRating } from '@/hooks/leaderboard/useScoreboard';
 import type { MovesProps, ScoreProps, TimerProps } from '@/types/components';
 import { GAME_ICONS } from '@/utils/iconUtils';
 

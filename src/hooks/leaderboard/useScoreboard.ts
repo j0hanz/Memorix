@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
 import { calculateStars } from '@/constants/scoring';
-import { useAuth } from '@/hooks/useProvider';
-import { useServices } from '@/hooks/useServices';
+import { useServices } from '@/hooks/api/useServices';
+import { useAuth } from '@/hooks/shared/useProvider';
 import type { UseSaveScoreProps, UseScoreboardProps } from '@/types/hooks';
 
 // Hook for calculating score stars

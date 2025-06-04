@@ -1,6 +1,6 @@
 import { ModalFooterButtons } from '@/components/modals/ModalFooterButtons';
 import { LoadingSpinner } from '@/components/ui/Spinner';
-import { useProfile } from '@/hooks/useProvider';
+import { useProfile } from '@/hooks/shared/useProvider';
 import type { ProfileFooterProps } from '@/types/components';
 import { AUTH_ICONS } from '@/utils/iconUtils';
 

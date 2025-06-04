@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { DELAYS } from '@/constants/game';
-import { useAuth, useModal, useSound } from '@/hooks/useProvider';
+import { useAuth, useModal, useSound } from '@/hooks/shared/useProvider';
 
 // Menu state handler
 export function useMenuHandler() {

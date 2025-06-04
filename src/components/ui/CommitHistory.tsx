@@ -2,8 +2,8 @@ import { Suspense } from 'react';
 
 import { ModalFooterButtons } from '@/components/modals/ModalFooterButtons';
 import { LoadingSpinner } from '@/components/ui/Spinner';
-import { useCommit } from '@/hooks/useCommitHistory';
-import { useNavigation } from '@/hooks/useProvider';
+import { useCommit } from '@/hooks/api/useCommitHistory';
+import { useNavigation } from '@/hooks/shared/useProvider';
 import type { CommitStatusProps } from '@/types/services';
 import { MENU_ICONS, NAVIGATION_ICONS } from '@/utils/iconUtils';
 

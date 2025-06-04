@@ -1,7 +1,7 @@
 import Switch from '@mui/material/Switch';
 
 import { Tooltip } from '@/components/ui/Tooltip';
-import { useToggle } from '@/hooks/useToggle';
+import { useToggle } from '@/hooks/ui/useToggle';
 import type { SoundToggleProps } from '@/types/components';
 import { getIcon } from '@/utils/iconUtils';
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { useError, useToast } from '@/hooks/useProvider';
+import { useError, useToast } from '@/hooks/shared/useProvider';
 import type { Fetcher, FetcherOptions } from '@/types/hooks';
 import { getUserFriendlyMessage, logError } from '@/utils/errorUtils';
 

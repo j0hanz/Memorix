@@ -1,4 +1,4 @@
-import { useImage } from '@/hooks/useImage';
+import { useImage } from '@/hooks/ui/useImage';
 import type { ImageProps } from '@/types/components';
 
 // Image component to display images with error handling and fallback

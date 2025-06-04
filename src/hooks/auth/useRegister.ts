@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-import { useForm } from '@/hooks/useForm';
-import { useError, useToast } from '@/hooks/useProvider';
-import { useServices } from '@/hooks/useServices';
+import { useServices } from '@/hooks/api/useServices';
+import { useForm } from '@/hooks/forms/useForm';
+import { useError, useToast } from '@/hooks/shared/useProvider';
 import type { RegisterData } from '@/types/services';
 import type { ApiError } from '@/types/services';
 import { formatErrorMessage, logError } from '@/utils/errorUtils';

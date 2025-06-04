@@ -4,7 +4,7 @@ import { Button } from '@/components/buttons/Button';
 import { Select } from '@/components/forms/Select';
 import { CategoryIcon } from '@/components/game/CategoryIcon';
 import { StarRating } from '@/components/ui/StarRating';
-import { useLeaderboard } from '@/hooks/useLeaderboard';
+import { useLeaderboard } from '@/hooks/leaderboard/useLeaderboard';
 import { MODAL_ICONS } from '@/utils/iconUtils';
 
 import styles from '../styles/Modal.module.css';

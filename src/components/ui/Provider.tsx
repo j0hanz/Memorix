@@ -10,14 +10,14 @@ import { NavigationContext } from '@/contexts/NavigationContext';
 import { ProfileContext } from '@/contexts/ProfileContext';
 import { SoundContext } from '@/contexts/SoundContext';
 import { ToastContext } from '@/contexts/ToastContext';
-import { useAuthProvider } from '@/hooks/useAuth';
-import { useErrorHandler } from '@/hooks/useError';
-import { useGame } from '@/hooks/useGame';
-import { useModalHandler } from '@/hooks/useModal';
-import { useNavigationHandler } from '@/hooks/useNavigation';
-import { useProfile } from '@/hooks/useProfile';
-import { useSoundHandler } from '@/hooks/useSound';
-import { useToastHandler } from '@/hooks/useToast';
+import { useAuthProvider } from '@/hooks/auth/useAuth';
+import { useGame } from '@/hooks/game/useGame';
+import { useProfile } from '@/hooks/profile/useProfile';
+import { useErrorHandler } from '@/hooks/shared/useError';
+import { useModalHandler } from '@/hooks/ui/useModal';
+import { useNavigationHandler } from '@/hooks/ui/useNavigation';
+import { useSoundHandler } from '@/hooks/ui/useSound';
+import { useToastHandler } from '@/hooks/ui/useToast';
 import type {
   AuthProviderProps,
   GameProviderProps,

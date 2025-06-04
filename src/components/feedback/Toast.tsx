@@ -1,5 +1,5 @@
 import { DELAYS } from '@/constants/game';
-import { useToastVisibility } from '@/hooks/useToast';
+import { useToastVisibility } from '@/hooks/ui/useToast';
 import type { ToastProps } from '@/types/components';
 
 import styles from '../styles/Toast.module.css';

@@ -3,7 +3,7 @@ import { Feedback } from '@/components/feedback/Feedback';
 import { Moves, Timer } from '@/components/game/GameStats';
 import btnStyles from '@/components/styles/Button.module.css';
 import { LoadingSpinner } from '@/components/ui/Spinner';
-import { useAppState } from '@/hooks/useAppState';
+import { useAppState } from '@/hooks/ui/useAppState';
 import type { StatsBarProps } from '@/types/components';
 import { GAME_ICONS } from '@/utils/iconUtils';
 

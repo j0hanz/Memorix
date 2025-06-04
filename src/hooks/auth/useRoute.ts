@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useAuth } from '@/hooks/useProvider';
+import { useAuth } from '@/hooks/shared/useProvider';
 
 export interface UseRouteOptions {
   onAuthRequired: () => void;

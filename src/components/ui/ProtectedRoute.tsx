@@ -1,5 +1,5 @@
 import { LoadingCardSpinner } from '@/components/ui/Spinner';
-import { useRoute } from '@/hooks/useRoute';
+import { useRoute } from '@/hooks/auth/useRoute';
 import type { ProtectedRouteProps } from '@/types/components';
 
 export const ProtectedRoute = ({

@@ -2,8 +2,8 @@ import { Scoreboard } from '@/components/leaderboard/scoreData';
 import { ScoreFeedback } from '@/components/leaderboard/ScoreFeedback';
 import { ModalFooterButtons } from '@/components/modals/ModalFooterButtons';
 import { ProtectedRoute } from '@/components/ui/ProtectedRoute';
-import { useModal } from '@/hooks/useProvider';
-import { useScoreboard } from '@/hooks/useScoreboard';
+import { useScoreboard } from '@/hooks/leaderboard/useScoreboard';
+import { useModal } from '@/hooks/shared/useProvider';
 import type { ScoreboardDataProps } from '@/types/components';
 import { MODAL_ICONS } from '@/utils/iconUtils';
 

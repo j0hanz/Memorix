@@ -4,7 +4,7 @@ import { GameCategory } from '@/components/game/GameCatagory';
 import { ScoreRow } from '@/components/leaderboard/ScoreRow';
 import { Pagination } from '@/components/ui/Pagination';
 import { LoadingSpinner } from '@/components/ui/Spinner';
-import { useProfileScore } from '@/hooks/useProfileScore';
+import { useProfileScore } from '@/hooks/leaderboard/useProfileScore';
 
 export function ProfileGameHistory() {
   const {

@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 
 import { FEEDBACK } from '@/constants/game';
-import { useMotions } from '@/hooks/useMotions';
+import { useMotions } from '@/hooks/game/useMotions';
 import type { FeedbackProps } from '@/types/components';
 import { getIcon } from '@/utils/iconUtils';
 

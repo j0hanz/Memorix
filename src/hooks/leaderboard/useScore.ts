@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { useAuth } from '@/hooks/useProvider';
-import { useServices } from '@/hooks/useServices';
+import { useServices } from '@/hooks/api/useServices';
+import { useAuth } from '@/hooks/shared/useProvider';
 import type { UserScore } from '@/types/services';
 
 export function useScore() {

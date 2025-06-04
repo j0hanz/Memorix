@@ -2,8 +2,8 @@ import type { ChangeEvent, FocusEvent } from 'react';
 import { Form } from 'react-bootstrap';
 
 import styles from '@/components/styles/Modal.module.css';
-import { useForm } from '@/hooks/useForm';
-import { useProfile } from '@/hooks/useProvider';
+import { useForm } from '@/hooks/forms/useForm';
+import { useProfile } from '@/hooks/shared/useProvider';
 import type { ProfileFormValues } from '@/types/services';
 import { profilePasswordValidationRules } from '@/utils/validation';
 

@@ -8,7 +8,7 @@ import { ProfileAvatar } from '@/components/profile/ProfileAvatar';
 import btnStyles from '@/components/styles/Button.module.css';
 import { SoundToggle } from '@/components/ui/SoundToggle';
 import { LoadingCardSpinner } from '@/components/ui/Spinner';
-import { useMenuHandler } from '@/hooks/useMenu';
+import { useMenuHandler } from '@/hooks/ui/useMenu';
 import type { MainMenuProps } from '@/types/components';
 import { MENU_ICONS } from '@/utils/iconUtils';
 

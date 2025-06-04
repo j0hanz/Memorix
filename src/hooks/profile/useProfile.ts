@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { useAuth, useToast } from '@/hooks/useProvider';
-import { useScore } from '@/hooks/useScore';
-import { useServices } from '@/hooks/useServices';
+import { useServices } from '@/hooks/api/useServices';
+import { useScore } from '@/hooks/leaderboard/useScore';
+import { useAuth, useToast } from '@/hooks/shared/useProvider';
 import type { ProfileContextType } from '@/types/context';
 import type { ProfileFormValues } from '@/types/services';
 

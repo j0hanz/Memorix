@@ -7,8 +7,8 @@ import {
   STATE_CONFIG,
   TIMER,
 } from '@/constants/game';
-import { useDeck } from '@/hooks/useDeck';
-import { useSound } from '@/hooks/useProvider';
+import { useDeck } from '@/hooks/game/useDeck';
+import { useSound } from '@/hooks/shared/useProvider';
 import { gameReducer, initialGameState } from '@/reducers/gameReducer';
 import type { CardData } from '@/types/data';
 import {

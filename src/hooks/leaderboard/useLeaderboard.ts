@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import { useFetch } from '@/hooks/useFetch';
-import { useServices } from '@/hooks/useServices';
+import { useFetch } from '@/hooks/api/useFetch';
+import { useServices } from '@/hooks/api/useServices';
 import type { GameOptions } from '@/types/components';
 import type { LeaderboardEntry } from '@/types/services';
 import { getCategoryOptions } from '@/utils/categoryUtils';

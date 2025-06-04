@@ -3,7 +3,7 @@ import { Button as CustomButton } from 'react-bootstrap';
 
 import { Image } from '@/components/ui/Image';
 import { Tooltip } from '@/components/ui/Tooltip';
-import { useSound } from '@/hooks/useProvider';
+import { useSound } from '@/hooks/shared/useProvider';
 import type { CustomButtonProps } from '@/types/components';
 
 import styles from '../styles/Button.module.css';

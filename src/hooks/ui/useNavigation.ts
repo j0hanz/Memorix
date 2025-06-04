@@ -1,6 +1,6 @@
 import { STATE_CONFIG } from '@/constants/game';
-import { useAppState } from '@/hooks/useAppState';
-import { useAuth, useModal } from '@/hooks/useProvider';
+import { useAuth, useModal } from '@/hooks/shared/useProvider';
+import { useAppState } from '@/hooks/ui/useAppState';
 
 // Navigation handler
 export function useNavigationHandler() {

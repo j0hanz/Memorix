@@ -3,8 +3,8 @@ import { Col, Container, Row } from 'react-bootstrap';
 
 import { GameCard } from '@/components/cards/GameCard';
 import { StatsBar } from '@/components/ui/StatsBar';
-import { useMotions } from '@/hooks/useMotions';
-import { useGameState } from '@/hooks/useProvider';
+import { useMotions } from '@/hooks/game/useMotions';
+import { useGameState } from '@/hooks/shared/useProvider';
 import type { CardsProps } from '@/types/components';
 
 import styles from '../styles/Cards.module.css';

@@ -1,4 +1,4 @@
-import { useImage } from '@/hooks/useImage';
+import { useImage } from '@/hooks/ui/useImage';
 import type { CardData } from '@/types/data';
 
 export function useCard(card?: CardData) {

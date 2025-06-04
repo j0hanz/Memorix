@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
-import { useFetch } from '@/hooks/useFetch';
-import { useServices } from '@/hooks/useServices';
+import { useFetch } from '@/hooks/api/useFetch';
+import { useServices } from '@/hooks/api/useServices';
 import type { GameOptions } from '@/types/components';
 import type { PaginatedUserScores, UserScore } from '@/types/services';
 
@@ -15,7 +15,7 @@ export function useProfileScore(initialPage = 1) {
 
   // Best scores fetcher
   const fetchAllBestScores = useCallback(
-    (signal?: AbortSignal) => game.getUserBestScores(signal),
+    () => game.getUserBestScores(),
     [game],
   );
   const { data: allBestScores = [], loading: loadingBest } = useFetch<
@@ -28,10 +28,10 @@ export function useProfileScore(initialPage = 1) {
 
   // Paged scores fetcher
   const fetchPagedScores = useCallback(
-    (signal?: AbortSignal) =>
-      game.getUserScores(page, pagedCategoryFilter || undefined, signal),
+    () => game.getUserScores(page, pagedCategoryFilter || undefined),
     [game, page, pagedCategoryFilter],
   );
+
   const {
     data: pagedData = { results: [], count: 0, next: null, previous: null },
     loading: loadingPaged,
@@ -42,38 +42,34 @@ export function useProfileScore(initialPage = 1) {
   });
 
   // Derive the list of categories the user has played from all their best scores
-  const playedCategories = useMemo<GameOptions[]>(() => {
-    return Array.from(new Set(allBestScores.map((s) => s.category_name))).map(
-      (label) => ({ value: label.toLowerCase(), label }),
-    );
-  }, [allBestScores]);
+  const playedCategories: GameOptions[] = allBestScores
+    ? Array.from(new Set(allBestScores.map((s) => s.category_name))).map(
+        (label) => ({ value: label.toLowerCase(), label }),
+      )
+    : [];
 
-  // Effect to initialize selectedBestCategory once playedCategories are loaded
+  // Effect to initialize selectedBestCategory once allBestScores are loaded
   useEffect(() => {
-    if (playedCategories.length > 0 && !selectedBestCategory) {
-      setSelectedBestCategory(playedCategories[0].value);
+    if (allBestScores && allBestScores.length > 0 && !selectedBestCategory) {
+      const firstCategory = allBestScores[0].category_name.toLowerCase();
+      setSelectedBestCategory(firstCategory);
     }
-  }, [playedCategories, selectedBestCategory]);
-
-  // Determine the current best score to display based on selectedBestCategory
-  const currentDisplayBestScore = useMemo(() => {
-    if (!selectedBestCategory || allBestScores.length === 0) {
-      return null;
-    }
-    return (
-      allBestScores.find(
-        (score) =>
-          score.category_name.toLowerCase() ===
-          selectedBestCategory.toLowerCase(),
-      ) || null
-    );
   }, [allBestScores, selectedBestCategory]);
 
+  // Determine the current best score to display based on selectedBestCategory
+  const currentDisplayBestScore =
+    !selectedBestCategory || !allBestScores || allBestScores.length === 0
+      ? null
+      : allBestScores.find(
+          (score) =>
+            score.category_name.toLowerCase() ===
+            selectedBestCategory.toLowerCase(),
+        ) || null;
   return {
     currentDisplayBestScore,
     loadingBest,
-    scores: pagedData.results,
-    total: pagedData.count,
+    scores: pagedData?.results || [],
+    total: pagedData?.count || 0,
     page,
     setPage,
     pagedCategoryFilter,

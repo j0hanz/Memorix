@@ -5,8 +5,8 @@ import { LeaderboardModal } from '@/components/modals/LeaderboardModal';
 import { ScoreboardModal } from '@/components/modals/ScoreboardModal';
 import { ProfileModal } from '@/components/profile/ProfileModal';
 import { LatestUpdates } from '@/components/ui/LatestUpdates';
-import { useModal } from '@/hooks/useProvider';
-import { useNavigation } from '@/hooks/useProvider';
+import { useModal } from '@/hooks/shared/useProvider';
+import { useNavigation } from '@/hooks/shared/useProvider';
 
 export function ModalRegistry() {
   const { activeModal, closeModal, modalData } = useModal();

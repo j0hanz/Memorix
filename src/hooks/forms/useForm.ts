@@ -2,7 +2,7 @@ import type { ChangeEvent, FormEvent } from 'react';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
-import { useValidate } from '@/hooks/useValidate';
+import { useValidate } from '@/hooks/forms/useValidate';
 import type { ValidationRules } from '@/types/utils';
 
 // This hook is used to manage form state and validation.
