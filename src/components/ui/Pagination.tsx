@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 
 import { Button } from '@/components/buttons/Button';
 import type { PaginationProps } from '@/types/components';
-import { NAVIGATION_ICONS } from '@/utils/iconUtils';
+import { NAVIGATION_ICONS } from '@/utils/ui/iconUtils';
 
 import styles from '../styles/Pagination.module.css';
 

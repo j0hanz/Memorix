@@ -2,7 +2,7 @@ import { useReducer } from 'react';
 
 import { appReducer, initialAppState } from '@/reducers/appReducer';
 import type { AppState } from '@/types/hooks';
-import { appActions } from '@/utils/appActions';
+import { appActions } from '@/utils/shared/appActions';
 
 export function useAppState() {
   // Initialize app state with reducer

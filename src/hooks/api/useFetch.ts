@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useError, useToast } from '@/hooks/shared/useProvider';
 import type { Fetcher, FetcherOptions } from '@/types/hooks';
-import { getUserFriendlyMessage, logError } from '@/utils/errorUtils';
+import { getUserFriendlyMessage, logError } from '@/utils/shared/errorUtils';
 
 export function useFetch<T>(
   fetcher: Fetcher<T>,

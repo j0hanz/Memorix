@@ -10,7 +10,7 @@ import { SoundToggle } from '@/components/ui/SoundToggle';
 import { LoadingCardSpinner } from '@/components/ui/Spinner';
 import { useMenuHandler } from '@/hooks/ui/useMenu';
 import type { MainMenuProps } from '@/types/components';
-import { MENU_ICONS } from '@/utils/iconUtils';
+import { MENU_ICONS } from '@/utils/ui/iconUtils';
 
 export const MainMenu = ({
   startGame,

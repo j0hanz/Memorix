@@ -4,7 +4,7 @@ import { Button } from '@/components/buttons/Button';
 import btnStyles from '@/components/styles/Button.module.css';
 import styles from '@/components/styles/Modal.module.css';
 import type { ModalProps } from '@/types/components';
-import { NAVIGATION_ICONS } from '@/utils/iconUtils';
+import { NAVIGATION_ICONS } from '@/utils/ui/iconUtils';
 
 export function Modal({
   show,

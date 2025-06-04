@@ -3,7 +3,7 @@ import Switch from '@mui/material/Switch';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { useToggle } from '@/hooks/ui/useToggle';
 import type { SoundToggleProps } from '@/types/components';
-import { getIcon } from '@/utils/iconUtils';
+import { getIcon } from '@/utils/ui/iconUtils';
 
 export function SoundToggle({ isMuted, onToggle }: SoundToggleProps) {
   const { isChanging, handleToggle } = useToggle(onToggle);

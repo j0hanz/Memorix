@@ -5,7 +5,7 @@ import { ProtectedRoute } from '@/components/ui/ProtectedRoute';
 import { useScoreboard } from '@/hooks/leaderboard/useScoreboard';
 import { useModal } from '@/hooks/shared/useProvider';
 import type { ScoreboardDataProps } from '@/types/components';
-import { MODAL_ICONS } from '@/utils/iconUtils';
+import { MODAL_ICONS } from '@/utils/ui/iconUtils';
 
 export function ScoreboardData({
   onReset,

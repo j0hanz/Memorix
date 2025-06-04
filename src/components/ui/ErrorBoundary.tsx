@@ -5,8 +5,8 @@ import { Button } from '@/components/buttons/Button';
 import { Modal } from '@/components/modals/Modal';
 import ErrorData from '@/components/ui/ErrorData';
 import type { ErrorBoundaryProps } from '@/types/components';
-import { logError } from '@/utils/errorUtils';
-import { getIcon } from '@/utils/iconUtils';
+import { logError } from '@/utils/shared/errorUtils';
+import { getIcon } from '@/utils/ui/iconUtils';
 
 import styles from '../styles/Modal.module.css';
 

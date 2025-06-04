@@ -17,8 +17,8 @@ import {
   getCardStyleClasses,
   getStatsTopClass,
   isCardClickable,
-} from '@/utils/cardUtils';
-import { gameActions } from '@/utils/gameActions';
+} from '@/utils/game/cardUtils';
+import { gameActions } from '@/utils/game/gameActions';
 
 export function useGame(
   onExit: () => void,

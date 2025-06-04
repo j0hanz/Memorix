@@ -1,5 +1,5 @@
 import type { TabItem } from '@/types/components';
-import { AUTH_ICONS } from '@/utils/iconUtils';
+import { AUTH_ICONS } from '@/utils/ui/iconUtils';
 
 export function ProfileTabs(styles: Record<string, string>): TabItem[] {
   return [

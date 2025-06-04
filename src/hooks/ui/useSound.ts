@@ -9,7 +9,7 @@ import {
   getInitialMuteState,
   playSoundEffect,
   saveMuteState,
-} from '@/utils/soundUtils';
+} from '@/utils/ui/soundUtils';
 
 // Sound state handler
 export function useSoundHandler(): SoundContextType {

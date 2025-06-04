@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { CATEGORIES } from '@/constants/game';
 import { generateCards } from '@/data/cardData';
 import type { PairedCard } from '@/types/data';
-import { shuffleCards } from '@/utils/deckUtils';
+import { shuffleCards } from '@/utils/game/deckUtils';
 
 export function useDeck(category = CATEGORIES.ANIMALS) {
   const [deck, setDeck] = useState<PairedCard[]>([]);

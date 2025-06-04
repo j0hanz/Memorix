@@ -5,9 +5,9 @@ import { useForm } from '@/hooks/forms/useForm';
 import { useAuth, useError, useToast } from '@/hooks/shared/useProvider';
 import type { LoginCredentials } from '@/types/services';
 import type { ApiError } from '@/types/services';
-import { formatErrorMessage, logError } from '@/utils/errorUtils';
-import { tokenManager } from '@/utils/tokenUtils';
-import { loginValidationRules } from '@/utils/validation';
+import { tokenManager } from '@/utils/auth/tokenUtils';
+import { loginValidationRules } from '@/utils/forms/validation';
+import { formatErrorMessage, logError } from '@/utils/shared/errorUtils';
 
 export function useLogin(onSuccess?: () => void) {
   const { auth } = useServices();

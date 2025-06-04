@@ -5,8 +5,8 @@ import { useForm } from '@/hooks/forms/useForm';
 import { useError, useToast } from '@/hooks/shared/useProvider';
 import type { RegisterData } from '@/types/services';
 import type { ApiError } from '@/types/services';
-import { formatErrorMessage, logError } from '@/utils/errorUtils';
-import { registerValidationRules } from '@/utils/validation';
+import { registerValidationRules } from '@/utils/forms/validation';
+import { formatErrorMessage, logError } from '@/utils/shared/errorUtils';
 
 export function useRegister(onSuccess: () => void) {
   const { auth } = useServices();

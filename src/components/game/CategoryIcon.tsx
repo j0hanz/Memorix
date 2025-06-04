@@ -1,6 +1,6 @@
 import { Tooltip } from '@/components/ui/Tooltip';
 import type { CategoryIconProps } from '@/types/components';
-import { getCategoryIcon } from '@/utils/categoryUtils';
+import { getCategoryIcon } from '@/utils/game/categoryUtils';
 
 export function CategoryIcon({
   categoryName,

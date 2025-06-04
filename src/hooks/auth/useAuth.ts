@@ -5,10 +5,10 @@ import { authReducer, initialAuthState } from '@/reducers/authReducer';
 import type { AuthContextType } from '@/types/context';
 import type { Profile, User } from '@/types/data';
 import type { ApiError } from '@/types/services';
-import { authActionCreators } from '@/utils/authActions';
-import { axiosReq } from '@/utils/axios';
-import { refreshAccessToken } from '@/utils/axiosUtils';
-import { tokenManager } from '@/utils/tokenUtils';
+import { axiosReq } from '@/utils/api/axios';
+import { refreshAccessToken } from '@/utils/api/axiosUtils';
+import { authActionCreators } from '@/utils/auth/authActions';
+import { tokenManager } from '@/utils/auth/tokenUtils';
 
 export function useAuthProvider(): AuthContextType {
   const [state, dispatch] = useReducer(authReducer, initialAuthState);

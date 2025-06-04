@@ -5,7 +5,7 @@ import styles from '@/components/styles/Modal.module.css';
 import { useForm } from '@/hooks/forms/useForm';
 import { useProfile } from '@/hooks/shared/useProvider';
 import type { ProfileFormValues } from '@/types/services';
-import { profilePasswordValidationRules } from '@/utils/validation';
+import { profilePasswordValidationRules } from '@/utils/forms/validation';
 
 export function ProfileChangePassword({ onBack }: { onBack: () => void }) {
   const { changePassword, error, success } = useProfile();

@@ -6,7 +6,7 @@ import btnStyles from '@/components/styles/Button.module.css';
 import styles from '@/components/styles/Modal.module.css';
 import { Image } from '@/components/ui/Image';
 import { useProfile } from '@/hooks/shared/useProvider';
-import { AUTH_ICONS } from '@/utils/iconUtils';
+import { AUTH_ICONS } from '@/utils/ui/iconUtils';
 
 const formatDate = (date?: string) =>
   date ? new Date(date).toLocaleDateString() : 'N/A';

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import type { AppError } from '@/types/services';
-import { createAppError, logError } from '@/utils/errorUtils';
+import { createAppError, logError } from '@/utils/shared/errorUtils';
 
 // Error state handler
 export function useErrorHandler() {

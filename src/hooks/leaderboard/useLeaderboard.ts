@@ -4,7 +4,7 @@ import { useFetch } from '@/hooks/api/useFetch';
 import { useServices } from '@/hooks/api/useServices';
 import type { GameOptions } from '@/types/components';
 import type { LeaderboardEntry } from '@/types/services';
-import { getCategoryOptions } from '@/utils/categoryUtils';
+import { getCategoryOptions } from '@/utils/game/categoryUtils';
 
 export function useLeaderboard(initialCategoryId?: number) {
   const { game } = useServices();

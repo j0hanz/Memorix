@@ -2,8 +2,8 @@ import type { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 import { AUTH_ENDPOINTS } from '@/constants/api';
 import type { AuthResponse } from '@/types/services';
-import { axiosReq } from '@/utils/axios';
-import { tokenManager } from '@/utils/tokenUtils';
+import { axiosReq } from '@/utils/api/axios';
+import { tokenManager } from '@/utils/auth/tokenUtils';
 
 const AUTH_PATHS = [
   AUTH_ENDPOINTS.login,

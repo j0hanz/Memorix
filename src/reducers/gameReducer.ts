@@ -4,7 +4,7 @@ import {
   setAllCardsStatus,
   setCardStatus,
   setMultipleCardStatus,
-} from '@/utils/cardUtils';
+} from '@/utils/game/cardUtils';
 
 // Initial game state definition
 export const initialGameState: GameState = {

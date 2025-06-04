@@ -3,7 +3,7 @@ import { Col, ListGroup, Row } from 'react-bootstrap';
 import { StarRating } from '@/components/ui/StarRating';
 import { SCORING_THRESHOLDS } from '@/constants/scoring';
 import type { ScoringCriteriaRowProps } from '@/types/components';
-import { MODAL_ICONS } from '@/utils/iconUtils';
+import { MODAL_ICONS } from '@/utils/ui/iconUtils';
 
 export function ScoringTab() {
   // Map the scoring thresholds to the scoring criteria rows

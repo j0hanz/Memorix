@@ -6,8 +6,8 @@ import styles from '@/components/styles/Modal.module.css';
 import { LoadingSpinner } from '@/components/ui/Spinner';
 import { useLogin } from '@/hooks/auth/useLogin';
 import type { LoginProps } from '@/types/components';
-import { AUTH_ICONS, NAVIGATION_ICONS } from '@/utils/iconUtils';
-import { isFormComplete, loginRequiredFields } from '@/utils/validation';
+import { isFormComplete, loginRequiredFields } from '@/utils/forms/validation';
+import { AUTH_ICONS, NAVIGATION_ICONS } from '@/utils/ui/iconUtils';
 
 export const Login = ({ onClose }: LoginProps) => {
   const {

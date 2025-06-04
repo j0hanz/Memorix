@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { CATEGORY_ICONS } from '@/utils/iconUtils';
+import { CATEGORY_ICONS } from '@/utils/ui/iconUtils';
 
 export const CATEGORY_OPTIONS = [
   { label: 'Animals', value: 'animals', id: 1 },

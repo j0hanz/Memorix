@@ -1,7 +1,7 @@
 import { ListGroup } from 'react-bootstrap';
 
 import type { IconExplanationProps } from '@/types/components';
-import { MODAL_ICONS } from '@/utils/iconUtils';
+import { MODAL_ICONS } from '@/utils/ui/iconUtils';
 
 import styles from '../styles/Modal.module.css';
 

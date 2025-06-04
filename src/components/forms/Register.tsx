@@ -6,8 +6,11 @@ import styles from '@/components/styles/Modal.module.css';
 import { LoadingSpinner } from '@/components/ui/Spinner';
 import { useRegister } from '@/hooks/auth/useRegister';
 import type { RegisterProps } from '@/types/components';
-import { AUTH_ICONS, NAVIGATION_ICONS } from '@/utils/iconUtils';
-import { isFormComplete, registerRequiredFields } from '@/utils/validation';
+import {
+  isFormComplete,
+  registerRequiredFields,
+} from '@/utils/forms/validation';
+import { AUTH_ICONS, NAVIGATION_ICONS } from '@/utils/ui/iconUtils';
 
 export const Register = ({ onSuccess, onClose }: RegisterProps) => {
   const {

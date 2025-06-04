@@ -2,7 +2,7 @@ import { StarRating } from '@/components/ui/StarRating';
 import { useTimer } from '@/hooks/game/useTimer';
 import { useStarRating } from '@/hooks/leaderboard/useScoreboard';
 import type { MovesProps, ScoreProps, TimerProps } from '@/types/components';
-import { GAME_ICONS } from '@/utils/iconUtils';
+import { GAME_ICONS } from '@/utils/ui/iconUtils';
 
 import styles from '../styles/GameStats.module.css';
 

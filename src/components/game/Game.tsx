@@ -2,7 +2,7 @@ import { Cards } from '@/components/cards/Cards';
 import { ScoreboardModal } from '@/components/modals/ScoreboardModal';
 import { useGameState } from '@/hooks/shared/useProvider';
 import type { GameProps } from '@/types/components';
-import { gameActions } from '@/utils/gameActions';
+import { gameActions } from '@/utils/game/gameActions';
 
 export function Game({ onRestart }: GameProps) {
   const {

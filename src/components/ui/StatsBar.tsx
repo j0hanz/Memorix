@@ -5,7 +5,7 @@ import btnStyles from '@/components/styles/Button.module.css';
 import { LoadingSpinner } from '@/components/ui/Spinner';
 import { useAppState } from '@/hooks/ui/useAppState';
 import type { StatsBarProps } from '@/types/components';
-import { GAME_ICONS } from '@/utils/iconUtils';
+import { GAME_ICONS } from '@/utils/ui/iconUtils';
 
 import styles from '../styles/Cards.module.css';
 

@@ -3,7 +3,7 @@ import { Register } from '@/components/forms/Register';
 import { ModalTabs } from '@/components/modals/ModalTabs';
 import styles from '@/components/styles/Modal.module.css';
 import type { TabContent, TabItem } from '@/types/components';
-import { AUTH_ICONS } from '@/utils/iconUtils';
+import { AUTH_ICONS } from '@/utils/ui/iconUtils';
 
 export const AuthData = ({ onClose }: { onClose: () => void }) => {
   const tabs: TabItem[] = [
