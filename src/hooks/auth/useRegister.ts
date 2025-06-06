@@ -6,7 +6,7 @@ import { useError, useToast } from '@/hooks/shared/useProvider';
 import type { RegisterData } from '@/types/services';
 import type { ApiError } from '@/types/services';
 import { registerValidationRules } from '@/utils/forms/validation';
-import { formatErrorMessage, logError } from '@/utils/shared/errorUtils';
+import { formatRegisterError, logError } from '@/utils/shared/errorUtils';
 
 export function useRegister(onSuccess: () => void) {
   const { auth } = useServices();
@@ -25,7 +25,7 @@ export function useRegister(onSuccess: () => void) {
       onSuccess();
       return true;
     } catch (err: unknown) {
-      const errorMessage = formatErrorMessage(err as ApiError);
+      const errorMessage = formatRegisterError(err as ApiError);
       setRegisterError(errorMessage);
       showToast(errorMessage);
       logError(err, 'Register', 'error');

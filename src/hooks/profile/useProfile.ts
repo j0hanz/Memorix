@@ -5,6 +5,10 @@ import { useScore } from '@/hooks/leaderboard/useScore';
 import { useAuth, useToast } from '@/hooks/shared/useProvider';
 import type { ProfileContextType } from '@/types/context';
 import type { ProfileFormValues } from '@/types/services';
+import {
+  formatPasswordChangeError,
+  isApiError,
+} from '@/utils/shared/errorUtils';
 
 export function useProfile(): ProfileContextType {
   const { profile, getProfile, user, logout } = useAuth();
@@ -102,12 +106,15 @@ export function useProfile(): ProfileContextType {
     values: ProfileFormValues,
   ): Promise<boolean> => {
     if (!profile?.id) {
-      setError('No profile found');
+      const errorMsg = 'No profile found';
+      setError(errorMsg);
+      showToast(errorMsg);
       return false;
     }
 
     setLoading(true);
     setError(null);
+    setSuccess(null);
 
     try {
       // Convert ProfileFormValues to auth service format
@@ -117,11 +124,19 @@ export function useProfile(): ProfileContextType {
         new_password2: values.newPassword2,
       };
       await authService.changePassword(passwordData);
+      setSuccess('Password changed successfully!');
       showToast('Password changed successfully!');
       return true;
     } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : 'Failed to change password';
+      let errorMessage = 'Failed to change password';
+
+      // Use specific password change error formatting
+      if (isApiError(err)) {
+        errorMessage = formatPasswordChangeError(err);
+      } else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+
       setError(errorMessage);
       showToast(errorMessage);
       return false;

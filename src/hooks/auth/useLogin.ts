@@ -7,7 +7,7 @@ import type { LoginCredentials } from '@/types/services';
 import type { ApiError } from '@/types/services';
 import { tokenManager } from '@/utils/auth/tokenUtils';
 import { loginValidationRules } from '@/utils/forms/validation';
-import { formatErrorMessage, logError } from '@/utils/shared/errorUtils';
+import { formatLoginError, logError } from '@/utils/shared/errorUtils';
 
 export function useLogin(onSuccess?: () => void) {
   const { auth } = useServices();
@@ -53,7 +53,7 @@ export function useLogin(onSuccess?: () => void) {
 
       return true;
     } catch (err: unknown) {
-      const errorMessage = formatErrorMessage(err as ApiError);
+      const errorMessage = formatLoginError(err as ApiError);
       setLoginError(errorMessage);
       showToast(errorMessage);
       logError(err, 'Login', 'error');

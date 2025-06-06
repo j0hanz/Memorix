@@ -14,7 +14,6 @@ export async function login(
 ): Promise<AuthResponse> {
   return post<AuthResponse>(AUTH_ENDPOINTS.login, credentials, {
     context: 'AuthService',
-    errorMessage: 'Login failed',
   });
 }
 
@@ -22,7 +21,6 @@ export async function login(
 export async function register(data: RegisterData): Promise<AuthResponse> {
   return post<AuthResponse>(AUTH_ENDPOINTS.register, data, {
     context: 'AuthService',
-    errorMessage: 'Registration failed',
   });
 }
 
@@ -33,7 +31,6 @@ export async function logout(): Promise<void> {
     {},
     {
       context: 'AuthService',
-      errorMessage: 'Logout failed',
     },
   );
 }
@@ -47,7 +44,6 @@ export async function refreshToken(
     { refresh: refreshToken },
     {
       context: 'AuthService',
-      errorMessage: 'Token refresh failed',
     },
   );
 }
@@ -59,7 +55,6 @@ export async function verifyToken(token: string): Promise<void> {
     { token },
     {
       context: 'AuthService',
-      errorMessage: 'Token verification failed',
     },
   );
 }
@@ -68,7 +63,6 @@ export async function verifyToken(token: string): Promise<void> {
 export async function getCurrentUser(): Promise<User> {
   return get<User>(AUTH_ENDPOINTS.user, undefined, {
     context: 'AuthService',
-    errorMessage: 'Failed to fetch user data',
   });
 }
 
@@ -80,6 +74,5 @@ export async function changePassword(data: {
 }): Promise<void> {
   await post<Record<string, never>>(AUTH_ENDPOINTS.passwordChange, data, {
     context: 'AuthService',
-    errorMessage: 'Password change failed',
   });
 }
