@@ -5,11 +5,11 @@ import { LeaderboardModal } from '@/components/modals/LeaderboardModal';
 import { ScoreboardModal } from '@/components/modals/ScoreboardModal';
 import { ProfileModal } from '@/components/profile/ProfileModal';
 import { LatestUpdates } from '@/components/ui/LatestUpdates';
-import { useModal } from '@/hooks/shared/useProvider';
-import { useNavigation } from '@/hooks/shared/useProvider';
+import { useModal, useNavigation, useToast } from '@/hooks/shared/useProvider';
 
 export function ModalRegistry() {
   const { activeModal, closeModal, modalData } = useModal();
+  const { hideToast } = useToast();
   const navigation = useNavigation();
 
   // No modals to render if activeModal is null
@@ -17,6 +17,8 @@ export function ModalRegistry() {
 
   // Default handlers for all modals
   const handleClose = () => {
+    // Clear global toast when modal is closed
+    hideToast();
     closeModal();
   };
 

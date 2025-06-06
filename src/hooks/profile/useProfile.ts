@@ -72,16 +72,15 @@ export function useProfile(): ProfileContextType {
       reader.readAsDataURL(file);
     }
   };
-
   const handleUpdateProfile = async () => {
     if (!profileImage) {
-      setError('Please select an image first');
-      showToast('Please select an image first');
+      const errorMsg = 'Please select an image first';
+      showToast(errorMsg);
       return;
     }
     if (!profile?.id) {
-      setError('No profile found');
-      showToast('No profile found');
+      const errorMsg = 'No profile found';
+      showToast(errorMsg);
       return;
     }
 
@@ -90,15 +89,14 @@ export function useProfile(): ProfileContextType {
 
     try {
       await profileService.uploadProfilePicture(profile.id, profileImage);
-      setSuccess('Profile picture updated successfully!');
-      showToast('Profile picture updated successfully!');
+      const successMsg = 'Profile picture updated successfully!';
+      showToast(successMsg);
       setProfileImage(null);
       setPreviewImage(null);
       await getProfile();
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : 'Failed to update profile picture';
-      setError(errorMessage);
       showToast(errorMessage);
     } finally {
       setLoading(false);
@@ -109,7 +107,6 @@ export function useProfile(): ProfileContextType {
   ): Promise<boolean> => {
     if (!profile?.id) {
       const errorMsg = 'No profile found';
-      setError(errorMsg);
       showToast(errorMsg);
       return false;
     }
@@ -126,8 +123,8 @@ export function useProfile(): ProfileContextType {
         new_password2: values.newPassword2,
       };
       await authService.changePassword(passwordData);
-      setSuccess('Password changed successfully!');
-      showToast('Password changed successfully!');
+      const successMsg = 'Password changed successfully!';
+      showToast(successMsg);
       return true;
     } catch (err) {
       let errorMessage = 'Failed to change password';
@@ -139,17 +136,16 @@ export function useProfile(): ProfileContextType {
         errorMessage = err.message;
       }
 
-      setError(errorMessage);
       showToast(errorMessage);
       return false;
     } finally {
       setLoading(false);
     }
   };
-
   const handleDeleteAccount = async (): Promise<void> => {
     if (!profile?.id) {
-      setError('No profile found');
+      const errorMsg = 'No profile found';
+      showToast(errorMsg);
       return;
     }
 
@@ -158,13 +154,12 @@ export function useProfile(): ProfileContextType {
 
     try {
       await profileService.deleteAccount(profile.id);
-      setSuccess('Account deleted successfully');
-      showToast('Account deleted successfully');
+      const successMsg = 'Account deleted successfully';
+      showToast(successMsg);
       logout();
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : 'Failed to delete account';
-      setError(errorMessage);
       showToast(errorMessage);
     } finally {
       setLoading(false);
