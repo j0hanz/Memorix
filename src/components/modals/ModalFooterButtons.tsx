@@ -12,6 +12,8 @@ export const ModalFooterButtons = ({
   rightDisabled = false,
   leftType = 'button',
   rightType = 'button',
+  leftForm,
+  rightForm,
 }: ModalFooterButtonsProps) => (
   <div className={btnStyles.btnModalFooter}>
     {leftText && (
@@ -23,6 +25,7 @@ export const ModalFooterButtons = ({
         color="primary"
         disabled={leftDisabled}
         type={leftType}
+        form={leftForm}
       />
     )}
     <Button
@@ -33,6 +36,7 @@ export const ModalFooterButtons = ({
       color="secondary"
       disabled={rightDisabled}
       type={rightType}
+      form={rightForm}
     />
   </div>
 );

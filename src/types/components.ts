@@ -130,6 +130,8 @@ export interface ModalFooterButtonsProps {
   rightDisabled?: boolean;
   leftType?: 'button' | 'submit' | 'reset';
   rightType?: 'button' | 'submit' | 'reset';
+  leftForm?: string;
+  rightForm?: string;
 }
 
 export interface SelectOption {

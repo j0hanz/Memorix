@@ -38,6 +38,7 @@ export function ProfileChangePassword({ onBack }: { onBack: () => void }) {
   return (
     <>
       <Form
+        id="password-change-form"
         onSubmit={(e) => {
           void handleSubmit(e);
         }}

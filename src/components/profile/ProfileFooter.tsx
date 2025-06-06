@@ -17,15 +17,16 @@ export function ProfileFooter({
   if (activeTab === 'overview' && showPasswordTab) {
     return (
       <ModalFooterButtons
-        leftText={loading ? <LoadingSpinner /> : 'Save Changes'}
+        leftText={loading ? <LoadingSpinner /> : 'Change Password'}
         rightText="Back"
         onLeftClick={undefined}
         onRightClick={onBack}
-        leftIcon={loading ? undefined : AUTH_ICONS.upload()}
+        leftIcon={loading ? undefined : AUTH_ICONS.password()}
         rightIcon={AUTH_ICONS.back()}
         leftDisabled={loading}
         rightDisabled={loading}
         leftType="submit"
+        leftForm="password-change-form"
       />
     );
   }

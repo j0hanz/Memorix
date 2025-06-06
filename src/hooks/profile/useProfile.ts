@@ -117,7 +117,6 @@ export function useProfile(): ProfileContextType {
         new_password2: values.newPassword2,
       };
       await authService.changePassword(passwordData);
-      setSuccess('Password changed successfully!');
       showToast('Password changed successfully!');
       return true;
     } catch (err) {
