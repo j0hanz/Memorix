@@ -49,8 +49,10 @@ export interface ProfileContextType extends AsyncState<Profile> {
   scoresPage: number;
   loadingScores: boolean;
   success: string | null;
+  passwordFormComplete: boolean;
   setError: (error: string | null) => void;
   setSuccess: (success: string | null) => void;
+  setPasswordFormComplete: (complete: boolean) => void;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleUpdateProfile: () => Promise<void>;
   setScoresPage: (page: number) => void;

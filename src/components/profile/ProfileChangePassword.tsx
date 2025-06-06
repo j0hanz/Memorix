@@ -1,14 +1,19 @@
 import type { ChangeEvent, FocusEvent } from 'react';
+import { useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 
 import styles from '@/components/styles/Modal.module.css';
 import { useForm } from '@/hooks/forms/useForm';
 import { useProfile } from '@/hooks/shared/useProvider';
 import type { ProfileFormValues } from '@/types/services';
-import { profilePasswordValidationRules } from '@/utils/forms/validation';
+import {
+  isFormComplete,
+  profilePasswordRequiredFields,
+  profilePasswordValidationRules,
+} from '@/utils/forms/validation';
 
 export function ProfileChangePassword({ onBack }: { onBack: () => void }) {
-  const { changePassword } = useProfile();
+  const { changePassword, setPasswordFormComplete } = useProfile();
 
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } =
     useForm<ProfileFormValues>(
@@ -24,6 +29,14 @@ export function ProfileChangePassword({ onBack }: { onBack: () => void }) {
         return result;
       },
     );
+
+  // Track form completion state
+  const formComplete = isFormComplete(values, profilePasswordRequiredFields);
+
+  // Update the form completion state in the context
+  useEffect(() => {
+    setPasswordFormComplete(formComplete);
+  }, [formComplete, setPasswordFormComplete]);
 
   const handleInputBlur = (e: FocusEvent<HTMLInputElement>) => {
     const typedEvent: ChangeEvent<HTMLInputElement> = {

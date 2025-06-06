@@ -14,6 +14,7 @@ export const ProfileContext = createContext<ProfileContextType>({
   scoresCount: 0,
   scoresPage: 1,
   loadingScores: false,
+  passwordFormComplete: false,
   setError: () => {},
   setSuccess: () => {},
   handleImageChange: () => {},
@@ -29,5 +30,6 @@ export const ProfileContext = createContext<ProfileContextType>({
   handleTabChange: () => {},
   handlePasswordClick: () => {},
   handleDeleteClick: () => {},
+  setPasswordFormComplete: () => {},
   handleBackToOverview: () => {},
 });

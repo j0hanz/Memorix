@@ -18,6 +18,7 @@ export function useProfile(): ProfileContextType {
   const [success, setSuccess] = useState<string | null>(null);
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [passwordFormComplete, setPasswordFormComplete] = useState(false);
 
   // Tab navigation state
   const [activeTab, setActiveTab] = useState<string>('overview');
@@ -57,6 +58,7 @@ export function useProfile(): ProfileContextType {
   const handleBackToOverview = () => {
     setShowPasswordTab(false);
     setShowDeleteTab(false);
+    setPasswordFormComplete(false); // Reset the form completion state
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -188,6 +190,7 @@ export function useProfile(): ProfileContextType {
     scoresPage,
     loadingScores,
     success,
+    passwordFormComplete,
     setError,
     setSuccess,
     handleImageChange,
@@ -204,5 +207,8 @@ export function useProfile(): ProfileContextType {
     handlePasswordClick,
     handleDeleteClick,
     handleBackToOverview,
+    setPasswordFormComplete: (complete: boolean) => {
+      setPasswordFormComplete(complete);
+    },
   };
 }

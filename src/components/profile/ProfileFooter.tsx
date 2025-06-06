@@ -11,8 +11,13 @@ export function ProfileFooter({
   onBack,
   onClose,
 }: ProfileFooterProps) {
-  const { loading, profileImage, handleUpdateProfile, handleDeleteAccount } =
-    useProfile();
+  const {
+    loading,
+    profileImage,
+    passwordFormComplete,
+    handleUpdateProfile,
+    handleDeleteAccount,
+  } = useProfile();
 
   if (activeTab === 'overview' && showPasswordTab) {
     return (
@@ -23,7 +28,7 @@ export function ProfileFooter({
         onRightClick={onBack}
         leftIcon={loading ? undefined : AUTH_ICONS.password()}
         rightIcon={AUTH_ICONS.back()}
-        leftDisabled={loading}
+        leftDisabled={loading || !passwordFormComplete}
         rightDisabled={loading}
         leftType="submit"
         leftForm="password-change-form"
