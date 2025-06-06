@@ -64,14 +64,8 @@ export const loginRequiredFields = ['username', 'password'];
 // Register validation configuration
 export const registerValidationRules: ValidationRules = {
   username: required('Username'),
-  password1: compose(
-    required('Password'),
-    minLength(VALIDATION_CONFIGS.MIN_PASSWORD_LENGTH, 'Password'),
-  ),
-  password2: compose(
-    required('Password confirmation'),
-    matches('password1', 'Password'),
-  ),
+  password1: required('Password'),
+  password2: required('Password confirmation'),
 };
 
 export const registerRequiredFields = ['username', 'password1', 'password2'];
