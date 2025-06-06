@@ -1,4 +1,4 @@
-import { STATE_CONFIG } from '@/constants/game';
+import { GAME_CONFIG } from '@/constants/game';
 import { useAuth, useModal } from '@/hooks/shared/useProvider';
 import { useAppState } from '@/hooks/ui/useAppState';
 
@@ -26,7 +26,7 @@ export function useNavigationHandler() {
     setTimeout(() => {
       setLoading({ isLoading: false, message: undefined, type: undefined });
       if (callback) callback();
-    }, STATE_CONFIG.LOADING_DELAY);
+    }, GAME_CONFIG.LOADING_DELAY);
   };
 
   const handleAppReset = () => {

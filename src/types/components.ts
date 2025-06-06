@@ -107,7 +107,6 @@ export interface MainMenuProps {
   openInstructions: () => void;
   openLatestUpdates: () => void;
   enterAnimation: EnterAnimation;
-  openAuthModal: () => void;
   openLeaderboardModal: () => void;
   handleAccountClick: () => void;
 }

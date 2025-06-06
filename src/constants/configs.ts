@@ -36,12 +36,6 @@ export const PAGINATION_CONFIGS = {
   DEFAULT_PAGE_SIZE: 10,
 };
 
-// Game configuration
-export const GAME_CONFIGS = {
-  TOTAL_PAIRS: 6,
-  TIMER_INTERVAL: 1000,
-};
-
 // Form validation configurations
 export const VALIDATION_CONFIGS = {
   MIN_PASSWORD_LENGTH: 6,

@@ -7,17 +7,12 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { GameProvider } from '@/components/ui/Provider';
 import { LoadingCardSpinner } from '@/components/ui/Spinner';
 import { useMotions } from '@/hooks/game/useMotions';
-import { useModal, useNavigation } from '@/hooks/shared/useProvider';
+import { useNavigation } from '@/hooks/shared/useProvider';
 
 export const App = () => {
   const [showInitialLoading, setShowInitialLoading] = useState(false);
   const { enterAnimation } = useMotions();
   const navigation = useNavigation();
-  const { openModal } = useModal();
-
-  const useAuthModal = () => {
-    openModal('auth');
-  };
 
   useEffect(() => {
     setShowInitialLoading(false);
@@ -52,7 +47,6 @@ export const App = () => {
                 animate: enterAnimation.variants.animate,
                 transition: enterAnimation.transition,
               }}
-              openAuthModal={useAuthModal}
               openLeaderboardModal={navigation.openLeaderboardModal}
               handleAccountClick={navigation.handleAccountClick}
             />

@@ -1,4 +1,4 @@
-import { GAME_CONFIGS, LOADING_CONFIGS } from './configs';
+import { LOADING_CONFIGS } from './configs';
 
 // Card interaction delays
 export const DELAYS = {
@@ -57,7 +57,9 @@ export const FEEDBACK = {
 };
 
 // Game configuration
-export const STATE_CONFIG = {
+export const GAME_CONFIG = {
+  TOTAL_PAIRS: 6,
+  TIMER_INTERVAL: 1000,
   INITIAL_STATE: {
     GAME_ACTIVE: false,
     LOADING: false,
@@ -65,9 +67,8 @@ export const STATE_CONFIG = {
     SHOW_UPDATES: false,
   },
   LOADING_DELAY: LOADING_CONFIGS.GAME_LOADING_DELAY,
-  TOTAL_PAIRS: GAME_CONFIGS.TOTAL_PAIRS,
 };
 
 export const TIMER = {
-  INTERVAL: GAME_CONFIGS.TIMER_INTERVAL,
+  INTERVAL: GAME_CONFIG.TIMER_INTERVAL,
 };
