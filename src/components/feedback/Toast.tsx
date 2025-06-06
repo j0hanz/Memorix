@@ -1,8 +1,7 @@
+import styles from '@/components/styles/Toast.module.css';
 import { DELAYS } from '@/constants/game';
 import { useToastVisibility } from '@/hooks/ui/useToast';
 import type { ToastProps } from '@/types/components';
-
-import styles from '../styles/Toast.module.css';
 
 export function Toast({
   message,

@@ -1,8 +1,7 @@
 import { Score } from '@/components/game/GameStats';
+import styles from '@/components/styles//Modal.module.css';
 import type { ScoreboardProps } from '@/types/components';
 import { MODAL_ICONS } from '@/utils/ui/iconUtils';
-
-import styles from '../styles/Modal.module.css';
 
 // Displays the game statistics
 export function Scoreboard({ moves, completedTime }: ScoreboardProps) {

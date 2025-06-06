@@ -1,8 +1,7 @@
 import { Leaderboard } from '@/components/leaderboard/Leaderboard';
 import { Modal } from '@/components/modals/Modal';
+import styles from '@/components/styles/Modal.module.css';
 import type { LeaderboardModalProps } from '@/types/components';
-
-import styles from '../styles/Modal.module.css';
 
 export function LeaderboardModal({ show, onClose }: LeaderboardModalProps) {
   return (

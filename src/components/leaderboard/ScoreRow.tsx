@@ -2,11 +2,10 @@ import type { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
 import { CategoryIcon } from '@/components/game/CategoryIcon';
+import styles from '@/components/styles/Modal.module.css';
 import { StarRating } from '@/components/ui/StarRating';
 import type { ScoreRowProps } from '@/types/components';
 import { MODAL_ICONS } from '@/utils/ui/iconUtils';
-
-import styles from '../styles/Modal.module.css';
 
 export const ScoreRow: FC<ScoreRowProps> = ({ score }) => (
   <Row className={styles.scoreRow}>

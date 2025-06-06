@@ -1,9 +1,8 @@
 import React from 'react';
 
+import styles from '@/components/styles/Modal.module.css';
 import type { StarRatingProps } from '@/types/components';
 import { getIcon } from '@/utils/ui/iconUtils';
-
-import styles from '../styles/Modal.module.css';
 
 export const StarRating: React.FC<StarRatingProps> = ({
   count,

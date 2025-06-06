@@ -2,12 +2,11 @@ import { Button } from '@/components/buttons/Button';
 import { Feedback } from '@/components/feedback/Feedback';
 import { Moves, Timer } from '@/components/game/GameStats';
 import btnStyles from '@/components/styles/Button.module.css';
+import styles from '@/components/styles/Cards.module.css';
 import { LoadingSpinner } from '@/components/ui/Spinner';
 import { useAppState } from '@/hooks/ui/useAppState';
 import type { StatsBarProps } from '@/types/components';
 import { GAME_ICONS } from '@/utils/ui/iconUtils';
-
-import styles from '../styles/Cards.module.css';
 
 export const StatsBar = ({
   moves,

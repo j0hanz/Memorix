@@ -1,11 +1,10 @@
 import { ScoringTab } from '@/components/leaderboard/ScoringTab';
 import { ModalTabs } from '@/components/modals/ModalTabs';
+import styles from '@/components/styles/Modal.module.css';
 import { IconsTab } from '@/components/ui/IconsTab';
 import { OverviewTab } from '@/components/ui/OverviewTab';
 import type { TabContent, TabItem } from '@/types/components';
 import { MODAL_ICONS } from '@/utils/ui/iconUtils';
-
-import styles from '../styles/Modal.module.css';
 
 export function InstructionsData() {
   const tabs: TabItem[] = [

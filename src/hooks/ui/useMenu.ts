@@ -9,8 +9,6 @@ export function useMenuHandler() {
   const { isAuthenticated, user, profile, getProfile } = useAuth();
   const { openModal } = useModal();
 
-  const [showAuthToast, setShowAuthToast] = useState(false);
-  const [authMessage, setAuthMessage] = useState('');
   const [menuLoading, setMenuLoading] = useState(true);
 
   useEffect(() => {
@@ -29,26 +27,8 @@ export function useMenuHandler() {
     };
   }, [isAuthenticated, user, profile]);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      setAuthMessage('Logged in');
-      setShowAuthToast(true);
-      const timer = setTimeout(() => {
-        setShowAuthToast(false);
-      }, DELAYS.TOAST_DURATION);
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-    setShowAuthToast(false);
-  }, [isAuthenticated]);
-
   const handleProfileAvatarClick = () => {
     openModal('profile');
-  };
-
-  const handleCloseAuthToast = () => {
-    setShowAuthToast(false);
   };
 
   return {
@@ -56,10 +36,7 @@ export function useMenuHandler() {
     toggleMute,
     isAuthenticated,
     profile,
-    showAuthToast,
-    authMessage,
     menuLoading,
     handleProfileAvatarClick,
-    handleCloseAuthToast,
   };
 }

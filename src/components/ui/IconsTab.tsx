@@ -1,9 +1,8 @@
 import { ListGroup } from 'react-bootstrap';
 
+import styles from '@/components/styles/Modal.module.css';
 import type { IconExplanationProps } from '@/types/components';
 import { MODAL_ICONS } from '@/utils/ui/iconUtils';
-
-import styles from '../styles/Modal.module.css';
 
 // Component for each icon explanation row
 function IconExplanation({ icon, description }: IconExplanationProps) {

@@ -1,10 +1,9 @@
 import type { FC } from 'react';
 
 import { Select } from '@/components/forms/Select';
+import styles from '@/components/styles/Modal.module.css';
 import type { SelectOption } from '@/types/components';
 import type { GameCategoryProps } from '@/types/components';
-
-import styles from '../styles/Modal.module.css';
 
 export const GameCategory: FC<GameCategoryProps> = ({
   id,

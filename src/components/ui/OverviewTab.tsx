@@ -1,8 +1,7 @@
 import { ListGroup } from 'react-bootstrap';
 
+import styles from '@/components/styles/Modal.module.css';
 import { MODAL_ICONS } from '@/utils/ui/iconUtils';
-
-import styles from '../styles/Modal.module.css';
 
 export function OverviewTab() {
   return (

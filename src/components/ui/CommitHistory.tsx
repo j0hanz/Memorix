@@ -1,13 +1,12 @@
 import { Suspense } from 'react';
 
 import { ModalFooterButtons } from '@/components/modals/ModalFooterButtons';
+import styles from '@/components/styles/Modal.module.css';
 import { LoadingSpinner } from '@/components/ui/Spinner';
 import { useCommit } from '@/hooks/api/useCommitHistory';
 import { useNavigation } from '@/hooks/shared/useProvider';
 import type { CommitStatusProps } from '@/types/services';
 import { MENU_ICONS, NAVIGATION_ICONS } from '@/utils/ui/iconUtils';
-
-import styles from '../styles/Modal.module.css';
 
 const CommitContent = () => {
   const { commits, loading, error } = useCommit();

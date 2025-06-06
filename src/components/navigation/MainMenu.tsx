@@ -3,7 +3,6 @@ import { Suspense } from 'react';
 
 import styles from '@/App.module.css';
 import { MenuButton } from '@/components/buttons/MenuButton';
-import { Toast } from '@/components/feedback/Toast';
 import { ProfileAvatar } from '@/components/profile/ProfileAvatar';
 import btnStyles from '@/components/styles/Button.module.css';
 import { SoundToggle } from '@/components/ui/SoundToggle';
@@ -25,11 +24,8 @@ export const MainMenu = ({
     toggleMute,
     isAuthenticated,
     profile,
-    showAuthToast,
-    authMessage,
     menuLoading,
     handleProfileAvatarClick,
-    handleCloseAuthToast,
   } = useMenuHandler();
 
   return (
@@ -89,13 +85,6 @@ export const MainMenu = ({
           </div>
         )}
       </Suspense>
-
-      <Toast
-        message={authMessage}
-        show={showAuthToast}
-        placement="top"
-        onClose={handleCloseAuthToast}
-      />
     </div>
   );
 };

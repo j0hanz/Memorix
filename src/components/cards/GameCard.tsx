@@ -2,14 +2,13 @@ import { motion } from 'framer-motion';
 import React from 'react';
 
 import { Card } from '@/components/cards/Card';
+import styles from '@/components/styles/GameCard.module.css';
 import { Image } from '@/components/ui/Image';
 import { LoadingCardSpinner } from '@/components/ui/Spinner';
 import { useCard } from '@/hooks/game/useCard';
 import { useMotions } from '@/hooks/game/useMotions';
 import { useGameState } from '@/hooks/shared/useProvider';
 import type { GameCardProps } from '@/types/components';
-
-import styles from '../styles/GameCard.module.css';
 
 export function GameCard({ card, index, clickHandler }: GameCardProps) {
   const { flipAnimation, cardContentAnimation } = useMotions();

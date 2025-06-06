@@ -1,8 +1,7 @@
 import type { ChangeEvent, FC } from 'react';
 
+import styles from '@/components/styles/Select.module.css';
 import type { SelectProps } from '@/types/components';
-
-import styles from '../styles/Select.module.css';
 
 export const Select: FC<SelectProps> = ({
   id,
