@@ -19,7 +19,7 @@ export function ProfileChangePassword({ onBack }: { onBack: () => void }) {
         if (result) {
           setTimeout(() => {
             onBack();
-          }, 1500);
+          }, 500);
         }
         return result;
       },
