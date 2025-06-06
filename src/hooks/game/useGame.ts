@@ -11,13 +11,7 @@ import { useDeck } from '@/hooks/game/useDeck';
 import { useSound } from '@/hooks/shared/useProvider';
 import { gameReducer, initialGameState } from '@/reducers/gameReducer';
 import type { CardData } from '@/types/data';
-import {
-  getCardAnimation,
-  getCardFrontAnimation,
-  getCardStyleClasses,
-  getStatsTopClass,
-  isCardClickable,
-} from '@/utils/game/cardUtils';
+import { isCardClickable } from '@/utils/game/cardUtils';
 import { gameActions } from '@/utils/game/gameActions';
 
 export function useGame(
@@ -189,11 +183,6 @@ export function useGame(
     exitGame,
     exitToMainMenu: exitGame,
     isCardSelectable,
-    getCardAnimation,
-    getCardFrontAnimation,
-    getCardStyleClasses,
-    getStatsTopClass,
-    isCardClickable,
     dispatch,
   };
 }

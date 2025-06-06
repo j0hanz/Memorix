@@ -9,16 +9,17 @@ import { useCard } from '@/hooks/game/useCard';
 import { useMotions } from '@/hooks/game/useMotions';
 import { useGameState } from '@/hooks/shared/useProvider';
 import type { GameCardProps } from '@/types/components';
+import {
+  getCardAnimation,
+  getCardFrontAnimation,
+  getCardStyleClasses,
+  isCardClickable,
+} from '@/utils/game/cardUtils';
 
 export function GameCard({ card, index, clickHandler }: GameCardProps) {
   const { flipAnimation, cardContentAnimation } = useMotions();
-  const {
-    getCardAnimation,
-    getCardFrontAnimation,
-    getCardStyleClasses,
-    isCardClickable,
-    handleCardClick,
-  } = useGameState();
+  const { handleCardClick, isInitialReveal, isProcessingMatch } =
+    useGameState();
 
   const {
     handleImageLoad,
@@ -41,10 +42,14 @@ export function GameCard({ card, index, clickHandler }: GameCardProps) {
     index,
     isImageLoaded,
     isImageError,
+    isInitialReveal,
+    isProcessingMatch,
   );
 
   const handleClick = (): void => {
-    handleCardClick(index, clickHandler, card, isImageLoaded, isImageError);
+    if (isClickable) {
+      handleCardClick(index, clickHandler, card, isImageLoaded, isImageError);
+    }
   };
 
   // Safe check for card status

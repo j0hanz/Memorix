@@ -27,13 +27,7 @@ export const TOKEN_CONFIGS = {
 
 // Loading and delay configurations
 export const LOADING_CONFIGS = {
-  SPINNER_DURATION: 1500,
-  TOAST_DURATION: 2500,
   GAME_LOADING_DELAY: 3000,
-  RESTART_DELAY: 100,
-  INITIAL_REVEAL_DELAY: 500,
-  INITIAL_REVEAL_TIME: 3000,
-  MATCH_PROCESSING_DELAY: 500,
 };
 
 // Pagination configurations

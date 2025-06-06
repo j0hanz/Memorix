@@ -61,7 +61,7 @@ export const Login = ({ onClose }: LoginProps) => {
         onLeftClick={undefined}
         onRightClick={() => onClose?.()}
         leftIcon={!loading ? AUTH_ICONS.login() : null}
-        rightIcon={NAVIGATION_ICONS.exit()}
+        rightIcon={NAVIGATION_ICONS.close()}
         leftDisabled={loading || !formComplete}
         rightDisabled={loading}
         leftType="submit"

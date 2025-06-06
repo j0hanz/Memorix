@@ -5,8 +5,8 @@ import { GameCard } from '@/components/cards/GameCard';
 import styles from '@/components/styles/Cards.module.css';
 import { StatsBar } from '@/components/ui/StatsBar';
 import { useMotions } from '@/hooks/game/useMotions';
-import { useGameState } from '@/hooks/shared/useProvider';
 import type { CardsProps } from '@/types/components';
+import { getStatsTopClass } from '@/utils/game/cardUtils';
 
 // Component to display the game cards
 export function Cards({
@@ -20,7 +20,6 @@ export function Cards({
 }: CardsProps) {
   // Get the card entrance animation
   const { cardEntranceAnimation } = useMotions();
-  const { getStatsTopClass } = useGameState();
 
   const statsTopClassName: string = getStatsTopClass(styles, feedback);
 
