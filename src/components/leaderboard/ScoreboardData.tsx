@@ -1,4 +1,4 @@
-import { Scoreboard } from '@/components/leaderboard/scoreData';
+import { Scoreboard } from '@/components/leaderboard/Scoreboard';
 import { ScoreFeedback } from '@/components/leaderboard/ScoreFeedback';
 import { ModalFooterButtons } from '@/components/modals/ModalFooterButtons';
 import { ProtectedRoute } from '@/components/ui/ProtectedRoute';
@@ -25,7 +25,7 @@ export function ScoreboardData({
   return (
     <>
       {children}
-      <Scoreboard moves={moves} completedTime={completedTime.toString()} />
+      <Scoreboard moves={moves} completedTime={completedTime} />
       <ProtectedRoute
         onAuthRequired={() => {
           openModal('auth');

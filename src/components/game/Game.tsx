@@ -7,7 +7,7 @@ import { gameActions } from '@/utils/game/gameActions';
 export function Game({ onRestart }: GameProps) {
   const {
     cards,
-    handleCardSelection,
+    selectCard,
     matchedPairs,
     moves,
     isGameOver,
@@ -16,14 +16,14 @@ export function Game({ onRestart }: GameProps) {
     timerActive,
     feedback,
     completedTime,
-    exitToMainMenu,
-    resetGameState,
+    exitGame,
+    resetGame,
     selectedCategory,
   } = useGameState();
 
   // Reset the game state
   const handleReset = () => {
-    resetGameState();
+    resetGame();
     onRestart();
   };
 
@@ -36,11 +36,11 @@ export function Game({ onRestart }: GameProps) {
     <>
       <Cards
         cards={cards}
-        handleCardSelection={handleCardSelection}
+        handleCardSelection={selectCard}
         matchedPairs={matchedPairs}
         moves={moves}
         onReset={handleReset}
-        onExit={exitToMainMenu}
+        onExit={exitGame}
         timerActive={timerActive}
         feedback={feedback}
       />
@@ -49,7 +49,7 @@ export function Game({ onRestart }: GameProps) {
           show={showModal}
           onClose={handleModalClose}
           onReset={handleReset}
-          onExit={exitToMainMenu}
+          onExit={exitGame}
           completedTime={completedTime}
           moves={moves}
           categoryCode={selectedCategory ?? ''}

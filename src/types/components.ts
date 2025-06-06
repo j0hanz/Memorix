@@ -211,12 +211,12 @@ export interface FeedbackProps {
 
 export interface ScoreProps {
   moves: number;
-  completedTime: string;
+  completedTime: number;
 }
 
 export interface ScoreboardProps {
   moves: number;
-  completedTime: string;
+  completedTime: number;
 }
 
 export interface StarRatingProps {

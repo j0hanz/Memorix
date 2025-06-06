@@ -176,12 +176,9 @@ export function useGame(
   return {
     ...state,
     selectCard,
-    handleCardSelection: selectCard,
     handleCardClick,
     resetGame,
-    resetGameState: resetGame,
     exitGame,
-    exitToMainMenu: exitGame,
     isCardSelectable,
     dispatch,
   };

@@ -29,17 +29,11 @@ export const GameCategory: FC<GameCategoryProps> = ({
       <Select
         id={id}
         value={value}
-        onChange={handleChange}
         options={selectOptions}
-        placeholder={
-          id === 'best-score-category'
-            ? undefined
-            : showAllOption
-              ? undefined
-              : 'Select Category'
-        }
-        label={hideLabel ? undefined : label}
-        disabled={loading}
+        onChange={handleChange}
+        label={label}
+        loading={loading}
+        hideLabel={hideLabel}
         className={styles.formSelect}
       />
     </div>

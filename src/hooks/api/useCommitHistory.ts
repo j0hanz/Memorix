@@ -17,6 +17,6 @@ export function useCommit() {
   return {
     commits: data || [],
     loading,
-    error: error ? new Error(error) : null,
+    error,
   };
 }

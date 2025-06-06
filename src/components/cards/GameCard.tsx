@@ -47,9 +47,7 @@ export function GameCard({ card, index, clickHandler }: GameCardProps) {
   );
 
   const handleClick = (): void => {
-    if (isClickable) {
-      handleCardClick(index, clickHandler, card, isImageLoaded, isImageError);
-    }
+    handleCardClick(index, clickHandler, card, isImageLoaded, isImageError);
   };
 
   // Safe check for card status

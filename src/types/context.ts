@@ -126,11 +126,8 @@ export interface NavigationContextType {
 
 export interface GameContextType extends GameState {
   dispatch: Dispatch<GameAction>;
-  handleCardSelection: (index: number) => void;
   selectCard: (index: number) => void;
-  resetGameState: VoidCallback;
   resetGame: VoidCallback;
-  exitToMainMenu: VoidCallback;
   exitGame: VoidCallback;
   isCardSelectable: (index: number) => boolean;
   selectedCategory: string;

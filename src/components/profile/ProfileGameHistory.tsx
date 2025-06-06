@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { GameCategory } from '@/components/game/GameCatagory';
+import { GameCategory } from '@/components/game/GameCategory';
 import { ScoreRow } from '@/components/leaderboard/ScoreRow';
 import { Pagination } from '@/components/ui/Pagination';
 import { LoadingSpinner } from '@/components/ui/Spinner';

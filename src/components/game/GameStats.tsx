@@ -27,7 +27,7 @@ export const Timer = ({ timerActive }: TimerProps) => {
 
 // Score component
 export const Score = ({ moves, completedTime }: ScoreProps) => {
-  const { stars } = useStarRating(moves, parseInt(completedTime, 10));
+  const { stars } = useStarRating(moves, completedTime);
   return (
     <>
       <StarRating count={stars} />
