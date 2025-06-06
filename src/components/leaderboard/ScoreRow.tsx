@@ -16,7 +16,7 @@ export const ScoreRow: FC<ScoreRowProps> = ({ score }) => (
     <Col xs={2} className="d-flex justify-content-center align-items-center">
       <StarRating count={score.stars} />
     </Col>
-    <Col xs={2} className="d-flex justify-content-start align-items-center">
+    <Col xs={2} className="d-flex justify-content-end align-items-center">
       {score.moves} {MODAL_ICONS.moves()}
     </Col>
     <Col xs={1} className="d-flex justify-content-end align-items-center">

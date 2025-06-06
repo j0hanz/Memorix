@@ -4,7 +4,7 @@ import type { ProfileContextType } from '@/types/context';
 
 export const ProfileContext = createContext<ProfileContextType>({
   user: null,
-  profile: null,
+  data: null,
   loading: false,
   error: null,
   success: null,
@@ -23,4 +23,11 @@ export const ProfileContext = createContext<ProfileContextType>({
   handleDeleteAccount: async () => {},
   logout: () => {},
   clearState: () => {},
+  activeTab: 'overview',
+  showPasswordTab: false,
+  showDeleteTab: false,
+  handleTabChange: () => {},
+  handlePasswordClick: () => {},
+  handleDeleteClick: () => {},
+  handleBackToOverview: () => {},
 });
