@@ -5,7 +5,6 @@ import {
   FEEDBACK_VARIANTS,
   FLIP_VARIANTS,
   getStaggerConfig,
-  TOAST_VARIANTS,
 } from '@/constants/motions';
 
 export function useMotions() {
@@ -15,7 +14,6 @@ export function useMotions() {
     cardEntranceAnimation: CARD_ENTRANCE_VARIANTS,
     flipAnimation: FLIP_VARIANTS,
     cardContentAnimation: CARD_CONTENT_VARIANTS,
-    toastAnimation: TOAST_VARIANTS,
     getStaggerConfig,
   };
 }
