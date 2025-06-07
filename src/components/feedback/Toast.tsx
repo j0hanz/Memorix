@@ -1,4 +1,7 @@
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { DELAYS } from '@/constants/game';
+import { useMotions } from '@/hooks/game/useMotions';
 import { useToastVisibility } from '@/hooks/ui/useToast';
 import type { ToastProps } from '@/types/components';
 
@@ -18,15 +21,42 @@ export function Toast({
     onClose,
   });
 
-  if (!visible) return null;
+  const { toastAnimation } = useMotions();
+
+  // Determine animation states based on placement
+  const getAnimationStates = () => {
+    if (placement === 'bottom') {
+      return {
+        initial: 'initialBottom',
+        animate: 'animateBottom',
+        exit: 'exitBottom',
+      };
+    }
+    return {
+      initial: 'initial',
+      animate: 'animate',
+      exit: 'exit',
+    };
+  };
+
+  const animationStates = getAnimationStates();
 
   return (
-    <div
-      className={`${styles.toast} ${styles[placement]} ${className}`}
-      role="status"
-      aria-live="polite"
-    >
-      {message}
-    </div>
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          className={`${styles.toast} ${styles[placement]} ${className}`}
+          role="status"
+          aria-live="polite"
+          initial={animationStates.initial}
+          animate={animationStates.animate}
+          exit={animationStates.exit}
+          variants={toastAnimation}
+          layout={true}
+        >
+          {message}
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

@@ -122,6 +122,66 @@ export const CARD_CONTENT_VARIANTS = {
 
 // Stagger helpers
 export const STAGGER_DEFAULT = 0.1;
+
+// Toast animation
+export const TOAST_VARIANTS: Variants = {
+  [VARIANTS.INITIAL]: {
+    opacity: 0,
+    y: -50,
+    scale: 0.95,
+    x: '-50%',
+  },
+  [VARIANTS.ANIMATE]: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    x: '-50%',
+    transition: {
+      ...SPRING.DEFAULT,
+      duration: 0.3,
+      opacity: { duration: 0.3 },
+    },
+  },
+  [VARIANTS.EXIT]: {
+    opacity: 0,
+    y: -30,
+    scale: 0.9,
+    x: '-50%',
+    transition: {
+      duration: 0.25,
+      ease: 'easeInOut',
+    },
+  },
+  // Variant for bottom placement
+  initialBottom: {
+    opacity: 0,
+    y: 50,
+    scale: 0.95,
+    x: '-50%',
+  },
+  animateBottom: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    x: '-50%',
+    transition: {
+      ...SPRING.DEFAULT,
+      duration: 0.3,
+      opacity: { duration: 0.3 },
+    },
+  },
+  exitBottom: {
+    opacity: 0,
+    y: 30,
+    scale: 0.9,
+    x: '-50%',
+    transition: {
+      duration: 0.25,
+      ease: 'easeInOut',
+    },
+  },
+};
+
 export function getStaggerConfig(
   staggerChildren = STAGGER_DEFAULT,
   delayChildren = 0,
