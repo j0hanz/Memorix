@@ -18,12 +18,12 @@ export const FormField = ({
   className,
   icon,
 }: FormFieldProps) => {
-  // Determine if this is a controlled or uncontrolled input
+  // Determine if the field is controlled or uncontrolled
   const isControlled = value !== undefined && onChange !== undefined;
-  // Handle default value for uncontrolled inputs
+  // If the error is an array, join it into a string
   const errorMessage = Array.isArray(error) ? error.join(', ') : error;
 
-  // Combine classes for input with icon
+  // If an icon is provided, use a specific className for the input
   const inputClassName = icon ? (className || '').trim() : className;
 
   return (
