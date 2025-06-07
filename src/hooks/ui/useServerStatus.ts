@@ -6,7 +6,7 @@ const SERVER_REQUEST_TIMEOUT = 5000;
 
 export function useServerStatus() {
   const [isOnline, setIsOnline] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(true); // True for the initial check
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const serverUrl = import.meta.env.VITE_API_BASE_URL as string | undefined;
 
