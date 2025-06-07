@@ -19,6 +19,7 @@ import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBullet
 import GitHubIcon from '@mui/icons-material/GitHub';
 import HistoryIcon from '@mui/icons-material/History';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -72,12 +73,12 @@ export const ICONS = {
   STAR: StarOutlinedIcon,
   STAR_BORDER: StarBorderOutlinedIcon,
   INFINITY: AllInclusiveOutlinedIcon,
-
   // User & Authentication
   PERSON: PersonIcon,
   LOGIN: LoginIcon,
   PERSON_ADD: PersonAddIcon,
   LOGOUT: LogoutIcon,
+  LOCK: LockOutlinedIcon,
   LOCK_RESET: LockResetIcon,
 
   // Categories
@@ -146,8 +147,11 @@ export const AUTH_ICONS = {
   register: () => getIcon('PERSON_ADD', { fontSize: 'small' }),
   logout: () => getIcon('LOGOUT', { fontSize: 'small' }),
   person: () => getIcon('PERSON'),
+  username: () => getIcon('PERSON', { fontSize: 'small' }),
+  password: () => getIcon('LOCK', { fontSize: 'small' }),
+  passwordConfirm: () => getIcon('CHECK', { fontSize: 'small' }),
   history: () => getIcon('HISTORY', { fontSize: 'small' }),
-  password: () => getIcon('LOCK_RESET', { fontSize: 'small' }),
+  passwordReset: () => getIcon('LOCK_RESET', { fontSize: 'small' }),
   delete: () => getIcon('DELETE_FOREVER', { fontSize: 'small' }),
   deleteAccount: () => getIcon('DELETE', { fontSize: 'small' }),
   upload: () => getIcon('UPLOAD', { fontSize: 'small' }),

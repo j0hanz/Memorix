@@ -241,12 +241,13 @@
 /* Form elements */
 .input {
   margin-block: 2rem;
+  padding-inline: 2rem;
   border-bottom: var(--border-bottom-primary);
   border-radius: var(--border-radius-secondary);
 
   &::placeholder {
     color: var(--text-color);
-    opacity: 0.6;
+    opacity: 0.5;
   }
 }
 

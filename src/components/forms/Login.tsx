@@ -41,6 +41,7 @@ export const Login = ({ onClose }: LoginProps) => {
         error={errors.username}
         showError={!!errors.username && touched.username}
         className={styles.input}
+        icon={AUTH_ICONS.username()}
       />
       <FormField
         controlId="formPassword"
@@ -54,6 +55,7 @@ export const Login = ({ onClose }: LoginProps) => {
         error={errors.password}
         showError={!!errors.password && touched.password}
         className={styles.input}
+        icon={AUTH_ICONS.password()}
       />
       <ModalFooterButtons
         leftText={loading ? <LoadingSpinner /> : 'Sign In'}

@@ -52,6 +52,19 @@ textarea {
   font: inherit;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-text-fill-color: var(--text-color) !important;
+  background-color: var(--bg-secondary) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
 .form-select,
 select {
   appearance: none;

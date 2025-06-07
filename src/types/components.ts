@@ -375,6 +375,7 @@ export interface FormFieldProps {
   error?: string | string[];
   showError?: boolean;
   className?: string;
+  icon?: ReactNode;
 }
 
 export interface TabItem {

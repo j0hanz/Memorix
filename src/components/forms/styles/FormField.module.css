@@ -1,0 +1,29 @@
+.inputGroup {
+  position: relative;
+}
+
+.iconContainer {
+  position: absolute;
+  display: flex;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-color);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.iconContainer svg {
+  font-size: 1.1em;
+}
+
+/* When field has error, adjust icon color */
+.inputGroup:has(.form-control.is-invalid) .iconContainer {
+  color: var(--feedback-wrong);
+}
+
+/* Focus state enhancement for icon */
+.inputGroup:has(.form-control:focus) .iconContainer {
+  opacity: 0.8;
+}

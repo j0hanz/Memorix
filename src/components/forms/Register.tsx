@@ -48,6 +48,7 @@ export const Register = ({ onSuccess, onClose }: RegisterProps) => {
         error={errors.username}
         showError={!!(touched.username || formSubmitted)}
         className={styles.input}
+        icon={AUTH_ICONS.username()}
       />
       <FormField
         controlId="formPassword"
@@ -63,6 +64,7 @@ export const Register = ({ onSuccess, onClose }: RegisterProps) => {
         error={errors.password1}
         showError={!!(touched.password1 || formSubmitted)}
         className={styles.input}
+        icon={AUTH_ICONS.password()}
       />
       <FormField
         controlId="formConfirmPassword"
@@ -78,6 +80,7 @@ export const Register = ({ onSuccess, onClose }: RegisterProps) => {
         error={errors.password2}
         showError={!!(touched.password2 || formSubmitted)}
         className={styles.input}
+        icon={AUTH_ICONS.passwordConfirm()}
       />
       <ModalFooterButtons
         leftText={loading ? <LoadingSpinner /> : 'Sign Up'}
