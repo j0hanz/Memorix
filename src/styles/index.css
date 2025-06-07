@@ -1,0 +1,16 @@
+/* Bootstrap button overrides */
+.btn {
+  --bs-btn-disabled-bg: var(--btn-secondary);
+  --bs-btn-disabled-border-color: transparent;
+  --bs-btn-border-radius: none;
+
+  &:is(:hover, :focus-visible) {
+    background: var(--btn-secondary);
+    border-color: var(--btn-secondary);
+  }
+}
+
+/* Bootstrap form overrides */
+.invalid-feedback {
+  display: none !important;
+}

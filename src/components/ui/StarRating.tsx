@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '@/components/styles/Modal.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import type { StarRatingProps } from '@/types/components';
 import { getIcon } from '@/utils/ui/iconUtils';
 

@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
 import { CategoryIcon } from '@/components/game/CategoryIcon';
-import styles from '@/components/styles/Modal.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import { StarRating } from '@/components/ui/StarRating';
 import type { ScoreRowProps } from '@/types/components';
 import { MODAL_ICONS } from '@/utils/ui/iconUtils';

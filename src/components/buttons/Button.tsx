@@ -1,11 +1,12 @@
 import type { FC } from 'react';
 import { Button as CustomButton } from 'react-bootstrap';
 
-import styles from '@/components/styles/Button.module.css';
 import { Image } from '@/components/ui/Image';
 import { Tooltip } from '@/components/ui/Tooltip';
 import { useSound } from '@/hooks/shared/useProvider';
 import type { CustomButtonProps } from '@/types/components';
+
+import styles from './styles/Button.module.css';
 
 export const Button: FC<
   CustomButtonProps & {

@@ -2,11 +2,12 @@ import { motion } from 'framer-motion';
 import { Col, Container, Row } from 'react-bootstrap';
 
 import { GameCard } from '@/components/cards/GameCard';
-import styles from '@/components/styles/Cards.module.css';
 import { StatsBar } from '@/components/ui/StatsBar';
 import { useMotions } from '@/hooks/game/useMotions';
 import type { CardsProps } from '@/types/components';
 import { getStatsTopClass } from '@/utils/game/cardUtils';
+
+import styles from './styles/Cards.module.css';
 
 // Component to display the game cards
 export function Cards({

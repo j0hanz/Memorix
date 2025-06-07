@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 
 import { ModalFooterButtons } from '@/components/modals/ModalFooterButtons';
-import styles from '@/components/styles/Modal.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import { LoadingSpinner } from '@/components/ui/Spinner';
 import { useCommit } from '@/hooks/api/useCommitHistory';
 import { useNavigation } from '@/hooks/shared/useProvider';
@@ -18,7 +18,7 @@ const CommitContent = () => {
   if (error) {
     return (
       <div className={styles.commitStatus} role="alert">
-        {error instanceof Error ? error.message : String(error)}
+        {String(error)}
       </div>
     );
   }

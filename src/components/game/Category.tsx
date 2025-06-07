@@ -1,6 +1,6 @@
 import { Button } from '@/components/buttons/Button';
-import btnStyles from '@/components/styles/Button.module.css';
-import styles from '@/components/styles/Modal.module.css';
+import btnStyles from '@/components/buttons/styles/Button.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import { CATEGORY_INFO } from '@/constants/game';
 import type { CategoryDataProps } from '@/types/components';
 import { getCategoryIcon } from '@/utils/game/categoryUtils';

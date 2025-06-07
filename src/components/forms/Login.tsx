@@ -2,7 +2,7 @@ import { Form } from 'react-bootstrap';
 
 import { FormField } from '@/components/forms/FormField';
 import { ModalFooterButtons } from '@/components/modals/ModalFooterButtons';
-import styles from '@/components/styles/Modal.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import { LoadingSpinner } from '@/components/ui/Spinner';
 import { useLogin } from '@/hooks/auth/useLogin';
 import type { LoginProps } from '@/types/components';

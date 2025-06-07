@@ -1,5 +1,5 @@
 import { Modal } from '@/components/modals/Modal';
-import styles from '@/components/styles/Modal.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import { CommitStatus } from '@/components/ui/CommitHistory';
 import type { LatestUpdatesProps } from '@/types/components';
 

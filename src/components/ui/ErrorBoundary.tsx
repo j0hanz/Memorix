@@ -3,7 +3,7 @@ import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 
 import { Button } from '@/components/buttons/Button';
 import { Modal } from '@/components/modals/Modal';
-import styles from '@/components/styles/Modal.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import ErrorData from '@/components/ui/ErrorData';
 import type { ErrorBoundaryProps } from '@/types/components';
 import { logError } from '@/utils/shared/errorUtils';

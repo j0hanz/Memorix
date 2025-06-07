@@ -1,8 +1,8 @@
 import { Modal as CustomModal } from 'react-bootstrap';
 
 import { Button } from '@/components/buttons/Button';
-import btnStyles from '@/components/styles/Button.module.css';
-import styles from '@/components/styles/Modal.module.css';
+import btnStyles from '@/components/buttons/styles/Button.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import type { ModalProps } from '@/types/components';
 import { NAVIGATION_ICONS } from '@/utils/ui/iconUtils';
 

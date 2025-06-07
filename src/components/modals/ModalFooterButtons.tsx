@@ -1,5 +1,5 @@
 import { Button } from '@/components/buttons/Button';
-import btnStyles from '@/components/styles/Button.module.css';
+import btnStyles from '@/components/buttons/styles/Button.module.css';
 import type { ModalFooterButtonsProps } from '@/types/components';
 export const ModalFooterButtons = ({
   leftText,

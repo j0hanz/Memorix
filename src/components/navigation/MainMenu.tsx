@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
 import { Suspense } from 'react';
 
-import styles from '@/App.module.css';
 import { MenuButton } from '@/components/buttons/MenuButton';
+import btnStyles from '@/components/buttons/styles/Button.module.css';
 import { ProfileAvatar } from '@/components/profile/ProfileAvatar';
-import btnStyles from '@/components/styles/Button.module.css';
 import { SoundToggle } from '@/components/ui/SoundToggle';
 import { LoadingCardSpinner } from '@/components/ui/Spinner';
 import { useMenuHandler } from '@/hooks/ui/useMenu';
+import styles from '@/styles/App.module.css';
 import type { MainMenuProps } from '@/types/components';
 import { MENU_ICONS } from '@/utils/ui/iconUtils';
 

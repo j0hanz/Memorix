@@ -1,6 +1,6 @@
 import { ScoringTab } from '@/components/leaderboard/ScoringTab';
 import { ModalTabs } from '@/components/modals/ModalTabs';
-import styles from '@/components/styles/Modal.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import { IconsTab } from '@/components/ui/IconsTab';
 import { OverviewTab } from '@/components/ui/OverviewTab';
 import type { TabContent, TabItem } from '@/types/components';

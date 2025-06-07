@@ -1,8 +1,8 @@
 import { Button } from '@/components/buttons/Button';
+import btnStyles from '@/components/buttons/styles/Button.module.css';
+import styles from '@/components/cards/styles/Cards.module.css';
 import { Feedback } from '@/components/feedback/Feedback';
 import { Moves, Timer } from '@/components/game/GameStats';
-import btnStyles from '@/components/styles/Button.module.css';
-import styles from '@/components/styles/Cards.module.css';
 import { LoadingSpinner } from '@/components/ui/Spinner';
 import { useAppState } from '@/hooks/ui/useAppState';
 import type { StatsBarProps } from '@/types/components';

@@ -1,5 +1,5 @@
 import { Score } from '@/components/game/GameStats';
-import styles from '@/components/styles//Modal.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import type { ScoreboardProps } from '@/types/components';
 import { formatTime } from '@/utils/shared/formatUtils';
 import { MODAL_ICONS } from '@/utils/ui/iconUtils';

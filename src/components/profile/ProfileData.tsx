@@ -1,10 +1,10 @@
 import { Row } from 'react-bootstrap';
 
+import styles from '@/components/modals/styles/Modal.module.css';
 import { TabNavigation } from '@/components/navigation/TabNavigation';
 import { ProfileContent } from '@/components/profile/ProfileContent';
 import { ProfileFooter } from '@/components/profile/ProfileFooter';
 import { ProfileTabs } from '@/components/profile/ProfileTabs';
-import styles from '@/components/styles/Modal.module.css';
 import { useProfile, useToast } from '@/hooks/shared/useProvider';
 
 export function ProfileData({

@@ -1,5 +1,5 @@
 import { Modal } from '@/components/modals/Modal';
-import styles from '@/components/styles/Modal.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import { InstructionsData } from '@/components/ui/instructionsData';
 import { MODAL_CONFIGS } from '@/constants/configs';
 import type { GameInstructionsProps } from '@/types/components';

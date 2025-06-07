@@ -1,6 +1,6 @@
 import { Nav } from 'react-bootstrap';
 
-import styles from '@/components/styles/Modal.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import { useSound } from '@/hooks/shared/useProvider';
 import type { TabNavigationProps } from '@/types/components';
 

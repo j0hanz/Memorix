@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import styles from '@/components/styles/Modal.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import type { ErrorDataProps } from '@/types/components';
 import { getUserFriendlyMessage, logError } from '@/utils/shared/errorUtils';
 import { AUTH_ICONS, MODAL_ICONS } from '@/utils/ui/iconUtils';

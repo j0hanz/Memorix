@@ -3,7 +3,7 @@ import { Col, Row } from 'react-bootstrap';
 import { Button } from '@/components/buttons/Button';
 import { Select } from '@/components/forms/Select';
 import { CategoryIcon } from '@/components/game/CategoryIcon';
-import styles from '@/components/styles/Modal.module.css';
+import styles from '@/components/modals/styles/Modal.module.css';
 import { StarRating } from '@/components/ui/StarRating';
 import { useLeaderboard } from '@/hooks/leaderboard/useLeaderboard';
 import { MODAL_ICONS } from '@/utils/ui/iconUtils';

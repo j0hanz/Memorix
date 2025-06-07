@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
-import styles from '@/components/styles/Tooltip.module.css';
 import type { TooltipProps } from '@/types/components';
+
+import styles from './styles/Tooltip.module.css';
 
 export function Tooltip({
   children,
