@@ -1,0 +1,24 @@
+.instructionsContent {
+  animation: fadeIn 0.5s ease-in-out;
+  padding: 1rem;
+  min-height: 40vh;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .tabContentContainer {
+    padding: 1rem !important;
+    max-height: 50vh;
+  }
+}
