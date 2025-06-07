@@ -2,6 +2,7 @@ import type { ChangeEvent, FocusEvent } from 'react';
 import { useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 
+import { FormField } from '@/components/forms/FormField';
 import styles from '@/components/modals/styles/Modal.module.css';
 import { useForm } from '@/hooks/forms/useForm';
 import { useProfile } from '@/hooks/shared/useProvider';
@@ -11,6 +12,7 @@ import {
   profilePasswordRequiredFields,
   profilePasswordValidationRules,
 } from '@/utils/forms/validation';
+import { AUTH_ICONS } from '@/utils/ui/iconUtils';
 
 export function ProfileChangePassword({ onBack }: { onBack: () => void }) {
   const { changePassword, setPasswordFormComplete } = useProfile();
@@ -56,59 +58,50 @@ export function ProfileChangePassword({ onBack }: { onBack: () => void }) {
       }}
       className="mb-1"
     >
-      <Form.Group controlId="oldPassword" className="mb-1">
-        <Form.Label className="d-none">Current Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Enter current password"
-          className={styles.input}
-          name="oldPassword"
-          value={values.oldPassword}
-          onChange={handleChange}
-          onBlur={handleInputBlur}
-          autoComplete="current-password"
-          isInvalid={!!errors.oldPassword && touched.oldPassword}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.oldPassword}
-        </Form.Control.Feedback>
-      </Form.Group>
+      <FormField
+        controlId="oldPassword"
+        name="oldPassword"
+        type="password"
+        label="Current Password"
+        placeholder="Enter current password"
+        value={values.oldPassword}
+        onChange={handleChange}
+        onBlur={handleInputBlur}
+        error={errors.oldPassword}
+        showError={!!errors.oldPassword && touched.oldPassword}
+        className={styles.input}
+        icon={AUTH_ICONS.password()}
+      />
 
-      <Form.Group controlId="newPassword1" className="mb-1">
-        <Form.Label className="d-none">New Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Enter new password"
-          className={styles.input}
-          name="newPassword1"
-          value={values.newPassword1}
-          onChange={handleChange}
-          onBlur={handleInputBlur}
-          autoComplete="new-password"
-          isInvalid={!!errors.newPassword1 && touched.newPassword1}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.newPassword1}
-        </Form.Control.Feedback>
-      </Form.Group>
+      <FormField
+        controlId="newPassword1"
+        name="newPassword1"
+        type="password"
+        label="New Password"
+        placeholder="Enter new password"
+        value={values.newPassword1}
+        onChange={handleChange}
+        onBlur={handleInputBlur}
+        error={errors.newPassword1}
+        showError={!!errors.newPassword1 && touched.newPassword1}
+        className={styles.input}
+        icon={AUTH_ICONS.passwordReset()}
+      />
 
-      <Form.Group controlId="newPassword2" className="mb-1">
-        <Form.Label className="d-none">Confirm New Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Confirm new password"
-          className={styles.input}
-          name="newPassword2"
-          value={values.newPassword2}
-          onChange={handleChange}
-          onBlur={handleInputBlur}
-          autoComplete="new-password"
-          isInvalid={!!errors.newPassword2 && touched.newPassword2}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.newPassword2}
-        </Form.Control.Feedback>
-      </Form.Group>
+      <FormField
+        controlId="newPassword2"
+        name="newPassword2"
+        type="password"
+        label="Confirm New Password"
+        placeholder="Confirm new password"
+        value={values.newPassword2}
+        onChange={handleChange}
+        onBlur={handleInputBlur}
+        error={errors.newPassword2}
+        showError={!!errors.newPassword2 && touched.newPassword2}
+        className={styles.input}
+        icon={AUTH_ICONS.passwordConfirm()}
+      />
     </Form>
   );
 }
