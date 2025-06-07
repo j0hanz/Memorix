@@ -33,6 +33,13 @@ export const isApiError = (error: unknown): error is ApiError => {
   );
 };
 
+const HTTP_STATUS_MESSAGES: Record<number, string> = {
+  401: 'Your session has expired. Please log in again.',
+  403: 'You do not have permission to perform this action.',
+  404: 'The requested resource was not found.',
+  500: 'A server error occurred. Please try again later.',
+};
+
 // Main error formatter - handles all API errors with user-friendly messages
 export const formatErrorMessage = (error: unknown): string => {
   // Handle non-API errors
@@ -53,17 +60,9 @@ export const formatErrorMessage = (error: unknown): string => {
   }
 
   // Handle HTTP status codes
-  if (error.response?.status) {
-    switch (error.response.status) {
-      case 401:
-        return 'Your session has expired. Please log in again.';
-      case 403:
-        return 'You do not have permission to perform this action.';
-      case 404:
-        return 'The requested resource was not found.';
-      case 500:
-        return 'A server error occurred. Please try again later.';
-    }
+  const statusMsg = HTTP_STATUS_MESSAGES[error.response?.status as number];
+  if (statusMsg) {
+    return statusMsg;
   }
 
   // Handle API response data
