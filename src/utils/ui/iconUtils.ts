@@ -5,6 +5,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CircleIcon from '@mui/icons-material/Circle';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import CrueltyFreeOutlinedIcon from '@mui/icons-material/CrueltyFreeOutlined';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
@@ -56,6 +57,7 @@ export const ICONS = {
   ARROW_BACK_IOS: ArrowBackIosNewIcon,
   ARROW_FORWARD_IOS: ArrowForwardIosIcon,
   CLOSE: CloseOutlinedIcon,
+  CIRCLE: CircleIcon,
 
   // Game Controls
   PLAY_CIRCLE: PlayCircleOutlineOutlinedIcon,

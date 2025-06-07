@@ -1,0 +1,27 @@
+.indicator {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.serverIcon {
+  font-size: 1em !important;
+}
+
+.online .statusText {
+  color: var(--color-success);
+}
+
+.offline .statusText {
+  color: var(--color-danger);
+}
+
+.loading .statusText {
+  color: var(--text-color);
+}

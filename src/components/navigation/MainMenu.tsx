@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { MenuButton } from '@/components/buttons/MenuButton';
 import btnStyles from '@/components/buttons/styles/Button.module.css';
 import { ProfileAvatar } from '@/components/profile/ProfileAvatar';
+import { ServerStatus } from '@/components/ui/ServerStatus';
 import { SoundToggle } from '@/components/ui/SoundToggle';
 import { LoadingCardSpinner } from '@/components/ui/Spinner';
 import { useMenuHandler } from '@/hooks/ui/useMenu';
@@ -81,6 +82,7 @@ export const MainMenu = ({
             />
             <div className={btnStyles.bottomMenu}>
               <SoundToggle isMuted={isMuted} onToggle={toggleMute} />
+              <ServerStatus />
             </div>
           </div>
         )}
