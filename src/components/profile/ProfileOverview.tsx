@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Col } from 'react-bootstrap';
 
 import { Button } from '@/components/buttons/Button';
@@ -22,6 +22,7 @@ export function ProfileOverview({
 }: ProfileOverviewComponentProps) {
   const { user, data: profile, previewImage, handleImageChange } = useProfile();
   const [imageKey, setImageKey] = useState<number>(0);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Force re-render of image when profile picture changes
   useEffect(() => {
@@ -29,6 +30,10 @@ export function ProfileOverview({
   }, [profile?.profile_picture_url, previewImage]);
 
   const imageSrc = previewImage || profile?.profile_picture_url || '';
+
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
 
   return (
     <Col className="d-flex justify-content-between align-items-center my-3">
@@ -46,12 +51,11 @@ export function ProfileOverview({
           color="secondary"
           text="Upload"
           variant="menu"
-          onClick={() => {
-            document.getElementById('profilePictureInput')?.click();
-          }}
+          onClick={handleUploadClick}
           aria-controls="profilePictureInput"
         />
         <input
+          ref={fileInputRef}
           type="file"
           id="profilePictureInput"
           accept="image/*"
