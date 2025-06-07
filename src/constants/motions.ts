@@ -122,6 +122,167 @@ export const CARD_CONTENT_VARIANTS = {
 
 // Stagger helpers
 export const STAGGER_DEFAULT = 0.1;
+
+// Toast animation
+export const TOAST_VARIANTS: Variants = {
+  [VARIANTS.INITIAL]: {
+    opacity: 0,
+    y: -50,
+    scale: 0.95,
+    x: '-50%',
+  },
+  [VARIANTS.ANIMATE]: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    x: '-50%',
+    transition: {
+      ...SPRING.DEFAULT,
+      duration: 0.3,
+      opacity: { duration: 0.3 },
+    },
+  },
+  [VARIANTS.EXIT]: {
+    opacity: 0,
+    y: -30,
+    scale: 0.9,
+    x: '-50%',
+    transition: {
+      duration: 0.25,
+      ease: 'easeInOut',
+    },
+  },
+  // Variant for bottom placement
+  initialBottom: {
+    opacity: 0,
+    y: 50,
+    scale: 0.95,
+    x: '-50%',
+  },
+  animateBottom: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    x: '-50%',
+    transition: {
+      ...SPRING.DEFAULT,
+      duration: 0.3,
+      opacity: { duration: 0.3 },
+    },
+  },
+  exitBottom: {
+    opacity: 0,
+    y: 30,
+    scale: 0.9,
+    x: '-50%',
+    transition: {
+      duration: 0.25,
+      ease: 'easeInOut',
+    },
+  },
+};
+
+// Tooltip animation
+export const TOOLTIP_VARIANTS: Variants = {
+  [VARIANTS.INITIAL]: {
+    opacity: 0,
+    scale: 0.8,
+    y: 8,
+  },
+  [VARIANTS.ANIMATE]: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      ...SPRING.DEFAULT,
+      duration: 0.2,
+      opacity: { duration: 0.15 },
+    },
+  },
+  [VARIANTS.EXIT]: {
+    opacity: 0,
+    scale: 0.9,
+    y: 4,
+    transition: {
+      duration: 0.15,
+      ease: 'easeOut',
+    },
+  },
+  // Placement-specific variants
+  top: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      ...SPRING.DEFAULT,
+      duration: 0.2,
+      opacity: { duration: 0.15 },
+    },
+  },
+  topInitial: {
+    opacity: 0,
+    scale: 0.8,
+    y: -8,
+  },
+  topExit: {
+    opacity: 0,
+    scale: 0.9,
+    y: -4,
+    transition: {
+      duration: 0.15,
+      ease: 'easeOut',
+    },
+  },
+  left: {
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    transition: {
+      ...SPRING.DEFAULT,
+      duration: 0.2,
+      opacity: { duration: 0.15 },
+    },
+  },
+  leftInitial: {
+    opacity: 0,
+    scale: 0.8,
+    x: 8,
+  },
+  leftExit: {
+    opacity: 0,
+    scale: 0.9,
+    x: 4,
+    transition: {
+      duration: 0.15,
+      ease: 'easeOut',
+    },
+  },
+  right: {
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    transition: {
+      ...SPRING.DEFAULT,
+      duration: 0.2,
+      opacity: { duration: 0.15 },
+    },
+  },
+  rightInitial: {
+    opacity: 0,
+    scale: 0.8,
+    x: -8,
+  },
+  rightExit: {
+    opacity: 0,
+    scale: 0.9,
+    x: -4,
+    transition: {
+      duration: 0.15,
+      ease: 'easeOut',
+    },
+  },
+};
+
 export function getStaggerConfig(
   staggerChildren = STAGGER_DEFAULT,
   delayChildren = 0,
