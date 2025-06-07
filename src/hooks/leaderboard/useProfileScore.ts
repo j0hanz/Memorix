@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useFetch } from '@/hooks/api/useFetch';
 import { useServices } from '@/hooks/api/useServices';
@@ -14,10 +14,7 @@ export function useProfileScore(initialPage = 1) {
   const [selectedBestCategory, setSelectedBestCategory] = useState<string>('');
 
   // Best scores fetcher
-  const fetchAllBestScores = useCallback(
-    () => game.getUserBestScores(),
-    [game],
-  );
+  const fetchAllBestScores = () => game.getUserBestScores();
   const { data: allBestScores = [], loading: loadingBest } = useFetch<
     UserScore[]
   >(fetchAllBestScores, {
@@ -26,10 +23,8 @@ export function useProfileScore(initialPage = 1) {
     errorCategory: 'api',
   });
   // Paged scores fetcher
-  const fetchPagedScores = useCallback(
-    () => game.getUserScores(page, pagedCategoryFilter || undefined),
-    [game, page, pagedCategoryFilter],
-  );
+  const fetchPagedScores = () =>
+    game.getUserScores(page, pagedCategoryFilter || undefined);
 
   const {
     data: pagedData = { results: [], count: 0, next: null, previous: null },

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 
 import {
   CATEGORIES,
@@ -23,30 +23,29 @@ export function useGame(
   const { playSound } = useSound();
   const previousIndex = useRef<number | null>(null);
 
-  // Initialize the game board and reveal sequence
-  const initializeGame = useCallback((): (() => void) => {
-    dispatch(gameActions.initializeGame(deck));
-    // Start initial reveal and hide sequence
-    let hideTimer: ReturnType<typeof setTimeout>;
-    const revealTimer = setTimeout(() => {
-      dispatch(gameActions.revealAllCards());
-      hideTimer = setTimeout(() => {
-        dispatch(gameActions.hideAllCards());
-        dispatch(gameActions.startTimer());
-      }, DELAYS.INITIAL_REVEAL_TIME);
-    }, DELAYS.INITIAL_REVEAL);
-    // Cleanup both timers
-    return () => {
-      clearTimeout(revealTimer);
-      if (hideTimer) clearTimeout(hideTimer);
-    };
-  }, [deck]);
-
-  // Initialize game with shuffled deck
   useEffect(() => {
+    // Initialize the game with the selected deck
+    const initializeGame = (): (() => void) => {
+      dispatch(gameActions.initializeGame(deck));
+      // Set initial game state
+      let hideTimer: ReturnType<typeof setTimeout>;
+      const revealTimer = setTimeout(() => {
+        dispatch(gameActions.revealAllCards());
+        hideTimer = setTimeout(() => {
+          dispatch(gameActions.hideAllCards());
+          dispatch(gameActions.startTimer());
+        }, DELAYS.INITIAL_REVEAL_TIME);
+      }, DELAYS.INITIAL_REVEAL);
+      // Cleanup both timers
+      return () => {
+        clearTimeout(revealTimer);
+        if (hideTimer) clearTimeout(hideTimer);
+      };
+    };
+
     const cleanup = initializeGame();
     return cleanup;
-  }, [initializeGame]);
+  }, [deck]);
 
   // Check for game completion
   useEffect(() => {

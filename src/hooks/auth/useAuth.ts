@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 
 import { AUTH_ENDPOINTS, PROFILE_ENDPOINTS } from '@/constants/api';
 import { authReducer, initialAuthState } from '@/reducers/authReducer';
@@ -29,8 +29,8 @@ export function useAuthProvider(): AuthContextType {
   const setUser = (user: User | null) => {
     dispatch(authActionCreators.setUser(user));
   };
-
-  const fetchProfile = useCallback(async (): Promise<Profile | null> => {
+  // Fetch profile details
+  const fetchProfile = async (): Promise<Profile | null> => {
     if (!state.token || !state.user?.profile_id) return null;
     dispatch(authActionCreators.setLoading(true));
     dispatch(authActionCreators.clearError());
@@ -52,7 +52,7 @@ export function useAuthProvider(): AuthContextType {
     } finally {
       dispatch(authActionCreators.setLoading(false));
     }
-  }, [state.token, state.user?.profile_id]);
+  };
 
   useEffect(() => {
     void (async () => {
@@ -78,7 +78,22 @@ export function useAuthProvider(): AuthContextType {
         dispatch(authActionCreators.setUser(userRes.data));
 
         if (userRes.data.profile_id) {
-          await fetchProfile();
+          dispatch(authActionCreators.setLoading(true));
+          dispatch(authActionCreators.clearError());
+
+          try {
+            const profileRes = await axiosReq.get<Profile>(
+              PROFILE_ENDPOINTS.profileDetail(userRes.data.profile_id),
+            );
+            dispatch(authActionCreators.setProfile(profileRes.data));
+          } catch (profileErr: unknown) {
+            const err = profileErr as ApiError;
+            const errorMessage =
+              typeof err.response?.data?.detail === 'string'
+                ? err.response.data.detail
+                : 'Failed to load profile';
+            dispatch(authActionCreators.setError(errorMessage));
+          }
         }
       } catch (e: unknown) {
         const err = e as ApiError;
@@ -92,7 +107,7 @@ export function useAuthProvider(): AuthContextType {
         dispatch(authActionCreators.setLoading(false));
       }
     })();
-  }, [fetchProfile]);
+  }, []);
 
   // global logout event
   useEffect(() => {
