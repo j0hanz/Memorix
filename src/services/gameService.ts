@@ -59,7 +59,7 @@ export async function getUserScores(
       GAME_ENDPOINTS.results,
       {
         page,
-        ...(category ? { category } : {}),
+        ...(category ? { category_code: category.toUpperCase() } : {}),
       },
       {
         context: 'GameService',

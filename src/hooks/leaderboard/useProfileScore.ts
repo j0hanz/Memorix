@@ -25,7 +25,6 @@ export function useProfileScore(initialPage = 1) {
     showToastOnError: true,
     errorCategory: 'api',
   });
-
   // Paged scores fetcher
   const fetchPagedScores = useCallback(
     () => game.getUserScores(page, pagedCategoryFilter || undefined),
@@ -40,19 +39,20 @@ export function useProfileScore(initialPage = 1) {
     showToastOnError: false,
     errorCategory: 'api',
   });
-
-  // Derive the list of categories the user has played from all their best scores
   const playedCategories: GameOptions[] = allBestScores
     ? Array.from(new Set(allBestScores.map((s) => s.category_name))).map(
-        (label) => ({ value: label.toLowerCase(), label }),
+        (name) => ({
+          value: name.toLowerCase(), // Use lowercase for consistency with API
+          label: name,
+        }),
       )
     : [];
 
   // Effect to initialize selectedBestCategory once allBestScores are loaded
   useEffect(() => {
     if (allBestScores && allBestScores.length > 0 && !selectedBestCategory) {
-      const firstCategory = allBestScores[0].category_name.toLowerCase();
-      setSelectedBestCategory(firstCategory);
+      const firstScore = allBestScores[0];
+      setSelectedBestCategory(firstScore.category_name.toLowerCase());
     }
   }, [allBestScores, selectedBestCategory]);
 
