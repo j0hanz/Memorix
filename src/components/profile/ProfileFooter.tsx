@@ -30,7 +30,7 @@ export function ProfileFooter({
       showToast(message);
       onBack();
     } catch {
-      const errorMessage = 'Failed to clear scores. Please try again.';
+      const errorMessage = 'You have no scores to clear.';
       showToast(errorMessage);
     }
   };
