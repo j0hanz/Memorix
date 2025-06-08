@@ -29,12 +29,6 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
       icon: MODAL_ICONS.info(),
     },
     {
-      key: 'symbols',
-      title: 'Symbols',
-      className: modalStyles.navItemCenter,
-      icon: MODAL_ICONS.list(),
-    },
-    {
       key: 'stars',
       title: 'Stars',
       className: modalStyles.navItemRight,
@@ -53,8 +47,13 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
           before flipping back over.
         </p>
         <p className="my-3">
-          <strong>Memorize their positions</strong> during this preview time.
-          The game consists of 6 pairs of cards (12 cards in total).
+          Memorize their positions during this preview time. The game consists
+          of 6 pairs of cards (12 cards in total).
+        </p>
+        <p className="my-3">
+          Create an account? Creating a free Memorix account lets you save your
+          best scores, track your progress, and compete on the leaderboards. You
+          can play as a guest, but your results won't be saved.
         </p>
       </div>
       <div className="d-flex gap-3 mt-4">
@@ -70,50 +69,6 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
       </div>
     </div>
   );
-
-  // Symbols Tab Content
-  const SymbolsContent = () => {
-    const gameSymbols = [
-      { icon: MODAL_ICONS.restart(), description: 'Restart game' },
-      { icon: MODAL_ICONS.exit(), description: 'Exit game' },
-      { icon: MODAL_ICONS.timer(), description: 'Game time' },
-      { icon: MODAL_ICONS.moves(), description: 'Moves counter' },
-      {
-        icon: MODAL_ICONS.wrong(modalStyles.wrongPick),
-        description: 'Wrong pick',
-      },
-      {
-        icon: MODAL_ICONS.correct(modalStyles.success),
-        description: 'Correct pick',
-      },
-      {
-        icon: MODAL_ICONS.star(modalStyles.starIcon),
-        description: 'Stars earned',
-      },
-    ];
-
-    return (
-      <div className={instructionStyles.instructionsContent}>
-        <div>
-          <h5 className="text-center mb-2">Game Symbols & Functions</h5>
-          <small className="d-block text-center mb-2">
-            Icons used throughout the game and their meanings
-          </small>
-
-          <div>
-            {gameSymbols.map((item, index) => (
-              <div key={index} className="d-flex align-items-center gap-2 py-2">
-                <div>{item.icon}</div>
-                <div className="flex-1">
-                  <small>{item.description}</small>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   // Stars Tab Content
   const StarsContent = () => {
@@ -193,8 +148,6 @@ export function GameInstructions({ show, onClose }: GameInstructionsProps) {
     switch (activeKey) {
       case 'overview':
         return <OverviewContent />;
-      case 'symbols':
-        return <SymbolsContent />;
       case 'stars':
         return <StarsContent />;
       default:

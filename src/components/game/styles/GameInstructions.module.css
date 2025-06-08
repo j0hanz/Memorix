@@ -1,7 +1,7 @@
 .instructionsContent {
   animation: fadeIn 0.5s ease-in-out;
   padding: 1rem;
-  min-height: 40vh;
+  min-height: 45vh;
 }
 
 @keyframes fadeIn {
