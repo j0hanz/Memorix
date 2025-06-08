@@ -1,20 +1,17 @@
-import { useEffect } from 'react';
-
 import styles from '@/components/modals/styles/Modal.module.css';
+import { useErrorLogging } from '@/hooks/ui/useErrorLogging';
 import type { ErrorDataProps } from '@/types/components';
-import { getUserFriendlyMessage, logError } from '@/utils/shared/errorUtils';
+import { getUserFriendlyMessage } from '@/utils/shared/errorUtils';
 import { AUTH_ICONS, MODAL_ICONS } from '@/utils/ui/iconUtils';
 
 export default function ErrorData({ error }: ErrorDataProps) {
+  // Log the error for debugging
+  useErrorLogging(error, 'ErrorBoundary');
+
   // Get a user-friendly message
   const friendlyMessage = getUserFriendlyMessage(error);
   // Get the raw error message
   const rawMessage = error instanceof Error ? error.message : String(error);
-
-  // Log the error
-  useEffect(() => {
-    logError(error, 'ErrorBoundary', 'error');
-  }, [error]);
 
   return (
     <>

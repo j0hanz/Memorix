@@ -6,8 +6,8 @@ import { useAuth, useToast } from '@/hooks/shared/useProvider';
 import type { ProfileContextType } from '@/types/context';
 import type { ProfileFormValues } from '@/types/services';
 import {
+  formatErrorMessage,
   formatPasswordChangeError,
-  isApiError,
 } from '@/utils/shared/errorUtils';
 
 export function useProfile(): ProfileContextType {
@@ -19,15 +19,14 @@ export function useProfile(): ProfileContextType {
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [passwordFormComplete, setPasswordFormComplete] = useState(false);
+  const [editingImage, setEditingImage] = useState(false);
 
-  // Tab navigation state
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [showPasswordTab, setShowPasswordTab] = useState(false);
   const [showDeleteTab, setShowDeleteTab] = useState(false);
 
   const { showToast } = useToast();
 
-  // Use the dedicated scores hook
   const { scores, scoresCount, scoresPage, setScoresPage, loadingScores } =
     useScore();
 
@@ -40,73 +39,70 @@ export function useProfile(): ProfileContextType {
     }
   }, [user, profile, getProfile]);
 
-  // Tab navigation handlers
+  useEffect(() => {
+    if (profile?.profile_picture_url && !editingImage) {
+      setPreviewImage(profile.profile_picture_url);
+    }
+  }, [profile?.profile_picture_url, editingImage]);
+
   const handleTabChange = (key: string) => {
+    // Handles tab navigation changes.
     setActiveTab(key);
     setShowPasswordTab(false);
     setShowDeleteTab(false);
   };
 
   const handlePasswordClick = () => {
+    // Shows the password tab.
     setShowPasswordTab(true);
   };
 
   const handleDeleteClick = () => {
+    // Shows the delete account tab.
     setShowDeleteTab(true);
   };
 
   const handleBackToOverview = () => {
+    // Navigates back to the overview tab from password or delete tabs.
     setShowPasswordTab(false);
     setShowDeleteTab(false);
-    setPasswordFormComplete(false); // Reset the form completion state
+    setPasswordFormComplete(false);
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Handles the selection of a new profile image.
     const file = e.target.files?.[0];
     if (file) {
       setProfileImage(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewImage(reader.result as string);
+        setEditingImage(true);
       };
       reader.readAsDataURL(file);
+      setError(null);
     }
   };
+
   const handleUpdateProfile = async () => {
-    if (!profileImage) {
-      const errorMsg = 'Please select an image first';
-      showToast(errorMsg);
-      return;
-    }
-    if (!profile?.id) {
-      const errorMsg = 'No profile found';
-      showToast(errorMsg);
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      await profileService.uploadProfilePicture(profile.id, profileImage);
-      const successMsg = 'Profile picture updated successfully!';
-      showToast(successMsg);
-      setProfileImage(null);
-      setPreviewImage(null);
-      await getProfile();
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : 'Failed to update profile picture';
-      showToast(errorMessage);
-    } finally {
-      setLoading(false);
+    // Handles updating the profile, primarily for saving a new profile image.
+    if (profileImage && profile?.id) {
+      await handleSaveProfileImage();
+    } else if (editingImage && !profileImage) {
+      handleCancelImageEdit();
+      showToast('Image selection cancelled.', 2000);
+    } else {
+      showToast('No changes to save.', 2000);
     }
   };
+
   const changePassword = async (
     values: ProfileFormValues,
   ): Promise<boolean> => {
+    // Handles changing the user's password.
     if (!profile?.id) {
       const errorMsg = 'No profile found';
+      setError(errorMsg);
       showToast(errorMsg);
       return false;
     }
@@ -116,7 +112,6 @@ export function useProfile(): ProfileContextType {
     setSuccess(null);
 
     try {
-      // Convert ProfileFormValues to auth service format
       const passwordData = {
         old_password: values.oldPassword,
         new_password1: values.newPassword1,
@@ -124,18 +119,13 @@ export function useProfile(): ProfileContextType {
       };
       await authService.changePassword(passwordData);
       const successMsg = 'Password changed successfully!';
+      setSuccess(successMsg);
       showToast(successMsg);
+      setPasswordFormComplete(false);
       return true;
     } catch (err) {
-      let errorMessage = 'Failed to change password';
-
-      // Use specific password change error formatting
-      if (isApiError(err)) {
-        errorMessage = formatPasswordChangeError(err);
-      } else if (err instanceof Error) {
-        errorMessage = err.message;
-      }
-
+      const errorMessage = formatPasswordChangeError(err);
+      setError(errorMessage);
       showToast(errorMessage);
       return false;
     } finally {
@@ -143,8 +133,10 @@ export function useProfile(): ProfileContextType {
     }
   };
   const handleDeleteAccount = async (): Promise<void> => {
+    // Handles deleting the user's account.
     if (!profile?.id) {
       const errorMsg = 'No profile found';
+      setError(errorMsg);
       showToast(errorMsg);
       return;
     }
@@ -155,22 +147,77 @@ export function useProfile(): ProfileContextType {
     try {
       await profileService.deleteAccount(profile.id);
       const successMsg = 'Account deleted successfully';
+      setSuccess(successMsg);
       showToast(successMsg);
       logout();
     } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : 'Failed to delete account';
+      const errorMessage = formatErrorMessage(err);
+      setError(errorMessage);
       showToast(errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
+  const handleSaveProfileImage = async () => {
+    // Handles saving the selected profile image.
+    if (!profileImage) {
+      setError('No image selected.');
+      showToast('No image selected.');
+      return;
+    }
+    if (!profile?.id) {
+      setError('User not authenticated.');
+      showToast('User not authenticated.');
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setSuccess(null);
+
+    try {
+      const response = await profileService.uploadProfilePicture(
+        profile.id,
+        profileImage,
+      );
+      if (response && typeof response.profile_picture_url === 'string') {
+        setPreviewImage(response.profile_picture_url);
+        setProfileImage(null);
+        setEditingImage(false);
+        setSuccess('Profile picture updated successfully!');
+        showToast('Profile picture updated!', 3000);
+        await getProfile();
+      } else {
+        setProfileImage(null);
+        setEditingImage(false);
+        showToast('Profile picture uploaded. Refreshing data...', 3000);
+        await getProfile();
+      }
+    } catch (err) {
+      const message = formatErrorMessage(err);
+      setError(message);
+      showToast(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCancelImageEdit = () => {
+    // Handles cancelling the profile image edit.
+    setProfileImage(null);
+    setPreviewImage(profile?.profile_picture_url || null);
+    setEditingImage(false);
+    setError(null);
+  };
+
   const clearState = () => {
+    // Clears the local state of the hook.
     setError(null);
     setSuccess(null);
     setProfileImage(null);
-    setPreviewImage(null);
+    setPreviewImage(profile?.profile_picture_url || null);
+    setEditingImage(false);
   };
 
   return {
@@ -186,6 +233,7 @@ export function useProfile(): ProfileContextType {
     loadingScores,
     success,
     passwordFormComplete,
+    editingImage,
     setError,
     setSuccess,
     handleImageChange,
@@ -205,5 +253,8 @@ export function useProfile(): ProfileContextType {
     setPasswordFormComplete: (complete: boolean) => {
       setPasswordFormComplete(complete);
     },
+    setEditingImage,
+    handleSaveProfileImage,
+    handleCancelImageEdit,
   };
 }

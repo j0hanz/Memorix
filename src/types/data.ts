@@ -5,6 +5,7 @@ export interface User {
   username: string;
   profile_id?: number;
   profile_picture?: string;
+  date_joined?: string;
 }
 
 export interface Profile {

@@ -1,6 +1,5 @@
-import { useState } from 'react';
-
 import { TabNavigation } from '@/components/navigation/TabNavigation';
+import { useTabs } from '@/hooks/ui/useTabs';
 import type { ModalTabsProps } from '@/types/components';
 
 export function ModalTabs({
@@ -8,16 +7,11 @@ export function ModalTabs({
   tabContents,
   defaultActiveKey,
 }: ModalTabsProps) {
-  const [activeKey, setActiveKey] = useState<string>(
-    defaultActiveKey || tabs[0]?.key || '',
-  );
-
-  const getActiveContent = () => {
-    const activeContent = tabContents.find(
-      (content) => content.key === activeKey,
-    );
-    return activeContent?.content;
-  };
+  const { activeKey, setActiveKey, getActiveContent } = useTabs({
+    tabs,
+    tabContents,
+    defaultActiveKey,
+  });
 
   return (
     <>

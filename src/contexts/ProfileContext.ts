@@ -15,6 +15,7 @@ export const ProfileContext = createContext<ProfileContextType>({
   scoresPage: 1,
   loadingScores: false,
   passwordFormComplete: false,
+  editingImage: false,
   setError: () => {},
   setSuccess: () => {},
   handleImageChange: () => {},
@@ -32,4 +33,7 @@ export const ProfileContext = createContext<ProfileContextType>({
   handleDeleteClick: () => {},
   setPasswordFormComplete: () => {},
   handleBackToOverview: () => {},
+  setEditingImage: () => {},
+  handleSaveProfileImage: async () => {},
+  handleCancelImageEdit: () => {},
 });

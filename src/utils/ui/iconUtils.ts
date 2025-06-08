@@ -12,6 +12,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import DirectionsCarOutlinedIcon from '@mui/icons-material/DirectionsCarOutlined';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import FlipOutlinedIcon from '@mui/icons-material/FlipOutlined';
@@ -104,6 +105,7 @@ export const ICONS = {
   UPLOAD: DriveFolderUploadIcon,
   DELETE: DeleteOutlineIcon,
   DELETE_FOREVER: DeleteForeverIcon,
+  EDIT: EditOutlinedIcon,
 
   // External & Special
   GITHUB: GitHubIcon,
@@ -155,6 +157,7 @@ export const AUTH_ICONS = {
   delete: () => getIcon('DELETE_FOREVER', { fontSize: 'small' }),
   deleteAccount: () => getIcon('DELETE', { fontSize: 'small' }),
   upload: () => getIcon('UPLOAD', { fontSize: 'small' }),
+  edit: () => getIcon('EDIT', { fontSize: 'small' }),
   back: () => getIcon('ARROW_BACK', { fontSize: 'small' }),
   warning: (config?: IconConfig) =>
     getIcon('WARNING', { fontSize: 'large', ...config }),
@@ -189,6 +192,11 @@ export const MODAL_ICONS = {
   list: () => getIcon('FORMAT_LIST', { fontSize: 'small' }),
   starOutline: () => getIcon('STAR_BORDER', { fontSize: 'small' }),
   infinite: () => getIcon('INFINITY', { fontSize: 'small' }),
+};
+
+export const GENERAL_ICONS = {
+  save: () => getIcon('CHECK', { fontSize: 'small' }),
+  edit: () => getIcon('EDIT', { fontSize: 'small' }),
 };
 
 export const NAVIGATION_ICONS = {

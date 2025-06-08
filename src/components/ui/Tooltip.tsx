@@ -1,5 +1,4 @@
-import { useState } from 'react';
-
+import { useTooltip } from '@/hooks/ui/useTooltip';
 import type { TooltipProps } from '@/types/components';
 
 import styles from './styles/Tooltip.module.css';
@@ -10,23 +9,15 @@ export function Tooltip({
   placement = 'bottom',
   className = '',
 }: TooltipProps) {
-  const [visible, setVisible] = useState(false);
+  const { visible, showTooltip, hideTooltip } = useTooltip();
 
   return (
     <div
       className={`${styles.tooltipTrigger} ${className}`}
-      onMouseEnter={() => {
-        setVisible(true);
-      }}
-      onMouseLeave={() => {
-        setVisible(false);
-      }}
-      onFocus={() => {
-        setVisible(true);
-      }}
-      onBlur={() => {
-        setVisible(false);
-      }}
+      onMouseEnter={showTooltip}
+      onMouseLeave={hideTooltip}
+      onFocus={showTooltip}
+      onBlur={hideTooltip}
       tabIndex={0}
       role="button"
       aria-haspopup="true"

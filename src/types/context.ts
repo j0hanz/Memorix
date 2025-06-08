@@ -40,7 +40,7 @@ export interface ErrorContextType {
 }
 
 export interface ProfileContextType extends AsyncState<Profile> {
-  user: { username: string } | null;
+  user: User | null;
   profileImage: File | null;
   previewImage: string | null;
   scores: UserScore[];
@@ -49,6 +49,7 @@ export interface ProfileContextType extends AsyncState<Profile> {
   loadingScores: boolean;
   success: string | null;
   passwordFormComplete: boolean;
+  editingImage: boolean;
   setError: (error: string | null) => void;
   setSuccess: (success: string | null) => void;
   setPasswordFormComplete: (complete: boolean) => void;
@@ -66,6 +67,9 @@ export interface ProfileContextType extends AsyncState<Profile> {
   handlePasswordClick: () => void;
   handleDeleteClick: () => void;
   handleBackToOverview: () => void;
+  setEditingImage: (editing: boolean) => void;
+  handleSaveProfileImage: () => Promise<void>;
+  handleCancelImageEdit: () => void;
 }
 
 export interface SoundContextType {
