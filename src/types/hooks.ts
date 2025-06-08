@@ -1,6 +1,10 @@
-import type { TargetAndTransition, Transition, Variants } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 
 import type { ErrorCategory, ErrorSeverity } from '@/types/services';
+
+// ============================================================================
+// APP STATE INTERFACES
+// ============================================================================
 
 export interface AppState {
   isGameActive: boolean;
@@ -13,6 +17,10 @@ export interface LoadingState {
   message?: string;
   type?: 'initial' | 'start' | 'restart' | 'exit';
 }
+
+// ============================================================================
+// GAME HOOK INTERFACES
+// ============================================================================
 
 export interface UseScoreboardProps {
   moves: number;
@@ -32,6 +40,10 @@ export interface UseSaveScoreProps {
   stars: number;
 }
 
+// ============================================================================
+// ASYNC DATA FETCHING INTERFACES
+// ============================================================================
+
 export type Fetcher<T> = (signal: AbortSignal) => Promise<T>;
 
 export interface FetcherOptions<T> {
@@ -45,11 +57,9 @@ export interface FetcherOptions<T> {
   initialData?: T | null;
 }
 
-export interface EnterAnimation {
-  initial: TargetAndTransition;
-  animate: TargetAndTransition;
-  transition: Transition;
-}
+// ============================================================================
+// UI HOOK INTERFACES
+// ============================================================================
 
 export interface ToastVisibilityProps {
   show: boolean;
@@ -67,8 +77,12 @@ export interface ToastHandlerReturn {
   hideToast: () => void;
 }
 
+// ============================================================================
+// ANIMATION INTERFACES
+// ============================================================================
+
 export interface AnimationReturn {
-  enterAnimation: EnterAnimation;
+  enterAnimation: import('@/types/components').EnterAnimation;
   feedbackAnimation: Variants;
   flipAnimation: Variants;
   cardContentAnimation: Record<string, Variants>;
@@ -78,5 +92,9 @@ export interface AnimationReturn {
     delayChildren?: number,
   ) => Record<string, number>;
 }
+
+// ============================================================================
+// UTILITY INTERFACES
+// ============================================================================
 
 export type CSSModuleClasses = Record<string, string>;

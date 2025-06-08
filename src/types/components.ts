@@ -5,6 +5,10 @@ import type { ButtonProps } from 'react-bootstrap';
 import type { CardData, PairedCard } from '@/types/data';
 import type { UserScore } from '@/types/services';
 
+// ============================================================================
+// BASE INTERFACES
+// ============================================================================
+
 export interface BaseComponentProps {
   children?: ReactNode;
 }
@@ -14,9 +18,10 @@ export interface BaseModalProps {
   onClose: () => void;
 }
 
-export interface GameActionModalProps extends BaseModalProps {
-  onReset?: () => void;
-  onExit?: () => void;
+export interface InteractiveProps {
+  onClick?: () => void;
+  disabled?: boolean;
+  className?: string;
 }
 
 export interface BaseFormState {
@@ -24,6 +29,10 @@ export interface BaseFormState {
   error?: string | null;
   success?: string | null;
 }
+
+// ============================================================================
+// MODAL INTERFACES
+// ============================================================================
 
 export interface ModalProps {
   show: boolean;
@@ -41,11 +50,19 @@ export interface ModalProps {
   showCloseButton?: boolean;
 }
 
-export interface InteractiveProps {
-  onClick?: () => void;
-  disabled?: boolean;
-  className?: string;
+export interface GameActionModalProps extends BaseModalProps {
+  onReset?: () => void;
+  onExit?: () => void;
 }
+
+export type AuthModalProps = BaseModalProps;
+export type LeaderboardModalProps = BaseModalProps;
+export type GameInstructionsProps = BaseModalProps;
+export type LatestUpdatesProps = BaseModalProps;
+
+// ============================================================================
+// PROVIDER INTERFACES
+// ============================================================================
 
 export interface SoundProviderProps {
   children: ReactNode;
@@ -65,6 +82,10 @@ export interface ToastProviderProps {
   children: ReactNode;
 }
 
+// ============================================================================
+// AUTH INTERFACES
+// ============================================================================
+
 export interface LoginProps {
   onClose?: () => void;
 }
@@ -74,7 +95,10 @@ export interface RegisterProps {
   onClose: () => void;
 }
 
-export type AuthModalProps = BaseModalProps;
+// ============================================================================
+// PROFILE INTERFACES
+// ============================================================================
+
 export interface ProfileAvatarProps extends InteractiveProps {
   profilePictureUrl?: string;
   onClick: () => void;
@@ -101,6 +125,10 @@ export interface ProfileFooterProps {
   onBack: () => void;
   onClose: () => void;
 }
+
+// ============================================================================
+// NAVIGATION INTERFACES
+// ============================================================================
 
 export interface MainMenuProps {
   startGame: () => void;
@@ -133,6 +161,10 @@ export interface ModalFooterButtonsProps {
   rightForm?: string;
 }
 
+// ============================================================================
+// FORM INTERFACES
+// ============================================================================
+
 export interface SelectOption {
   value: string;
   label: string;
@@ -153,6 +185,26 @@ export interface SelectProps {
   ariaLabel?: string;
 }
 
+export interface FormFieldProps {
+  controlId: string;
+  name: string;
+  type: string;
+  label: string;
+  placeholder?: string;
+  defaultValue?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  error?: string | string[];
+  showError?: boolean;
+  className?: string;
+  icon?: ReactNode;
+}
+
+// ============================================================================
+// GAME INTERFACES
+// ============================================================================
+
 export interface GameProps {
   onRestart: () => void;
 }
@@ -161,6 +213,11 @@ export interface GameOptions {
   value: string;
   label: string;
   id?: number;
+}
+
+export interface GameStatsProps {
+  moves: number;
+  completedTime: number;
 }
 
 export interface GameComponentProps {
@@ -208,15 +265,13 @@ export interface FeedbackProps {
   message: string | null;
 }
 
-export interface ScoreProps {
-  moves: number;
-  completedTime: number;
-}
+// ============================================================================
+// SCORE INTERFACES
+// ============================================================================
 
-export interface ScoreboardProps {
-  moves: number;
-  completedTime: number;
-}
+export type ScoreProps = GameStatsProps;
+
+export type ScoreboardProps = GameStatsProps;
 
 export interface StarRatingProps {
   count: number;
@@ -224,26 +279,18 @@ export interface StarRatingProps {
   className?: string;
 }
 
-export interface ScoreboardModalProps extends GameActionModalProps {
+export interface ScoreboardModalProps
+  extends GameActionModalProps,
+    GameStatsProps {
   title?: string;
   children?: ReactNode;
-  moves: number;
-  completedTime: number;
   categoryCode: string;
 }
 
-export interface ScoreboardDataProps extends GameControlProps {
-  moves: number;
-  completedTime: number;
+export interface ScoreboardDataProps extends GameControlProps, GameStatsProps {
   categoryCode: string;
   children?: ReactNode;
 }
-
-export interface LeaderboardProps {
-  categoryId?: number;
-}
-
-export type LeaderboardModalProps = BaseModalProps;
 
 export interface ScoreFeedbackProps {
   isAuthenticated: boolean;
@@ -262,6 +309,10 @@ export interface ScoringCriteriaRowProps {
   time: string | React.ReactNode;
 }
 
+// ============================================================================
+// CATEGORY INTERFACES
+// ============================================================================
+
 export interface CategoryProps extends BaseModalProps {
   onSelectCategory: (category: string) => void;
 }
@@ -276,11 +327,6 @@ export interface CategoryIconProps {
   className?: string;
 }
 
-export interface GameOptions {
-  value: string;
-  label: string;
-}
-
 export interface GameCategoryProps {
   id: string;
   label?: string;
@@ -292,9 +338,17 @@ export interface GameCategoryProps {
   hideLabel?: boolean;
 }
 
-export type GameInstructionsProps = BaseModalProps;
+// ============================================================================
+// LEADERBOARD INTERFACES
+// ============================================================================
 
-export type LatestUpdatesProps = BaseModalProps;
+export interface LeaderboardProps {
+  categoryId?: number;
+}
+
+// ============================================================================
+// UI COMPONENT INTERFACES
+// ============================================================================
 
 export interface IconExplanationProps {
   icon: ReactNode;
@@ -362,21 +416,9 @@ export interface TooltipProps {
   className?: string;
 }
 
-export interface FormFieldProps {
-  controlId: string;
-  name: string;
-  type: string;
-  label: string;
-  placeholder?: string;
-  defaultValue?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-  error?: string | string[];
-  showError?: boolean;
-  className?: string;
-  icon?: ReactNode;
-}
+// ============================================================================
+// TAB INTERFACES
+// ============================================================================
 
 export interface TabItem {
   key: string;
@@ -402,6 +444,10 @@ export interface TabContent {
   content: ReactNode;
 }
 
+// ============================================================================
+// ERROR HANDLING INTERFACES
+// ============================================================================
+
 export interface ErrorDataProps {
   error: Error;
 }
@@ -417,6 +463,10 @@ export interface ProtectedRouteProps extends BaseComponentProps {
   children: ReactNode;
   onAuthRequired: () => void;
 }
+
+// ============================================================================
+// ANIMATION INTERFACES
+// ============================================================================
 
 export interface EnterAnimation {
   initial: TargetAndTransition;

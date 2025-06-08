@@ -2,8 +2,16 @@ import type { SoundKey } from '@/constants/sounds';
 
 import type { CardDef } from './data';
 
+// ============================================================================
+// CALLBACK TYPES
+// ============================================================================
+
 export type VoidCallback = () => void;
 export type ValueCallback<T> = (value: T) => void;
+
+// ============================================================================
+// ASYNC STATE INTERFACES
+// ============================================================================
 
 export interface AsyncState<T> {
   data: T | null;
@@ -18,7 +26,15 @@ export interface PaginatedData<T> {
   results: T[];
 }
 
+// ============================================================================
+// SOUND INTERFACES
+// ============================================================================
+
 export type SoundMapType = Record<SoundKey, () => void>;
+
+// ============================================================================
+// CARD INTERACTION INTERFACES
+// ============================================================================
 
 export interface CardInteractionOptions<T extends CardDef> {
   onMatch?: (matchedCards?: T[]) => void;
@@ -33,8 +49,13 @@ export interface CardRevealOptions {
   onRevealComplete?: () => void;
 }
 
+// ============================================================================
+// VALIDATION INTERFACES
+// ============================================================================
+
 export type ValidationRule = (
   value: string,
   formValues?: Record<string, string>,
 ) => string | null;
+
 export type ValidationRules = Record<string, ValidationRule>;

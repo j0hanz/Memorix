@@ -1,11 +1,8 @@
 import type { Dispatch } from 'react';
 
 import type { SoundKey } from '@/constants/sounds';
-import type { Profile, User } from '@/types/data';
-import type { ModalData } from '@/types/data';
-import type { CardData } from '@/types/data';
-import type { GameAction } from '@/types/reducers';
-import type { GameState } from '@/types/reducers';
+import type { CardData, ModalData, Profile, User } from '@/types/data';
+import type { GameAction, GameState } from '@/types/reducers';
 import type {
   AppError,
   LoginCredentials,
@@ -13,6 +10,10 @@ import type {
   RegisterData,
 } from '@/types/services';
 import type { AsyncState, VoidCallback } from '@/types/utils';
+
+// ============================================================================
+// AUTHENTICATION CONTEXT
+// ============================================================================
 
 export interface AuthContextType {
   user: User | null;
@@ -32,11 +33,19 @@ export interface AuthContextType {
   fetchProfile: () => Promise<Profile | null>;
 }
 
+// ============================================================================
+// ERROR CONTEXT
+// ============================================================================
+
 export interface ErrorContextType {
   error: AppError | null;
   setError: (error: unknown, context?: string) => void;
   clearError: () => void;
 }
+
+// ============================================================================
+// PROFILE CONTEXT
+// ============================================================================
 
 export interface ProfileContextType extends AsyncState<Profile> {
   user: User | null;
@@ -66,6 +75,10 @@ export interface ProfileContextType extends AsyncState<Profile> {
   handleCancelImageEdit: () => void;
 }
 
+// ============================================================================
+// MEDIA CONTEXT
+// ============================================================================
+
 export interface SoundContextType {
   isMuted: boolean;
   playSound: (soundKey: SoundKey) => void;
@@ -77,6 +90,10 @@ export interface ToastContextType {
   showToast: (message: string, duration?: number) => void;
   hideToast: VoidCallback;
 }
+
+// ============================================================================
+// MODAL CONTEXT
+// ============================================================================
 
 export type ModalType =
   | 'auth'
@@ -96,6 +113,10 @@ export interface ModalContextType {
   openModal: (type: ModalType, data?: ModalData) => void;
   closeModal: VoidCallback;
 }
+
+// ============================================================================
+// NAVIGATION CONTEXT
+// ============================================================================
 
 export interface NavigationContextType {
   startGame: () => void;
@@ -121,6 +142,10 @@ export interface NavigationContextType {
     type?: string;
   };
 }
+
+// ============================================================================
+// GAME CONTEXT
+// ============================================================================
 
 export interface GameContextType extends GameState {
   dispatch: Dispatch<GameAction>;

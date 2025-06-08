@@ -1,6 +1,10 @@
 import type { User } from './data';
 import type { PaginatedData } from './utils';
 
+// ============================================================================
+// BASE API INTERFACES
+// ============================================================================
+
 export interface BaseApiResponse {
   success?: boolean;
   message?: string;
@@ -37,6 +41,10 @@ export interface ApiPaginationParams {
   [key: string]: unknown;
 }
 
+// ============================================================================
+// ERROR HANDLING INTERFACES
+// ============================================================================
+
 export type ErrorSeverity = 'info' | 'warning' | 'error' | 'critical';
 
 export type ErrorCategory =
@@ -56,6 +64,10 @@ export interface AppError {
   details?: unknown;
   handled?: boolean;
 }
+
+// ============================================================================
+// AUTHENTICATION INTERFACES
+// ============================================================================
 
 export interface LoginCredentials {
   username: string;
@@ -82,6 +94,10 @@ export interface ProfileFormValues extends Record<string, string> {
   newPassword1: string;
   newPassword2: string;
 }
+
+// ============================================================================
+// GAME DATA INTERFACES
+// ============================================================================
 
 export interface GameResultData {
   category: string;
@@ -111,8 +127,16 @@ export interface LeaderboardEntry extends UserScore {
   profile_id: number;
 }
 
+// ============================================================================
+// PAGINATED DATA TYPES
+// ============================================================================
+
 export type PaginatedUserScores = PaginatedData<UserScore>;
 export type PaginatedLeaderboardEntries = PaginatedData<LeaderboardEntry>;
+
+// ============================================================================
+// GITHUB API INTERFACES
+// ============================================================================
 
 export interface Commit {
   sha: string;

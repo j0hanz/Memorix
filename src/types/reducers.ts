@@ -1,12 +1,18 @@
-import type { Profile, User } from '@/types/data';
+import type { PairedCard, Profile, User } from '@/types/data';
 import type { AppState } from '@/types/hooks';
 
-import type { PairedCard } from './data';
+// ============================================================================
+// APP REDUCER
+// ============================================================================
 
 export type AppAction =
   | { type: 'SET_LOADING'; value: Partial<AppState['loading']> }
   | { type: 'SET_GAME_ACTIVE'; value: boolean }
   | { type: 'SET_SELECTED_CATEGORY'; value: string };
+
+// ============================================================================
+// AUTH REDUCER
+// ============================================================================
 
 export interface AuthState {
   user: User | null;
@@ -26,6 +32,10 @@ export type AuthAction =
   | { type: 'SET_TOKENS'; payload: { token: string; refreshToken?: string } }
   | { type: 'LOGOUT' }
   | { type: 'CLEAR_ERROR' };
+
+// ============================================================================
+// GAME REDUCER
+// ============================================================================
 
 export interface GameState {
   cards: PairedCard[];
