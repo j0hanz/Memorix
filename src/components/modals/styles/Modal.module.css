@@ -36,6 +36,7 @@
 
 .modalRow {
   min-height: 30vh;
+  align-content: flex-start;
   padding-block: 0.5rem;
 }
 
@@ -104,7 +105,7 @@
 
 .profileUsername {
   color: var(--text-color);
-  font: 500 1.2rem/1 inherit;
+  padding: 0.25rem 0.5rem;
 }
 
 /* Score and ranking */
