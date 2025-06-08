@@ -50,7 +50,7 @@ export function ProfileData({
           onBack={handleBackToOverview}
           logout={logout}
         />
-      </Row>{' '}
+      </Row>
       <ProfileFooter
         activeTab={activeTab}
         showPasswordTab={showPasswordTab}
