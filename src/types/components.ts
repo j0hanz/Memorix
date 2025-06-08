@@ -112,8 +112,10 @@ export interface ProfileContentProps {
   activeTab: string;
   showPasswordTab: boolean;
   showDeleteTab: boolean;
+  showClearScoresTab: boolean;
   onPasswordClick: () => void;
   onDeleteClick: () => void;
+  onClearScoresClick: () => void;
   onBack: () => void;
   logout: () => void;
 }
@@ -122,6 +124,7 @@ export interface ProfileFooterProps {
   activeTab: string;
   showPasswordTab: boolean;
   showDeleteTab: boolean;
+  showClearScoresTab: boolean;
   onBack: () => void;
   onClose: () => void;
 }

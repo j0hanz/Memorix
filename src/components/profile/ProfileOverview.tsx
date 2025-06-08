@@ -12,12 +12,14 @@ import { AUTH_ICONS } from '@/utils/ui/iconUtils';
 interface ProfileOverviewComponentProps {
   onPasswordClick: () => void;
   onDeleteClick: () => void;
+  onClearScoresClick: () => void;
   logout: () => void;
 }
 
 export function ProfileOverview({
   onPasswordClick,
   onDeleteClick,
+  onClearScoresClick,
   logout,
 }: ProfileOverviewComponentProps) {
   const { user, data: profile, previewImage, handleImageChange } = useProfile();
@@ -91,6 +93,15 @@ export function ProfileOverview({
               type="button"
               color="secondary"
               icon={AUTH_ICONS.password()}
+            />
+            <Button
+              className={`${btnStyles.btnProfileMenu} ${btnStyles.btnMenu}`}
+              variant="menu"
+              text="Clear All Scores"
+              onClick={onClearScoresClick}
+              type="button"
+              color="secondary"
+              icon={AUTH_ICONS.delete()}
             />
             <Button
               className={`${btnStyles.btnProfileMenu} ${btnStyles.btnEnd}`}

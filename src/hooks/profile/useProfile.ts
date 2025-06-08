@@ -24,6 +24,7 @@ export function useProfile(): ProfileContextType {
   const [activeTab, setActiveTab] = useState<string>('overview');
   const [showPasswordTab, setShowPasswordTab] = useState(false);
   const [showDeleteTab, setShowDeleteTab] = useState(false);
+  const [showClearScoresTab, setShowClearScoresTab] = useState(false);
 
   const { showToast } = useToast();
 
@@ -50,6 +51,7 @@ export function useProfile(): ProfileContextType {
     setActiveTab(key);
     setShowPasswordTab(false);
     setShowDeleteTab(false);
+    setShowClearScoresTab(false);
   };
 
   const handlePasswordClick = () => {
@@ -62,10 +64,16 @@ export function useProfile(): ProfileContextType {
     setShowDeleteTab(true);
   };
 
+  const handleClearScoresClick = () => {
+    // Shows the clear scores tab.
+    setShowClearScoresTab(true);
+  };
+
   const handleBackToOverview = () => {
     // Navigates back to the overview tab from password or delete tabs.
     setShowPasswordTab(false);
     setShowDeleteTab(false);
+    setShowClearScoresTab(false);
     setPasswordFormComplete(false);
   };
 
@@ -246,9 +254,11 @@ export function useProfile(): ProfileContextType {
     activeTab,
     showPasswordTab,
     showDeleteTab,
+    showClearScoresTab,
     handleTabChange,
     handlePasswordClick,
     handleDeleteClick,
+    handleClearScoresClick,
     handleBackToOverview,
     setPasswordFormComplete: (complete: boolean) => {
       setPasswordFormComplete(complete);

@@ -9,7 +9,7 @@ import type {
   UserScore,
 } from '@/types/services';
 
-import { get, getList, getPaginated, post } from './apiService';
+import { deleteRequest, get, getList, getPaginated, post } from './apiService';
 
 // This service provides methods to interact with game results and leaderboards.
 export async function saveGameResult(data: GameResultData): Promise<void> {
@@ -80,5 +80,26 @@ export async function getUserBestScores(): Promise<UserScore[]> {
   return getList<UserScore>(GAME_ENDPOINTS.bestResults, undefined, {
     context: 'GameService',
     errorMessage: 'Failed to fetch best scores',
+  });
+}
+
+// This function clears all user scores for a specific category.
+export async function clearUserScoresByCategory(
+  categoryCode: string,
+): Promise<{ detail: string }> {
+  return deleteRequest<{ detail: string }>(
+    GAME_ENDPOINTS.clearCategoryResults(categoryCode),
+    {
+      context: 'GameService',
+      errorMessage: `Failed to clear scores for category ${categoryCode}`,
+    },
+  );
+}
+
+// This function clears all user scores across all categories.
+export async function clearAllUserScores(): Promise<{ detail: string }> {
+  return deleteRequest<{ detail: string }>(GAME_ENDPOINTS.clearAllResults, {
+    context: 'GameService',
+    errorMessage: 'Failed to clear all scores',
   });
 }

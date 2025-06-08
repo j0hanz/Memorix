@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { ProfileChangePassword } from '@/components/profile/ProfileChangePassword';
+import { ProfileClearScores } from '@/components/profile/ProfileClearScores';
 import { ProfileDeleteAccount } from '@/components/profile/ProfileDeleteAccount';
 import { ProfileGameHistory } from '@/components/profile/ProfileGameHistory';
 import { ProfileOverview } from '@/components/profile/ProfileOverview';
@@ -11,8 +12,10 @@ export function ProfileContent({
   activeTab,
   showPasswordTab,
   showDeleteTab,
+  showClearScoresTab,
   onPasswordClick,
   onDeleteClick,
+  onClearScoresClick,
   onBack,
   logout,
 }: ProfileContentProps) {
@@ -39,11 +42,23 @@ export function ProfileContent({
         </ProtectedRoute>
       );
     }
+    if (activeTab === 'overview' && showClearScoresTab) {
+      return (
+        <ProtectedRoute
+          onAuthRequired={() => {
+            onBack();
+          }}
+        >
+          <ProfileClearScores />
+        </ProtectedRoute>
+      );
+    }
     if (activeTab === 'overview') {
       return (
         <ProfileOverview
           onPasswordClick={onPasswordClick}
           onDeleteClick={onDeleteClick}
+          onClearScoresClick={onClearScoresClick}
           logout={logout}
         />
       );

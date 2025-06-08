@@ -8,6 +8,7 @@ import type {
   LoginCredentials,
   ProfileFormValues,
   RegisterData,
+  UserScore,
 } from '@/types/services';
 import type { AsyncState, VoidCallback } from '@/types/utils';
 
@@ -51,6 +52,10 @@ export interface ProfileContextType extends AsyncState<Profile> {
   user: User | null;
   profileImage: File | null;
   previewImage: string | null;
+  scores: UserScore[];
+  scoresCount: number;
+  scoresPage: number;
+  loadingScores: boolean;
   success: string | null;
   passwordFormComplete: boolean;
   editingImage: boolean;
@@ -59,6 +64,7 @@ export interface ProfileContextType extends AsyncState<Profile> {
   setPasswordFormComplete: (complete: boolean) => void;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleUpdateProfile: () => Promise<void>;
+  setScoresPage: (page: number) => void;
   changePassword: (values: ProfileFormValues) => Promise<boolean>;
   handleDeleteAccount: () => Promise<void>;
   logout: VoidCallback;
@@ -66,9 +72,11 @@ export interface ProfileContextType extends AsyncState<Profile> {
   activeTab: string;
   showPasswordTab: boolean;
   showDeleteTab: boolean;
+  showClearScoresTab: boolean;
   handleTabChange: (key: string) => void;
   handlePasswordClick: () => void;
   handleDeleteClick: () => void;
+  handleClearScoresClick: () => void;
   handleBackToOverview: () => void;
   setEditingImage: (editing: boolean) => void;
   handleSaveProfileImage: () => Promise<void>;

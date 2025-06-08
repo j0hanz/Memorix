@@ -18,9 +18,11 @@ export function ProfileData({
     activeTab,
     showPasswordTab,
     showDeleteTab,
+    showClearScoresTab,
     handleTabChange,
     handlePasswordClick,
     handleDeleteClick,
+    handleClearScoresClick,
     handleBackToOverview,
   } = useProfile();
   const { hideToast } = useToast();
@@ -45,8 +47,10 @@ export function ProfileData({
           activeTab={activeTab}
           showPasswordTab={showPasswordTab}
           showDeleteTab={showDeleteTab}
+          showClearScoresTab={showClearScoresTab}
           onPasswordClick={handlePasswordClick}
           onDeleteClick={handleDeleteClick}
+          onClearScoresClick={handleClearScoresClick}
           onBack={handleBackToOverview}
           logout={logout}
         />
@@ -55,6 +59,7 @@ export function ProfileData({
         activeTab={activeTab}
         showPasswordTab={showPasswordTab}
         showDeleteTab={showDeleteTab}
+        showClearScoresTab={showClearScoresTab}
         onBack={handleBackToOverview}
         onClose={handleClose}
       />

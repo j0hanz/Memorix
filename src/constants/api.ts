@@ -37,4 +37,7 @@ export const GAME_ENDPOINTS = {
   bestResults: '/api/memorix/results/best/',
   leaderboard: '/api/memorix/leaderboard/',
   categories: '/api/memorix/categories/',
+  clearCategoryResults: (categoryCode: string) =>
+    `/api/memorix/results/clear/${categoryCode.toUpperCase()}/`,
+  clearAllResults: '/api/memorix/results/clear-all/',
 } as const;
