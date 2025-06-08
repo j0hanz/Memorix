@@ -38,7 +38,7 @@ export function ProfileOverview({
   };
 
   return (
-    <Col className="d-flex justify-content-between align-items-center my-3">
+    <Col className="d-flex justify-content-between align-items-center py-3">
       <div className={styles.profileImageContainer}>
         <Image
           key={imageKey}
