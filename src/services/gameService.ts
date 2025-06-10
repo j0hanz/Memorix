@@ -28,11 +28,13 @@ export async function saveGameResult(data: GameResultData): Promise<void> {
 
 // This function retrieves the leaderboard entries for a specific category.
 export async function getLeaderboard(
-  categoryId?: number,
+  categoryCode?: string,
 ): Promise<LeaderboardEntry[]> {
   const result = await get<PaginatedLeaderboardEntries>(
     GAME_ENDPOINTS.leaderboard,
-    categoryId != null ? { category: categoryId } : undefined,
+    categoryCode != null
+      ? { category_code: categoryCode.toUpperCase() }
+      : undefined,
     {
       context: 'GameService',
       errorMessage: 'Failed to fetch leaderboard',

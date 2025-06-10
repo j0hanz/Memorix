@@ -6,11 +6,11 @@ import type { GameOptions } from '@/types/components';
 import type { LeaderboardEntry } from '@/types/services';
 import { getCategoryOptions } from '@/utils/game/categoryUtils';
 
-export function useLeaderboard(initialCategoryId?: number) {
+export function useLeaderboard(initialCategoryCode?: string) {
   const { game } = useServices();
-  const [selectedCategoryId, setSelectedCategoryId] = useState<
-    number | undefined
-  >(initialCategoryId);
+  const [selectedCategoryCode, setSelectedCategoryCode] = useState<
+    string | undefined
+  >(initialCategoryCode);
   const [categories, setCategories] = useState<GameOptions[]>([]);
 
   // Fetch leaderboard data
@@ -21,7 +21,7 @@ export function useLeaderboard(initialCategoryId?: number) {
     refetch,
   } = useFetch<LeaderboardEntry[]>(
     async () => {
-      return await game.getLeaderboard(selectedCategoryId);
+      return await game.getLeaderboard(selectedCategoryCode);
     },
     {
       errorCategory: 'api',
@@ -36,20 +36,19 @@ export function useLeaderboard(initialCategoryId?: number) {
     const categoryOptions = getCategoryOptions();
     setCategories(categoryOptions);
 
-    if (!selectedCategoryId && categoryOptions.length > 0) {
-      setSelectedCategoryId(categoryOptions[0].id);
+    if (!selectedCategoryCode && categoryOptions.length > 0) {
+      setSelectedCategoryCode(categoryOptions[0].value);
     }
-  }, [selectedCategoryId]);
+  }, [selectedCategoryCode]);
 
-  const handleCategoryChange = (categoryId: string) => {
-    const numericId = parseInt(categoryId, 10);
-    setSelectedCategoryId(numericId);
+  const handleCategoryChange = (categoryCode: string) => {
+    setSelectedCategoryCode(categoryCode);
     refetch();
   };
 
   // Map categories to options
   const categoryOptions = categories.map((cat) => ({
-    value: cat.id?.toString() || cat.value,
+    value: cat.value,
     label: cat.label,
   }));
 
@@ -59,8 +58,8 @@ export function useLeaderboard(initialCategoryId?: number) {
     error,
     categories,
     categoryOptions,
-    selectedCategoryId,
-    selectedCategory: selectedCategoryId,
+    selectedCategoryCode,
+    selectedCategory: selectedCategoryCode,
     handleCategoryChange,
     refetch,
   };

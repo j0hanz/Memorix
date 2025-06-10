@@ -346,7 +346,7 @@ export interface GameCategoryProps {
 // ============================================================================
 
 export interface LeaderboardProps {
-  categoryId?: number;
+  categoryCode?: string;
 }
 
 // ============================================================================

@@ -24,7 +24,7 @@ export function Leaderboard() {
         <Select
           id="category-select"
           name="category"
-          value={selectedCategory?.toString() || ''}
+          value={selectedCategory || ''}
           onChange={handleCategoryChange}
           options={categoryOptions}
           label="Filter by Category"
