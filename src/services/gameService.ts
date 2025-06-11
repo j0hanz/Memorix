@@ -32,9 +32,7 @@ export async function getLeaderboard(
 ): Promise<LeaderboardEntry[]> {
   const result = await get<PaginatedLeaderboardEntries>(
     GAME_ENDPOINTS.leaderboard,
-    categoryCode != null
-      ? { category_code: categoryCode }
-      : undefined,
+    categoryCode != null ? { category_code: categoryCode } : undefined,
     {
       context: 'GameService',
       errorMessage: 'Failed to fetch leaderboard',
@@ -56,7 +54,8 @@ export async function getUserScores(
   page = 1,
   category?: string,
 ): Promise<PaginatedUserScores> {
-  try {    return await getPaginated<UserScore>(
+  try {
+    return await getPaginated<UserScore>(
       GAME_ENDPOINTS.results,
       {
         page,

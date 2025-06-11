@@ -29,7 +29,8 @@ export function useSaveScore({
   useEffect(() => {
     const saveScore = async () => {
       if (show && isAuthenticated && !scoreSaved && !isSaving.current) {
-        isSaving.current = true;        try {
+        isSaving.current = true;
+        try {
           await game.saveGameResult({
             category: categoryCode,
             moves,
